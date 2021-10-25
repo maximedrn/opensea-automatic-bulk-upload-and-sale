@@ -11,6 +11,7 @@
   <li>❌ Collection creator for OpenSea.</li>
   <li>✔ <strike>Automatic NFT uploader.</strike></li>
   <li>❌ Price setter for each NFT.</strike></li>
+  <li>❌ Data file browsing features.</li>
   <li>✔ <strike>CSV structure reader and interpreter.</strike></li>
   <li>✔ <strike>JSON structure reader and interpreter.</strike></li>
   <li>❌ XLSX structure reader and interpreter.</li>
