@@ -1,4 +1,21 @@
-<h1>OpenSea automatic uploader using Python Selenium</h1>
+<h2>What does this script do?</h2>
+<p>This script allows you to upload as many NFTs as you want to OpenSea, all automatically and quickly (about 1 NFT per minute).
+<br><strong>If you sell any NFT with this bot, you can consider sharing a part 😉:
+<br>0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E</strong> (Ethereum).</p>
+
+<h2>To do list:</h2>
+<ul>
+  <li>✔ <strike>MetaMask automatic login.</strike></li>
+  <li>✔ <strike>OpenSea automatic login with MetaMask.</strike></li>
+  <li>❌ OpenSea automatic login with different wallets.</li>
+  <li>❌ Collection creator for OpenSea.</li>
+  <li>✔ <strike>Automatic NFT uploader.</strike></li>
+  <li>❌ Price setter for each NFT.</strike></li>
+  <li>✔ <strike>CSV structure reader and interpreter.</strike></li>
+  <li>✔ <strike>JSON structure reader and interpreter.</strike></li>
+  <li>❌ XLSX structure reader and interpreter.</li>
+  <li>❌ NFT maker local website.</li>
+</ul>
 
 <h2>Instructions:</h2>
 
@@ -13,10 +30,10 @@
   </li>
   <li><h3>Configuration of bot:</h3>
     <ul>
-      <li>Download and install <a href="https://www.google.com/intl/en_en/chrome/">Google Chrome</a></li>
+      <li>Download and install <a href="https://www.google.com/intl/en_en/chrome/">Google Chrome</a>.</li>
       <li>Download the <a href="https://chromedriver.chromium.org/downloads">chromedriver executable</a> that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). Refer to: <i><a href="https://www.whatismybrowser.com/detect/what-version-of-chrome-do-i-have">What version of Google Chrome do I have?</a></i></li>
       <li>Extract the executable from the ZIP file and copy/paste it in the assets folder of the repository.</li>
-      <li><strong>Not recommended:</strong> Download new versions of Metamask extension (version used for script: 10.1.1.0).
+      <li><strong>Not recommended:</strong> Download a new version of Metamask extension (version used for script: 10.1.1.0).
         <ul>
           <li>Add <a href="https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc">Get CRX</a> extension to Chrome:</li>
           <li>Go on <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask</a> Chrome Web Store webpage.</li>
