@@ -1,7 +1,8 @@
 <h2>What does this script do?</h2>
-<p>This script allows you to upload as many NFTs as you want to OpenSea, all automatically and quickly (about 1 NFT per minute).
-<br><strong>If you sell any NFT with this bot, you can consider sharing a part 😉:
-<br>0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E</strong> (Ethereum).</p>
+<p>This script allows you to upload as many NFTs as you want to OpenSea, all automatically and quickly (about 2,5 NFTs per minute).
+<br><br>➜ <strong>See this collection (1000 NFTs) I uploaded within 4 hours: https://opensea.io/collection/crypto-parrot-nft.</strong>
+<br>➜ <strong>If you sell any NFT with this bot, you can consider sharing a part 😉:
+  <br>0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E</strong> (Ethereum).</p>
 
 <h2>To do list:</h2>
 <ul>
