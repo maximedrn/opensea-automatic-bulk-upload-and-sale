@@ -235,7 +235,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
               "external_link": "https://www.google.com/",
               "description": "This is my first NFT.",
               "collection": "My First NFT",
-              "proprieties": [
+              "properties": [
                 {
                   "type": "Dog",
                   "name": "Male"
@@ -283,7 +283,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
               "external_link": "",
               "description": "",
               "collection": "",
-              "proprieties": [],
+              "properties": [],
               "levels": [],
               "stats": [],
               "unlockable_content": [],
