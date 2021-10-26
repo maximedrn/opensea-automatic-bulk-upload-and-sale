@@ -1,5 +1,3 @@
 file_path; nft_name; external_link; description; collection; properties; levels; stats; unlockable_content; explicit_and_sensitive_content; supply; blockchain
-required; required; ; ; ; ; ; ; ; ; ; 
 C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon
-
-
+required; required; ; ; ; ; ; ; ; ; ; # Remove this line.
