@@ -22,7 +22,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
 *   ❌ Data file browsing features.
 *   ✔ <strike>CSV structure reader and interpreter.</strike>
 *   ✔ <strike>JSON structure reader and interpreter.</strike>
-*   ❌ XLSX structure reader and interpreter.
+*   ✔ <strike>XLSX structure reader and interpreter.</strike>
 *   ❌ NFT maker local website.
 
 ## Instructions:
@@ -140,6 +140,126 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
         C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon
         required; required; ; ; ; ; ; ; ; ; ; # Remove this line.
         ```
+        
+    *   XLSX file (same as CSV):
+    
+        *   <strong>required value *</strong>
+        *   _default value_  
+
+         <br>
+          <table>
+           <tbody>
+              <tr>
+                 <td>Settings</td>
+                 <td>Types</td>
+                 <td>Examples</td>
+              </tr>
+              <tr>
+                 <td><strong>File Path *</strong></td>
+                 <td>String</td>
+                 <td>C:/Users/Admin/Desktop/MyNFTs/nft_0001.png</td>
+              </tr>
+              <tr>
+                 <td><strong>NFT Name *</strong></td>
+                 <td>String</td>
+                 <td>NFT #1</td>
+              </tr>
+              <tr>
+                 <td>External Link</td>
+                 <td>String</td>
+                 <td>https://www.google.com/</td>
+              </tr>
+              <tr>
+                 <td>Description</td>
+                 <td>String</td>
+                 <td>This is my first NFT.</td>
+              </tr>
+              <tr>
+                 <td>Collection</td>
+                 <td>String</td>
+                 <td>My First NFT</td>
+              </tr>
+              <tr>
+                 <td>Properties</td>
+                 <td>List[[String, String], ...]</td>
+                 <td>["Dog", "Male"]</td>
+              </tr>
+              <tr>
+                 <td>Levels</td>
+                 <td>List[[String, Integer, Integer], ...]</td>
+                 <td>[["Speed", 2, 5], ["Width", 1, 10]]</td>
+              </tr>
+              <tr>
+                 <td>Stats</td>
+                 <td>List[[String, Integer, Integer], ...]</td>
+                 <td>[["Strenght", 10, 100], ["Age", 1, 99]]</td>
+              </tr>
+              <tr>
+                 <td>Unlockable Content  
+                   <br><i>False</i>
+                 </td>
+                 <td>List[Boolean, String]</td>
+                 <td>[True, "Thank you for purchasing my NFT!"]</td>
+              </tr>
+              <tr>
+                 <td>Explicit And Sensitive Content  
+                   <br><i>False</i>
+                 </td>
+                 <td>Boolean</td>
+                 <td>True</td>
+              </tr>
+              <tr>
+                 <td>Supply  
+                   <br><i>1</i>
+                 </td>
+                 <td>Integer</td>
+                 <td>5</td>
+              </tr>
+              <tr>
+                 <td>Blockchain  
+                   <br><i>Ethereum</i>
+                 </td>
+                 <td>String</td>
+                 <td>Polygon</td>
+              </tr>
+           </tbody>
+        </table>
+        
+        #### And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure.xlsx):
+        
+        <table cellspacing="0" border="0">
+            <colgroup span="12" width="116"></colgroup>
+            <tbody>
+               <tr>
+                  <td>File Path</td>
+                  <td>NFT Name</td>
+                  <td>External Link</td>
+                  <td>Description</td>
+                  <td>Collection</td>
+                  <td>Properties</td>
+                  <td>Levels</td>
+                  <td>Stats</td>
+                  <td>Unlockable Content</td>
+                  <td>Explicit And Sensitive Content</td>
+                  <td>Supply</td>
+                  <td>Blockchain</td>
+               </tr>
+               <tr>
+                  <td>C:/Users/Admin/Desktop/MyNFTs/nft_0001.png</font></td>
+                  <td>NFT #1</font></td>
+                  <td>https://www.google.com/</td>
+                  <td>This is my first NFT.</td>
+                  <td>My First NFT</td>
+                  <td>[["Dog", "Male"], ["Cat", "Female"]]</td>
+                  <td>[["Speed", 2, 5], ["Width", 1, 10]]</td>
+                  <td>[["Strenght", 10, 100], ["Age", 1, 99]]</td>
+                  <td>[True, "Thank you for purchasing my NFT!"]</td>
+                  <td>True</td>
+                  <td>5</td>
+                  <td>Polygon</td>
+               </tr>
+            </tbody>
+         </table>
 
     *   JSON file:  
 
