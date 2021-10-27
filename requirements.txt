@@ -1,2 +1,5 @@
 selenium
 colorama
+pandas
+openpyxl
+tk
