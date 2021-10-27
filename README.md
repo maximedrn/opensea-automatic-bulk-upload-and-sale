@@ -19,7 +19,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
 *   ❌ Collection creator for OpenSea.
 *   ✔ <strike>Automatic NFT uploader.</strike>
 *   ❌ Price setter for each NFT.
-*   ❌ Data file browsing features.
+*   ✔ <strike>Data file browsing feature.</strike>
 *   ✔ <strike>CSV structure reader and interpreter.</strike>
 *   ✔ <strike>JSON structure reader and interpreter.</strike>
 *   ✔ <strike>XLSX structure reader and interpreter.</strike>
