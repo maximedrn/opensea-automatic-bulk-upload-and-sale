@@ -9,16 +9,15 @@ from colorama import init, Fore, Style
 
 # Selenium module imports: pip install selenium
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException as TE
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 # Python default import.
-import time
-import glob
-import sys
+from time import sleep
+from glob import glob
 import os
 
 
@@ -36,12 +35,18 @@ class Settings(object):
     def __init__(self, file: str, filetype: str) -> None:
         """Open Settings JSON file and read it."""
         self.filetype = filetype[1:]  # Type of data file.
-        self.file = open(file, encoding='utf-8').read()  # Read file.
         if self.filetype == 'json':
-            import json
-            self.file = json.loads(self.file)['nft']
+            from json import loads
+            self.file = loads(open(file, encoding='utf-8').read())['nft']
+            self.len_file = len(self.file)  # Lenght of file.
         elif self.filetype == 'csv':
-            self.file = self.file.splitlines()[1:]
+            self.file = open(file, encoding='utf-8').read().splitlines()[1:]
+            self.len_file = len(self.file)  # Lenght of file.
+        elif self.filetype == 'xlsx':
+            from pandas import read_excel
+            self.file = read_excel(file)  # Read Excel (XLSX) file.
+            self.len_file = self.file.shape[0]  # Get number of rows.
+            self.file = self.file.to_dict()  # Transform XLSX to dict.
 
     def create_parameters(self, parameters: list) -> None:
         """Create parameters."""
@@ -50,23 +55,28 @@ class Settings(object):
         self.external_link = parameters[2]
         self.description = str(parameters[3])
         self.collection = str(parameters[4])
-        self.properties: list = parameters[5]  # [[type, name], ...]
-        self.type_parameters(self.properties, 2)
-        self.levels: list = parameters[6]  # [[name, from, to], ...]
-        self.type_parameters(self.levels, 3)
-        self.stats: list = parameters[7]  # [[name, from, to], ...]
-        self.type_parameters(self.stats, 3)
+        self.properties: list = self.type_parameters(
+            parameters[5], 2)  # [[type, name], ...]
+        self.levels: list = self.type_parameters(
+            parameters[6], 3)  # [[name, from, to], ...]
+        self.stats: list = self.type_parameters(
+            parameters[7], 3)  # [[name, from, to], ...]
         self.unlockable_content: list = parameters[8]  # [bool, text]
         self.explicit_and_sensitive_content: bool = parameters[9]
         self.supply: int = parameters[10]
         self.blockchain: str = parameters[11]
-        
+
     def type_parameters(self, parameters: list, _range: int) -> list:
         """Change element's type of some parameters."""
-        for parameter in range(len(parameters)):
-            for element in range(_range):
-                parameters[parameter][element] \
-                    = str(parameters[parameter][element])
+        if len(parameters) > 0:
+            if type(parameters[0]) == list:
+                for parameter in range(len(parameters)):
+                    for element in range(_range):
+                        parameters[parameter][element] = \
+                            str(parameters[parameter][element])
+            else:
+                for element in range(_range):
+                    parameters[element] = str(parameters[element])
         return parameters
 
     def get_nft(self, nft: int) -> None:
@@ -76,26 +86,35 @@ class Settings(object):
             self.json_file()
         elif self.filetype == 'csv':
             self.csv_file()
-            
+        elif self.filetype == 'xlsx':
+            self.xlsx_file()
+
     def csv_file(self) -> None:
         """Transform CSV file into a list."""
-        import ast
-        nft_settings = self.file[self.nft]
+        self.create_parameters(self.type_checker(self.file[self.nft]))
+
+    def xlsx_file(self) -> None:
+        """Transform XLSX file into a list."""
+        self.create_parameters(self.type_checker(
+            [self.file[element].get(self.nft) for element in self.file]))
+
+    def type_checker(self, nft_settings: list) -> list:
+        """Type with correctly string element in list."""
+        from ast import literal_eval
         _list = []
-        for element in nft_settings.split(';'):
-            element = element.strip()  # Remove whitespaces. 
+        nft_settings = nft_settings.split(';') \
+            if self.filetype == 'csv' else nft_settings
+        for element in nft_settings:
+            element = str(element).strip()  # Remove whitespaces.
             # Check if element is a list like.
             if element != '':
                 if element[0] == '[' and element[len(element) - 1] == ']':
-                    element = ast.literal_eval(element)
+                    element = literal_eval(element)
                 # Check if element is a boolean like.
                 elif element == 'True' or element == 'False':
                     element = bool(element)
-                # Check if element is an integer like.
-                elif element.isdigit():
-                    element = int(element)
             _list.append(element)
-        self.create_parameters(_list)
+        return _list
 
     def json_file(self) -> None:
         """Transform JSON list/dict to a whole list."""
@@ -167,7 +186,7 @@ class Opensea(object):
         try:
             WDW(self.driver, 5).until(EC.visibility_of_element_located(
                 (By.XPATH, element))).send_keys(keys)
-        except TimeoutException:
+        except TE:
             # Some elements are not visible but are still present.
             WDW(self.driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, element))).send_keys(keys)
@@ -184,7 +203,7 @@ class Opensea(object):
         wait = 0
         while True:
             # If asked tab is opened.
-            time.sleep(2)
+            sleep(2)
             if len(self.driver.window_handles) == window_number + 1:
                 return True
             elif wait == 10:
@@ -202,7 +221,7 @@ class Opensea(object):
             if 'initialize' in self.driver.current_url:
                 break
             self.driver.refresh()  # Reload page.
-            time.sleep(1)  # Wait 1 second.
+            sleep(1)  # Wait 1 second.
         # Click on "Start" button.
         self.element_clickable(
             '//*[@id="app-content"]/div/div[3]/div/div/div/button')
@@ -239,7 +258,7 @@ class Opensea(object):
         # Click on "Metamask" button in list of wallet.
         ul = len(self.element_visible(
             '//*[@id="__next"]/div[1]/main/div/div/div/div[2]/ul'
-            ).find_elements_by_tag_name('li'))
+        ).find_elements_by_tag_name('li'))
         for li in range(ul):
             li += 1  # Add 1 to start li element at li[1].
             # Check if button text contains "Metamask".
@@ -264,7 +283,7 @@ class Opensea(object):
         try:
             WDW(self.driver, 10).until(EC.url_to_be(self.create_url))
             print(f'{green}Logged to Opensea.{reset}\n')
-        except TimeoutException:
+        except TE:
             self.retry_login()
 
     def metamask_sign(self) -> None:
@@ -297,12 +316,12 @@ class Opensea(object):
             self.driver.get(self.create_url + '?enable_supply=true')
             # Upload NFT file.
             if not os.path.exists(settings.file_path) \
-                or settings.file_path == '':
-                raise TimeoutException('File doesn\'t exist.')
+                    or settings.file_path == '':
+                raise TE('File doesn\'t exist.')
             self.element_send_keys('//*[@id="media"]', settings.file_path)
             # Input NFT name.
             if settings.nft_name == '':
-                raise TimeoutException('Missing NFT Name.')
+                raise TE('Missing NFT Name.')
             self.element_send_keys('//*[@id="name"]', settings.nft_name)
             # Input external link.
             if settings.external_link != '':
@@ -321,7 +340,7 @@ class Opensea(object):
                     self.element_clickable(
                         '//*[contains(@id, "tippy")]/div/div/div/ul/li/button')
                 except Exception:
-                    raise TimeoutException('Collection doesn\'t exist')
+                    raise TE('Collection doesn\'t exist')
             # Add properties, levels and stats.
             parameters = [settings.properties, settings.levels, settings.stats]
             for index in range(3):
@@ -366,8 +385,8 @@ class Opensea(object):
                             '//*[@id="unlockable-content-toggle"]', Keys.ENTER)
                         # Send text content.
                         self.element_send_keys(
-                            '//*[@id="__next"]/div[1]/main/div/div/section/div/'
-                            'form/section/div[4]/div[2]/textarea',
+                            '//*[@id="__next"]/div[1]/main/div/div/section/div'
+                            '/form/section/div[4]/div[2]/textarea',
                             settings.unlockable_content[1])
             # Click on "Explicit & Sensitive Content" switch if true.
             if settings.explicit_and_sensitive_content != '':
@@ -397,9 +416,9 @@ class Opensea(object):
                         li += 1  # Add 1 to start li element at li[1].
                         # Check if span text contains Blockchain.
                         if self.element_visible(
-                                f'//*[@id="tippy-9"]/div/div/div/ul/li[{li}]'
-                                '/button/div[2]/span[1]').text \
-                            == settings.blockchain:
+                            f'//*[@id="tippy-9"]/div/div/div/ul/li[{li}]'
+                            '/button/div[2]/span[1]').text \
+                                == settings.blockchain:
                             # Click on specific Blockchain button.
                             self.element_clickable('//*[@id="tippy-9"]/div/div'
                                                    f'/div/ul/li[{li}]/button')
@@ -409,15 +428,15 @@ class Opensea(object):
                                    'section/div/form/div/div[1]/span/button')
             # Check if done.
             self.element_visible('/html/body/div[5]/div/div/div/div[1]')
-            
+
             # TODO: Sell NFT.
             """
             # Sell NFT.
             self.driver.get(self.driver.current_url + '/sell')
             """
-            
+
             print(f'{green}Done.{reset}')
-        except TimeoutException as error:
+        except TE as error:
             print(f'{red}Failed: {error}{reset}')
 
 
@@ -443,9 +462,10 @@ def read_file(file_: str, question: str) -> str:
 
 
 def data_file() -> str:
+    """Read data folder and extract JSON, CSV and XLSX files."""
     while True:
-        folder = [glob.glob(f'data/{extension}') 
-                  for extension in ['*.json', '*.csv']]
+        folder = [glob(f'data/{extension}')
+                  for extension in ['*.json', '*.csv', '*.xlsx']]
         print(f'{yellow}Choose your file:{reset}')
         file_number = 0
         files = []
@@ -470,7 +490,7 @@ if __name__ == '__main__':
     cls()  # Clear console.
     password = read_file('password', 'What is your Metamask password? ')
     recovery_phrase = read_file('recovery_phrase',
-                                '\nWhat are your Metamask recovery phrase? ')
+                                '\nWhat is your Metamask recovery phrase? ')
 
     cls()  # Clear console.
     file = data_file()  # Ask for file.
@@ -482,6 +502,6 @@ if __name__ == '__main__':
     opensea.opensea_login()  # Connect to Opensea.
 
     # Upload each NFT one by one.
-    for element in range(len(settings.file)):
+    for element in range(settings.len_file):
         settings.get_nft(element)  # Get data of the NFT.
         opensea.opensea_upload(element + 1)  # Upload it.
