@@ -416,7 +416,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
         ```
 
 ## Set bot fully in the background.
-Edit line n°**148** to set the bot fully in the background:
+Edit line n°**170** to set the bot fully in the background:
 ```python
     def webdriver(self):
         """Start webdriver and return state of it."""
