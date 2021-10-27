@@ -43,10 +43,13 @@ class Settings(object):
             self.file = open(file, encoding='utf-8').read().splitlines()[1:]
             self.len_file = len(self.file)  # Lenght of file.
         elif self.filetype == 'xlsx':
-            from pandas import read_excel
+            from pandas import read_excel  # pip install pandas openpyxl
             self.file = read_excel(file)  # Read Excel (XLSX) file.
             self.len_file = self.file.shape[0]  # Get number of rows.
             self.file = self.file.to_dict()  # Transform XLSX to dict.
+        else:
+            import sys
+            sys.exit(f'{red}File extension is not support.{reset}')
 
     def create_parameters(self, parameters: list) -> None:
         """Create parameters."""
@@ -448,6 +451,8 @@ def cls() -> None:
 
 def read_file(file_: str, question: str) -> str:
     """Read file or ask for data to write in text file."""
+    if not os.path.isfile(f'assets/{file_}.txt'):
+        open(f'assets/{file_}.txt', 'a')
     with open(f'assets/{file_}.txt', 'r+', encoding='utf-8') as file:
         text = file.read()
         if text == '':
@@ -466,9 +471,10 @@ def data_file() -> str:
     while True:
         folder = [glob(f'data/{extension}')
                   for extension in ['*.json', '*.csv', '*.xlsx']]
-        print(f'{yellow}Choose your file:{reset}')
+        print(f'{yellow}\nChoose your file:{reset}')
         file_number = 0
         files = []
+        print('0 - Browse file on PC.')
         for extension in folder:
             for file in extension:
                 file_number += 1
@@ -477,7 +483,13 @@ def data_file() -> str:
         answer = input('File number: ')
         cls()  # Clear console.
         if answer.isdigit():
-            if int(answer) <= len(files):
+            if int(answer) == 0:
+                # Browse file on PC.
+                from tkinter import Tk  # pip install tk
+                from tkinter.filedialog import askopenfilename
+                Tk().withdraw()  # Hide Tkinter tab.
+                return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
+            elif int(answer) <= len(files):
                 return files[int(answer) - 1]
             else:
                 print(f'{red}File doesn\'t exist.{reset}')
@@ -488,11 +500,14 @@ def data_file() -> str:
 if __name__ == '__main__':
 
     cls()  # Clear console.
-    password = read_file('password', 'What is your Metamask password? ')
+
+    print(f'{green}Made by Maxime. '
+          f'\n@Github: https://github.com/maximedrn{reset}')
+
+    password = read_file('password', '\nWhat is your Metamask password? ')
     recovery_phrase = read_file('recovery_phrase',
                                 '\nWhat is your Metamask recovery phrase? ')
 
-    cls()  # Clear console.
     file = data_file()  # Ask for file.
     # Init Settings class.
     settings = Settings(file, os.path.splitext(file)[1])
