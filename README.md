@@ -46,7 +46,7 @@ This script allows you to upload as many NFTs as you want to OpenSea, all automa
     *   **Optional:**
         *   Open the assets/password.txt file and write your MetaMask password.
         *   Open the assets/recovery_phrase.txt file and write your recovery phrase.
-    *   Create your NFTs data file containing all details of each NFT. It can be a CSV of JSON file. Save it in the data folder.  
+    *   Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. Save it in the data folder.  
         **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
 *   ### Data files structure:
 
