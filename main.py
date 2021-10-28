@@ -435,8 +435,8 @@ class Opensea(object):
                                                    f'/div/ul/li[{li}]/button')
                             break
             # Click on "Create" button.
-            """self.element_clickable('//*[@id="__next"]/div[1]/main/div/div/'
-                                   'section/div/form/div/div[1]/span/button')"""
+            self.element_clickable('//*[@id="__next"]/div[1]/main/div/div/'
+                                   'section/div/form/div/div[1]/span/button')
             # Check if done.
             self.element_visible('/html/body/div[5]/div/div/div/div[1]', 10)
 
