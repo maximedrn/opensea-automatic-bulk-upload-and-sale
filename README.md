@@ -1,24 +1,25 @@
-# Upload automatically your NFTs using Python Selenium
+# Upload automatically your NFTs on Opensea using Python Selenium.
 
 * **(_Version 1.1 - October 28, 2021)._**
-* Register on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
-* Register on [MetaMask](https://metamask.io/).
+* Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
+* Sign up on [MetaMask](https://metamask.io/).
 
 ## Known issues:
 
-* If you are using a Linux or MacOS distribution, you may need to change parts of the code:  
-  Colorama module sometimes does not work; ChromeDriver extension may need to be changed from `.exe` to something else.
+* If you are using a Linux distribution or MacOS, you may need to change some parts of the code:  
+  * Colorama module sometimes does not work.
+  * ChromeDriver extension may need to be changed from `.exe` to something else.
 * **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
 ```json
 "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
 // or:
 "file_path": "C:\\Users\\Admin\\Desktop\\MyNFTs\\nft_0001.png",
 // but not:
-"file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png", // You can that "\" is underline in red.
+"file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png", // You can see that "\" is highlighted in red.
 ```
-* The bot may crash at first when the MetaMask extension loads (Selenium problem).
-* Sometimes the bot says the upload failed, check your Opensea collection as the upload may have worked.
-* The waiting time of the item to be clickable or visible is sometimes too short if your PC is slow, increase it from 5 to 10 seconds:
+* The bot may crash at the beginning when loading the MetaMask extension (Selenium module problem).
+* Sometimes the bot indicates that the upload has failed while the NFT has been uploaded.
+* The waiting time (`WebDriverWait().until()`) for the element to be clickable or visible is sometimes too short if your PC is slow and this raises an exception, so increase the time by 5 to 10 seconds:
 ```python
 def element_clickable(self, element: str) -> None:
     """Click on element if it's clickable using Selenium."""
@@ -41,20 +42,20 @@ def element_send_keys(self, element: str, keys: str) -> None:
             (By.XPATH, element))).send_keys(keys)
 ```
 
-## What does this script do?
+## What does this bot do?
 
-This script allows you to upload as many NFTs as you want to OpenSea, all automatically and quickly (about 2,5 NFTs per minute).  
+This script allows you to upload as many NFTs as you want to Opensea, all automatically and quickly (about 2.5 NFTs per minute).
 
 ➜ **See this collection (1000 NFTs) I uploaded within 4 hours: https://opensea.io/collection/crypto-parrot-nft.**  
-➜ **If you sell any NFT with this bot, you can consider sharing a part 😉:  
+➜ **If you sell any NFT with this bot, you can consider sharing some of your earnings. 😉:  
 0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E** (Ethereum).
 
 ## To do list:
 
 * ✔ <strike>MetaMask automatic login.</strike>
-* ✔ <strike>OpenSea automatic login with MetaMask.</strike>
-* ❌ OpenSea automatic login with different wallets.
-* ❌ Collection creator for OpenSea.
+* ✔ <strike>Opensea automatic login with MetaMask.</strike>
+* ❌ Opensea automatic login with different wallets.
+* ❌ Collection creator for Opensea.
 * ✔ <strike>Automatic NFT uploader.</strike>
 * ❌ Price setter for each NFT.
 * ✔ <strike>Data file browsing feature.</strike>
@@ -78,11 +79,28 @@ pip install -r requirements.txt
 * ### Configuration of bot:
 
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
-  * Download the [chromedriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). Refer to: _[What version of Google Chrome do I have?](https://www.whatismybrowser.com/detect/what-version-of-chrome-do-i-have)_
-  * Extract the executable from the ZIP file and copy/paste it in the assets folder of the repository.
-  * **Not recommended:** Download a new version of Metamask extension (version used for script: 10.1.1.0).
+  * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). Refer to: _[What version of Google Chrome do I have?](https://www.whatismybrowser.com/detect/what-version-of-chrome-do-i-have)_
+  * Extract the executable from the ZIP file and copy/paste it in the `assets/` folder of the repository. You may need to change the path of the file:
+```python
+class Opensea(object):
+    """Main class of Opensea automatic uploader."""
+
+    def __init__(self, password: str, recovery_phrase: str) -> None:
+        """Get the password and the recovery_phrase from the text file."""
+        # Get recovery phrase of Metamask wallet.
+        self.recovery_phrase = recovery_phrase
+        self.password = password  # Get new password.
+        # Used files path.
+        self.webdriver_path = 'assets/chromedriver.exe'             # <-- Edit this line and change the ".exe".
+        self.metamask_extension_path = 'assets/MetaMask.crx'
+        self.driver = self.webdriver()  # Start new webdriver.
+        # Opensea URLs.
+        self.login_url = 'https://opensea.io/login?referrer=%2Fasset%2Fcreate'
+        self.create_url = 'https://opensea.io/asset/create'
+```
+  * **Not recommended:** Download a new version of MetaMask extension (version used for script: 10.1.1.0).
     * Add [Get CRX](https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc) extension to Chrome:
-    * Go on [Metamask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn) Chrome Web Store webpage.
+    * Go on [MetaMask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn) Chrome Web Store webpage.
     * Click on "Get CRX" extension button on top right of your browser.
     * Then click on "Get CRX" button.
   * **Optional:** password and recovery phrase are asked when you run the bot.
@@ -269,8 +287,9 @@ pip install -r requirements.txt
    </table>
         
    #### And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure.xlsx):
-        
-   <table cellspacing="0" border="0">
+   
+   <br>
+   <table>
       <tbody>
          <tr>
             <td>File Path</td>
@@ -457,14 +476,13 @@ pip install -r requirements.txt
    }
    ```
 
-## Set bot fully in the background.
-Edit line n°**174** to set the bot fully in the background:
+## Set bot fully in the background:
 ```python
 def webdriver(self):
    """Start webdriver and return state of it."""
    options = webdriver.ChromeOptions()  # Configure options for Chrome.
    options.add_extension(self.metamask_extension_path)  # Add extension.
-   # options.add_argument("headless")  # Headless Chrome driver.             <-- Edit this line and remove the '# '.
+   # options.add_argument("headless")  # Headless ChromeDriver.             # <-- Edit this line and remove the first "# ".
    options.add_argument("log-level=3")  # No logs is printed.
    options.add_argument("--mute-audio")  # Audio is muted.
    driver = webdriver.Chrome(self.webdriver_path, options=options)
