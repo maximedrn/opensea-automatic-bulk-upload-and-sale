@@ -458,7 +458,7 @@ pip install -r requirements.txt
    ```
 
 ## Set bot fully in the background.
-Edit line n°**170** to set the bot fully in the background:
+Edit line n°**174** to set the bot fully in the background:
 ```python
 def webdriver(self):
    """Start webdriver and return state of it."""
