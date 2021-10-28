@@ -2,6 +2,7 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
+Version: 1.1
 """
 
 # Colorama module: pip install colorama
@@ -22,7 +23,7 @@ import os
 
 
 """Colorama module constants."""
-init()  # Init colorama module.
+init(convert=True)  # Init colorama module.
 red = Fore.RED  # Red color.
 green = Fore.GREEN  # Green color.
 yellow = Fore.YELLOW  # Yellow color.
@@ -43,7 +44,7 @@ class Settings(object):
             self.file = open(file, encoding='utf-8').read().splitlines()[1:]
             self.len_file = len(self.file)  # Lenght of file.
         elif self.filetype == 'xlsx':
-            from pandas import read_excel  # pip install pandas openpyxl
+            from pandas import read_excel
             self.file = read_excel(file)  # Read Excel (XLSX) file.
             self.len_file = self.file.shape[0]  # Get number of rows.
             self.file = self.file.to_dict()  # Transform XLSX to dict.
@@ -116,6 +117,9 @@ class Settings(object):
                 # Check if element is a boolean like.
                 elif element == 'True' or element == 'False':
                     element = bool(element)
+                # Check if element is a integer like.
+                elif element.isdigit():
+                    element = int(element)
             _list.append(element)
         return _list
 
@@ -179,9 +183,9 @@ class Opensea(object):
         WDW(self.driver, 5).until(EC.element_to_be_clickable(
             (By.XPATH, element))).click()
 
-    def element_visible(self, element: str):
+    def element_visible(self, element: str, timer: int = 5):
         """Check if element is visible using Selenium."""
-        return WDW(self.driver, 5).until(EC.visibility_of_element_located(
+        return WDW(self.driver, timer).until(EC.visibility_of_element_located(
             (By.XPATH, element)))
 
     def element_send_keys(self, element: str, keys: str) -> None:
@@ -348,6 +352,10 @@ class Opensea(object):
             parameters = [settings.properties, settings.levels, settings.stats]
             for index in range(3):
                 if len(parameters[index]) > 0:
+                    # Change element from list of string to list of list.
+                    # https://github.com/maximedrn/opensea_automatic_uploader/issues/1
+                    if type(parameters[index][0]) != list:
+                        parameters[index] = [parameters[index]]
                     # Click on "+" button for properties, levels and stats.
                     self.element_clickable(
                         '//*[@id="__next"]/div[1]/main/div/div/section/div/'
@@ -397,7 +405,7 @@ class Opensea(object):
                     self.element_send_keys(
                         '//*[@id="explicit-content-toggle"]', Keys.ENTER)
             # Set number of supply.
-            if settings.supply != '':
+            if settings.supply != '' and type(settings.supply) == int:
                 if '?enable_supply=true' in self.driver.current_url \
                         and settings.supply > 1:
                     self.element_send_keys(
@@ -427,10 +435,10 @@ class Opensea(object):
                                                    f'/div/ul/li[{li}]/button')
                             break
             # Click on "Create" button.
-            self.element_clickable('//*[@id="__next"]/div[1]/main/div/div/'
-                                   'section/div/form/div/div[1]/span/button')
+            """self.element_clickable('//*[@id="__next"]/div[1]/main/div/div/'
+                                   'section/div/form/div/div[1]/span/button')"""
             # Check if done.
-            self.element_visible('/html/body/div[5]/div/div/div/div[1]')
+            self.element_visible('/html/body/div[5]/div/div/div/div[1]', 10)
 
             # TODO: Sell NFT.
             """
@@ -485,7 +493,7 @@ def data_file() -> str:
         if answer.isdigit():
             if int(answer) == 0:
                 # Browse file on PC.
-                from tkinter import Tk  # pip install tk
+                from tkinter import Tk
                 from tkinter.filedialog import askopenfilename
                 Tk().withdraw()  # Hide Tkinter tab.
                 return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
