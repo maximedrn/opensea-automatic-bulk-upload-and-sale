@@ -152,11 +152,11 @@ class Settings(object):
 
 
 class Opensea(object):
-    """Main class of OpenSea automatic uploader."""
+    """Main class of Opensea automatic uploader."""
 
     def __init__(self, password: str, recovery_phrase: str) -> None:
         """Get the password and the recovery_phrase from the text file."""
-        # Get recovery phrase of Metamask wallet.
+        # Get recovery phrase of MetaMask wallet.
         self.recovery_phrase = recovery_phrase
         self.password = password  # Get new password.
         # Used files path.
@@ -171,7 +171,7 @@ class Opensea(object):
         """Start webdriver and return state of it."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
         options.add_extension(self.metamask_extension_path)  # Add extension.
-        # options.add_argument("headless")  # Headless Chrome driver.
+        # options.add_argument("headless")  # Headless ChromeDriver.
         options.add_argument("log-level=3")  # No logs is printed.
         options.add_argument("--mute-audio")  # Audio is muted.
         driver = webdriver.Chrome(self.webdriver_path, options=options)
@@ -218,11 +218,11 @@ class Opensea(object):
             wait += 1
 
     def metamask(self) -> None:
-        """Login to Metamask extension."""
-        print('Login to Metamask extension.', end=' ')
-        # Switch to Metamask extension's tab.
+        """Login to MetaMask extension."""
+        print('Login to MetaMask extension.', end=' ')
+        # Switch to MetaMask extension's tab.
         self.driver.switch_to.window(self.driver.window_handles[0])
-        # Refresh Metamask extension's tab while extension is not loaded.
+        # Refresh MetaMask extension's tab while extension is not loaded.
         while True:
             # If page is fully loaded.
             if 'initialize' in self.driver.current_url:
@@ -268,7 +268,7 @@ class Opensea(object):
         ).find_elements_by_tag_name('li'))
         for li in range(ul):
             li += 1  # Add 1 to start li element at li[1].
-            # Check if button text contains "Metamask".
+            # Check if button text contains "MetaMask".
             if self.element_visible(
                     '//*[@id="__next"]/div[1]/main/div/div/div/div[2]/ul/li'
                     f'[{li}]/button/div[2]/span').text == 'MetaMask':
@@ -276,7 +276,7 @@ class Opensea(object):
                 self.element_clickable('//*[@id="__next"]/div[1]/main/div/div'
                                        f'/div/div[2]/ul/li[{li}]/button')
                 break
-        # Switch on Metamask popup tab.
+        # Switch on MetaMask popup tab.
         self.driver.switch_to.window(self.driver.window_handles[2]) \
             if self.window_handles(2) else self.retry_login(0)
         # Click on "Next" button.
@@ -295,7 +295,7 @@ class Opensea(object):
 
     def metamask_sign(self) -> None:
         """Metamask confirm connection."""
-        # Switch on Metamask popup tab.
+        # Switch on MetaMask popup tab.
         self.driver.switch_to.window(self.driver.window_handles[2]) \
             if self.window_handles(2) else self.retry_login(0)
         # Click on "Sign" button.
@@ -512,9 +512,9 @@ if __name__ == '__main__':
     print(f'{green}Made by Maxime. '
           f'\n@Github: https://github.com/maximedrn{reset}')
 
-    password = read_file('password', '\nWhat is your Metamask password? ')
+    password = read_file('password', '\nWhat is your MetaMask password? ')
     recovery_phrase = read_file('recovery_phrase',
-                                '\nWhat is your Metamask recovery phrase? ')
+                                '\nWhat is your MetaMask recovery phrase? ')
 
     file = data_file()  # Ask for file.
     # Init Settings class.
