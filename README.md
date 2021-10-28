@@ -68,7 +68,10 @@ This script allows you to upload as many NFTs as you want to Opensea, all automa
 
 * ### Basic installation of Python for beginners:
 
-  * Download this repository.
+  * Download this repository or clone it:
+```
+git clone https://github.com/maximedrn/opensea_automatic_uploader.git
+```
   * It requires [Python](https://www.python.org/) 3.7 or a newest version.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
   * Open a command prompt in repository folder and type:
