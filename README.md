@@ -4,44 +4,6 @@
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
-## Known issues:
-
-* If you are using a Linux distribution or MacOS, you may need to change some parts of the code:  
-  * Colorama module sometimes does not work.
-  * ChromeDriver extension may need to be changed from `.exe` to something else.
-* **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
-```json
-"file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
-// or:
-"file_path": "C:\\Users\\Admin\\Desktop\\MyNFTs\\nft_0001.png",
-// but not:
-"file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png", // You can see that "\" is highlighted in red.
-```
-* The bot may crash at the beginning when loading the MetaMask extension (Selenium module problem).
-* Sometimes the bot indicates that the upload has failed while the NFT has been uploaded.
-* The waiting time (`WebDriverWait().until()`) for the element to be clickable or visible is sometimes too short if your PC is slow and this raises an exception, so increase the time by 5 to 10 seconds:
-```python
-def element_clickable(self, element: str) -> None:
-    """Click on element if it's clickable using Selenium."""
-    WDW(self.driver, 10).until(EC.element_to_be_clickable(
-        (By.XPATH, element))).click()
-
-def element_visible(self, element: str, timer: int = 10):
-    """Check if element is visible using Selenium."""
-    return WDW(self.driver, timer).until(EC.visibility_of_element_located(
-        (By.XPATH, element)))
-
-def element_send_keys(self, element: str, keys: str) -> None:
-    """Send keys to element if it's visible using Selenium."""
-    try:
-        WDW(self.driver, 10).until(EC.visibility_of_element_located(
-            (By.XPATH, element))).send_keys(keys)
-    except TE:
-        # Some elements are not visible but are still present.
-        WDW(self.driver, 10).until(EC.presence_of_element_located(
-            (By.XPATH, element))).send_keys(keys)
-```
-
 ## What does this bot do?
 
 This script allows you to upload as many NFTs as you want to Opensea, all automatically and quickly (about 2.5 NFTs per minute).
@@ -111,6 +73,44 @@ class Opensea(object):
     * Open the `assets/recovery_phrase.txt` file and write your recovery phrase.
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. Save it in the data folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
+    
+## Known issues:
+
+* If you are using a Linux distribution or MacOS, you may need to change some parts of the code:  
+  * Colorama module sometimes does not work.
+  * ChromeDriver extension may need to be changed from `.exe` to something else.
+* **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
+```json
+"file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
+// or:
+"file_path": "C:\\Users\\Admin\\Desktop\\MyNFTs\\nft_0001.png",
+// but not:
+"file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png", // You can see that "\" is highlighted in red.
+```
+* The bot may crash at the beginning when loading the MetaMask extension (Selenium module problem).
+* Sometimes the bot indicates that the upload has failed while the NFT has been uploaded.
+* The waiting time (`WebDriverWait().until()`) for the element to be clickable or visible is sometimes too short if your PC is slow and this raises an exception, so increase the time by 5 to 10 seconds:
+```python
+def element_clickable(self, element: str) -> None:
+    """Click on element if it's clickable using Selenium."""
+    WDW(self.driver, 10).until(EC.element_to_be_clickable(
+        (By.XPATH, element))).click()
+
+def element_visible(self, element: str, timer: int = 10):
+    """Check if element is visible using Selenium."""
+    return WDW(self.driver, timer).until(EC.visibility_of_element_located(
+        (By.XPATH, element)))
+
+def element_send_keys(self, element: str, keys: str) -> None:
+    """Send keys to element if it's visible using Selenium."""
+    try:
+        WDW(self.driver, 10).until(EC.visibility_of_element_located(
+            (By.XPATH, element))).send_keys(keys)
+    except TE:
+        # Some elements are not visible but are still present.
+        WDW(self.driver, 10).until(EC.presence_of_element_located(
+            (By.XPATH, element))).send_keys(keys)
+```
 
 * ### Data files structure:
 
