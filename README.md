@@ -8,7 +8,7 @@
 
 * If you are using a Linux or MacOS distribution, you may need to change parts of the code:  
   Colorama module sometimes does not work; ChromeDriver extension may need to be changed from `.exe` to something else.
-* **If you use a JSON file for your NFT data, the file path should not contain a unique "/". It can be "/" or "\\":** 
+* **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
 ```json
 "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
 // or:
