@@ -15,7 +15,7 @@
 * **[Known issues](https://github.com/maximedrn/opensea_automatic_uploader/#known-issues).**
 * **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader/#data-files-structure).**
   * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader/#csv-file).
-  * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file).
+  * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file-same-as-csv).
   * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader/#json-file).
 * **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader/#set-bot-fully-in-the-background).**
 
