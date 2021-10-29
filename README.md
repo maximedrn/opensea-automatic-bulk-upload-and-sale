@@ -4,6 +4,23 @@
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
+# Table of contents:
+
+
+* **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader/#what-does-this-bot-do)**
+* **[To do list](https://github.com/maximedrn/opensea_automatic_uploader/#to-do-list).**
+* **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader/#instructions)**.
+  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader/#basic-installation-of-python-for-beginners).
+  * [Configuration of bot](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-bot).
+* **[Known issues](https://github.com/maximedrn/opensea_automatic_uploader/#known-issues).**
+* **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader/#data-files-structure).**
+  * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader/#csv-file).
+  * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file).
+  * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader/#json-file).
+* **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader/#set-bot-fully-in-the-background).**
+
+---
+
 ## What does this bot do?
 
 This script allows you to upload as many NFTs as you want to Opensea, all automatically and quickly (about 2.5 NFTs per minute).
@@ -114,7 +131,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
 
 * ### Data files structure:
 
-  * **CSV file:**
+  * #### **CSV file:**
 
     * <strong>required value *</strong>
     * _default value_
@@ -198,14 +215,14 @@ def element_send_keys(self, element: str, keys: str) -> None:
       </tbody>
    </table>
 
-   #### And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure.csv):
+   And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure.csv):
  ```
    file_path; nft_name; external_link; description; collection; properties; levels; stats; unlockable_content; explicit_and_sensitive_content; supply; blockchain
    C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon
    required; required; ; ; ; ; ; ; ; ; ; # Remove this line.
    ```
         
-  * **XLSX file (same as CSV)**:
+  * #### **XLSX file (same as CSV)**:
     
     * <strong>required value *</strong>
     * _default value_
@@ -289,7 +306,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
       </tbody>
    </table>
         
-   #### And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure.xlsx):
+   And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure.xlsx):
    
    <br>
    <table>
@@ -325,7 +342,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
       </tbody>
    </table>
 
-  * **JSON file:**
+  * #### **JSON file:**
 
     * <strong>required value *</strong>
     * _default value_  
@@ -409,7 +426,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
       </tbody>
    </table>
          
-   #### And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure.json):
+   And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure.json):
    ```json
    {
      "nft": [
