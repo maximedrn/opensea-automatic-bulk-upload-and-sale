@@ -1,66 +1,66 @@
 {
-  "nft": [
-    {
-      "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
-      "nft_name": "NFT #1",
-      "external_link": "https://www.google.com/",
-      "description": "This is my first NFT.",
-      "collection": "My First NFT",
-      "proprieties": [
-        {
-          "type": "Dog",
-          "name": "Male"
-        },
-        {
-          "type": "Cat",
-          "name": "Female"
-        }
-      ],
-      "levels": [
-        {
-          "name": "Speed",
-          "from": 2,
-          "to": 5
-        },
-        {
-          "name": "Width",
-          "from": 1,
-          "to": 10
-        }
-      ],
-      "stats": [
-        {
-          "name": "Strenght",
-          "from": 10,
-          "to": 100
-        },
-        {
-          "name": "Age",
-          "from": 1,
-          "to": 99
-        }
-      ],
-      "unlockable_content": [
-        true,
-        "Thank you for purchasing my NFT!"
-      ],
-      "explicit_and_sensitive_content": true,
-      "supply": 5,
-      "blockchain": "Polygon"
-    },
-    { // Remove this part below.
-      "file_path": "required",
-      "nft_name": "required",
-      "external_link": "",
-      "description": "",
-      "collection": "",
-      "proprieties": [],
-      "levels": [],
-      "stats": [],
-      "unlockable_content": [],
-      "explicit_and_sensitive_content": false,
-      "supply": 1,
-      "blockchain": "Ethereum"
-    }
-  ]
-}
+     "nft": [
+       {
+         "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
+         "nft_name": "NFT #1",
+         "external_link": "https://www.google.com/",
+         "description": "This is my first NFT.",
+         "collection": "My First NFT",
+         "properties": [
+           {
+             "type": "Dog",
+             "name": "Male"
+           },
+           {
+             "type": "Cat",
+             "name": "Female"
+           }
+         ],
+         "levels": [
+           {
+             "name": "Speed",
+             "from": 2,
+             "to": 5
+           },
+           {
+             "name": "Width",
+             "from": 1,
+             "to": 10
+           }
+         ],
+         "stats": [
+           {
+             "name": "Strenght",
+             "from": 10,
+             "to": 100
+           },
+           {
+             "name": "Age",
+             "from": 1,
+             "to": 99
+           }
+         ],
+         "unlockable_content": [
+           true,
+           "Thank you for purchasing my NFT!"
+         ],
+         "explicit_and_sensitive_content": true,
+         "supply": 5,
+         "blockchain": "Polygon",
+         "sale_type": "Timed Auction",
+         "price": 0.001,
+         "method": [
+           "Sell with declining price",
+           0.0005
+         ],
+         "duration": [
+           "30-10-2021 18:30",
+           "30-04-2022 18:30"
+         ],
+         "specific_buyer": [
+           true,
+           "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
+         ]
+       }
+     ]
+   }
