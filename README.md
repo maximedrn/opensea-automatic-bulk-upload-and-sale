@@ -17,7 +17,7 @@
   * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader/#csv-file).
   * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file-same-as-csv).
   * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader/#json-file).
-* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-the-sales-part-of-the-nfts).
+* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-the-sales-part-of-the-nfts).**
 * **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader/#set-bot-fully-in-the-background).**
 
 ---
@@ -262,7 +262,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>["30-10-2021 18:30", "30-04-2022 18:30"] or ["3 days"];</td>
          </tr>
          <tr>
-            <td>Specific buyer
+            <td>Specific Buyer
                <br><i>False</i></td>
             <td>List[Boolean, String]</td>
             <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];</td>
@@ -384,7 +384,7 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>["30-10-2021 18:30", "30-04-2022 18:30"] or ["3 days"]</td>
          </tr>
          <tr>
-            <td>Specific buyer
+            <td>Specific Buyer
                <br><i>False</i></td>
             <td>List[Boolean, String]</td>
             <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
@@ -547,7 +547,7 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
                <br>"duration": ["3 days"],</td>
          </tr>
          <tr>
-            <td>Specific buyer
+            <td>Specific Buyer
                <br><i>False</i></td>
             <td>List[Boolean, String]</td>
             <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
