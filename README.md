@@ -628,29 +628,33 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
    
 ## Configuration of the sales part of the NFTs:
 
-* If you chose a **Fixed Price**:
-  * **Price** (ETH). 
-  * **Duration**: from a date to an other date (less than 6 months) or:
-    * 1 day.
-    * 3 days.
-    * 1 week.
-    * 6 months.
-  * **Reserve for specific buyer**. 
-* If you chose a **Timed Auction**:
-  * 1st method: **Sell to highest bidder**:
-    * **Starting Price** (WETH).
+* If supply number is equal to 1:
+  * If you chose a **Fixed Price**:
+    * **Price** (ETH). 
     * **Duration**: from a date to an other date (less than 6 months) or:
       * 1 day.
       * 3 days.
       * 1 week.
-    * _Optional_: **Reserved Price** (WETH) greater than 1 WETH and greater than **Starting Price**.
-  * 2nd method: **Sell with declining price**:
-    * **Starting Price** (ETH).
-    * **Duration**: from a date to an other date (less than 6 months) or:
-      * 1 day.
-      * 3 days.
-      * 1 week.
-    * **Ending Price** (ETH) less than **Starting Price**.
+      * 6 months.
+    * **Sell as bundle.** ➜ **Not supported.**
+    * **Reserve for specific buyer**. 
+  * If you chose a **Timed Auction**:
+    * 1st method: **Sell to highest bidder**:
+      * **Starting Price** (WETH).
+      * **Duration**: from a date to an other date (less than 6 months) or:
+        * 1 day.
+        * 3 days.
+        * 1 week.
+      * _Optional_: **Reserved Price** (WETH) greater than 1 WETH and greater than **Starting Price**.
+    * 2nd method: **Sell with declining price**:
+      * **Starting Price** (ETH).
+      * **Duration**: from a date to an other date (less than 6 months) or:
+        * 1 day.
+        * 3 days.
+        * 1 week.
+      * **Ending Price** (ETH) less than **Starting Price**.
+ * If supply number is higher than 1:  
+   **Not supported.**
 
 ## Set bot fully in the background:
 ```python
