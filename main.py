@@ -2,7 +2,7 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
-Version: 1.1
+Version: 1.2
 """
 
 # Colorama module: pip install colorama
@@ -11,6 +11,7 @@ from colorama import init, Fore, Style
 # Selenium module imports: pip install selenium
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException as TE
+from selenium.common.exceptions import ElementClickInterceptedException as ECIE
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.webdriver.common.keys import Keys
@@ -54,6 +55,7 @@ class Settings(object):
 
     def create_parameters(self, parameters: list) -> None:
         """Create parameters."""
+        # Upload:
         self.file_path = str(parameters[0])
         self.nft_name = str(parameters[1])
         self.external_link = parameters[2]
@@ -69,6 +71,21 @@ class Settings(object):
         self.explicit_and_sensitive_content: bool = parameters[9]
         self.supply: int = parameters[10]
         self.blockchain: str = parameters[11]
+
+        # Sell:
+        self.type: str = parameters[12]  # "Fixed Price" or "Timed Auction".
+        # ETH for Fixed Price or WETH for Timed Auction.
+        self.price: int = parameters[13]
+        # For "Timed Auction":
+        # "Sell with declining price" and "Ending price" < Price; or "Sell to
+        # highest bidder" and "Reserve price" > Price and 1 WETH (optional).
+        # = ['Method', Price]
+        self.method: list = parameters[14]
+        # ['Starting Date (DD-MM-YYYY hh:mm)',
+        # 'Ending Date (DD-MM-YYYY hh:mm)'] or ['7 days'].
+        self.duration: list = parameters[15]
+        # For Fixed Price (optional):   [True, '0x7485...']
+        self.specific_buyer: list = parameters[16]
 
     def type_parameters(self, parameters: list, _range: int) -> list:
         """Change element's type of some parameters."""
@@ -180,8 +197,18 @@ class Opensea(object):
 
     def element_clickable(self, element: str) -> None:
         """Click on element if it's clickable using Selenium."""
-        WDW(self.driver, 5).until(EC.element_to_be_clickable(
-            (By.XPATH, element))).click()
+        try:
+            WDW(self.driver, 5).until(EC.element_to_be_clickable(
+                (By.XPATH, element))).click()
+        except TE:
+            # Element with an ID that can change.
+            WDW(self.driver, 5).until(EC.elements_to_be_clickable(
+                (By.XPATH, element))).click()
+        except ECIE:
+            # Sometimes the element is not clickable.
+            self.driver.execute_script(
+                "arguments[0].click();",
+                self.driver.find_element_by_xpath(element))
 
     def element_visible(self, element: str, timer: int = 5):
         """Check if element is visible using Selenium."""
@@ -439,16 +466,182 @@ class Opensea(object):
                                    'section/div/form/div/div[1]/span/button')
             # Check if done.
             self.element_visible('/html/body/div[5]/div/div/div/div[1]', 10)
-
-            # TODO: Sell NFT.
-            """
-            # Sell NFT.
-            self.driver.get(self.driver.current_url + '/sell')
-            """
-
             print(f'{green}Done.{reset}')
+            # Sell NFT.
+            self.sell_nft()
         except TE as error:
             print(f'{red}Failed: {error}{reset}')
+
+    def sell_nft(self) -> None:
+        """Set a price for the NFT, etc."""
+        # If price has been defined.
+        if settings.price > 0:
+            self.driver.get(
+                'https://opensea.io/assets/0x495f947276749ce646f68ac8c24842004'
+                '5cb7b5e/99995353970554757559721471534129028266698199001274859'
+                '511402525825011904675841/sell')
+            # Timed Auction.
+            if 'timed' in settings.type.lower():
+                # Click on "Timed Auction" button.
+                self.element_clickable(
+                    '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/'
+                    'div[2]/div/div[1]/form/div[1]/div/div[2]/button[2]')
+                # Sell with declining price.
+                if 'declin' in settings.method[0]:
+                    # Change method.
+                    self.element_clickable(
+                        '//*[@id="__next"]/div[1]/main/div/div/div[3]'
+                        '/div/div[2]/div/div[1]/form/div[2]/div/div[2]')
+                    # Click on "Sell with declining price" button.
+                    self.element_clickable(
+                        '//*[contains(@id, "tippy")]/div/div/div/ul/li/button')
+                    # Input ETH starting price.
+                    self.element_send_keys(
+                        '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/div'
+                        '[2]/div/div[1]/form/div[3]/div/div[2]/div[1]/div/div'
+                        '[2]/input', str(settings.price))
+                    # Set duration.
+                    if not self.calendar():
+                        raise TE('Datetime format is invalid, difference '
+                                 'must be less than 7 days or duration '
+                                 'must be "1 day", "3 days", or "1 week"')
+                    # Input ETH ending price.
+                    if settings.method[1] < settings.price:
+                        self.element_send_keys(
+                            '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/'
+                            'div[2]/div/div[1]/form/div[5]/div/div[2]/div[1]/'
+                            'div/div[2]/input', str(settings.method[1]))
+                    else:
+                        raise TE('Ending price must be specified and higher'
+                                 ' than the starting price')
+                # Sell to highest bidder.
+                else:
+                    # Input WETH starting price.
+                    self.element_send_keys(
+                        '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/div'
+                        '[2]/div/div[1]/form/div[3]/div/div[2]/div[1]/div/div'
+                        '[2]/input', str(settings.price))
+                    # Set duration.
+                    if not self.calendar():
+                        raise TE('Datetime format is invalid, difference must '
+                                 'be less than 6 months or duration must be "1'
+                                 ' day", "3 days", "1 week" or "6 months" ('
+                                 'only for Fixed Price)')
+                    # Set a reserve price.
+                    if settings.method[1] > 0:
+                        if settings.method[1] >= 1 and \
+                                settings.method[1] > settings.price:
+                            # Click on "More option" button.
+                            self.element_clickable(
+                                '//*[@id="__next"]/div[1]/main/div/div/div[3]'
+                                '/div/div[2]/div/div[1]/form/button')
+                            # Click on "Include reserve price" switch button.
+                            self.element_send_keys(
+                                '//*[@id="__next"]/div[1]/main/div/div/div[3]'
+                                '/div/div[2]/div/div[1]/form/div[5]/div/div/'
+                                'div/label/div/div/label/input', Keys.ENTER)
+                            # Input a reserve price.
+                            self.element_send_keys(
+                                '//*[@id="__next"]/div[1]/main/div/div/div[3]/'
+                                'div/div[2]/div/div[1]/form/div[5]/div/div/div'
+                                '[2]/div/div/div[2]/input',
+                                str(settings.method[1]))
+                        else:
+                            raise TE('Reserve price must be specified and hig'
+                                     'her than 1 WETH and the starting price')
+            # Fixed Price.
+            else:
+                # Input Ethereum price.
+                self.element_send_keys(
+                    '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/div'
+                    '[2]/div/div[1]/form/div[2]/div/div[2]/div/div/div[2]'
+                    '/input', str(settings.price))
+                # Set duration.
+                if not self.calendar():
+                    raise TE('Datetime format is invalid, difference must be'
+                             ' less than 6 months or duration must be "1 day",'
+                             ' "3 days", "1 week" or "6 months" (only for '
+                             'Fixed Price)')
+                # Set a specific buyer.
+                if settings.specific_buyer[0]:
+                    # Click on "More option" button.
+                    self.element_clickable(
+                        '//*[@id="__next"]/div[1]/main/div/'
+                        'div/div[3]/div/div[2]/div/div[1]/form/button')
+                    # Click on "Reserve for specific buyer" switch button.
+                    self.element_send_keys(
+                        '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/div'
+                        '[2]/div/div[1]/form/div[4]/div[2]/div/div/label/div/'
+                        'label/input', Keys.ENTER)
+                    # TODO: Sell as bundle part.
+                    # Input specific buyer.
+                    self.element_send_keys(
+                        '//*[@id="reservedBuyerAddressOrEnsName"]',
+                        settings.specific_buyer[1])
+            print(f'{green}NFT put up for sale.{reset}')
+        else:
+            print(f'{red}NFT sale cancelled.{reset}')
+
+    def calendar(self, time: int = 262146) -> bool:
+        """Set duration."""
+        if len(settings.duration) > 1:
+            from datetime import datetime as dt
+            try:
+                # 5 months, 29 days, 19 hours and 53 minutes.
+                if (dt.strptime(settings.duration[1], '%d-%m-%Y %H:%M')
+                        - dt.strptime(settings.duration[0], '%d-%m-%Y %H:%M'
+                                      )).total_seconds() / 60 > time:
+                    return False
+                start_date, start_time = settings.duration[0].split(' ')
+                end_date, end_time = settings.duration[1].split(' ')
+                # Set ending date.
+                self.element_clickable('//*[@id="duration"]')
+                self.element_send_keys(
+                    '//*[contains(@id, "tippy")]/div/div/div/div/div[2]/div[2]'
+                    '/div/div[2]/input', end_date)
+                # Set ending date.
+                self.element_clickable('//*[@id="duration"]')
+                self.element_send_keys(
+                    '//*[contains(@id, "tippy")]/div/div/div/div/div[2]/div[1]'
+                    '/div/div[2]/input', start_date)
+                # Set ending time.
+                self.element_clickable('//*[@id="duration"]')
+                self.element_send_keys('//*[@id="end-time"]', end_time)
+                # Set starting time.
+                self.element_clickable('//*[@id="duration"]')
+                self.element_send_keys('//*[@id="start-time"]', start_time)
+                return True
+            except Exception:
+                return False
+        elif len(settings.duration) == 1:
+            # Click on duration sheet button.
+            self.element_clickable('//*[@id="duration"]')
+            if settings.duration[0] != '':
+                duration = self.element_visible(
+                    '//*[contains(@id, "tippy")]'
+                    '/div/div/div/div/div[1]/div/div[2]/input')
+                if duration.get_attribute('value') != settings.duration[0]:
+                    # Open Date Range sheet.
+                    self.element_clickable('//*[contains(@id, "tippy")]/div/'
+                                           'div/div/div/div[1]/div/div[2]')
+                    # Get lenght of elements list.
+                    ul = len(self.element_visible(
+                        '//*[contains(@id, "tippy")]/div/div/div/ul'
+                    ).find_elements_by_tag_name('li'))
+                    # Find duration in list.
+                    for li in range(ul):
+                        li += 1  # Add 1 to start li element at li[1].
+                        # Check if span text contains duration.
+                        if self.element_visible(
+                            '//*[contains(@id, "tippy")]/div/div/div/ul/li'
+                            f'[{li}]/button/div/span').text \
+                                == settings.duration[0]:
+                            # Click on specific duration button.
+                            self.element_clickable(
+                                '//*[contains(@id, "tippy")]'
+                                f'/div/div/div/ul/li[{li}]/button')
+                            return True
+                    return False
 
 
 def cls() -> None:
@@ -521,7 +714,7 @@ if __name__ == '__main__':
     settings = Settings(file, os.path.splitext(file)[1])
     # Init Opensea class and send password and recovery phrase.
     opensea = Opensea(password, recovery_phrase)
-    opensea.metamask()  # Connect to Metamask.
+    opensea.metamask()  # Connect to MetaMask.
     opensea.opensea_login()  # Connect to Opensea.
 
     # Upload each NFT one by one.
