@@ -1,12 +1,12 @@
 # Upload automatically your NFTs on Opensea using Python Selenium.
 
-* **(_Version 1.1 - October 28, 2021)._**
+* **(_Version 1.2 - October 28, 2021)._**
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
 # Table of contents:
 
-
+* **[Changelog](https://github.com/maximedrn/opensea_automatic_uploader/#changelog).**
 * **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader/#what-does-this-bot-do)**
 * **[To do list](https://github.com/maximedrn/opensea_automatic_uploader/#to-do-list).**
 * **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader/#instructions)**.
@@ -17,9 +17,21 @@
   * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader/#csv-file).
   * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file-same-as-csv).
   * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader/#json-file).
+* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-the-sales-part-of-the-nfts).
 * **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader/#set-bot-fully-in-the-background).**
 
 ---
+
+## Changelog:
+
+* **Version 1.2:**
+  * Possibility to set a price for each NFT added.
+* **Version 1.1:** 
+  * XLSX support added.
+  * PC-wide data file browse support.
+  * Properties, Stats and Levels issues fixed ([Issue #1](https://github.com/maximedrn/opensea_automatic_uploader/issues/1)).
+* **Version 1.0:** 
+  * Inital commit.
 
 ## What does this bot do?
 
@@ -36,7 +48,8 @@ This script allows you to upload as many NFTs as you want to Opensea, all automa
 * ❌ Opensea automatic login with different wallets.
 * ❌ Collection creator for Opensea.
 * ✔ <strike>Automatic NFT uploader.</strike>
-* ❌ Price setter for each NFT.
+* ✔ <strike>Possibility to set a price for each NFT.</strike>
+  * ❌ "Sell as bundle" part for "Fixed Price" type sale.
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
 * ✔ <strike>JSON structure reader and interpreter.</strike>
@@ -69,7 +82,7 @@ class Opensea(object):
 
     def __init__(self, password: str, recovery_phrase: str) -> None:
         """Get the password and the recovery_phrase from the text file."""
-        # Get recovery phrase of Metamask wallet.
+        # Get recovery phrase of MetaMask wallet.
         self.recovery_phrase = recovery_phrase
         self.password = password  # Get new password.
         # Used files path.
@@ -110,8 +123,18 @@ class Opensea(object):
 ```python
 def element_clickable(self, element: str) -> None:
     """Click on element if it's clickable using Selenium."""
-    WDW(self.driver, 10).until(EC.element_to_be_clickable(
-        (By.XPATH, element))).click()
+    try:
+        WDW(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.XPATH, element))).click()
+    except TE:
+        # Element with an ID that can change.
+        WDW(self.driver, 10).until(EC.elements_to_be_clickable(
+            (By.XPATH, element))).click()
+    except ECIE:
+        # Sometimes the element is not clickable.
+        self.driver.execute_script(
+            "arguments[0].click();",
+            self.driver.find_element_by_xpath(element))
 
 def element_visible(self, element: str, timer: int = 10):
     """Check if element is visible using Selenium."""
@@ -210,16 +233,47 @@ def element_send_keys(self, element: str, keys: str) -> None:
                <br><i>Ethereum</i>
             </td>
             <td>String</td>
-            <td>Polygon</td>
+            <td>Polygon;</td>
+         </tr>
+         <tr>
+            <td><strong>Sale Type *</strong>
+               <br><i>Fixed Price</i></td>
+            <td>String</td>
+            <td>Timed Auction;</td>
+         </tr>
+         <tr>
+            <td><strong>Price *</strong></td>
+            <td>Float</td>
+            <td>0.001;</td>
+         </tr>
+         <tr>
+            <td><strong>Method *</strong>
+               <br>(only for "Timed Auction")
+               <br><i>Sell to highest bidder</i></td>
+            <td>List[String, Float]</td>
+            <td>["Sell with declining price", 0.0005];</td>
+         </tr>
+         <tr>
+            <td>Duration
+               <br><i>6 months (for "Fixed Price")
+               <br>1 week (for "Timed Auction")</i></td>
+            <td>List[String, String] or List[String]
+               <br>("DD-MM-YYYY hh:mm")</td>
+            <td>["30-10-2021 18:30", "30-04-2022 18:30"] or ["3 days"];</td>
+         </tr>
+         <tr>
+            <td>Specific buyer
+               <br><i>False</i></td>
+            <td>List[Boolean, String]</td>
+            <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];</td>
          </tr>
       </tbody>
    </table>
 
    And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure.csv):
  ```
-   file_path; nft_name; external_link; description; collection; properties; levels; stats; unlockable_content; explicit_and_sensitive_content; supply; blockchain
-   C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon
-   required; required; ; ; ; ; ; ; ; ; ; # Remove this line.
+file_path; nft_name; external_link; description; collection; properties; levels; stats; unlockable_content; explicit_and_sensitive_content; supply; blockchain; sale_type; price; method; duration; specific_buyer
+C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon; Timed Auction; 0.001; ["Sell with declining price", 0.0005]; ["30-10-2021 18:30", "30-04-2022 18:30"]; [True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];
    ```
         
   * #### **XLSX file (same as CSV)**:
@@ -303,6 +357,38 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>String</td>
             <td>Polygon</td>
          </tr>
+         <tr>
+            <td><strong>Sale Type *</strong>
+               <br><i>Fixed Price</i></td>
+            <td>String</td>
+            <td>Timed Auction</td>
+         </tr>
+         <tr>
+            <td><strong>Price *</strong></td>
+            <td>Float</td>
+            <td>0.001</td>
+         </tr>
+         <tr>
+            <td><strong>Method * </strong>
+               <br>(only for "Timed Auction")
+               <br><i>Sell to highest bidder</i></td>
+            <td>List[String, Float]</td>
+            <td>["Sell with declining price", 0.0005]</td>
+         </tr>
+         <tr>
+            <td>Duration
+               <br><i>6 months (for "Fixed Price")
+               <br>1 week (for "Timed Auction")</i></td>
+            <td>List[String, String] or List[String]
+               <br>("DD-MM-YYYY hh:mm")</td>
+            <td>["30-10-2021 18:30", "30-04-2022 18:30"] or ["3 days"]</td>
+         </tr>
+         <tr>
+            <td>Specific buyer
+               <br><i>False</i></td>
+            <td>List[Boolean, String]</td>
+            <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
+         </tr>
       </tbody>
    </table>
         
@@ -324,6 +410,11 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>Explicit And Sensitive Content</td>
             <td>Supply</td>
             <td>Blockchain</td>
+            <td>Sale Type</td>
+            <td>Price</td>
+            <td>Method</td>
+            <td>Duration</td>
+            <td>Specific Buyer</td>
          </tr>
          <tr>
             <td>C:/Users/Admin/Desktop/MyNFTs/nft_0001.png</font></td>
@@ -338,6 +429,11 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>True</td>
             <td>5</td>
             <td>Polygon</td>
+            <td>Timed Auction</td>
+            <td>0.001</td>
+            <td>["Sell with declining price", 0.0005]</td>
+            <td>["30-10-2021 18:30", "30-04-2022 18:30"]</td>
+            <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
          </tr>
       </tbody>
    </table>
@@ -423,6 +519,39 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>String</td>
             <td>"blockchain": "Polygon",</td>
          </tr>
+         <tr>
+            <td><strong>Sale Type *</strong>
+               <br><i>Fixed Price</i></td>
+            <td>String</td>
+            <td>"sale_type": "Timed Auction",</td>
+         </tr>
+         <tr>
+            <td><strong>Price *</strong></td>
+            <td>Float</td>
+            <td>"price": 0.001,</td>
+         </tr>
+         <tr>
+            <td><strong>Method * </strong>
+               <br>(only for "Timed Auction")
+               <br><i>Sell to highest bidder</i></td>
+            <td>List[String, Float]</td>
+            <td>"method": ["Sell with declining price", 0.0005],</td>
+         </tr>
+         <tr>
+            <td>Duration
+               <br><i>6 months (for "Fixed Price")
+               <br>1 week (for "Timed Auction")</i></td>
+            <td>List[String, String] or List[String]
+               <br>("DD-MM-YYYY hh:mm")</td>
+            <td>"duration": ["30-10-2021 18:30", "30-04-2022 18:30"],
+               <br>"duration": ["3 days"],</td>
+         </tr>
+         <tr>
+            <td>Specific buyer
+               <br><i>False</i></td>
+            <td>List[Boolean, String]</td>
+            <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
+         </tr>
       </tbody>
    </table>
          
@@ -476,25 +605,51 @@ def element_send_keys(self, element: str, keys: str) -> None:
          ],
          "explicit_and_sensitive_content": true,
          "supply": 5,
-         "blockchain": "Polygon"
-       },
-       { // Remove this part below.
-         "file_path": "required",
-         "nft_name": "required",
-         "external_link": "",
-         "description": "",
-         "collection": "",
-         "properties": [],
-         "levels": [],
-         "stats": [],
-         "unlockable_content": [],
-         "explicit_and_sensitive_content": false,
-         "supply": 1,
-         "blockchain": "Ethereum"
+         "blockchain": "Polygon",
+         "sale_type": "Timed Auction",
+         "price": 0.001,
+         "method": [
+           "Sell with declining price",
+           0.0005
+         ],
+         "duration": [
+           "30-10-2021 18:30",
+           "30-04-2022 18:30"
+         ],
+         "specific_buyer": [
+           true,
+           "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
+         ]
        }
      ]
    }
    ```
+   
+## Configuration of the sales part of the NFTs:
+
+* If you chose a **Fixed Price**:
+  * **Price** (ETH). 
+  * **Duration**: from a date to an other date (less than 6 months) or:
+    * 1 day.
+    * 3 days.
+    * 1 week.
+    * 6 months.
+  * **Reserve for specific buyer**. 
+* If you chose a **Timed Auction**:
+  * 1st method: **Sell to highest bidder**:
+    * **Starting Price** (WETH).
+    * **Duration**: from a date to an other date (less than 6 months) or:
+      * 1 day.
+      * 3 days.
+      * 1 week.
+    * _Optional_: **Reserved Price** (WETH) greater than 1 WETH and greater than **Starting Price**.
+  * 2nd method: **Sell with declining price**:
+    * **Starting Price** (ETH).
+    * **Duration**: from a date to an other date (less than 6 months) or:
+      * 1 day.
+      * 3 days.
+      * 1 week.
+    * **Ending Price** (ETH) less than **Starting Price**.
 
 ## Set bot fully in the background:
 ```python
