@@ -50,6 +50,7 @@ This script allows you to upload as many NFTs as you want to Opensea, all automa
 * ✔ <strike>Automatic NFT uploader.</strike>
 * ✔ <strike>Possibility to set a price for each NFT.</strike>
   * ❌ "Sell as bundle" part for "Fixed Price" type sale.
+  * ❌ **Official sell.**
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
 * ✔ <strike>JSON structure reader and interpreter.</strike>
