@@ -274,7 +274,7 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>Quantity
                <br>(for 1+ supplies - less or equal to supply value)</td>
             <td>Integer</td>
-            <td>"specific_buyer": 4</td>
+            <td>4</td>
          </tr>
       </tbody>
    </table>
@@ -574,7 +574,7 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>Quantity
                <br>(for 1+ supplies - less or equal to supply value)</td>
             <td>Integer</td>
-            <td>"specific_buyer": 4</td>
+            <td>"quantity": 4</td>
          </tr>
       </tbody>
    </table>
