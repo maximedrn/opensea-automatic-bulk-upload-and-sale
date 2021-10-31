@@ -60,7 +60,8 @@
          "specific_buyer": [
            true,
            "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
-         ]
+         ],
+         "quantity": 4
        }
      ]
    }
