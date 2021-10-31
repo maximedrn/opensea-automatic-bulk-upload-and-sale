@@ -78,6 +78,7 @@ class Settings(object):
         self.method: list = parameters[14]  # [method, price]
         self.duration: list = parameters[15]
         self.specific_buyer: list = parameters[16]
+        self.quantity: int = parameters[17]
 
     def type_parameters(self, parameters: list, _range: int) -> list:
         """Change element's type of some parameters."""
@@ -575,8 +576,11 @@ class Opensea(object):
                 if settings.supply > 1 and \
                         settings.blockchain.lower() == 'polygon':
                     # Input number of supplies to sell.
-                    self.element_send_keys(
-                        '//*[@id="quantity"]', str(settings.supply))
+                    if settings.quantity <= settings.supply:
+                        self.element_send_keys(
+                            '//*[@id="quantity"]', str(settings.quantity))
+                    else:
+                        raise TE('Quantity must be less or equal to supply.')
                 # Input price.
                 self.element_send_keys(
                     '//input[@name="price"]', str(settings.price))
