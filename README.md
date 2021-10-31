@@ -116,6 +116,15 @@ class Opensea(object):
 * If you are using a Linux distribution or MacOS, you may need to change some parts of the code:  
   * Colorama module sometimes does not work.
   * ChromeDriver extension may need to be changed from `.exe` to something else.
+  * This method may need to be edited because MacOS' keyboards do not have a "CONTROL" key:
+```python
+def clear_text(self, element) -> None:
+    """Clear text from input."""
+    self.element_clickable(element)
+    webdriver.ActionChains(self.driver).key_down(Keys.CONTROL).perform()
+    webdriver.ActionChains(self.driver).send_keys('a').perform()
+    webdriver.ActionChains(self.driver).key_up(Keys.CONTROL).perform()
+```
 * **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
 ```json
 "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
@@ -126,7 +135,7 @@ class Opensea(object):
 ```
 * The bot may crash at the beginning when loading the MetaMask extension (Selenium module problem).
 * Sometimes the bot indicates that the upload has failed while the NFT has been uploaded.
-* The waiting time (`WebDriverWait().until()`) for the element to be clickable or visible is sometimes too short if your PC is slow and this raises an exception, so increase the time by 5 to 10 seconds:
+* The waiting time (`WebDriverWait().until()`) for the element to be clickable or visible is sometimes too short if your PC is slow and this raises an exception, so you can increase the time by 5 to 10 seconds:
 ```python
 def element_clickable(self, element: str) -> None:
     """Click on element if it's clickable using Selenium."""
