@@ -2,7 +2,7 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
-Version: 1.2-alpha
+Version: 1.2
 """
 
 # Colorama module: pip install colorama
@@ -73,18 +73,10 @@ class Settings(object):
         self.blockchain: str = parameters[11]
 
         # Sell:
-        self.type: str = parameters[12]  # "Fixed Price" or "Timed Auction".
-        # ETH for Fixed Price or WETH for Timed Auction.
+        self.type: str = parameters[12]
         self.price: int = parameters[13]
-        # For "Timed Auction":
-        # "Sell with declining price" and "Ending price" < Price; or "Sell to
-        # highest bidder" and "Reserve price" > Price and 1 WETH (optional).
-        # = ['Method', Price]
-        self.method: list = parameters[14]
-        # ['Starting Date (DD-MM-YYYY hh:mm)',
-        # 'Ending Date (DD-MM-YYYY hh:mm)'] or ['7 days'].
+        self.method: list = parameters[14]  # [method, price]
         self.duration: list = parameters[15]
-        # For Fixed Price (optional):   [True, '0x7485...']
         self.specific_buyer: list = parameters[16]
 
     def type_parameters(self, parameters: list, _range: int) -> list:
@@ -227,7 +219,7 @@ class Opensea(object):
         """Clear text from input."""
         self.element_clickable(element)
         webdriver.ActionChains(self.driver).key_down(Keys.CONTROL).perform()
-        webdriver.ActionChains(self.driver).send_keys("a").perform()
+        webdriver.ActionChains(self.driver).send_keys('a').perform()
         webdriver.ActionChains(self.driver).key_up(Keys.CONTROL).perform()
 
     def window_handles(self, window_number: int) -> None:
@@ -433,8 +425,10 @@ class Opensea(object):
             if settings.supply != '' and type(settings.supply) == int:
                 if '?enable_supply=true' in self.driver.current_url \
                         and settings.supply > 1:
-                    self.element_send_keys(
-                        '//*[@id="supply"]', settings.supply)
+                    # Set supply modifying value.
+                    self.driver.execute_script(
+                        f'arguments[0].value = {settings.supply};',
+                        self.element_visible('//*[@id="supply"]'))
             # Set Blockchain.
             if settings.blockchain != '':
                 blockchain = self.element_visible('//*[@id="chain"]')
@@ -465,18 +459,22 @@ class Opensea(object):
             # Check if done.
             self.element_visible('/html/body/div[5]/div/div/div/div[1]', 10)
             print(f'{green}Done.{reset}')
-            # Sell NFT.
-            self.sell_nft()
+            # If price has been defined.
+            print('Selling NFT.', end=' ')
+            if settings.price > 0:
+                self.sell_nft()  # Sell NFT.
+            else:
+                print(f'{red}NFT sale cancelled.{reset}')
         except TE as error:
             print(f'{red}Failed: {error}{reset}')
 
     def sell_nft(self) -> None:
         """Set a price for the NFT, etc."""
-        # If price has been defined.
         try:
-            print('Selling NFT.', end=' ')
-            if settings.price > 0:
-                self.driver.get(self.driver.current_url + '/sell')
+            # Get sell page for the NFT.
+            self.driver.get(self.driver.current_url + '/sell')
+            if settings.supply == 1 and \
+                    settings.blockchain.lower() != 'polygon':
                 # Timed Auction.
                 if 'timed' in settings.type.lower():
                     # Click on "Timed Auction" button.
@@ -498,10 +496,9 @@ class Opensea(object):
                             'div[2]/div/div[1]/form/div[3]/div/div[2]/div[1]/'
                             'div/div[2]/input', str(settings.price))
                         # Set duration.
-                        if not self.calendar():
-                            raise TE('Datetime format is invalid, difference '
-                                     'must be less than 7 days or duration '
-                                     'must be "1 day", "3 days", or "1 week"')
+                        calendar = self.calendar()
+                        if type(calendar) != bool:
+                            raise TE(calendar[1])
                         # Input ETH ending price.
                         if settings.method[1] < settings.price:
                             self.element_send_keys(
@@ -520,11 +517,9 @@ class Opensea(object):
                             'div[2]/div/div[1]/form/div[3]/div/div[2]/div[1]/'
                             'div/div[2]/input', str(settings.price))
                         # Set duration.
-                        if not self.calendar():
-                            raise TE('Datetime format is invalid, difference '
-                                     'must be less than 6 months or duration '
-                                     'must be "1 day", "3 days", "1 week" or '
-                                     '"6 months" (only for Fixed Price)')
+                        calendar = self.calendar()
+                        if type(calendar) != bool:
+                            raise TE(calendar[1])
                         # Set a reserve price.
                         if settings.method[1] > 0:
                             if settings.method[1] >= 1 and \
@@ -557,11 +552,9 @@ class Opensea(object):
                         '[2]/div/div[1]/form/div[2]/div/div[2]/div/div/div[2]'
                         '/input', str(settings.price))
                     # Set duration.
-                    if not self.calendar():
-                        raise TE('Datetime format is invalid, difference must '
-                                 'be less than 6 months or duration must be '
-                                 '"1 day", "3 days", "1 week" or "6 months" ('
-                                 'only for Fixed Price)')
+                    calendar = self.calendar()
+                    if type(calendar) != bool:
+                        raise TE(calendar[1])
                     # Set a specific buyer.
                     if settings.specific_buyer[0]:
                         # Click on "More option" button.
@@ -578,16 +571,54 @@ class Opensea(object):
                         self.element_send_keys(
                             '//*[@id="reservedBuyerAddressOrEnsName"]',
                             settings.specific_buyer[1])
-                # Click on "Complete listing" button.
-                try:
-                    self.element_clickable('//button[@type="submit"]')
-                except Exception:
-                    raise TE(
-                        'An error occured. Submit button can\'t be clicked')
-                # TODO: Complete listing.
-                print(f'{green}NFT put up for sale.{reset}')
             else:
-                print(f'{red}NFT sale cancelled.{reset}')
+                if settings.supply > 1 and \
+                        settings.blockchain.lower() == 'polygon':
+                    # Input number of supplies to sell.
+                    self.element_send_keys(
+                        '//*[@id="quantity"]', str(settings.supply))
+                # Input price.
+                self.element_send_keys(
+                    '//input[@name="price"]', str(settings.price))
+                # Set duration.
+                calendar = self.calendar()
+                if type(calendar) != bool:
+                    raise TE(calendar[1])
+                # Set a specific buyer.
+                if settings.specific_buyer[0]:
+                    # Click on "More option" button.
+                    self.element_clickable(
+                        '//*[@id="__next"]/div[1]/main/div/div/div[3]'
+                        '/div/div[2]/div/div[1]/form/button')
+                    # Click on "Reserve for specific buyer" switch button.
+                    if settings.supply == 1 and \
+                            settings.blockchain.lower() == 'polygon':
+                        self.element_send_keys(
+                            '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/'
+                            'div[2]/div/div[1]/form/div[3]/div/div/div/label/'
+                            'div/label/input', Keys.ENTER)
+                    elif settings.supply > 1 and \
+                            settings.blockchain.lower() == 'polygon':
+                        self.element_send_keys(
+                            '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/'
+                            'div[2]/div/div[1]/form/div[4]/div/div/div/label/'
+                            'div/label/input', Keys.ENTER)
+                    else:
+                        self.element_send_keys(
+                            '//*[@id="__next"]/div[1]/main/div/div/div[3]/div/'
+                            'div[2]/div/div[1]/form/div[3]/div[2]/div/div/'
+                            'label/div/label/input', Keys.ENTER)
+                    # Input specific buyer.
+                    self.element_send_keys(
+                        '//*[@id="reservedBuyerAddressOrEnsName"]',
+                        settings.specific_buyer[1])
+            # Click on "Complete listing" button.
+            try:
+                self.element_clickable('//button[@type="submit"]')
+            except Exception:
+                raise TE('An error occured. Submit button can\'t be clicked')
+            # TODO: Complete listing.
+            print(f'{green}NFT put up for sale.{reset}')
         except TE as error:
             print(f'{red}NFT sale cancelled: {error}{reset}')
 
@@ -596,11 +627,17 @@ class Opensea(object):
         if len(settings.duration) > 1:
             from datetime import datetime as dt
             try:
-                # 5 months, 29 days, 19 hours and 53 minutes.
+                # Check if difference is less than 6 months.
                 if (dt.strptime(settings.duration[1], '%d-%m-%Y %H:%M')
                         - dt.strptime(settings.duration[0], '%d-%m-%Y %H:%M'
                                       )).total_seconds() / 60 > time:
-                    return False
+                    return False, 'Difference must be less than 6 months'
+                # Check if starting date has passed.
+                if dt.strptime(dt.strftime(dt.now(), '%d-%m-%Y %H:%M'),
+                               '%d-%m-%Y %H:%M') > dt.strptime(
+                                   settings.duration[0], '%d-%m-%Y %H:%M'):
+                    print('Starting date has passed')
+                # Split date and time.
                 start_date, start_time = settings.duration[0].split(' ')
                 end_date, end_time = settings.duration[1].split(' ')
                 # Set ending date.
@@ -619,9 +656,10 @@ class Opensea(object):
                 # Set starting time.
                 self.element_clickable('//*[@id="duration"]')
                 self.element_send_keys('//*[@id="start-time"]', start_time)
+                self.element_clickable('//*[@id="duration"]')
                 return True
             except Exception:
-                return False
+                return False, 'Datetime format is invalid'
         elif len(settings.duration) == 1:
             # Click on duration sheet button.
             self.element_clickable('//*[@id="duration"]')
@@ -650,7 +688,8 @@ class Opensea(object):
                                 '//*[contains(@id, "tippy")]'
                                 f'/div/div/div/ul/li[{li}]/button')
                             return True
-                    return False
+                    return 'Duration type must be "1 day", "3 days", ' + \
+                        '"1 week" or "6 months" (only for "Fixed Price")'
 
 
 def cls() -> None:
