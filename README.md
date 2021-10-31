@@ -1,6 +1,6 @@
 # Upload automatically your NFTs on Opensea using Python Selenium.
 
-* **(_Version 1.2 - October 30, 2021)._**
+* **(_Version 1.2 - October 31, 2021_).**
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -25,6 +25,11 @@
 ## Changelog:
 
 * **Version 1.2:**
+  * Possibility to set a price for each NFT added.  
+    ➜ 1+ supplies and Polygon blockchain support added.
+  * Supply input issue fixed.
+  * Calendar method improved.
+* **Version 1.2-alpha:**
   * Possibility to set a price for each NFT added.
 * **Version 1.1:** 
   * XLSX support added.
@@ -49,9 +54,8 @@ This script allows you to upload as many NFTs as you want to Opensea, all automa
 * ❌ Collection creator for Opensea.
 * ✔ <strike>Automatic NFT uploader.</strike>
 * ✔ <strike>Possibility to set a price for each NFT.</strike>  
-  _Need some updates:
-  * ❌ Support for 1+ supplies and Polygon blockchain.
-  * ❌ "Sell as bundle" part for "Fixed Price" type sale.
+  * ✔ Support for 1+ supplies and Polygon blockchain.
+  * ❌ "Sell as bundle" part.
   * ❌ **Official sell.**
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
@@ -128,10 +132,6 @@ def element_clickable(self, element: str) -> None:
     """Click on element if it's clickable using Selenium."""
     try:
         WDW(self.driver, 10).until(EC.element_to_be_clickable(
-            (By.XPATH, element))).click()
-    except TE:
-        # Element with an ID that can change.
-        WDW(self.driver, 10).until(EC.elements_to_be_clickable(
             (By.XPATH, element))).click()
     except ECIE:
         # Sometimes the element is not clickable.
@@ -270,13 +270,19 @@ def element_send_keys(self, element: str, keys: str) -> None:
             <td>List[Boolean, String]</td>
             <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];</td>
          </tr>
+         <tr>
+            <td>Quantity
+               <br>(for 1+ supplies - less or equal to supply value)</td>
+            <td>Integer</td>
+            <td>"specific_buyer": 4</td>
+         </tr>
       </tbody>
    </table>
 
    And it gives you something like [this](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure.csv):
  ```
 file_path; nft_name; external_link; description; collection; properties; levels; stats; unlockable_content; explicit_and_sensitive_content; supply; blockchain; sale_type; price; method; duration; specific_buyer
-C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon; Timed Auction; 0.001; ["Sell with declining price", 0.0005]; ["30-10-2021 18:30", "30-04-2022 18:30"]; [True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];
+C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; This is my first NFT.; My First NFT; ["Dog", "Male"]; [["Speed", 2, 5], ["Width", 1, 10]]; [["Strenght", 10, 100], ["Age", 1, 99]]; [True, "Thank you for purchasing my NFT!"]; True; 5; Polygon; Timed Auction; 0.001; ["Sell with declining price", 0.0005]; ["30-10-2021 18:30", "30-04-2022 18:30"]; [True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]; 4
    ```
         
   * #### **XLSX file (same as CSV)**:
@@ -392,6 +398,12 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>List[Boolean, String]</td>
             <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
          </tr>
+         <tr>
+            <td>Quantity
+               <br>(for 1+ supplies - less or equal to supply value)</td>
+            <td>Integer</td>
+            <td>4</td>
+         </tr>
       </tbody>
    </table>
         
@@ -418,6 +430,8 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>Method</td>
             <td>Duration</td>
             <td>Specific Buyer</td>
+            <td>Quantity</td>
+         </tr>
          </tr>
          <tr>
             <td>C:/Users/Admin/Desktop/MyNFTs/nft_0001.png</font></td>
@@ -437,6 +451,7 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>["Sell with declining price", 0.0005]</td>
             <td>["30-10-2021 18:30", "30-04-2022 18:30"]</td>
             <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
+            <td>4</td>
          </tr>
       </tbody>
    </table>
@@ -553,7 +568,13 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
             <td>Specific Buyer
                <br><i>False</i></td>
             <td>List[Boolean, String]</td>
-            <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]</td>
+            <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],</td>
+         </tr>
+         <tr>
+            <td>Quantity
+               <br>(for 1+ supplies - less or equal to supply value)</td>
+            <td>Integer</td>
+            <td>"specific_buyer": 4</td>
          </tr>
       </tbody>
    </table>
@@ -622,7 +643,8 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
          "specific_buyer": [
            true,
            "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
-         ]
+         ],
+         "quantity": 4
        }
      ]
    }
@@ -630,8 +652,8 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
    
 ## Configuration of the sales part of the NFTs:
 
-* If Blockhain is Ethereum:
-  * If supply number is equal to 1:
+* If Blockhain is **Ethereum**:
+  * If supply number is **equal to 1**:
     * If you chose a **Fixed Price**:
       * **Price** (ETH). 
       * **Duration**: from a date to an other date (less than 6 months) or:
@@ -656,13 +678,32 @@ C:/Users/Admin/Desktop/MyNFTs/nft_0001.png; NFT #1; https://www.google.com/; Thi
           * 3 days.
           * 1 week.
         * **Ending Price** (ETH) less than **Starting Price**.
-   * If supply number is higher than 1:  
-     **Not supported.**
-* If Blockchain is Polygon:  
-  * If supply number is equal to 1:  
-  **Not supported.**
-  * If supply number is higher than 1:  
-  **Not supported.**
+   * If supply number is **higher than 1**:  
+     * **Price** (ETH). 
+     * **Duration**: from a date to an other date (less than 6 months) or:
+       * 1 day.
+       * 3 days.
+       * 1 week.
+       * 6 months.
+     * **Sell as bundle.** ➜ **Not supported.**
+     * **Reserve for specific buyer**. 
+* If Blockchain is **Polygon**:  
+  * If supply number is **equal to 1**:  
+    * **Price** (ETH). 
+    * **Duration**: from a date to an other date (less than 6 months) or:
+      * 1 day.
+      * 3 days.
+      * 1 week.
+      * 6 months.
+  * If supply number is **higher than 1**:  
+    * **Quantity** (less or equal to supply). 
+    * **Price** (ETH). 
+    * **Duration**: from a date to an other date (less than 6 months) or:
+      * 1 day.
+      * 3 days.
+      * 1 week.
+      * 6 months.
+    * **Reserve for specific buyer**. 
 
 ## Set bot fully in the background:
 ```python
