@@ -116,7 +116,7 @@ class Opensea(object):
 * If you are using a Linux distribution or MacOS, you may need to change some parts of the code:  
   * Colorama module sometimes does not work.
   * ChromeDriver extension may need to be changed from `.exe` to something else.
-  * This method may need to be edited because MacOS' keyboards do not have a "CONTROL" key:
+  * This method may need to be edited because MacOS' keyboards cannot select text using <kbd>Ctrl</kbd> + <kbd>A</kbd> keys (= <kbd>⌘</kbd> + <kbd>A</kbd>):
 ```python
 def clear_text(self, element) -> None:
     """Clear text from input."""
