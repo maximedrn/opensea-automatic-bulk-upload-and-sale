@@ -6,19 +6,19 @@
 
 # Table of contents:
 
-* **[Changelog](https://github.com/maximedrn/opensea_automatic_uploader/#changelog).**
-* **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader/#what-does-this-bot-do)**
-* **[To do list](https://github.com/maximedrn/opensea_automatic_uploader/#to-do-list).**
-* **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader/#instructions)**.
-  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader/#basic-installation-of-python-for-beginners).
-  * [Configuration of bot](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-bot).
-* **[Known issues](https://github.com/maximedrn/opensea_automatic_uploader/#known-issues).**
-* **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader/#data-files-structure).**
-  * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader/#csv-file).
-  * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader/#xlsx-file-same-as-csv).
-  * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader/#json-file).
-* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader/#configuration-of-the-sales-part-of-the-nfts).**
-* **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader/#set-bot-fully-in-the-background).**
+* **[Changelog](https://github.com/maximedrn/opensea_automatic_uploader#changelog).**
+* **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader#what-does-this-bot-do)**
+* **[To do list](https://github.com/maximedrn/opensea_automatic_uploader#to-do-list).**
+* **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader#instructions)**.
+  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader#basic-installation-of-python-for-beginners).
+  * [Configuration of bot](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-bot).
+* **[Known issues](https://github.com/maximedrn/opensea_automatic_uploader#known-issues).**
+* **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure).**
+  * [CSV file](https://github.com/maximedrn/opensea_automatic_uploader#csv-file).
+  * [XLSX file](https://github.com/maximedrn/opensea_automatic_uploader#xlsx-file-same-as-csv).
+  * [JSON file](https://github.com/maximedrn/opensea_automatic_uploader#json-file).
+* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sales-part-of-the-nfts).**
+* **[Set bot fully in the background](https://github.com/maximedrn/opensea_automatic_uploader#set-bot-fully-in-the-background).**
 
 ---
 
