@@ -5,7 +5,7 @@
          "nft_name": "NFT #1",
          "external_link": "https://www.google.com/",
          "description": "This is my first NFT.",
-         "collection": "Crypto Parrot NFTs",
+         "collection": "",
          "properties": [
            {
              "type": "Dog",
