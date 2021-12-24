@@ -565,8 +565,9 @@ def read_file(file_: str, question: str) -> str:
             if input(f'Do you want to save your {file_} in '
                      'a text file? (y/n) ').lower() != 'y':
                 print(f'{yellow}Not saved.{reset}')
-            file.write(text)  # Write the text in file.
-            print(f'{green}Saved.{reset}')
+            else:
+                file.write(text)  # Write the text in file.
+                print(f'{green}Saved.{reset}')
         return text
 
 
