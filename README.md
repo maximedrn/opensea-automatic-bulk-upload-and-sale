@@ -15,6 +15,7 @@
 * **[Known issues](https://github.com/maximedrn/opensea_automatic_uploader#known-issues).**
 * **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure).**
 * **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sales-part-of-the-nfts).**
+* **[Configuration of your system](https://github.com/maximedrn/opensea_automatic_uploader#configurations).**
 
 ## Changelog:
 
@@ -39,8 +40,7 @@
 
 This script allows you to upload as many NFTs as you want to Opensea, all automatically and quickly (about 2.5 NFTs per minute).
 
-➜ **See this collection (1000 NFTs) I uploaded within 4 hours: https://opensea.io/collection/crypto-parrot-nft.**  
-➜ **If you sell any NFT with this bot, you can consider sharing some of your earnings. 😉:  
+➜ **If you sell any NFT with this bot, you can consider sharing some of your earnings 😉:  
 0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E** (Ethereum).
 
 ## To do list:
@@ -125,7 +125,7 @@ def clear_text(self, element) -> None:
 ```
 selenium.common.exceptions.WebDriverException: Message: unknown error: failed to wait for extension background page to load: chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background.html from timeout: Timed out receiving message from renderer: 10.000
 ```
-* The may crash at some points with this exception:
+* The bot may crash at some points (login, switching tab - signing MetaMask contract) with this exception:
 ```
 selenium.common.exceptions.WebDriverException: Message: chrome not reachable
 ```
@@ -133,7 +133,7 @@ selenium.common.exceptions.WebDriverException: Message: chrome not reachable
 * The MetaMask login can failed if the contract is not signed.
 * The calendar is unstable at points.
 
-* ### Data files structure:
+ ## Data files structure:
 
    * <strong>required value *</strong>
           
@@ -173,12 +173,12 @@ selenium.common.exceptions.WebDriverException: Message: chrome not reachable
          <tr>
             <td>Levels</td>
             <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-            <td>["name", "value_from", "value_to"] or [["name", "value_from", "value_to"], ["name", "value_from", "value_to"]]</td>
+            <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
          </tr>
          <tr>
             <td>Stats</td>
             <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-            <td>["name", "value_from", "value_to"] or [["name", "value_from", "value_to"], ["name", "value_from", "value_to"]]</td>
+            <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
          </tr>
          <tr>
             <td>Unlockable Content</td>
@@ -208,7 +208,7 @@ selenium.common.exceptions.WebDriverException: Message: chrome not reachable
          <tr>
             <td>Method (only for "Timed Auction")</td>
             <td>List[String, Float]</td>
-            <td>["method", "price"] or ["method, ""]
+            <td>["method", price] or ["method, ""]
          </tr>
          <tr>
             <td>Duration ("DD-MM-YYYY HH:MM")</td>
@@ -282,4 +282,16 @@ selenium.common.exceptions.WebDriverException: Message: chrome not reachable
       * 3 days.
       * 1 week.
       * 6 months.
-    * **Reserve for specific buyer**. 
+    * **Reserve for specific buyer**.
+
+## Configurations:
+
+* ### Used while development:
+  * Windows 11 (64-bits).
+  * ChromeDriver version 96.
+  * 16 GB of RAM.
+
+* ### Required:
+  * Any stable Operating System.
+  * ChromeDriver version 92+.
+  * 6+ GB of RAM.
