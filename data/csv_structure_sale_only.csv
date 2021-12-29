@@ -1,0 +1,4 @@
+nft_url;; supply;; blockchain;; sale_type;; price;; method;; duration;; specific_buyer;; quantity
+https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145;; 1;; Polygon;; Timed Auction;; 5;; ["Sell with declining price", 0.002];; ["01-01-2022 14:00", "01-04-2022 15:00"];; [True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];; 4
+https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145;; 10;; Ethereum;; Fixed Price;; 0.02;; ["Sell to highest bidder", 0.1];; ["1 week"];; [False];; 2
+https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145;; 1;; Ethereum;; 0.02;; ["Sell to highest bidder", ""];; "3 days";; False;;
