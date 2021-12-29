@@ -5,7 +5,7 @@
 * Sign up on [MetaMask](https://metamask.io/).
 
 
-# Table of contents:
+# Table of contents
 
 * **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader#what-does-this-bot-do)**
 * **[Changelog](https://github.com/maximedrn/opensea_automatic_uploader#changelog).**
@@ -32,7 +32,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 ➜ **Or you can buy me a NFT from my collection [Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts) if this bot was useful to you**.
 
 
-## Changelog:
+## Changelog
 
 * **Version 1.4:**
   * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea_automatic_uploader/issues/3), [#22](https://github.com/maximedrn/opensea_automatic_uploader/issues/22)**.
@@ -58,7 +58,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
   * Inital commit.
 
 
-## To do list:
+## To do list
 
 * ✔ <strike>MetaMask automatic login.</strike>
 * ✔ <strike>Opensea automatic login with MetaMask.</strike>
@@ -66,17 +66,17 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 * ❌ Collection creator for Opensea.
 * ✔ <strike>Automatic NFT uploader.</strike>
 * ✔ <strike>Possibility to set a price for each NFT.</strike>  
-  * ✔ Support for 1+ supplies and Polygon blockchain.
+  * ✔ <strike>Support for 1+ supplies and Polygon blockchain.</strike>
   * ❌ "Sell as bundle" part (not planned to be added).
-  * ✔ **Sale part**.
+  * ✔ <strike>**Sale part**.</strike>
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
 * ✔ <strike>JSON structure reader and interpreter.</strike>
 * ✔ <strike>XLSX structure reader and interpreter.</strike>
-* ❌ NFT maker local website.
+* ❌ NFT maker local website (soon).
 
 
-## Instructions:
+## Instructions
 
 * ### Basic installation of Python for beginners:
   * [Download this repository](https://github.com/maximedrn/opensea_automatic_uploader/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
@@ -97,11 +97,13 @@ pip install -r requirements.txt
     **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
 
 
-## Data files structure:
+## Data files structure
 
-* ### Upload and sale:
+<strong>Required values *</strong>  
+  (Mandatory value in certain specified cases)
 
- <strong>Required values *</strong>
+* ### Upload and sale
+
  <table>
     <tbody>
        <tr>
@@ -372,11 +374,10 @@ pip install -r requirements.txt
     </tbody>
  </table>
  
-  And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_and_sale.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
+  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
  
-* ### Upload only:
+* ### Upload only
 
- <strong>Required values *</strong>
  <table>
     <tbody>
        <tr>
@@ -546,13 +547,12 @@ pip install -r requirements.txt
     </tbody>
  </table>
  
- And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_only.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_only.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_only.xlsx).
+ And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_only.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_only.xlsx).
  
- * ### Sale only:
+ * ### Sale only
  
  If you have already uploaded your NFTs with this bot, a file has been generated with containing the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
- 
- <strong>Required values *</strong>
+
  <table>
     <tbody>
        <tr>
@@ -677,10 +677,10 @@ pip install -r requirements.txt
     </tbody>
  </table>
 
-And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_sale_only.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_sale_only.xlsx).
+And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_sale_only.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_sale_only.xlsx).
 
 
-## Configuration of the sales part of the NFTs:
+## Configuration of the sale part of the NFTs
 
 When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.
 
@@ -744,7 +744,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 </table>
 
 
-## Known issues and important things to know:
+## Known issues and important things to know
 
 * Make sure to deposit Ethereum (ETH/WETH) or Polygon (MATIC) on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale.
 * **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
