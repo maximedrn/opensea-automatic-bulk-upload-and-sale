@@ -499,7 +499,7 @@ pip install -r requirements.txt
           </td>
        </tr>
        <tr>
-          <td>Supply</td>
+          <td><strong>Supply *</strong></td>
           <td>Integer</td>
           <td></td>
           <td>"supply": 1,
@@ -509,7 +509,7 @@ pip install -r requirements.txt
           <td>1</td>
        </tr>
        <tr>
-          <td>Blockchain</td>
+          <td><strong>Blockchain *</strong></td>
           <td>String</td>
           <td></td>
           <td>"blockchain": "Polygon"
@@ -539,7 +539,7 @@ pip install -r requirements.txt
           <td>XLSX examples</td>
        </tr>
        <tr>
-          <td>NFT URL</td>
+          <td><strong>NFT URL * </strong></td>
           <td>String</td>
           <td></td>
           <td>"nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",</td>
@@ -547,7 +547,7 @@ pip install -r requirements.txt
           <td>https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145</td>
        </tr>
        <tr>
-          <td>Supply</td>
+          <td><strong>Supply *</strong></td>
           <td>Integer</td>
           <td></td>
           <td>"supply": 1,</td>
@@ -555,7 +555,7 @@ pip install -r requirements.txt
           <td>1</td>
        </tr>
        <tr>
-          <td>Blockchain</td>
+          <td><strong>Blockchain *</strong></td>
           <td>String</td>
           <td></td>
           <td>"blockchain": "Polygon",</td>
