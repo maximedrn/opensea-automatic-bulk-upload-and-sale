@@ -1,2 +1,0 @@
-file_path;; nft_name;; external_link;; description;; collection;; properties;; levels;; stats;; unlockable_content;; explicit_and_sensitive_content;; supply;; blockchain;; sale_type;; price;; method;; duration;; specific_buyer;; quantity
-C:/Users/Admin/Desktop/nft_0001.png;; NFT #1;; https://www.google.com/;; This is my first NFT.;; My First NFT;; ["Dog", "Male"];; [["Speed", 2, 5], ["Width", 1, 10]];; [["Strenght", 10, 100], ["Age", 1, 99]];; False;; True;; 5;; Ethereum;; ;; 0.001;; ;; ["01-01-2022 13:00", "01-05-2022 15:30"];; False;; 4
