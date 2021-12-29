@@ -350,6 +350,8 @@ pip install -r requirements.txt
     </tbody>
  </table>
  
+  And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_and_sale.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_and_sale.xlsx).
+ 
 * ### Upload only:
 
  <strong>Required values *</strong>
@@ -516,6 +518,8 @@ pip install -r requirements.txt
     </tbody>
  </table>
  
+ And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_only.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_only.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_only.xlsx).
+ 
  * ### Sale only:
  
  If you have already uploaded your NFTs with this bot, a file has been generated with containing the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
@@ -617,7 +621,7 @@ pip install -r requirements.txt
     </tbody>
  </table>
 
-And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure.xlsx).
+And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv).
 
 
 ## Configuration of the sales part of the NFTs:
