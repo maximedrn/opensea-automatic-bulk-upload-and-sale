@@ -32,7 +32,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 * **Version 1.4:**
   * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea_automatic_uploader/issues/3), [#22](https://github.com/maximedrn/opensea_automatic_uploader/issues/22)**.
-  * Signing the MetaMask contract works every time, It can take 30 seconds to be signed when connecting to Opensea. **[#5](https://github.com/maximedrn/opensea_automatic_uploader/issues/5), [#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
+  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to Opensea. **[#5](https://github.com/maximedrn/opensea_automatic_uploader/issues/5), [#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
   * After uploading the NFT, the bot would crash when it tried to sell it (the URL was not correct). Now it doesn't. **[#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
   * MacOS and Linux support improved.
   * Calendar method improved.
