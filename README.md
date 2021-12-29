@@ -350,7 +350,7 @@ pip install -r requirements.txt
     </tbody>
  </table>
  
-  And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_and_sale.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_and_sale.xlsx).
+  And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_and_sale.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
  
 * ### Upload only:
 
@@ -539,89 +539,108 @@ pip install -r requirements.txt
           <td>NFT URL</td>
           <td>String</td>
           <td></td>
-          <td></td>
+          <td>"nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",</td>
           <td>https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145;;</td>
-          <td></td>
+          <td>https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145</td>
        </tr>
        <tr>
           <td>Supply</td>
           <td>Integer</td>
           <td></td>
-          <td></td>
+          <td>"supply": 1,</td>
           <td>1;;</td>
-          <td></td>
+          <td>1</td>
        </tr>
        <tr>
           <td>Blockchain</td>
           <td>String</td>
           <td></td>
-          <td></td>
+          <td>"blockchain": "Polygon",</td>
           <td>Polygon;;</td>
-          <td></td>
+          <td>Polygon</td>
        </tr>
        <tr>
           <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
           <td>String</td>
           <td></td>
-          <td></td>
+          <td>"sale_type": "Timed Auction",</td>
           <td>Timed Auction;;</td>
-          <td></td>
+          <td>Timed Auction</td>
        </tr>
        <tr>
           <td><strong>Price *</strong></td>
           <td>Float or Integer</td>
           <td></td>
-          <td></td>
+          <td>"price": 5,
+             <br>"price: 0.25,</td>
           <td>5;;
              <br>0.25;;
           </td>
-          <td></td>
+          <td>5
+             <br>0.25
+          </td>
        </tr>
        <tr>
           <td>Method (only for "Timed Auction")</td>
           <td>List[String, Float]</td>
           <td>["method", price] or ["method, ""]</td>
-          <td></td>
+          <td>"method": ["Sell with declining price", 0.002],
+             <br>"method": ["Sell to highest bidder", 0.05],
+             <br>"method": ["Sell to highest bidder", ""],</td>
           <td>["Sell with declining price", 0.002];;
              <br>["Sell to highest bidder", 0.05];;
              <br>["Sell to highest bidder", ""];;
           </td>
-          <td></td>
+          <td>["Sell with declining price", 0.002]
+             <br>["Sell to highest bidder", 0.05]
+             <br>["Sell to highest bidder", ""]
+          </td>
        </tr>
        <tr>
           <td>Duration ("DD-MM-YYYY HH:MM")</td>
           <td>List[String, String] or List[String] or String</td>
           <td>["from_date", "to_date"] or ["days/weeks/months"] or "days/weeks/months"</td>
-          <td></td>
+          <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
+             <br>"duration": ["1 week"],
+             <br>"duration": "1 week",
+          </td>
           <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
              <br>["1 week"];;
              <br>1 week;;
           </td>
-          <td></td>
+          <td>["01-01-2022 14:00", "01-04-2022 15:00"]
+             <br>["1 week"]
+             <br>1 week
+          </td>
        </tr>
        <tr>
           <td>Specific Buyer</td>
           <td>List[Boolean, String] or [Boolean] or Boolean</td>
           <td>[True, "wallet"] or [False] or False</td>
-          <td></td>
+          <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+              <br>"specific_buyer": [false]
+              <br>"specific_buyer": false</td>
           <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
              <br>[False];;
              <br>False;;
           </td>
-          <td></td>
+          <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+             <br>[False]
+             <br>False
+          </td>
        </tr>
        <tr>
           <td><strong>Quantity * (only for 1+ supplies)</strong></td>
           <td>Integer</td>
           <td></td>
-          <td></td>
+          <td>"quantity": 4</td>
           <td>4</td>
-          <td></td>
+          <td>4</td>
        </tr>
     </tbody>
  </table>
 
-And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv).
+And it gives you something like this: [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv), [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_sale_only.json), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_sale_only.xlsx).
 
 
 ## Configuration of the sales part of the NFTs:
