@@ -2,11 +2,9 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
-Version: 1.3
+Version: 1.4
 """
 
-# TODO: Upload or sale choice - set files.
-# TODO: Complete listing - sign the contract to sell the NFT.
 
 # Colorama module: pip install colorama
 from colorama import init, Fore, Style  # Do not work on MacOS and Linux.
@@ -16,11 +14,13 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-# Python default import.
+# Python default imports.
 from glob import glob
+import traceback as tb
 import os
 
 
@@ -36,15 +36,15 @@ else:  # For MacOS and Linux users.
 
 
 class Reader:
-    """Read files and extract NFTs' data. Convert all types into a list."""
+    """Read files and extract NFTs data. Convert all types into a list."""
 
     def __init__(self, path: str) -> None:
         """Basically open a file and get all NFTs' data."""
         # Get file's extension to lowercase (MacOS support).
-        self.path = path  # Instance file path.
+        self.path = path  # Instance the file path.
         # Get splitted file name (['text', '.txt']) and then remove the dot.
         self.extension = os.path.splitext(self.path)[1][1:].lower()
-        # Check if extension is supported by the Reader class.
+        # Check if the extension is supported by the Reader class.
         if self.extension in ('json', 'csv', 'xlsx'):
             # Eval function: self.extract_{FILE_EXTENSION}_file()
             eval('self.extract_' + self.extension + '_file()')
@@ -76,10 +76,17 @@ class Reader:
 class Structure:
     """Structure JSON/CSV/XLSX data lists or dictionnaries."""
 
-    def __init__(self) -> None:
+    def __init__(self, action: list) -> None:
         """Make a copy of the readed file and its extension."""
         self.file = reader.file.copy()  # File data copy.
         self.extension = reader.extension  # File extension copy.
+        self.action: list = action  # 1, 2 or 1 and 2.
+        if 1 in self.action and 2 not in self.action:
+            from uuid import uuid4  # A Python default import.
+            self.save_file = f'data/{str(uuid4())[:8]}.csv'
+            with open(self.save_file, 'a+', encoding='utf-8') as file:
+                file.write('nft_url;; supply;; blockchain;; type;; price;; '
+                           'method;; duration;; specific_buyer;; quantity')
 
     def get_data(self, nft_number: int) -> None:
         """Get NFT's data."""
@@ -139,27 +146,32 @@ class Structure:
 
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
-        self.nft_data_list = nft_data  # For development.
-        # Upload part:
-        self.file_path: str = os.path.abspath(str(nft_data[0]))
-        self.nft_name: str = str(nft_data[1])  # Set string value to
-        self.link: str = str(nft_data[2])  # real string to prevent
-        self.description: str = str(nft_data[3])  # different types.
-        self.collection: str = str(nft_data[4])
-        self.properties: list = nft_data[5]  # [[type, name], ...].
-        self.levels: list = nft_data[6]  # [[name, from, to], ...].
-        self.stats: list = nft_data[7]  # [[name, from, to], ...].
-        self.unlockable_content: list or bool = nft_data[8]  # [bool, text].
-        self.explicit_and_sensitive_content: bool = nft_data[9]
-        self.supply: int = nft_data[10]
-        self.blockchain: str = str(nft_data[11]).capitalize()
-        # Sell part:
-        self.type: str = str(nft_data[12]).title()
-        self.price: float or int = nft_data[13]
-        self.method: list = nft_data[14]  # [method, price].
-        self.duration: list or str = nft_data[15]
-        self.specific_buyer: list or bool = nft_data[16]
-        self.quantity: int = nft_data[17]
+        # self.nft_data_list = nft_data  # For development.
+        index = 9 if 1 not in self.action else 0
+        if 1 in self.action:  # Upload part.
+            self.file_path: str = os.path.abspath(str(nft_data[0]))
+            self.nft_name: str = str(nft_data[1])  # Set string value to
+            self.link: str = str(nft_data[2])  # real string to prevent
+            self.description: str = str(nft_data[3])  # different types.
+            self.collection: str = str(nft_data[4])
+            self.properties: list = nft_data[5]  # [[type, name], ...].
+            self.levels: list = nft_data[6]  # [[name, from, to], ...].
+            self.stats: list = nft_data[7]  # [[name, from, to], ...].
+            self.unlockable_content: list or bool = nft_data[8]  # [bool, str].
+            self.explicit_and_sensitive_content: bool = nft_data[9]
+            self.supply: int = nft_data[10]
+            self.blockchain: str = str(nft_data[11]).capitalize()
+        if 2 in self.action:  # Sale part.
+            self.type: str = str(nft_data[12 - index]).title()
+            self.price: float or int = nft_data[13 - index]
+            self.method: list = nft_data[14 - index]  # [method, price].
+            self.duration: list or str = nft_data[15 - index]
+            self.specific_buyer: list or bool = nft_data[16 - index]
+            self.quantity: int = nft_data[17 - index]
+        if index != 0:  # Sale only!
+            self.nft_url: str = str(nft_data[0])
+            self.supply: int = nft_data[1]
+            self.blockchain: str = str(nft_data[2]).capitalize()
 
     def is_empty(self, element: str, data: str, value: str = '') -> bool:
         """Check if data is empty and input its value."""
@@ -168,6 +180,14 @@ class Structure:
             return False
         return True
 
+    def save_nft(self, url) -> None:
+        """Save the NFT URL, Blockchain and supply number in a file."""
+        # Note: only CSV file will be created.
+        with open(self.save_file, 'a+', encoding='utf-8') as file:
+            file.write(f'\n{url};; {self.supply};; {self.blockchain};;'
+                       ' ;; ;; ;; ;; ;;')  # Complete data manually.
+        print(f'{green}Data saved in {self.save_file}{reset}')
+
 
 class Webdriver:
     """Webdriver class and methods to prevent exceptions."""
@@ -175,7 +195,8 @@ class Webdriver:
     def __init__(self) -> None:
         """Contains the file paths of the webdriver and the extension."""
         # Used files path, change them with your path if necessary.
-        self.webdriver_path = os.path.abspath('assets/chromedriver.exe')
+        self.webdriver_path = os.path.abspath('assets/chromedriver.exe') if \
+            os.name == 'nt' else os.path.abspath('assets/chromedriver')
         self.metamask_extension_path = os.path.abspath('assets/MetaMask.crx')
         self.driver = self.webdriver()  # Start new webdriver.
 
@@ -185,7 +206,8 @@ class Webdriver:
         options.add_extension(self.metamask_extension_path)  # Add extension.
         options.add_argument("log-level=3")  # No logs is printed.
         options.add_argument("--mute-audio")  # Audio is muted.
-        driver = webdriver.Chrome(self.webdriver_path, options=options)
+        driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
+            self.webdriver_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
 
@@ -219,9 +241,10 @@ class Webdriver:
     def clear_text(self, element) -> None:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then clear its text.
-        webdriver.ActionChains(self.driver).key_down(Keys.CONTROL).perform()
+        control = Keys.CONTROL if os.name == 'nt' else Keys.COMMAND
+        webdriver.ActionChains(self.driver).key_down(control).perform()
         webdriver.ActionChains(self.driver).send_keys('a').perform()
-        webdriver.ActionChains(self.driver).key_up(Keys.CONTROL).perform()
+        webdriver.ActionChains(self.driver).key_up(control).perform()
 
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
@@ -275,7 +298,7 @@ class Opensea:
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
             print(f'{green}Logged to Metamask.{reset}')
-        except TE:  # Failed - a web element is not accessible.
+        except Exception:  # Failed - a web element is not accessible.
             print(f'\n{red}Login to MetaMask failed, retrying...{reset}')
             self.metamask_login()
 
@@ -307,12 +330,15 @@ class Opensea:
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
             print(f'{green}Logged to Opensea.{reset}\n')
-        except TE:  # A web element is not accessible or contract failed.
+        except Exception:  # The contract failed.
             print(f'{red}Login to Opensea failed. Retrying.{reset}')
             web.window_handles(1)  # Switch back to the Opensea tab.
             web.driver.refresh()  # Reload the page (is the login failed?).
             if web.driver.current_url == self.create_url:
-                WDW(web.driver, 15).until(EC.number_of_windows_to_be(2))
+                try:  # Wait until the MetaMask tab is closed.
+                    WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
+                except Exception:  # The MetaMask tab cannot be closed.
+                    web.window_handles(1)  # Switch back to the Opensea tab.
                 web.window_handles(2)  # Switch to the MetaMask pop up tab.
                 self.metamask_contract()  # Sign the contract.
                 print(f'Login to Opensea. {green}Logged to Opensea.{reset}\n')
@@ -322,8 +348,7 @@ class Opensea:
     def opensea_upload(self, number: int) -> bool:
         """Upload multiple NFTs automatically on Opensea."""
         print(f'Uploading NFT n°{number}/{len(structure.file)}.', end=' ')
-        try:  # Input all datas of the NFT.
-            # Go to the Opensea create URL.
+        try:  # Go to the Opensea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
             if not os.path.exists(structure.file_path):  # Upload the NFT file.
                 raise TE('File doesn\'t exist or path is incorrect.')
@@ -414,18 +439,24 @@ class Opensea:
                 structure.blockchain = 'Ethereum'
             web.clickable('(//div[contains(@class, "submit")])'  # Click on the
                           '[position()=1]/div/span/button')  # "Create" button.
-            web.visible('//div[@role="dialog"]')  # Check if it's uploaded.
+            WDW(web.driver, 30).until(lambda _: web.driver.current_url !=
+                                      self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
+            if 2 not in structure.action:  # Save the data for future upload.
+                structure.save_nft(web.driver.current_url)
             return True  # If it perfectly worked.
-        except TE as error:  # An element is not reachable or a XPATH changes.
-            print(f'{red}An error occured. {error}{reset}')
+        except Exception as error:  # An element is not reachable.
+            print(f'{red}An error occured. {error}\n{tb.print_exc()}{reset}')
             return False  # If it failed.
 
     def opensea_sale(self, number: int, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
         print(f'Sale of the NFT n°{number}/{len(structure.file)}.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            web.driver.get(web.driver.current_url + '/sell')  # Sale page.
+            if 2 in structure.action and 1 not in structure.action:
+                web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
+            else:  # The NFT has just been uploaded.
+                web.driver.get(web.driver.current_url + '/sell')  # Sale page.
             if not isinstance(structure.supply, int):
                 raise TE('The supply number must be an integer.')
             elif structure.supply == 1 and structure.blockchain == 'Ethereum':
@@ -523,35 +554,33 @@ class Opensea:
                     web.send_date('//*[@id="start-time"]',  # Starting date +
                                   f'{start_time}{Keys.ENTER}')  # close frame.
                 elif len(structure.duration) == 1:  # In {n} days/week/months.
-                    web.clickable('//*[@id="duration"]')  # Date button.
                     if structure.duration[0] == '':  # Duration not specified.
                         raise TE('Duration must be specified.')
-                    date_button = '//*[@role="dialog"]/div[1]/div/div[2]/input'
-                    if web.visible(date_button).get_attribute('value') \
-                            != structure.duration[0]:  # Not the default value.
-                        web.clickable(date_button)  # Date Range sheet.
+                    if web.visible('//*[@id="duration"]/div[2]').text \
+                            != structure.duration[0]:  # Not default.
+                        web.clickable('//*[@id="duration"]')  # Date button.
+                        web.clickable('//*[@role="dialog"]'  # Duration Range
+                                      '/div[1]/div/div[2]/input')  # sheet.
                         web.clickable('//span[contains(text(), '   # Date span.
                                       f'"{structure.duration[0]}")]/../..')
-                    web.send_keys('//*[@role="dialog"]', Keys.ENTER)  # Close.
+                        web.send_keys('//*[@role="dialog"]', Keys.ENTER)
             try:  # Click on the "Complete listing" (submit) button.
                 web.clickable('//button[@type="submit"]')
             except Exception:  # An unknown error has occured.
                 raise TE('The submit button cannot be clicked.')
-            print(f'{green}NFT put up for sale.{reset}')
-        except TE as error:  # Failed, an error has occured.
-            print(f'{red}NFT sale cancelled. {error}{reset}')
-
-
-def cls() -> None:
-    """Clear console function."""
-    # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def exit(message: str = '') -> None:
-    """Stop running the program using the sys module."""
-    import sys
-    sys.exit(f'{red}{message}{reset}')
+            web.clickable('//div[@data-testid="Panel"][last()]/div/div/div/'
+                          'div/button')  # Click on the "Sign" button.
+            # Note: this part may only work for Polygon Blockchain.
+            # The Ethereum Blockchain needs a deposit to work.
+            web.window_handles(2)  # Switch to the MetaMask pop up tab.
+            self.metamask_contract()  # Sign the contract.
+            try:  # Wait until the NFT is listed.
+                web.visible('//header/h4')  # "Your NFT is listed!".
+                print(f'{green}NFT put up for sale.{reset}')
+            except Exception:  # An error occured while listing the NFT.
+                raise TE('The NFT is not listed.')
+        except Exception as error:  # Failed, an error has occured.
+            print(f'{red}NFT sale cancelled. {error}\n{tb.print_exc()}{reset}')
 
 
 def read_file(file_: str, question: str) -> str:
@@ -569,6 +598,22 @@ def read_file(file_: str, question: str) -> str:
                 file.write(text)  # Write the text in file.
                 print(f'{green}Saved.{reset}')
         return text
+
+
+def perform_action() -> list:
+    """Suggest multiple actions to the user."""
+    text_list = [f'{yellow}\nChoose an action to perform:{reset}',
+                 '1 - Upload and sell NFTs (18 details/NFT).',
+                 '2 - Upload NFTs (12 details/NFT).', '3 - Sell '
+                 'NFTs (9 details/NFT including 3 autogenerated).']
+    action = [[1, 2], [1], [2]]
+    while True:
+        [print(string) for string in text_list]
+        number = input('Action number: ')
+        if number.isdigit():  # Check if answer is a number.
+            if int(number) > 0:
+                return action[int(number) - 1]
+        print(f'{red}Answer must be a strictly positive integer.{reset}')
 
 
 def data_file() -> str:
@@ -597,6 +642,18 @@ def data_file() -> str:
         print(f'{red}File doesn\'t exist.{reset}')
 
 
+def cls() -> None:
+    """Clear console function."""
+    # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def exit(message: str = '') -> None:
+    """Stop running the program using the sys module."""
+    import sys
+    sys.exit(f'{red}{message}{reset}')
+
+
 if __name__ == '__main__':
 
     cls()  # Clear console.
@@ -604,21 +661,30 @@ if __name__ == '__main__':
     print(f'{green}Made by Maxime. '
           f'\n@Github: https://github.com/maximedrn{reset}')
 
-    # Init Opensea class and send the password and the recovery phrase.
+    # Init the Opensea class and send the password and the recovery phrase.
     opensea = Opensea(
         read_file('password', '\nWhat is your MetaMask password? '), read_file(
             'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
 
-    reader = Reader(data_file())  # Ask for file and read it.
-    structure = Structure()  # Init Structure class to order data.
+    action = perform_action()  # What the user wants to do.
+    reader = Reader(data_file())  # Ask for a file and read it.
+    structure = Structure(action)  # Init the Structure class to order data.
     web = Webdriver()  # Start a new webdriver and init its methods.
     opensea.metamask_login()  # Connect to MetaMask.
     opensea.opensea_login()  # Connect to Opensea.
 
     for nft_number in range(reader.lenght_file):
         structure.get_data(nft_number)  # Structure the data of the NFT.
-        if opensea.opensea_upload(nft_number + 1):  # Upload the NFT.
-            if isinstance(structure.price, int) or \
+        upload = None  # Prevent Undefined value error.
+        if 1 in action:  # 1 = Upload. If user wants to upload the NFT.
+            upload = opensea.opensea_upload(nft_number + 1)  # Upload the NFT.
+        if 2 in action:  # 2 - Sale. If user wants to sell the NFT.
+            if 1 in action and not upload:  # Do not upload the NFT because of
+                continue  # a user choice or a failure of the upload.
+            elif isinstance(structure.price, int) or \
                     isinstance(structure.price, float):
                 if structure.price > 0:  # If price has been defined.
-                    opensea.opensea_sale(nft_number + 1)  # Sell the NFT.
+                    opensea.opensea_sale(nft_number + 1)  # Sell NFT.
+
+    web.driver.quit()  # Stop the webdriver.
+    print(f'\n{green}All done! Your NFTs have been uploaded/sold.{reset}')
