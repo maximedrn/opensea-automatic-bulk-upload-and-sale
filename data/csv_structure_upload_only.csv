@@ -1,0 +1,4 @@
+file_path;; nft_name;; external_link;; description;; collection;; properties;; levels;; stats;; unlockable_content;; explicit_and_sensitive_content;; supply;; blockchain
+C:/Users/Admin/Desktop/NFT/nft_0001.png;; NFT #1;; https://github.com/maximedrn/opensea_automatic_uploader;; This is my first NFT.;; My First NFT;; [["Dog", "Male"], ["Cat", "Female"]];; [["Speed", 2, 5], ["Width", 1, 10]];; [["Strenght", 10, 100], ["Age", 1, 99]];; [True, "Thank you for purchasing my NFT!"];; True;; 1;; Polygon
+C:/Users/Admin/Desktop/NFT/nft_0002.png;; NFT #2;; https://github.com/maximedrn/opensea_automatic_uploader;; This is my second NFT.;; My Second NFT;; [["Dog", "Male"]];; [["Speed", 2, 5]];; [["Strenght", 10, 100]];; [False];; False;; 10;; Ethereum
+C:/Users/Admin/Desktop/NFT/nft_0003.png;; NFT #3;; https://github.com/maximedrn/opensea_automatic_uploader;; This is my third NFT.;; My Third NFT;; ["Dog", "Male"];; ["Speed", 2, 5];; ["Strenght", 10, 100];; False;; False;; ;; ;;
