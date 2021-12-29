@@ -368,7 +368,6 @@ pip install -r requirements.txt
           </td>
           <td>4</td>
           <td>4</td>
-          <td></td>
        </tr>
     </tbody>
  </table>
