@@ -503,9 +503,7 @@ pip install -r requirements.txt
           <td><strong>Supply *</strong></td>
           <td>Integer</td>
           <td></td>
-          <td>"supply": 1,
-             <br>"supply" : "",
-          </td>
+          <td>"supply": 1,</td>
           <td>1;;</td>
           <td>1</td>
        </tr>
@@ -513,9 +511,7 @@ pip install -r requirements.txt
           <td><strong>Blockchain *</strong></td>
           <td>String</td>
           <td></td>
-          <td>"blockchain": "Polygon"
-             <br>"blockchain" : ""
-          </td>
+          <td>"blockchain": "Polygon"</td>
           <td>Polygon</td>
           <td>Polygon</td>
        </tr>
