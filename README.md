@@ -91,7 +91,7 @@ pip install -r requirements.txt
 ```
 * ### Configuration of the bot:
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
-  * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome (or Chrome like) browser and your OS (Operating System). To know your Google Chrome (or Chrome like) browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
+  * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). To know your Google Chrome browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
   * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
@@ -685,8 +685,8 @@ When you want to sell your NFTs, Opensea requires various details according to t
    
    <td><strong>Price</strong> (ETH)</td>
    <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
-   <td>Reserve for a <strong>specific buyer</strong></td>
    <td><i>(Optional)</i> <strong>Reserved Price</strong> (WETH) greater than 1 WETH and greater than <strong>Starting Price</strong>.</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
    
    <td><strong>Starting Price</strong> (ETH)</td>
    <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
