@@ -648,58 +648,66 @@ And it gives you something like this: [CSV](https://github.com/maximedrn/opensea
 
 ## Configuration of the sales part of the NFTs:
 
-* If Blockhain is **Ethereum**:
-  * If supply number is **equal to 1**:
-    * If you chose a **Fixed Price**:
-      * **Price** (ETH). 
-      * **Duration**: from a date to an other date (less than 6 months) or:
-        * 1 day.
-        * 3 days.
-        * 1 week.
-        * 6 months.
-      * **Sell as bundle.** ➜ **Not supported.**
-      * **Reserve for specific buyer**. 
-    * If you chose a **Timed Auction**:
-      * 1st method: **Sell to highest bidder**:
-        * **Starting Price** (WETH).
-        * **Duration**: from a date to an other date (less than 6 months) or:
-          * 1 day.
-          * 3 days.
-          * 1 week.
-        * _Optional_: **Reserved Price** (WETH) greater than 1 WETH and greater than **Starting Price**.
-      * 2nd method: **Sell with declining price**:
-        * **Starting Price** (ETH).
-        * **Duration**: from a date to an other date (less than 6 months) or:
-          * 1 day.
-          * 3 days.
-          * 1 week.
-        * **Ending Price** (ETH) less than **Starting Price**.
-   * If supply number is **higher than 1**:  
-     * **Price** (ETH). 
-     * **Duration**: from a date to an other date (less than 6 months) or:
-       * 1 day.
-       * 3 days.
-       * 1 week.
-       * 6 months.
-     * **Sell as bundle.** ➜ **Not supported.**
-     * **Reserve for specific buyer**. 
-* If Blockchain is **Polygon**:  
-  * If supply number is **equal to 1**:  
-    * **Price** (ETH). 
-    * **Duration**: from a date to an other date (less than 6 months) or:
-      * 1 day.
-      * 3 days.
-      * 1 week.
-      * 6 months.
-  * If supply number is **higher than 1**:  
-    * **Quantity** (less or equal to the supply). 
-    * **Price** (ETH). 
-    * **Duration**: from a date to an other date (less than 6 months) or:
-      * 1 day.
-      * 3 days.
-      * 1 week.
-      * 6 months.
-    * **Reserve for specific buyer**.
+When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.
+
+<table>
+ <tbody>
+  <tr>
+   <td colspan="15">Ethereum</td>
+   <td colspan="7">Polygon</td>
+  </tr>
+  <tr>
+   <td colspan="11">Supply number equal to 1</td>
+   <td colspan="4">Supply number higher than 1</td>
+   <td colspan="3">Supply number equal to 1</td>
+   <td colspan="4">Supply number higher than 1</td>
+  </tr>
+  <tr>
+   <td colspan="3">Fixed Price</td>
+   <td colspan="8">Timed Auction</td>
+   <td colspan="4"></td>
+   <td colspan="3"></td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <td colspan="3"></td>
+   <td colspan="4">Sell to highest bidder</td>
+   <td colspan="4">Sell with declining price</td>
+   <td colspan="4"></td>
+   <td colspan="3"></td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <td><strong>Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+   
+   <td><strong>Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+   <td><i>(Optional)</i> <strong>Reserved Price</strong> (WETH) greater than 1 WETH and greater than <strong>Starting Price</strong>.</td>
+   
+   <td><strong>Starting Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
+   <td><strong>Ending Price</strong> (ETH) less than the<strong>Starting Price</strong>.</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+   
+   <td><strong>Quantity</strong></td>
+   <td><strong>Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+   
+   <td><strong>Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+   
+   <td><strong>Quantity</strong></td>
+   <td><strong>Price</strong> (ETH)</td>
+   <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+   <td>Reserve for a <strong>specific buyer</strong></td>
+  </tr>
+ </tbody>
+</table>
 
 
 ## Known issues and important things to know:
