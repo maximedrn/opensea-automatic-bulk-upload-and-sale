@@ -713,6 +713,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 
 ## Known issues and important things to know:
 
+* Make sure to deposit Ethereum (ETH/WETH) or Polygon (MATIC) on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale.
 * **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
 ```json
 // You can use this format for your path:
