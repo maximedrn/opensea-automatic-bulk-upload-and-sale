@@ -14,6 +14,9 @@
   * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-bot).
 * **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure).**
+  * [Upload and sale](https://github.com/maximedrn/opensea_automatic_uploader#upload_and_sale).
+  * [Upload only](https://github.com/maximedrn/opensea_automatic_uploader#upload_only).
+  * [Sale only](https://github.com/maximedrn/opensea_automatic_uploader#sale_only).
 * **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sales-part-of-the-nfts).**
 * **[Known issues and important things](https://github.com/maximedrn/opensea_automatic_uploader#known-issues-and-important-things).**
 
@@ -64,7 +67,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 * ✔ <strike>Possibility to set a price for each NFT.</strike>  
   * ✔ Support for 1+ supplies and Polygon blockchain.
   * ❌ "Sell as bundle" part (not planned to be added).
-  * ❌ **Sale part** (soon).
+  * ✔ **Sale part**.
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
 * ✔ <strike>JSON structure reader and interpreter.</strike>
