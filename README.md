@@ -105,8 +105,8 @@ pip install -r requirements.txt
  <table>
     <tbody>
        <tr>
-          <td>Settings</td>
-          <td>Types</td>
+          <td>Details</td>
+          <td>Data Types</td>
           <td>Literal examples</td>
           <td>JSON examples</td>
           <td>CSV examples</td>
@@ -160,8 +160,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Properties</td>
-          <td>List[[String, String], ...] or List[String, String]</td>
-          <td>["type", "name"] or [["type", "name"], ["type", "name"]]</td>
+          <td>List[[String, String], ...]
+           <br>List[String, String]</td>
+          <td>["type", "name"]
+           <br>[["type", "name"], ["type", "name"]]</td>
           <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
              <br>"properties": [{ "type": "Dog", "name": "Male" }],
              <br>"properties": "",
@@ -177,8 +179,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Levels</td>
-          <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-          <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
+          <td>List[[String, Integer, Integer], ...]
+           <br>List[String, Integer, Integer]</td>
+          <td>["name", value_from, value_to]
+           <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
           <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
              <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
              <br>"levels": "",
@@ -194,8 +198,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Stats</td>
-          <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-          <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
+          <td>List[[String, Integer, Integer], ...]
+           <br>List[String, Integer, Integer]</td>
+          <td>["name", value_from, value_to]
+           <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
           <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
              <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
              <br>"stats": "",
@@ -211,8 +217,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Unlockable Content</td>
-          <td>List[Boolean, String] or List[Boolean] or Boolean</td>
-          <td>[True, "unlockable_content"] or [False] or False</td>
+          <td>List[Boolean, String]
+           <br>List[Boolean]
+           <br>Boolean</td>
+          <td>[True, "unlockable_content"]
+           <br>[False]
+           <br>False</td>
           <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
              <br>"unlockable_content": [false],
              <br>"unlockable_content": false,
@@ -289,7 +299,8 @@ pip install -r requirements.txt
        <tr>
           <td>Method (only for "Timed Auction")</td>
           <td>List[String, Float]</td>
-          <td>["method", price] or ["method, ""]</td>
+          <td>["method", price]
+           <br>["method, ""]</td>
           <td>"method": ["Sell with declining price", 0.002],
              <br>"method": ["Sell to highest bidder", 0.05],
              <br>"method": ["Sell to highest bidder", ""],
@@ -306,8 +317,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Duration ("DD-MM-YYYY HH:MM")</td>
-          <td>List[String, String] or List[String] or String</td>
-          <td>["from_date", "to_date"] or ["days/weeks/months"] or "days/weeks/months"</td>
+          <td>List[String, String]
+           <br>List[String]
+           <br>String</td>
+          <td>["from_date", "to_date"]
+           <br>["days/weeks/months"]
+           <br>"days/weeks/months"</td>
           <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
              <br>"duration": ["1 week"],
              <br>"duration": "1 week",
@@ -324,8 +339,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Specific Buyer</td>
-          <td>List[Boolean, String] or [Boolean] or Boolean</td>
-          <td>[True, "wallet"] or [False] or False</td>
+          <td>List[Boolean, String]
+           <br>[Boolean]
+           <br>Boolean</td>
+          <td>[True, "wallet"]
+           <br>[False]
+           <br>False</td>
           <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],
              <br>"specific_buyer": [false],
              <br>"specific_buyer": false,
@@ -362,8 +381,8 @@ pip install -r requirements.txt
  <table>
     <tbody>
        <tr>
-          <td>Settings</td>
-          <td>Types</td>
+          <td>Details</td>
+          <td>Data Types</td>
           <td>Literal examples</td>
           <td>JSON examples</td>
           <td>CSV examples</td>
@@ -417,8 +436,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Properties</td>
-          <td>List[[String, String], ...] or List[String, String]</td>
-          <td>["type", "name"] or [["type", "name"], ["type", "name"]]</td>
+          <td>List[[String, String], ...]
+           <br>List[String, String]</td>
+          <td>["type", "name"]
+           <br>[["type", "name"], ["type", "name"]]</td>
           <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
              <br>"properties": [{ "type": "Dog", "name": "Male" }],
              <br>"properties": "",
@@ -434,8 +455,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Levels</td>
-          <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-          <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
+          <td>List[[String, Integer, Integer], ...]
+           <br>List[String, Integer, Integer]</td>
+          <td>["name", value_from, value_to]
+           <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
           <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
              <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
              <br>"levels": "",
@@ -451,8 +474,10 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Stats</td>
-          <td>List[[String, Integer, Integer], ...] or List[String, Integer, Integer]</td>
-          <td>["name", value_from, value_to] or [["name", value_from, value_to], ["name", value_from, value_to]]</td>
+          <td>List[[String, Integer, Integer], ...]
+           <br>List[String, Integer, Integer]</td>
+          <td>["name", value_from, value_to]
+           <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
           <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
              <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
              <br>"stats": "",
@@ -468,8 +493,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Unlockable Content</td>
-          <td>List[Boolean, String] or List[Boolean] or Boolean</td>
-          <td>[True, "unlockable_content"] or [False] or False</td>
+          <td>List[Boolean, String]
+           <br>List[Boolean]
+           <br>Boolean</td>
+          <td>[True, "unlockable_content"]
+           <br>[False]
+           <br>False</td>
           <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
              <br>"unlockable_content": [false],
              <br>"unlockable_content": false,
@@ -528,8 +557,8 @@ pip install -r requirements.txt
  <table>
     <tbody>
        <tr>
-          <td>Settings</td>
-          <td>Types</td>
+          <td>Details</td>
+          <td>Data Types</td>
           <td>Literal examples</td>
           <td>JSON examples</td>
           <td>CSV examples</td>
@@ -583,7 +612,8 @@ pip install -r requirements.txt
        <tr>
           <td>Method (only for "Timed Auction")</td>
           <td>List[String, Float]</td>
-          <td>["method", price] or ["method, ""]</td>
+          <td>["method", price]
+           <br>["method, ""]</td>
           <td>"method": ["Sell with declining price", 0.002],
              <br>"method": ["Sell to highest bidder", 0.05],
              <br>"method": ["Sell to highest bidder", ""],</td>
@@ -598,8 +628,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Duration ("DD-MM-YYYY HH:MM")</td>
-          <td>List[String, String] or List[String] or String</td>
-          <td>["from_date", "to_date"] or ["days/weeks/months"] or "days/weeks/months"</td>
+          <td>List[String, String]
+           <br>List[String]
+           <br>String</td>
+          <td>["from_date", "to_date"]
+           <br>["days/weeks/months"]
+           <br>"days/weeks/months"</td>
           <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
              <br>"duration": ["1 week"],
              <br>"duration": "1 week",
@@ -615,8 +649,12 @@ pip install -r requirements.txt
        </tr>
        <tr>
           <td>Specific Buyer</td>
-          <td>List[Boolean, String] or [Boolean] or Boolean</td>
-          <td>[True, "wallet"] or [False] or False</td>
+          <td>List[Boolean, String]
+           <br>[Boolean]
+           <br>Boolean</td>
+          <td>[True, "wallet"]
+           <br>[False]
+           <br>False</td>
           <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
               <br>"specific_buyer": [false]
               <br>"specific_buyer": false</td>
