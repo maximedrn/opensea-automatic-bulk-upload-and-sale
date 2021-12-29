@@ -1,0 +1,63 @@
+{
+     "nft": [
+       {
+         "nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",
+         "supply": 1,
+         "blockchain": "Polygon",
+         "sale_type": "Timed Auction",
+         "price": 5,
+         "method": [
+           "Sell with declining price",
+           0.002
+         ],
+         "duration": [
+           "01-01-2022 14:00", "01-04-2022 15:00"
+         ],
+         "specific_buyer": [
+           true,
+           "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
+         ],
+         "quantity": 1
+       },
+       {
+         "nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",
+         "supply": 10,
+         "blockchain": "Ethereum",
+         "sale_type": "Fixed Price",
+         "price": 0.02,
+         "method": [
+           "Sell to highest bidder",
+           0.1
+         ],
+         "duration": [
+           "1 week"
+         ],
+         "specific_buyer": [
+           false
+         ],
+         "quantity": 2
+       },
+       {
+         "nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",
+         "supply": 1,
+         "blockchain": "",
+         "sale_type": "",
+         "price": 0.02,
+         "method": "",
+         "duration": "1 week",
+         "specific_buyer": false,
+         "quantity": ""
+       },
+       {
+         "nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",
+         "supply": "",
+         "blockchain": "",
+         "sale_type": "",
+         "price": 0.02,
+         "method": "",
+         "duration": "",
+         "specific_buyer": "",
+         "quantity": ""
+       }
+     ]
+   }
