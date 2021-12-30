@@ -2,7 +2,7 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
-Version: 1.4
+Version: 1.4.1
 """
 
 
@@ -111,8 +111,11 @@ class Structure:
 
     def structure_xlsx(self) -> None:
         """Transform XLSX file into a list."""
-        self.structure_data(self.change_type([self.file[element].get(
-            self.nft_number) for element in self.file]))
+        data_list = self.change_type([self.file[element].get(
+            self.nft_number) for element in self.file]) 
+        self.structure_data([element.replace('nan', '')
+            if isinstance(element, str) else element 
+            for element in data_list])
 
     def dict_to_list(self, element: dict or str) -> list or str:
         """Transform a dictionnary into a list. - JSON file method."""
@@ -146,7 +149,8 @@ class Structure:
 
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
-        # self.nft_data_list = nft_data  # For development.
+        self.nft_data_list = nft_data  # For development.
+        print(self.nft_data_list)
         index = 9 if 1 not in self.action else 0
         if 1 in self.action:  # Upload part.
             self.file_path: str = os.path.abspath(str(nft_data[0]))
@@ -347,7 +351,7 @@ class Opensea:
 
     def opensea_upload(self, number: int) -> bool:
         """Upload multiple NFTs automatically on Opensea."""
-        print(f'Uploading NFT n°{number}/{len(structure.file)}.', end=' ')
+        print(f'Uploading NFT n°{number}/{reader.lenght_file}.', end=' ')
         try:  # Go to the Opensea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
             if not os.path.exists(structure.file_path):  # Upload the NFT file.
