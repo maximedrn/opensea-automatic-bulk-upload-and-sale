@@ -90,6 +90,7 @@ git clone https://github.com/maximedrn/opensea_automatic_uploader.git
 pip install -r requirements.txt
 ```
 * ### Configuration of the bot:
+  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea_automatic_uploader-master`.
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
   * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). To know your Google Chrome browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
   * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
