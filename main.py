@@ -149,8 +149,7 @@ class Structure:
 
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
-        self.nft_data_list = nft_data  # For development.
-        print(self.nft_data_list)
+        # self.nft_data_list = nft_data  # For development.
         index = 9 if 1 not in self.action else 0
         if 1 in self.action:  # Upload part.
             self.file_path: str = os.path.abspath(str(nft_data[0]))
