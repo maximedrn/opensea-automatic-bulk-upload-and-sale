@@ -130,7 +130,7 @@ If you do not want to add details to the values not required, leave:
 ```json
 "file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
 "nft_name": "NFT #1",
-"details": "",
+"description": "",
 ```
 
 <strong>Required values *</strong>  
