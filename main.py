@@ -2,7 +2,7 @@
 @author: Maxime.
 
 Github: https://github.com/maximedrn
-Version: 1.4.1
+Version: 1.4.2
 """
 
 
@@ -111,11 +111,10 @@ class Structure:
 
     def structure_xlsx(self) -> None:
         """Transform XLSX file into a list."""
-        data_list = self.change_type([self.file[element].get(
-            self.nft_number) for element in self.file]) 
-        self.structure_data([element.replace('nan', '')
-            if isinstance(element, str) else element 
-            for element in data_list])
+        self.structure_data([
+            element.replace('nan', '').strip() if isinstance(element, str) else
+            element for element in self.change_type([self.file[element].get(
+                self.nft_number) for element in self.file])])
 
     def dict_to_list(self, element: dict or str) -> list or str:
         """Transform a dictionnary into a list. - JSON file method."""
@@ -571,12 +570,15 @@ class Opensea:
                 web.clickable('//button[@type="submit"]')
             except Exception:  # An unknown error has occured.
                 raise TE('The submit button cannot be clicked.')
-            web.clickable('//div[@data-testid="Panel"][last()]/div/div/div/'
-                          'div/button')  # Click on the "Sign" button.
-            # Note: this part may only work for Polygon Blockchain.
-            # The Ethereum Blockchain needs a deposit to work.
-            web.window_handles(2)  # Switch to the MetaMask pop up tab.
-            self.metamask_contract()  # Sign the contract.
+            try:  # Polygon blockchain requires a click on a button.
+                if structure.blockchain == 'Polygon':
+                    web.clickable('//div[@data-testid="Panel"][last()]/div/div'
+                                  '/div/div/button')  # "Sign" button.
+                web.window_handles(2)  # Switch to the MetaMask pop up tab.
+                self.metamask_contract()  # Sign the contract.
+            except Exception:  # No deposit or an unknown error occured.
+                raise TE('You need to make a deposit before proceeding'
+                         ' to listing of your NFTs.')
             try:  # Wait until the NFT is listed.
                 web.visible('//header/h4')  # "Your NFT is listed!".
                 print(f'{green}NFT put up for sale.{reset}')
