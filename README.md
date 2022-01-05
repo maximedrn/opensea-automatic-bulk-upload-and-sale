@@ -782,7 +782,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 
 * Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale.  
   Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**.
-* **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can for the JSON file - applies to all file formats:**
+* **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can see for the JSON file *(it applies to all file formats)*:**
 ```json
 // You can use this format for your path:
 "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
