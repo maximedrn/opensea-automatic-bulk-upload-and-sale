@@ -579,6 +579,7 @@ class Opensea:
             except Exception:  # No deposit or an unknown error occured.
                 raise TE('You need to make a deposit before proceeding'
                          ' to listing of your NFTs.')
+            web.window_handles(1)  # Switch back to the Opensea tab.
             try:  # Wait until the NFT is listed.
                 web.visible('//header/h4')  # "Your NFT is listed!".
                 print(f'{green}NFT put up for sale.{reset}')
