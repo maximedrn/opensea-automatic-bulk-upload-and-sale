@@ -792,14 +792,14 @@ When you want to sell your NFTs, Opensea requires various details according to t
 "file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png",
 ```
 * The bot may crash at the beginning when loading the MetaMask extension (a Selenium module issue), An error like the one below should appear:  
-```
+```python
 selenium.common.exceptions.WebDriverException:
 Message: unknown error: failed to wait for extension background page to load:
 chrome-extension://nkbihfbeogaeaoehlefnkodbefpgknn/background.html from timeout:
 Timed out receiving message from renderer: 10.000
 ```
 * When lauching the webdriver, Selenium can raise an exception:
-```
+```python
 driver = webdriver.Chrome(service=Service( # DeprecationWarning using
 TypeError: WebDriver.init() got an unexpected keyword argument 'service'
 ```
