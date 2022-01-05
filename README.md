@@ -102,6 +102,35 @@ pip install -r requirements.txt
 
 ## Data files structure
 
+If you do not want to add details to not required values, let:
+  * **a blank cell** for XLSX files (Excel):
+  <table>
+   <tbody>
+    <tr>
+     <td>File Path</td>
+     <td>NFT Name</td>
+     <td>Description</td>
+    </tr>
+    <tr>
+     <td>C:/Users/Admin/Desktop/NFT/nft_0001.png</td>
+     <td>NFT #1</td>
+     <td></td>
+    </tr>
+   </tbody>
+  </table>
+
+  * **a white space with two semicolons** for CSV files:
+  ```csv
+  file_path;; nft_name;; description;;
+  C:/Users/Admin/Desktop/NFT/nft_0001.png;; NFT #1;; ;;
+  ```
+  * **an empty string** for JSON files: 
+```json
+"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+"nft_name": "NFT #1",
+"details": "",
+```
+
 <strong>Required values *</strong>  
   (Mandatory value in certain specified cases)
 
@@ -750,7 +779,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 ## Known issues and important things to know
 
 * Make sure to deposit Ethereum (ETH/WETH) or Polygon (MATIC) on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale.
-* **If you use a JSON file for your NFT data, the file path should not contain a unique "\\". It can be a "/" or a "\\\\":**
+* **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can for the JSON file - applies to all file formats:**
 ```json
 // You can use this format for your path:
 "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
