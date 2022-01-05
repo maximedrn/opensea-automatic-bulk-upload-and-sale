@@ -798,3 +798,16 @@ Message: unknown error: failed to wait for extension background page to load:
 chrome-extension://nkbihfbeogaeaoehlefnkodbefpgknn/background.html from timeout:
 Timed out receiving message from renderer: 10.000
 ```
+* When lauching the webdriver, Selenium can raise an exception:
+```
+driver = webdriver.Chrome(service=Service( # DeprecationWarning using
+TypeError: WebDriver.init() got an unexpected keyword argument 'service'
+```
+You must update your Selenium version to 4.1.0 or higher by typing in the command prompt:
+```
+pip install selenium --upgrade
+```
+You can now verify that a more recent version of Selenium is installed by typing:
+```
+pip show selenium
+```  
