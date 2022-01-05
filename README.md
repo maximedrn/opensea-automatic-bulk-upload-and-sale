@@ -104,7 +104,7 @@ pip install -r requirements.txt
 
 ## Data files structure
 
-If you do not want to add details to not required values, let:
+If you do not want to add details to the values not required, leave:
   * **a blank cell** for XLSX files (Excel):
   <table>
    <tbody>
