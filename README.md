@@ -17,7 +17,7 @@
   * [Upload and sale](https://github.com/maximedrn/opensea_automatic_uploader#upload-and-sale).
   * [Upload only](https://github.com/maximedrn/opensea_automatic_uploader#upload-only).
   * [Sale only](https://github.com/maximedrn/opensea_automatic_uploader#sale-only).
-* **[Configuration of the sales part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sales-part-of-the-nfts).**
+* **[Configuration of the sale part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sale-part-of-the-nfts).**
 * **[Known issues and important things to know](https://github.com/maximedrn/opensea_automatic_uploader#known-issues-and-important-things-to-know).**
 
 
