@@ -176,7 +176,7 @@ If you do not want to add details to the values not required, leave:
            <td>XLSX examples</td>
         </tr>
         <tr>
-           <td><strong>File Path *</strong></td>
+           <td><strong>File Path * </strong>(The preview is only for files that are not images)</td>
            <td>String or List</td>
            <td></td>
            <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
@@ -453,7 +453,7 @@ If you do not want to add details to the values not required, leave:
            <td>XLSX examples</td>
         </tr>
         <tr>
-           <td><strong>File Path *</strong></td>
+           <td><strong>File Path *</strong> (The preview is only for files that are not images)</td>
            <td>String or List</td>
            <td></td>
            <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
