@@ -67,20 +67,25 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 ## To do list
 
-* ✔ <strike>MetaMask automatic login.</strike>
-* ✔ <strike>Opensea automatic login with MetaMask.</strike>
-* ❌ Opensea automatic login with different wallets.
-* ❌ Collection creator for Opensea.
-* ✔ <strike>Automatic NFT uploader.</strike>
-* ✔ <strike>Possibility to set a price for each NFT.</strike>  
-  * ✔ <strike>Support for 1+ supplies and Polygon blockchain.</strike>
-  * ❌ "Sell as bundle" part (not planned to be added).
-  * ✔ <strike>**Sale part**.</strike>
+* ❌ Graphic User Interface.
+* ❌ Website for NFTs creation.
 * ✔ <strike>Data file browsing feature.</strike>
 * ✔ <strike>CSV structure reader and interpreter.</strike>
 * ✔ <strike>JSON structure reader and interpreter.</strike>
 * ✔ <strike>XLSX structure reader and interpreter.</strike>
-* ❌ NFT maker local website (soon).
+* ✔ <strike>MetaMask automatic login.</strike>
+* ❌ Opensea automatic login with different wallets.
+  * ✔ <strike>Opensea automatic login with MetaMask.</strike>
+* ❌ Change of wallet for the same account.
+* ❌ Opensea Testnet automatic login.
+* ❌ Collection creator for Opensea.
+* ✔ <strike>Automatic NFT upload.</strike>
+* ✔ <strike>Automatic NFT sale.</strike>
+* ❌ Update of NFT metadata.
+* ✔ <strike>Ethereum and Polygon blockchains support.</strike>
+* ✔ <strike>1+ supplies support.</strike>
+* ❌ "Sell as bundle" part (not planned to be added).
+
 
 
 ## Instructions
