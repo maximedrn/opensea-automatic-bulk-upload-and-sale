@@ -177,11 +177,14 @@ If you do not want to add details to the values not required, leave:
         </tr>
         <tr>
            <td><strong>File Path *</strong></td>
-           <td>String</td>
+           <td>String or List</td>
            <td></td>
-           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png</td>
+           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+           <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],</td>
+           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
+           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
+           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
+           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
         </tr>
         <tr>
            <td><strong>NFT Name *</strong></td>
@@ -451,11 +454,14 @@ If you do not want to add details to the values not required, leave:
         </tr>
         <tr>
            <td><strong>File Path *</strong></td>
-           <td>String</td>
+           <td>String or List</td>
            <td></td>
-           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png</td>
+           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+           <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],</td>
+           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
+           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
+           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
+           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
         </tr>
         <tr>
            <td><strong>NFT Name *</strong></td>
