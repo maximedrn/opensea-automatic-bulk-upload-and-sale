@@ -1,6 +1,6 @@
 # Automatically upload your NFTs on Opensea using Python Selenium.
 
-* **(_Version 1.4.2 - January 05, 2022_).**
+* **(_Version 1.4.3 - January 16, 2022_).**
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -35,6 +35,8 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 ## Changelog
 
+* **Version 1.4.3:**
+  * File preview is now added. [#48](https://github.com/maximedrn/opensea_automatic_uploader/issues/48)
 * **Version 1.4.2:**
   * Listing of NFT on the Ethereum Blockchain is fully supported. **Be sure to make a deposit and have more than 0.05 ETH on your wallet.**
 * **Version 1.4.1:**
