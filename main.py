@@ -1,8 +1,17 @@
 """
-@author: Maxime.
-
+@author: Maxime Dréan.
 Github: https://github.com/maximedrn
-Version: 1.4.2
+Telegram: https://t.me/maximedrn
+
+Copyright © 2022 Maxime Dréan. All rights reserved.
+Any distribution, modification or commercial use is strictly prohibited.
+
+Version 1.4.3 - 2022, 16 January.
+
+Transfer as many non-fungible tokens as you want to 
+the Opensea marketplace. Easy, efficient and fast,
+this tool lets you make your life as an Artist of
+the digital world much smoother, with a single payment.
 """
 
 
@@ -20,7 +29,6 @@ from selenium.webdriver.common.by import By
 
 # Python default imports.
 from glob import glob
-import traceback as tb
 import os
 
 
@@ -151,7 +159,7 @@ class Structure:
         # self.nft_data_list = nft_data  # For development.
         index = 9 if 1 not in self.action else 0
         if 1 in self.action:  # Upload part.
-            self.file_path: str = os.path.abspath(str(nft_data[0]))
+            self.file_path: str or list = nft_data[0]
             self.nft_name: str = str(nft_data[1])  # Set string value to
             self.link: str = str(nft_data[2])  # real string to prevent
             self.description: str = str(nft_data[3])  # different types.
@@ -352,15 +360,28 @@ class Opensea:
         print(f'Uploading NFT n°{number}/{reader.lenght_file}.', end=' ')
         try:  # Go to the Opensea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
-            if not os.path.exists(structure.file_path):  # Upload the NFT file.
+            if isinstance(structure.file_path, list):
+                if len(structure.file_path) == 2:
+                    file_path = os.path.abspath(structure.file_path[0])
+                    preview = os.path.abspath(structure.file_path[1])
+            else:  # No preview file.
+                file_path = os.path.abspath(structure.file_path)
+            if not os.path.exists(file_path):  # Upload the NFT file.
                 raise TE('File doesn\'t exist or path is incorrect.')
-            if os.path.getsize(structure.file_path) / (1024 ** 2) > 100:
+            if os.path.getsize(file_path) / (1024 ** 2) > 100:
                 raise TE('File size must be less than 100 MegaBytes.')
-            if os.path.splitext(structure.file_path)[1][1:].lower() not in \
+            if os.path.splitext(file_path)[1][1:].lower() not in \
                 ('jpg', 'jpeg', 'png', 'gif', 'svg', 'mp4',  # Check the file
                  'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):  # extensions.
                 raise TE('The file extension is not supported on Opensea.')
-            structure.is_empty('//*[@id="media"]', structure.file_path)
+            structure.is_empty('//*[@id="media"]', file_path)
+            if os.path.splitext(file_path)[1][1:].lower() in \
+                ('mp4', 'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):
+                if not os.path.exists(preview):  # Upload the NFT file.
+                    raise TE('File doesn\'t exist or path is incorrect.')
+                if os.path.getsize(preview) / (1024 ** 2) > 100:
+                    raise TE('File size must be less than 100 MegaBytes.')
+                structure.is_empty('//input[@name="preview"]', preview)
             # Input NFT name.
             if structure.is_empty('//*[@id="name"]', structure.nft_name):
                 raise TE('The NFT name is missing.')
@@ -447,8 +468,8 @@ class Opensea:
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.save_nft(web.driver.current_url)
             return True  # If it perfectly worked.
-        except Exception as error:  # An element is not reachable.
-            print(f'{red}An error occured. {error}\n{tb.print_exc()}{reset}')
+        except Exception:  # An element is not reachable.
+            print(f'{red}An error occured.{reset}')
             return False  # If it failed.
 
     def opensea_sale(self, number: int, date: str = '%d-%m-%Y %H:%M') -> None:
@@ -585,8 +606,8 @@ class Opensea:
                 print(f'{green}NFT put up for sale.{reset}')
             except Exception:  # An error occured while listing the NFT.
                 raise TE('The NFT is not listed.')
-        except Exception as error:  # Failed, an error has occured.
-            print(f'{red}NFT sale cancelled. {error}\n{tb.print_exc()}{reset}')
+        except Exception:  # Failed, an error has occured.
+            print(f'{red}NFT sale cancelled.{reset}')
 
 
 def read_file(file_: str, question: str) -> str:
@@ -657,15 +678,29 @@ def cls() -> None:
 def exit(message: str = '') -> None:
     """Stop running the program using the sys module."""
     import sys
-    sys.exit(f'{red}{message}{reset}')
+    sys.exit(f'\n{red}{message}{reset}')
 
 
 if __name__ == '__main__':
 
     cls()  # Clear console.
 
-    print(f'{green}Made by Maxime. '
-          f'\n@Github: https://github.com/maximedrn{reset}')
+    print(f'{green}Created by Maxime Dréan.'
+          '\nGithub: https://github.com/maximedrn'
+          '\nTelegram: https://t.me/maximedrn'
+          '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
+          '\nAny distribution, modification or commercial use is strictly'
+          'prohibited.'
+          f'\n\nVersion 1.4.3 - 2022, 16 January.\n{reset}'
+          '\nIf you face any problem, please open an issue.')
+
+    input('\nPRESS [ENTER] TO CONTINUE. ')
+    cls()  # Clear console.
+
+    print(f'{green}Created by Maxime Dréan.'
+          '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
+          '\nAny distribution, modification or commercial use is strictly\n'
+          f'prohibited.{reset}')
 
     # Init the Opensea class and send the password and the recovery phrase.
     opensea = Opensea(
