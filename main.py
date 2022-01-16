@@ -12,7 +12,7 @@ Version 1.4.3 - 2022, 16 January.
 Transfer as many non-fungible tokens as you want to
 the Opensea marketplace. Easy, efficient and fast,
 this tool lets you make your life as an Artist of
-the digital world much smoother, with a single payment.
+the digital world much smoother.
 """
 
 
