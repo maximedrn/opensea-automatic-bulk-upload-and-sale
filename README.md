@@ -85,12 +85,14 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 * ### Basic installation of Python for beginners:
   * [Download the repository](https://github.com/maximedrn/opensea_automatic_uploader/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
+    
     ```
     git clone https://github.com/maximedrn/opensea_automatic_uploader.git
     ```
   * It requires [Python](https://www.python.org/) 3.7 or a newest version - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
   * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux):
+    
     * ```
       pip install -r requirements.txt
       ```
@@ -116,6 +118,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 * ### Run the bot:
   * Open a command prompt in the `opensea_automatic_uploader-master/` folder path.
   * Type one of these commands to run the bot:
+    
     * ```
       python main.py
       ```
@@ -800,6 +803,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 * Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale.  
   Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**.
 * **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can see for the JSON file *(it applies to all file formats)*:**
+  
   ```json
   // You can use this format for your path:
   "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
@@ -809,6 +813,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
   "file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png",
   ```
 * The bot may crash at the beginning when loading the MetaMask extension (a Selenium module issue), An error like the one below should appear:  
+  
   ```python
   selenium.common.exceptions.WebDriverException:
   Message: unknown error: failed to wait for extension background page to load:
@@ -816,15 +821,18 @@ When you want to sell your NFTs, Opensea requires various details according to t
   Timed out receiving message from renderer: 10.000
   ```
 * When lauching the webdriver, Selenium can raise an exception:
+  
   ```python
   driver = webdriver.Chrome(service=Service( # DeprecationWarning using
   TypeError: WebDriver.init() got an unexpected keyword argument 'service'
   ```
   You must update your Selenium version to 4.1.0 or higher by typing in the command prompt:
+  
   ```
   pip install selenium --upgrade
   ```
   You can now verify that a more recent version of Selenium is installed by typing:
+  
   ```
   pip show selenium
   ```  
