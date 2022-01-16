@@ -13,6 +13,7 @@
 * **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader#instructions)**.
   * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-bot).
+  * [Run the bot](https://github.com/maximedrn/opensea_automatic_uploader#run-the-bot).
 * **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure).**
   * [Upload and sale](https://github.com/maximedrn/opensea_automatic_uploader#upload-and-sale).
   * [Upload only](https://github.com/maximedrn/opensea_automatic_uploader#upload-only).
@@ -89,10 +90,22 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
     ```
   * It requires [Python](https://www.python.org/) 3.7 or a newest version - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
-  * Open a command prompt in the repository folder and type:
-    ```
-    pip install -r requirements.txt
-    ```
+  * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux):
+    * ```
+      pip install -r requirements.txt
+      ```
+    * ```
+      pip3 install -r requirements.txt
+      ```
+    * ```
+      python -m pip install -r requirements.txt
+      ```
+    * ```
+      python3 -m pip install -r requirements.txt
+      ```
+    * ```
+      py -m pip install -r requirements.txt
+      ```
 * ### Configuration of the bot:
   * Extract the repository folder from the ZIP file, you should have a folder named  `opensea_automatic_uploader-master`.
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
@@ -100,6 +113,15 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
   * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
+* ### Run the bot:
+  * Open a command prompt in the `opensea_automatic_uploader-master/` folder path.
+  * Type one of these commands to run the bot:
+    * ```
+      python main.py
+      ```
+    * ```
+      python3 main.py
+      ```
 
 
 ## Data files structure
