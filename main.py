@@ -1,5 +1,6 @@
 """
 @author: Maxime Dréan.
+
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
@@ -8,7 +9,7 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 Version 1.4.3 - 2022, 16 January.
 
-Transfer as many non-fungible tokens as you want to 
+Transfer as many non-fungible tokens as you want to
 the Opensea marketplace. Easy, efficient and fast,
 this tool lets you make your life as an Artist of
 the digital world much smoother, with a single payment.
@@ -376,7 +377,7 @@ class Opensea:
                 raise TE('The file extension is not supported on Opensea.')
             structure.is_empty('//*[@id="media"]', file_path)
             if os.path.splitext(file_path)[1][1:].lower() in \
-                ('mp4', 'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):
+                    ('mp4', 'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):
                 if not os.path.exists(preview):  # Upload the NFT file.
                     raise TE('File doesn\'t exist or path is incorrect.')
                 if os.path.getsize(preview) / (1024 ** 2) > 100:
