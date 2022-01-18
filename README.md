@@ -37,6 +37,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 * **Version 1.4.4:**
   * Connection to Opensea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53)**.
+  * Connection to Opensea with MetaMask improved.
 * **Version 1.4.3:**
   * File preview is now added. **[#48](https://github.com/maximedrn/opensea_automatic_uploader/issues/48)**.
 * **Version 1.4.2:**
