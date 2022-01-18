@@ -264,15 +264,6 @@ class Webdriver:
         # Switch to the asked tab.
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
-    def tab_changes(self, tab: int) -> None:
-        """Wait until the tabs list change to continue."""
-        self.window_handles(tab)  # Switch to a tab that will be closed.
-        old_tabs: list = self.driver.window_handles  # Old tabs list.
-        WDW(self.driver, 15).until(  # Wait the tabs lists to be different.
-            lambda _: self.driver.window_handles != old_tabs
-            and len(self.driver.window_handles) == len(old_tabs))
-        self.window_handles(tab)  # Switch to a tab with the same index.
-
 
 class Opensea:
     """Main class: Opensea automatic uploader."""
