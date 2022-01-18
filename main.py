@@ -233,7 +233,7 @@ class Webdriver:
 
     def visible(self, element: str):
         """Check if an element is visible using Selenium."""
-        return WDW(self.driver, 20).until(
+        return WDW(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, element)))
 
     def send_keys(self, element: str, keys: str) -> None:
