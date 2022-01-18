@@ -1,6 +1,6 @@
 # Automatically upload your NFTs on Opensea using Python Selenium.
 
-* **(_Version 1.4.3 - January 16, 2022_).**
+* **(_Version 1.4.4 - January 18, 2022_).**
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
