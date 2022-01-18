@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.4 - 2022, 18 January.
+Version 1.4.3 - 2022, 16 January.
 
 Transfer as many non-fungible tokens as you want to
 the Opensea marketplace. Easy, efficient and fast,
@@ -260,7 +260,7 @@ class Webdriver:
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
         WDW(self.driver, 30).until(lambda _: len(
-            self.driver.window_handles) >= window_number + 1)
+            self.driver.window_handles) > window_number)
         # Switch to the asked tab.
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
@@ -329,33 +329,35 @@ class Opensea:
             print('Login to Opensea.', end=' ')
             web.window_handles(1)  # Switch to the main (data:,) tab.
             web.driver.get(self.login_url)  # Go to the Opensea login URL.
+            # Click on the "Show more options" button.
             web.clickable('//button[contains(@class, "show-more")]')
-            # Click on the "MetaMask" button in list of wallet.
+            # Click on the "MetaMask" button in list of wallets.
             web.clickable('//*[contains(text(), "MetaMask")]/../..')
             web.window_handles(2)  # Switch to the MetaMask pop up tab.
             # Click on the "Next" button.
             web.clickable('//*[@class="button btn-primary"]')
             # Click on the "Connect" button.
             web.clickable('//*[contains(@class, "button btn-primary")]')
-            web.tab_changes(2)  # Switch to the MetaMask popup tab.
+            web.window_handles(2)  # Switch to the MetaMask pop up tab.
             self.metamask_contract()  # Sign the contract.
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
             print(f'{green}Logged to Opensea.{reset}\n')
         except Exception:  # The contract failed.
             print(f'{red}Login to Opensea failed. Retrying.{reset}')
-            web.window_handles(1)  # Switch back to the Opensea tab.
-            web.driver.refresh()  # Reload the page (is the login failed?).
-            if web.driver.current_url == self.create_url:
-                try:  # Wait until the MetaMask tab is closed.
-                    WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
-                except Exception:  # The MetaMask tab cannot be closed.
-                    web.window_handles(1)  # Switch back to the Opensea tab.
+            try:
+                print('Login to Opensea.', end=' ')
+                web.window_handles(1)  # Switch back to the Opensea tab.
+                web.driver.refresh()  # Reload the page (is the login failed?).
                 web.window_handles(2)  # Switch to the MetaMask pop up tab.
+                web.clickable('//*[contains(@class, "button btn-primary")]')
                 self.metamask_contract()  # Sign the contract.
-                print(f'Login to Opensea. {green}Logged to Opensea.{reset}\n')
-                return  # Stop exception and start to upload NFTs.
-            self.opensea_login()  # Retry to login to Opensea if it failed.
+                # Check if the login worked.
+                WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
+                print(f'{green}Logged to Opensea.{reset}\n')
+            except Exception:
+                self.opensea_login()  # Retry everything.
+            
 
     def opensea_upload(self, number: int) -> bool:
         """Upload multiple NFTs automatically on Opensea."""
