@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.3 - 2022, 16 January.
+Version 1.4.4 - 2022, 18 January.
 
 Transfer as many non-fungible tokens as you want to
 the Opensea marketplace. Easy, efficient and fast,
@@ -231,9 +231,9 @@ class Webdriver:
             self.driver.execute_script(  # so JavaScript can bypass this.
                 'arguments[0].click();', self.visible(element))
 
-    def visible(self, element: str, timer: int = 10):
+    def visible(self, element: str):
         """Check if an element is visible using Selenium."""
-        return WDW(self.driver, timer).until(
+        return WDW(self.driver, 20).until(
             EC.visibility_of_element_located((By.XPATH, element)))
 
     def send_keys(self, element: str, keys: str) -> None:
@@ -329,6 +329,7 @@ class Opensea:
             print('Login to Opensea.', end=' ')
             web.window_handles(1)  # Switch to the main (data:,) tab.
             web.driver.get(self.login_url)  # Go to the Opensea login URL.
+            web.clickable('//button[contains(@class, "show-more")]')
             # Click on the "MetaMask" button in list of wallet.
             web.clickable('//*[contains(text(), "MetaMask")]/../..')
             web.window_handles(2)  # Switch to the MetaMask pop up tab.
