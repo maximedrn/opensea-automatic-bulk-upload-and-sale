@@ -788,10 +788,10 @@ When you want to sell your NFTs, Opensea requires various details according to t
         </tr>
         <tr>
            <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
            <td>Reserve for a <strong>specific buyer</strong></td>
            <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
+           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week)</td>
            <td><i>(Optional)</i> <strong>Reserved Price</strong> (WETH) greater than 1 WETH and greater than <strong>Starting Price</strong>.</td>
            <td>Reserve for a <strong>specific buyer</strong></td>
            <td><strong>Starting Price</strong> (ETH)</td>
@@ -800,14 +800,14 @@ When you want to sell your NFTs, Opensea requires various details according to t
            <td>Reserve for a <strong>specific buyer</strong></td>
            <td><strong>Quantity</strong></td>
            <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
            <td>Reserve for a <strong>specific buyer</strong></td>
            <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
            <td>Reserve for a <strong>specific buyer</strong></td>
            <td><strong>Quantity</strong></td>
            <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week, 6 months)</td>
+           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
            <td>Reserve for a <strong>specific buyer</strong></td>
         </tr>
      </tbody>
