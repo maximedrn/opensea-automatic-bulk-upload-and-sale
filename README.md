@@ -4,6 +4,9 @@
 * Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
+**Information for all those who use this bot:**  
+  Opensea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudfare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
+  *Thank you for your understanding.*
 
 # Table of contents
 
