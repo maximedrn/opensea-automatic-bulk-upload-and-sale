@@ -686,7 +686,7 @@ if __name__ == '__main__':
           '\nTelegram: https://t.me/maximedrn'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
-          'prohibited.'
+          ' prohibited.'
           f'\n\nVersion 1.4.5 - 2022, 20 January.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
@@ -695,8 +695,8 @@ if __name__ == '__main__':
 
     print(f'{green}Created by Maxime Dréan.'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
-          '\nAny distribution, modification or commercial use is strictly\n'
-          f'prohibited.{reset}')
+          '\nAny distribution, modification or commercial use is strictly'
+          f' prohibited.{reset}')
 
     # Init the Opensea class and send the password and the recovery phrase.
     opensea = Opensea(
