@@ -252,7 +252,8 @@ class Webdriver:
     def clear_text(self, element) -> None:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then clear its text.
-        control = Keys.COMMAND if os.name == 'darwin' else Keys.CONTROL
+        # Note: change with 'darwin' if it's not working on MacOS.
+        control = Keys.COMMAND if os.name == 'posix' else Keys.CONTROL
         webdriver.ActionChains(self.driver).key_down(control).perform()
         webdriver.ActionChains(self.driver).send_keys('a').perform()
         webdriver.ActionChains(self.driver).key_up(control).perform()
