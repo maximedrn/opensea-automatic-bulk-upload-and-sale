@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.3 - 2022, 16 January.
+Version 1.4.5 - 2022, 20 January.
 
 Transfer as many non-fungible tokens as you want to
 the Opensea marketplace. Easy, efficient and fast,
@@ -252,7 +252,7 @@ class Webdriver:
     def clear_text(self, element) -> None:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then clear its text.
-        control = Keys.CONTROL if os.name == 'nt' else Keys.COMMAND
+        control = Keys.COMMAND if os.name == 'darwin' else Keys.CONTROL
         webdriver.ActionChains(self.driver).key_down(control).perform()
         webdriver.ActionChains(self.driver).send_keys('a').perform()
         webdriver.ActionChains(self.driver).key_up(control).perform()
@@ -686,7 +686,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           'prohibited.'
-          f'\n\nVersion 1.4.3 - 2022, 16 January.\n{reset}'
+          f'\n\nVersion 1.4.5 - 2022, 20 January.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
