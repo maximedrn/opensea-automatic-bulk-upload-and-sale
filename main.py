@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.5 - 2022, 20 January.
+Version 1.4.6 - 2022, 23 January.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -17,7 +17,7 @@ the digital world much smoother.
 
 
 # Colorama module: pip install colorama
-from colorama import init, Fore, Style  # Do not work on MacOS and Linux.
+from colorama import init, Fore, Style
 
 # Selenium module imports: pip install selenium
 from selenium import webdriver
@@ -35,14 +35,12 @@ import os
 
 
 """Colorama module constants."""
-if os.name == 'nt':
-    init(convert=True)  # Init the Colorama module.
-    red = Fore.RED  # Red color.
-    green = Fore.GREEN  # Green color.
-    yellow = Fore.YELLOW  # Yellow color.
-    reset = Style.RESET_ALL  # Reset color attribute.
-else:  # For MacOS and Linux users.
-    red, green, yellow, reset = '', '', '', ''
+# This module may not work under MacOS.
+init(convert=True, autoreset=True)  # Init the Colorama module.
+red = Fore.RED  # Red color.
+green = Fore.GREEN  # Green color.
+yellow = Fore.YELLOW  # Yellow color.
+reset = Style.RESET_ALL  # Reset color attribute.
 
 
 class Reader:
@@ -198,7 +196,7 @@ class Structure:
         with open(self.save_file, 'a+', encoding='utf-8') as file:
             file.write(f'\n{url};; {self.supply};; {self.blockchain};;'
                        ' ;; ;; ;; ;; ;;')  # Complete data manually.
-        print(f'{green}Data saved in {self.save_file}{reset}')
+        print(f'{green}Data saved in {self.save_file}')
 
 
 class Webdriver:
@@ -304,9 +302,9 @@ class OpenSea:
             # Wait until the login worked and click on the "All done" button".
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
-            print(f'{green}Logged to MetaMask.{reset}')
+            print(f'{green}Logged to MetaMask.')
         except Exception:  # Failed - a web element is not accessible.
-            print(f'\n{red}Login to MetaMask failed, retrying...{reset}')
+            print(f'\n{red}Login to MetaMask failed, retrying...')
             self.metamask_login()
 
     def metamask_contract(self) -> None:
@@ -338,7 +336,7 @@ class OpenSea:
             self.metamask_contract()  # Sign the contract.
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
-            print(f'{green}Logged to OpenSea.{reset}\n')
+            print(f'{green}Logged to OpenSea.\n')
         except Exception:  # The contract failed.
             try:
                 web.window_handles(1)  # Switch back to the OpenSea tab.
@@ -346,9 +344,9 @@ class OpenSea:
                 self.metamask_contract()  # Sign the contract.
                 # Check if the login worked.
                 WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
-                print(f'{green}Logged to OpenSea.{reset}\n')
+                print(f'{green}Logged to OpenSea.\n')
             except Exception:
-                print(f'{red}Login to OpenSea failed. Retrying.{reset}')
+                print(f'{red}Login to OpenSea failed. Retrying.')
                 web.driver.refresh()  # Reload the page (is the login failed?).
                 self.opensea_login()  # Retry everything.
 
@@ -466,7 +464,7 @@ class OpenSea:
                 structure.save_nft(web.driver.current_url)
             return True  # If it perfectly worked.
         except Exception:  # An element is not reachable.
-            print(f'{red}An error occured.{reset}')
+            print(f'{red}An error occured.')
             return False  # If it failed.
 
     def opensea_sale(self, number: int, date: str = '%d-%m-%Y %H:%M') -> None:
@@ -600,11 +598,11 @@ class OpenSea:
             web.window_handles(1)  # Switch back to the OpenSea tab.
             try:  # Wait until the NFT is listed.
                 web.visible('//header/h4')  # "Your NFT is listed!".
-                print(f'{green}NFT put up for sale.{reset}')
+                print(f'{green}NFT put up for sale.')
             except Exception:  # An error occured while listing the NFT.
                 raise TE('The NFT is not listed.')
         except Exception:  # Failed, an error has occured.
-            print(f'{red}NFT sale cancelled.{reset}')
+            print(f'{red}NFT sale cancelled.')
 
 
 def read_file(file_: str, question: str) -> str:
@@ -617,10 +615,10 @@ def read_file(file_: str, question: str) -> str:
             text = input(question)  # Ask the question.
             if input(f'Do you want to save your {file_} in '
                      'a text file? (y/n) ').lower() != 'y':
-                print(f'{yellow}Not saved.{reset}')
+                print(f'{yellow}Not saved.')
             else:
                 file.write(text)  # Write the text in file.
-                print(f'{green}Saved.{reset}')
+                print(f'{green}Saved.')
         return text
 
 
@@ -636,7 +634,7 @@ def perform_action() -> list:
         if number.isdigit():  # Check if answer is a number.
             if int(number) > 0:
                 return [[1, 2], [1], [2]][int(number) - 1]
-        print(f'{red}Answer must be a strictly positive integer.{reset}')
+        print(f'{red}Answer must be a strictly positive integer.')
 
 
 def data_file() -> str:
@@ -653,16 +651,16 @@ def data_file() -> str:
         answer = input('File number: ')
         cls()  # Clear console.
         if not answer.isdigit():  # Check if answer is a number.
-            print(f'{red}Answer must be an integer.{reset}')
+            print(f'{red}Answer must be an integer.')
         elif int(answer) == 0:  # Browse a file on PC.
-            print(f'{yellow}Browsing on your computer...{reset}')
+            print(f'{yellow}Browsing on your computer...')
             from tkinter import Tk  # Tkinter module: pip install tk
             from tkinter.filedialog import askopenfilename
             Tk().withdraw()  # Hide Tkinter tab.
             return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
         elif int(answer) <= len(files_list):
             return files_list[int(answer) - 1]  # Return path of file.
-        print(f'{red}File doesn\'t exist.{reset}')
+        print(f'{red}File doesn\'t exist.')
 
 
 def cls() -> None:
@@ -674,7 +672,7 @@ def cls() -> None:
 def exit(message: str = '') -> None:
     """Stop running the program using the sys module."""
     import sys
-    sys.exit(f'\n{red}{message}{reset}')
+    sys.exit(f'\n{red}{message}')
 
 
 if __name__ == '__main__':
@@ -687,7 +685,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.4.5 - 2022, 20 January.\n{reset}'
+          f'\n\nVersion 1.4.6 - 2022, 23 January.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -696,7 +694,7 @@ if __name__ == '__main__':
     print(f'{green}Created by Maxime Dréan.'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
-          f' prohibited.{reset}')
+          f' prohibited.')
 
     # Init the OpenSea class and send the password and the recovery phrase.
     opensea = OpenSea(
@@ -724,4 +722,4 @@ if __name__ == '__main__':
                     opensea.opensea_sale(nft_number + 1)  # Sell NFT.
 
     web.driver.quit()  # Stop the webdriver.
-    print(f'\n{green}All done! Your NFTs have been uploaded/sold.{reset}')
+    print(f'\n{green}All done! Your NFTs have been uploaded/sold.')
