@@ -7,10 +7,10 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.6 - 2022, 23 January.
+Version 1.4.5 - 2022, 20 January.
 
 Transfer as many non-fungible tokens as you want to
-the Opensea marketplace. Easy, efficient and fast,
+the OpenSea marketplace. Easy, efficient and fast,
 this tool lets you make your life as an Artist of
 the digital world much smoother.
 """
@@ -270,15 +270,15 @@ class Webdriver:
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
 
-class Opensea:
-    """Main class: Opensea automatic uploader."""
+class OpenSea:
+    """Main class: OpenSea automatic uploader."""
 
     def __init__(self, password: str, recovery_phrase: str) -> None:
         """Get the password and the recovery_phrase from the text file."""
         self.recovery_phrase = recovery_phrase  # Get the MetaMask phrase.
         self.password = password  # Get the new/same password.
         self.login_url = 'https://opensea.io/login?referrer=%2Fasset%2Fcreate'
-        self.create_url = 'https://opensea.io/asset/create'  # Opensea URLs.
+        self.create_url = 'https://opensea.io/asset/create'  # OpenSea URLs.
 
     def metamask_login(self) -> None:
         """Login to the MetaMask extension."""
@@ -304,27 +304,27 @@ class Opensea:
             # Wait until the login worked and click on the "All done" button".
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
-            print(f'{green}Logged to Metamask.{reset}')
+            print(f'{green}Logged to MetaMask.{reset}')
         except Exception:  # Failed - a web element is not accessible.
             print(f'\n{red}Login to MetaMask failed, retrying...{reset}')
             self.metamask_login()
 
     def metamask_contract(self) -> None:
-        """Sign a MetaMask contract to login to Opensea."""
+        """Sign a MetaMask contract to login to OpenSea."""
         # Click on the "Sign" button - Make a contract link.
         web.clickable('//*[contains(@class, "button btn-secondary")]')
         try:  # Wait until the MetaMask pop up is closed.
             WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
             self.metamask_contract()  # Sign the contract a second time.
-        web.window_handles(1)  # Switch back to the Opensea tab.
+        web.window_handles(1)  # Switch back to the OpenSea tab.
 
     def opensea_login(self) -> None:
-        """Login to Opensea using MetaMask."""
-        try:  # Try to login to the Opensea using MetaMask.
-            print('Login to Opensea.', end=' ')
+        """Login to OpenSea using MetaMask."""
+        try:  # Try to login to the OpenSea using MetaMask.
+            print('Login to OpenSea.', end=' ')
             web.window_handles(1)  # Switch to the main (data:,) tab.
-            web.driver.get(self.login_url)  # Go to the Opensea login URL.
+            web.driver.get(self.login_url)  # Go to the OpenSea login URL.
             # Click on the "Show more options" button.
             web.clickable('//button[contains(@class, "show-more")]')
             # Click on the "MetaMask" button in list of wallets.
@@ -338,24 +338,24 @@ class Opensea:
             self.metamask_contract()  # Sign the contract.
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
-            print(f'{green}Logged to Opensea.{reset}\n')
+            print(f'{green}Logged to OpenSea.{reset}\n')
         except Exception:  # The contract failed.
             try:
-                web.window_handles(1)  # Switch back to the Opensea tab.
+                web.window_handles(1)  # Switch back to the OpenSea tab.
                 web.window_handles(2)  # Switch to the MetaMask pop up tab.
                 self.metamask_contract()  # Sign the contract.
                 # Check if the login worked.
                 WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
-                print(f'{green}Logged to Opensea.{reset}\n')
+                print(f'{green}Logged to OpenSea.{reset}\n')
             except Exception:
-                print(f'{red}Login to Opensea failed. Retrying.{reset}')
+                print(f'{red}Login to OpenSea failed. Retrying.{reset}')
                 web.driver.refresh()  # Reload the page (is the login failed?).
                 self.opensea_login()  # Retry everything.
 
     def opensea_upload(self, number: int) -> bool:
-        """Upload multiple NFTs automatically on Opensea."""
+        """Upload multiple NFTs automatically on OpenSea."""
         print(f'Uploading NFT n°{number}/{reader.lenght_file}.', end=' ')
-        try:  # Go to the Opensea create URL and input all datas of the NFT.
+        try:  # Go to the OpenSea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
@@ -370,7 +370,7 @@ class Opensea:
             if os.path.splitext(file_path)[1][1:].lower() not in \
                 ('jpg', 'jpeg', 'png', 'gif', 'svg', 'mp4',  # Check the file
                  'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):  # extensions.
-                raise TE('The file extension is not supported on Opensea.')
+                raise TE('The file extension is not supported on OpenSea.')
             structure.is_empty('//*[@id="media"]', file_path)
             if os.path.splitext(file_path)[1][1:].lower() in \
                     ('mp4', 'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):
@@ -597,7 +597,7 @@ class Opensea:
             except Exception:  # No deposit or an unknown error occured.
                 raise TE('You need to make a deposit before proceeding'
                          ' to listing of your NFTs.')
-            web.window_handles(1)  # Switch back to the Opensea tab.
+            web.window_handles(1)  # Switch back to the OpenSea tab.
             try:  # Wait until the NFT is listed.
                 web.visible('//header/h4')  # "Your NFT is listed!".
                 print(f'{green}NFT put up for sale.{reset}')
@@ -687,7 +687,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.4.6 - 2022, 23 January.\n{reset}'
+          f'\n\nVersion 1.4.5 - 2022, 20 January.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -698,8 +698,8 @@ if __name__ == '__main__':
           '\nAny distribution, modification or commercial use is strictly'
           f' prohibited.{reset}')
 
-    # Init the Opensea class and send the password and the recovery phrase.
-    opensea = Opensea(
+    # Init the OpenSea class and send the password and the recovery phrase.
+    opensea = OpenSea(
         read_file('password', '\nWhat is your MetaMask password? '), read_file(
             'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
 
@@ -708,7 +708,7 @@ if __name__ == '__main__':
     structure = Structure(action)  # Init the Structure class to order data.
     web = Webdriver()  # Start a new webdriver and init its methods.
     opensea.metamask_login()  # Connect to MetaMask.
-    opensea.opensea_login()  # Connect to Opensea.
+    opensea.opensea_login()  # Connect to OpenSea.
 
     for nft_number in range(reader.lenght_file):
         structure.get_data(nft_number)  # Structure the data of the NFT.
