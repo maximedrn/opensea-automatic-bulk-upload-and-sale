@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.6 - 2022, 23 January.
+Version 1.4.7 - 2022, 23 January.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -216,6 +216,9 @@ class Webdriver:
         options.add_extension(self.metamask_extension_path)  # Add extension.
         options.add_argument("log-level=3")  # No logs is printed.
         options.add_argument("--mute-audio")  # Audio is muted.
+        options.add_argument("--lang=en-US")  # Set webdriver language
+        options.add_experimental_option(  # to English. - 2 methods.
+            'prefs', {'intl.accept_languages': 'en,en_US'})
         driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
             self.webdriver_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
@@ -246,6 +249,7 @@ class Webdriver:
     def send_date(self, element: str, keys: str) -> None:
         """Send a date (DD-MM-YYYY HH:MM) to a date input by clicking on it."""
         keys = keys.split('-') if '-' in keys else [keys]
+        keys = [keys[1], keys[0], keys[2]] if len(keys) > 1 else keys
         for part in range(len(keys) - 1 if keys[len(keys) - 1]  # Compare years
                 == str(dt.now().year) else len(keys)):  # To count clicks.
             self.clickable(element)  # Click first on the element.
@@ -685,7 +689,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.4.6 - 2022, 23 January.\n{reset}'
+          f'\n\nVersion 1.4.7 - 2022, 23 January.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
