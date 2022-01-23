@@ -765,7 +765,8 @@ If you do not want to add details to the values not required, leave:
 
 ## Configuration of the sale part of the NFTs
 
-When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.
+When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.  
+**Note: The maximum duration of sale should be at most 6 months. It must be entered in the form of start date - end date.**
 
   <table>
      <tbody>
