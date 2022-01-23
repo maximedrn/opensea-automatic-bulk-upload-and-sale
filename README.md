@@ -1,11 +1,11 @@
-# Automatically upload your NFTs on Opensea using Python Selenium.
+# Automatically upload your NFTs on OpenSea using Python Selenium.
 
 * **(_Version 1.4.6 - January 23, 2022_).**
-* Sign up on [Opensea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
+* Sign up on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
 **Information for all those who use this bot:**  
-  Opensea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
+  OpenSea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
   *Thank you for your understanding.*
 
 # Table of contents
@@ -27,7 +27,7 @@
 
 ## What does this bot do?
 
-This script allows you to upload and sell **as many NFTs as you want to Opensea**, all **automatically** and **quickly** (about 2.5 NFTs per minute). **All metadata are integrated**, and the **Ethereum** and **Polygon** Blockchains are supported.  
+This script allows you to upload and sell **as many NFTs as you want to OpenSea**, all **automatically** and **quickly** (about 2.5 NFTs per minute). **All metadata are integrated**, and the **Ethereum** and **Polygon** Blockchains are supported.  
 
 **You can decide whether you want to upload or sell your NFTs, or both**. If you upload your NFTs and sell them later, a CSV file is created with the URL of the NFT as well as its Blockchain and supply number.
 
@@ -40,12 +40,12 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 
 * **Version 1.4.6:**
   * The duration has been corrected. Opensea does not allow to change the year when the next year is more than 6 months away. So it was impossible to enter the month without it being replaced by December (12 - maximum number because the year was entered instead); **Note: maximum duration is 6 months. [#55](https://github.com/maximedrn/opensea_automatic_uploader/issues/55)**
-  * The connection to Opensea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53), [#58](https://github.com/maximedrn/opensea_automatic_uploader/issues/58), [#61](https://github.com/maximedrn/opensea_automatic_uploader/issues/61)**
+  * The connection to OpenSea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53), [#58](https://github.com/maximedrn/opensea_automatic_uploader/issues/58), [#61](https://github.com/maximedrn/opensea_automatic_uploader/issues/61)**
 * **Version 1.4.5:**
   * Minor fix for Linux users. The `clear_text(self)` method inserts an "A" when it tries to clear the inputs before sending the data. **[#39](https://github.com/maximedrn/opensea_automatic_uploader/issues/39)**
 * **Version 1.4.4:**
-  * Connection to Opensea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53)**.
-  * Connection to Opensea with MetaMask improved.
+  * Connection to OpenSea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53)**.
+  * Connection to OpenSea with MetaMask improved.
 * **Version 1.4.3:**
   * File preview is now added. **[#48](https://github.com/maximedrn/opensea_automatic_uploader/issues/48)**.
 * **Version 1.4.2:**
@@ -54,7 +54,7 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
   * Small fix for XLSX files. Empty cells were interpreted as "NaN", which is not interpreted as an empty string for Python. **[#18](https://github.com/maximedrn/opensea_automatic_uploader/issues/18), [#23](https://github.com/maximedrn/opensea_automatic_uploader/issues/23)**.
 * **Version 1.4:**
   * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea_automatic_uploader/issues/3), [#22](https://github.com/maximedrn/opensea_automatic_uploader/issues/22)**.
-  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to Opensea. **[#5](https://github.com/maximedrn/opensea_automatic_uploader/issues/5), [#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
+  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to OpenSea. **[#5](https://github.com/maximedrn/opensea_automatic_uploader/issues/5), [#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
   * After uploading the NFT, the bot would crash when it tried to sell it (the URL was not correct). Now it doesn't. **[#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
   * MacOS and Linux support improved.
   * Calendar method improved.
@@ -85,11 +85,11 @@ This script allows you to upload and sell **as many NFTs as you want to Opensea*
 * ✔ <strike>JSON structure reader and interpreter.</strike>
 * ✔ <strike>XLSX structure reader and interpreter.</strike>
 * ✔ <strike>MetaMask automatic login.</strike>
-* ❌ Opensea automatic login with different wallets.
-  * ✔ <strike>Opensea automatic login with MetaMask.</strike>
+* ❌ OpenSea automatic login with different wallets.
+  * ✔ <strike>OpenSea automatic login with MetaMask.</strike>
 * ❌ Change of wallet for the same account.
-* ❌ Opensea Testnet automatic login.
-* ❌ Collection creator for Opensea.
+* ❌ OpenSea Testnet automatic login.
+* ❌ Collection creator for OpenSea.
 * ✔ <strike>Automatic NFT upload.</strike>
 * ✔ <strike>Automatic NFT sale.</strike>
 * ❌ Update of NFT metadata.
