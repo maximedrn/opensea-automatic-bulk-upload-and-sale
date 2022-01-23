@@ -584,7 +584,6 @@ class Opensea:
                         web.clickable('//span[contains(text(), '   # Date span.
                                       f'"{structure.duration[0]}")]/../..')
                         web.send_keys('//*[@role="dialog"]', Keys.ENTER)
-            quit()
             try:  # Click on the "Complete listing" (submit) button.
                 web.clickable('//button[@type="submit"]')
             except Exception:  # An unknown error has occured.
