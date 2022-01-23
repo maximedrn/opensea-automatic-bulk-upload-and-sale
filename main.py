@@ -156,7 +156,8 @@ class Structure:
 
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
-        # self.nft_data_list = nft_data  # For development.
+        self.nft_data_list = nft_data  # For development.
+        print(self.nft_data_list)
         index = 9 if 1 not in self.action else 0
         if 1 in self.action:  # Upload part.
             self.file_path: str or list = nft_data[0]
@@ -463,8 +464,8 @@ class OpenSea:
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.save_nft(web.driver.current_url)
             return True  # If it perfectly worked.
-        except Exception:  # An element is not reachable.
-            print(f'{red}An error occured.')
+        except Exception as error:  # An element is not reachable.
+            print(f'{red}An error occured. {error}')
             return False  # If it failed.
 
     def opensea_sale(self, number: int, date: str = '%d-%m-%Y %H:%M') -> None:
@@ -601,8 +602,8 @@ class OpenSea:
                 print(f'{green}NFT put up for sale.')
             except Exception:  # An error occured while listing the NFT.
                 raise TE('The NFT is not listed.')
-        except Exception:  # Failed, an error has occured.
-            print(f'{red}NFT sale cancelled.')
+        except Exception as error:  # Failed, an error has occured.
+            print(f'{red}NFT sale cancelled. {error}')
 
 
 def read_file(file_: str, question: str) -> str:
