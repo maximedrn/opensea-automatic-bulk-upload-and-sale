@@ -1,6 +1,6 @@
 # Automatically upload your NFTs on OpenSea using Python Selenium.
 
-* **(_Version 1.4.6 - January 23, 2022_).**
+* **(_Version 1.4.7 - January 23, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -38,6 +38,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.4.7:**
+  * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers.
 * **Version 1.4.6:**
   * The duration has been corrected. OpenSea does not allow to change the year when the next year is more than 6 months away. So it was impossible to enter the month without it being replaced by December (12 - maximum number because the year was entered instead); **Note: maximum duration is 6 months. [#55](https://github.com/maximedrn/opensea_automatic_uploader/issues/55)**.
   * The connection to OpenSea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53), [#58](https://github.com/maximedrn/opensea_automatic_uploader/issues/58), [#61](https://github.com/maximedrn/opensea_automatic_uploader/issues/61)**.
