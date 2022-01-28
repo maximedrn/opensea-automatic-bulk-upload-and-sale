@@ -5,8 +5,6 @@
 * Sign up on [MetaMask](https://metamask.io/).
 
 **Information for all those who use this bot:**  
-  * Since January 27, 2022, OpenSea has decided to limit the number of collections to 5 and the number of items they can contain to 50. This news makes digital art creators angry. So, I'm preparing a bot for the Rarible platform, as this platform has a very promising future. ([Rarible](https://rarible.com/) - [OpenSea announcement](https://twitter.com/opensea_support/status/1486651385793769477)).  
-    **Update: a bug exists to download more than 50 items in a collection (https://www.youtube.com/watch?v=8wpmjh8xrXo), it has been added as an experimental feature in version 1.4.8.**
   * OpenSea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
   *Thank you for your understanding.*
 
@@ -41,7 +39,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Changelog
 
 * **Version 1.4.8:**
-  * Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch). (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo).
+  * Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch). (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo). Update: This method is useless, [OpenSea went back on its words](https://twitter.com/opensea/status/1486843201352716289). The limit has been removed.
 * **Version 1.4.7:**
   * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea_automatic_uploader/issues/67)**.
   * Minor fix (Colorama module).
