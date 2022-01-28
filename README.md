@@ -6,7 +6,7 @@
 
 **Information for all those who use this bot:**  
   * Since January 27, 2022, OpenSea has decided to limit the number of collections to 5 and the number of items they can contain to 50. This news makes digital art creators angry. So, I'm preparing a bot for the Rarible platform, as this platform has a very promising future. ([Rarible](https://rarible.com/) - [OpenSea announcement](https://twitter.com/opensea_support/status/1486651385793769477)).  
-    **Update: a bug exists to upload more than 50 items in a collection (https://www.youtube.com/watch?v=8wpmjh8xrXo), it will be added in the next update.**
+    **Update: a bug exists to download more than 50 items in a collection (https://www.youtube.com/watch?v=8wpmjh8xrXo), it has been added as an experimental feature in version 1.4.8.**
   * OpenSea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
   *Thank you for your understanding.*
 
