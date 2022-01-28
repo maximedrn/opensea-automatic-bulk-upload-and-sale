@@ -1,6 +1,6 @@
 # Automatically upload your NFTs on OpenSea using Python Selenium.
 
-* **(_Version 1.4.7 - January 23, 2022_).**
+* **(_Version 1.4.8 - January 28, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -40,6 +40,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.4.8:**
+  * Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch). (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo).
 * **Version 1.4.7:**
   * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea_automatic_uploader/issues/67)**.
   * Minor fix (Colorama module).
