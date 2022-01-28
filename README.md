@@ -40,6 +40,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * **Version 1.4.8:**
   * <strike>Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch).</strike> (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo). **Update:** This method is useless because [OpenSea went back on its words](https://twitter.com/opensea/status/1486843201352716289). The limit has been removed.
+  * Minor fix.
 * **Version 1.4.7:**
   * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea_automatic_uploader/issues/67)**.
   * Minor fix (Colorama module).
