@@ -84,11 +84,10 @@ class Reader:
 class Structure:
     """Structure JSON/CSV/XLSX data lists or dictionnaries."""
 
-    def __init__(self, action: list, experimental: bool) -> None:
+    def __init__(self, action: list) -> None:
         """Make a copy of the readed file and its extension."""
         self.file = reader.file.copy()  # File data copy.
         self.extension = reader.extension  # File extension copy.
-        self.experimental = experimental  # < 50 items / collection.
         self.action = action  # 1, 2 or 1 and 2.
         if 1 in self.action and 2 not in self.action:
             from uuid import uuid4  # A Python default import.
@@ -389,9 +388,7 @@ class OpenSea:
             structure.is_empty('//*[@id="external_link"]', structure.link)
             # Input description.
             structure.is_empty('//*[@id="description"]', structure.description)
-            if structure.experimental and structure.collection != '':
-                print(f'{yellow}Collection will be changed.', end=' ')
-            elif not structure.is_empty(  # Input collection and select it.
+            if not structure.is_empty(  # Input collection and select it.
                     '//form/div[5]/div/div[2]/input', structure.collection):
                 try:  # Try to click on the collection button.
                     collection = ('//span[contains(text(), "'
@@ -467,29 +464,6 @@ class OpenSea:
             WDW(web.driver, 30).until(lambda _: web.driver.current_url !=
                                       self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
-            # Change to collection of the NFT.
-            if structure.experimental and structure.collection != '':
-                print('Changing collection.', end=' ')
-                web.clickable('//div[contains(@class, "cta-container")]'
-                              '[position()=1]/span[1]/a')
-                web.clear_text('//form/div[5]/div/div[2]/input')
-                web.send_keys(  # Input collection and select it.
-                    '//form/div[5]/div/div[2]/input', structure.collection)
-                try:  # Try to click on the collection button.
-                    collection = ('//span[contains(text(), "'
-                                  f'{structure.collection}")]/../..')
-                    web.visible(collection)  # Check that the collection span
-                    web.clickable(collection)  # is visible and click on it.
-                    web.clickable('(//div[contains(@class, "submit")])'
-                                  '[position()=1]/div/span/button')
-                    if 'Success' in web.visible(
-                        '//span[contains(@class, "status-done")]'
-                        '[position()=1]').text:  # Check if success.
-                        print(f'{green}Changed to "{structure.collection}".')
-                    else:  # It failed.
-                        print(f'{red}The collection change failed.')
-                except Exception:  # If collection doesn't exist.
-                    raise TE('Collection doesn\'t exist or can\'t be found.')
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.save_nft(web.driver.current_url)
             return True  # If it perfectly worked.
@@ -693,18 +667,6 @@ def data_file() -> str:
         print(f'{red}File doesn\'t exist.')
 
 
-def activate_experimental() -> bool:
-    """Ask the user if he wants to activate a experimental feature."""
-    experimental: str = input(
-        '\nAllow upload of more than 50 items in a collection? (y/[n]) ') \
-            if 1 in action else False  # "y", "yes" or False.
-    experimental: bool = True if experimental.lower() == 'y' or \
-        experimental.lower() == 'yes' else False  # True or False.
-    print(f'{yellow}Experimental feature '  # Return info to user.
-          f'{"activated" if experimental else "deactived"}.')
-    return experimental
-
-
 def cls() -> None:
     """Clear console function."""
     # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
@@ -744,9 +706,8 @@ if __name__ == '__main__':
             'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
 
     action = perform_action()  # What the user wants to do.
-    # experimental = activate_experimental()
     reader = Reader(data_file())  # Ask for a file and read it.
-    structure = Structure(action, experimental) 
+    structure = Structure(action) 
     web = Webdriver()  # Start a new webdriver and init its methods.
     opensea.metamask_login()  # Connect to MetaMask.
     opensea.opensea_login()  # Connect to OpenSea.
