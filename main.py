@@ -744,7 +744,7 @@ if __name__ == '__main__':
             'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
 
     action = perform_action()  # What the user wants to do.
-    experimental = activate_experimental()
+    # experimental = activate_experimental()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action, experimental) 
     web = Webdriver()  # Start a new webdriver and init its methods.
@@ -764,5 +764,5 @@ if __name__ == '__main__':
                 if structure.price > 0:  # If price has been defined.
                     opensea.opensea_sale(nft_number + 1)  # Sell NFT.
 
-    # web.driver.quit()  # Stop the webdriver.
+    web.driver.quit()  # Stop the webdriver.
     print(f'\n{green}All done! Your NFTs have been uploaded/sold.')
