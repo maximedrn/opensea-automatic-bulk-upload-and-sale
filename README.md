@@ -10,19 +10,19 @@
 
 # Table of contents
 
-* **[What does this bot do?](https://github.com/maximedrn/opensea_automatic_uploader#what-does-this-bot-do)**
-* **[Changelog](https://github.com/maximedrn/opensea_automatic_uploader#changelog).**
-* **[To do list](https://github.com/maximedrn/opensea_automatic_uploader#to-do-list).**
-* **[Instructions](https://github.com/maximedrn/opensea_automatic_uploader#instructions)**.
-  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea_automatic_uploader#basic-installation-of-python-for-beginners).
-  * [Configuration of the bot](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-bot).
-  * [Run the bot](https://github.com/maximedrn/opensea_automatic_uploader#run-the-bot).
-* **[Data files structure](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure).**
-  * [Upload and sale](https://github.com/maximedrn/opensea_automatic_uploader#upload-and-sale).
-  * [Upload only](https://github.com/maximedrn/opensea_automatic_uploader#upload-only).
-  * [Sale only](https://github.com/maximedrn/opensea_automatic_uploader#sale-only).
-* **[Configuration of the sale part of the NFTs](https://github.com/maximedrn/opensea_automatic_uploader#configuration-of-the-sale-part-of-the-nfts).**
-* **[Known issues and important things to know](https://github.com/maximedrn/opensea_automatic_uploader#known-issues-and-important-things-to-know).**
+* **[What does this bot do?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#what-does-this-bot-do)**
+* **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#changelog).**
+* **[To do list](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#to-do-list).**
+* **[Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**.
+  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#basic-installation-of-python-for-beginners).
+  * [Configuration of the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-bot).
+  * [Run the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#run-the-bot).
+* **[Data files structure](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure).**
+  * [Upload and sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-and-sale).
+  * [Upload only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-only).
+  * [Sale only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#sale-only).
+* **[Configuration of the sale part of the NFTs](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-sale-part-of-the-nfts).**
+* **[Known issues and important things to know](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#known-issues-and-important-things-to-know).**
 
 
 ## What does this bot do?
@@ -42,30 +42,30 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
   * <strike>Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch).</strike> (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo). **Update:** This method is useless because [OpenSea went back on its words](https://twitter.com/opensea/status/1486843201352716289). The limit has been removed.
   * Minor fix.
 * **Version 1.4.7:**
-  * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea_automatic_uploader/issues/67)**.
+  * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/67)**.
   * Minor fix (Colorama module).
 * **Version 1.4.6:**
-  * The duration has been corrected. OpenSea does not allow to change the year when the next year is more than 6 months away. So it was impossible to enter the month without it being replaced by December (12 - maximum number because the year was entered instead); **Note: maximum duration is 6 months. [#55](https://github.com/maximedrn/opensea_automatic_uploader/issues/55)**.
-  * The connection to OpenSea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53), [#58](https://github.com/maximedrn/opensea_automatic_uploader/issues/58), [#61](https://github.com/maximedrn/opensea_automatic_uploader/issues/61)**.
+  * The duration has been corrected. OpenSea does not allow to change the year when the next year is more than 6 months away. So it was impossible to enter the month without it being replaced by December (12 - maximum number because the year was entered instead); **Note: maximum duration is 6 months. [#55](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/55)**.
+  * The connection to OpenSea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/53), [#58](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/58), [#61](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/61)**.
 * **Version 1.4.5:**
-  * Minor fix for Linux users. The `clear_text(self)` method inserts an "A" when it tries to clear the inputs before sending the data. **[#39](https://github.com/maximedrn/opensea_automatic_uploader/issues/39)**.
+  * Minor fix for Linux users. The `clear_text(self)` method inserts an "A" when it tries to clear the inputs before sending the data. **[#39](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/39)**.
 * **Version 1.4.4:**
-  * Connection to OpenSea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea_automatic_uploader/issues/53)**.
+  * Connection to OpenSea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/53)**.
   * Connection to OpenSea with MetaMask improved.
 * **Version 1.4.3:**
-  * File preview is now added. **[#48](https://github.com/maximedrn/opensea_automatic_uploader/issues/48)**.
+  * File preview is now added. **[#48](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/48)**.
 * **Version 1.4.2:**
   * Listing of NFT on the Ethereum Blockchain is fully supported. **Be sure to make a deposit and have more than 0.05 ETH on your wallet.**
 * **Version 1.4.1:**
-  * Small fix for XLSX files. Empty cells were interpreted as "NaN", which is not interpreted as an empty string for Python. **[#18](https://github.com/maximedrn/opensea_automatic_uploader/issues/18), [#23](https://github.com/maximedrn/opensea_automatic_uploader/issues/23)**.
+  * Small fix for XLSX files. Empty cells were interpreted as "NaN", which is not interpreted as an empty string for Python. **[#18](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/18), [#23](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/23)**.
 * **Version 1.4:**
-  * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea_automatic_uploader/issues/3), [#22](https://github.com/maximedrn/opensea_automatic_uploader/issues/22)**.
-  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to OpenSea. **[#5](https://github.com/maximedrn/opensea_automatic_uploader/issues/5), [#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
-  * After uploading the NFT, the bot would crash when it tried to sell it (the URL was not correct). Now it doesn't. **[#17](https://github.com/maximedrn/opensea_automatic_uploader/issues/17)**.
+  * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/3), [#22](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/22)**.
+  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to OpenSea. **[#5](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/5), [#17](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/17)**.
+  * After uploading the NFT, the bot would crash when it tried to sell it (the URL was not correct). Now it doesn't. **[#17](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/17)**.
   * MacOS and Linux support improved.
   * Calendar method improved.
 * **Version 1.3:**
-  * Important fixes. **[#4](https://github.com/maximedrn/opensea_automatic_uploader/issues/4), [#6](https://github.com/maximedrn/opensea_automatic_uploader/issues/6), [#10](https://github.com/maximedrn/opensea_automatic_uploader/issues/10), [#11](https://github.com/maximedrn/opensea_automatic_uploader/issues/11), [#12](https://github.com/maximedrn/opensea_automatic_uploader/issues/12), [#14](https://github.com/maximedrn/opensea_automatic_uploader/issues/14)**.
+  * Important fixes. **[#4](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/4), [#6](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/6), [#10](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/10), [#11](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/11), [#12](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/12), [#14](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/14)**.
   * CSV file modified: separator changed (from ";" to ";;").
 * **Version 1.2:**
   * Possibility to set a price for each NFT added.  
@@ -77,7 +77,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * **Version 1.1:** 
   * XLSX support added.
   * PC-wide data file browse support.
-  * Properties, Stats and Levels issues fixed. **[#1](https://github.com/maximedrn/opensea_automatic_uploader/issues/1)**.
+  * Properties, Stats and Levels issues fixed. **[#1](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/1)**.
 * **Version 1.0:** 
   * Inital commit.
 
@@ -108,10 +108,10 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Instructions
 
 * ### Basic installation of Python for beginners:
-  * [Download the repository](https://github.com/maximedrn/opensea_automatic_uploader/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
+  * [Download the repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
     
     ```
-    git clone https://github.com/maximedrn/opensea_automatic_uploader.git
+    git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
   * It requires [Python](https://www.python.org/) 3.7 or a newest version - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
@@ -133,14 +133,14 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
       py -m pip install -r requirements.txt
       ```
 * ### Configuration of the bot:
-  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea_automatic_uploader-master`.
+  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master`.
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
   * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). To know your Google Chrome browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
   * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
-    **[What structure should the files have?](https://github.com/maximedrn/opensea_automatic_uploader#data-files-structure)**
+    **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
 * ### Run the bot:
-  * Open a command prompt in the `opensea_automatic_uploader-master/` folder path.
+  * Open a command prompt in the `opensea-automatic-bulk-upload-and-sale-master/` folder path.
   * Type one of these commands to run the bot:
     
     * ```
@@ -220,11 +220,11 @@ If you do not want to add details to the values not required, leave:
            <td>External Link</td>
            <td>String</td>
            <td></td>
-           <td>"external_link": "https://github.com/maximedrn/opensea_automatic_uploader",
+           <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
               <br>"external_link": "",
            </td>
-           <td>https://github.com/maximedrn/opensea_automatic_uploader;;</td>
-           <td>https://github.com/maximedrn/opensea_automatic_uploader</td>
+           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
+           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
         </tr>
         <tr>
            <td>Description</td>
@@ -460,7 +460,7 @@ If you do not want to add details to the values not required, leave:
      </tbody>
   </table>
  
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
+  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
  
 * ### Upload only
 
@@ -497,11 +497,11 @@ If you do not want to add details to the values not required, leave:
            <td>External Link</td>
            <td>String</td>
            <td></td>
-           <td>"external_link": "https://github.com/maximedrn/opensea_automatic_uploader",
+           <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
               <br>"external_link": "",
            </td>
-           <td>https://github.com/maximedrn/opensea_automatic_uploader;;</td>
-           <td>https://github.com/maximedrn/opensea_automatic_uploader</td>
+           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
+           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
         </tr>
         <tr>
            <td>Description</td>
@@ -636,7 +636,7 @@ If you do not want to add details to the values not required, leave:
      </tbody>
   </table>
  
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_upload_only.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_upload_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_upload_only.xlsx).
+  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_only.xlsx).
  
 * ### Sale only
  
@@ -766,7 +766,7 @@ If you do not want to add details to the values not required, leave:
      </tbody>
   </table>
 
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/json_structure_sale_only.json), [CSV](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/csv_structure_sale_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea_automatic_uploader/blob/master/data/xlsx_structure_sale_only.xlsx).
+  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_sale_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_sale_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_sale_only.xlsx).
 
 
 ## Configuration of the sale part of the NFTs
