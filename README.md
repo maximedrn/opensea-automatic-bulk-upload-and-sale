@@ -119,6 +119,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     ```
   * It requires [Python](https://www.python.org/) 3.7 or a newest version - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
+
+* ### Configuration of the bot:
+  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master`.
   * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux):
     
     * ```
@@ -136,8 +139,6 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     * ```
       py -m pip install -r requirements.txt
       ```
-* ### Configuration of the bot:
-  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master`.
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
   * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). To know your Google Chrome browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
   * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
