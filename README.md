@@ -4,7 +4,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.4.8 - January 28, 2022_).**
+* **(_Version 1.4.9 - February 13, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -42,6 +42,11 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.4.9:**
+  * Minor fixes.
+  * Developper can now add new wallets if they want.
+  * ChromeDriver is automatically downloaded - no need to do it manually (`pip install -r requirements.txt` required).
+  * _The reCAPTCHAs solver is not integrated/configured._
 * **Version 1.4.8:**
   * <strike>Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch).</strike> (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo). **Update:** This method is useless because [OpenSea went back on its words](https://twitter.com/opensea/status/1486843201352716289). The limit has been removed.
   * Minor fix.
@@ -140,8 +145,6 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
       py -m pip install -r requirements.txt
       ```
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
-  * Download the [ChromeDriver executable](https://chromedriver.chromium.org/downloads) that is compatible with the actual version of your Google Chrome browser and your OS (Operating System). To know your Google Chrome browser version, refer to: **_[What version of Google Chrome do I have?](https://www.whatismybrowser.com/)_**
-  * Extract the executable file from the ZIP file and copy/paste it in the `assets/` folder of the repository.
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
 * ### Run the bot:
