@@ -44,7 +44,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * **Version 1.4.9:**
   * Minor fixes.
-  * Developper can now add new wallets if they want.
+  * Developers can now add new wallets if they wish.
   * ChromeDriver is automatically downloaded - no need to do it manually (`pip install -r requirements.txt` required).
   * _The reCAPTCHAs solver is not integrated/configured._
 * **Version 1.4.8:**
