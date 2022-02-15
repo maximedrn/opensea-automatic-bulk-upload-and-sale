@@ -735,12 +735,15 @@ if __name__ == '__main__':
     action = perform_action()  # What the user wants to do.
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)
-    web = Webdriver()  # Start a new webdriver and init its methods.
-    opensea = OpenSea()  # Init the OpenSea clas.
-    wallet.login()  # Connect to MetaMask.
-    opensea.login()  # Connect to OpenSea.
 
     for nft_number in range(reader.lenght_file):
+
+        web = Webdriver()  # Start a new webdriver and init its methods.
+        opensea = OpenSea()  # Init the OpenSea clas.
+        wallet.login()  # Connect to MetaMask.
+        opensea.login()  # Connect to OpenSea.
+
+    
         structure.get_data(nft_number)  # Structure the data of the NFT.
         upload = None  # Prevent Undefined value error.
         if 1 in action:  # 1 = Upload. If user wants to upload the NFT.
@@ -753,5 +756,6 @@ if __name__ == '__main__':
                 if structure.price > 0:  # If price has been defined.
                     opensea.sale(nft_number + 1)  # Sell NFT.
 
-    web.driver.quit()  # Stop the webdriver.
+        web.driver.quit()  # Stop the webdriver.
+    
     print(f'\n{green}All done! Your NFTs have been uploaded/sold.{reset}')
