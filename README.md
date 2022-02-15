@@ -5,10 +5,11 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 ---
 
 * **(_Version 1.4.9 - February 13, 2022_).**
-* Sign up on [OpenSea](https://opensea.io/?ref=0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E) (Affiliate link).
+* Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
 **Information for all those who use this bot:**  
+  Important to read about reCAPTCHAs: https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/98.  
   OpenSea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
   *Thank you for your understanding.*
 
