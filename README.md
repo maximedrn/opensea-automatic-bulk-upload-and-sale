@@ -4,14 +4,9 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.4.9 - February 13, 2022_).**
+* **(_Version 1.5.0 - February 16, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
-
-**Information for all those who use this bot:**  
-  Important to read about reCAPTCHAs: https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/98.  
-  OpenSea is currently experiencing a database outage. This means that they are deploying means to limit the flows on their servers. So it is possible that you will face Cloudflare protections with hCaptchas or that the website will be unavailable. I advise you to do your mass uploads during off-peak hours (see the [System Metrics](https://status.opensea.io/#system-metrics)).  
-  *Thank you for your understanding.*
 
 # Table of contents
 
@@ -43,6 +38,10 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.0:**
+  * The reCAPTCHAs can now be bypassed. The robot restarts for each upload - it's a bit slow but it works. **[#98](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/98), [#102](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/pull/102)**.  
+    Thanks to **[Kanishka-Chandra](https://github.com/Kanishka-Chandra)**.
+  * The bot restarts after 3 failed connections to the wallet or to OpenSea.
 * **Version 1.4.9:**
   * Minor fixes.
   * Developers can now add new wallets if they wish.
