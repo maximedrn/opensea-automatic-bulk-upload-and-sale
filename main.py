@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.4.9 - 2022, 13 February.
+Version 1.5.0 - 2022, 16 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -59,7 +59,6 @@ class Reader:
         if self.extension in ('json', 'csv', 'xlsx'):
             # Eval function: self.extract_{FILE_EXTENSION}_file()
             eval(f'self.extract_{self.extension}_file()')
-            print(self.file)
         else:  # Stop running the script.
             exit('The file extension is not supported.')
 
@@ -216,9 +215,9 @@ class Webdriver:
         """Start a webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
         options.add_extension(self.metamask_extension_path)  # Add extension.
-        options.add_argument("log-level=3")  # No logs is printed.
-        options.add_argument("--mute-audio")  # Audio is muted.
-        options.add_argument("--lang=en-US")  # Set webdriver language
+        options.add_argument('log-level=3')  # No logs is printed.
+        options.add_argument('--mute-audio')  # Audio is muted.
+        options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
         driver = webdriver.Chrome(service=Service( # DeprecationWarning using
@@ -283,6 +282,7 @@ class Wallets:
         self.recovery_phrase = recovery_phrase  # Get the phrase.
         self.password = password  # Get the new/same password.
         self.wallet = wallet.lower().replace(' ', '_')  # Wallet user choice.
+        self.fails = 0  # Counter of fails during wallet connection.
 
     def contract(self) -> None:
         """Use the method of the wallet to sign the contract."""
@@ -318,8 +318,15 @@ class Wallets:
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
             print(f'{green}Logged to MetaMask.{reset}')
         except Exception:  # Failed - a web element is not accessible.
-            print(f'{red}Login to MetaMask failed, retrying...{reset}')
-            self.metamask_login()
+            self.fails += 1  # Increment the counter.
+            if self.fails < 3:  # Retry login to the wallet.
+                print(f'{red}Login to MetaMask failed. Retrying.{reset}')
+                self.metamask_login()
+            else:  # Too many fails.
+                self.fails = 0  # Reset the counter.
+                print(f'{red}Login to MetaMask failed. Restarting.{reset}')
+                web.driver.quit()  # Stop the webdriver.
+                worker()  # Restart the worker.
 
     def metamask_contract(self) -> None:
         """Sign a MetaMask contract to login to OpenSea."""
@@ -339,6 +346,7 @@ class OpenSea:
         """Get the password and the recovery_phrase from the text file."""
         self.login_url = 'https://opensea.io/login?referrer=%2Fasset%2Fcreate'
         self.create_url = 'https://opensea.io/asset/create'  # OpenSea URLs.
+        self.fails = 0
 
     def login(self) -> None:
         """Login to OpenSea using MetaMask."""
@@ -350,7 +358,7 @@ class OpenSea:
             web.clickable('//button[contains(@class, "show-more")]')
             # Click on the "MetaMask" button in list of wallets.
             web.clickable('//*[contains(text(), "MetaMask")]/../..')
-            web.window_handles(2)  # Switch to the MetaMask pop up tab.
+            # web.window_handles(2)  # Switch to the MetaMask pop up tab.
             # Click on the "Next" button.
             web.clickable('//*[@class="button btn-primary"]')
             # Click on the "Connect" button.
@@ -369,9 +377,16 @@ class OpenSea:
                 WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
                 print(f'{green}Logged to OpenSea.{reset}\n')
             except Exception:
-                print(f'{red}Login to OpenSea failed. Retrying.{reset}')
-                web.driver.refresh()  # Reload the page (is the login failed?).
-                self.login()  # Retry everything.
+                self.fails += 1  # Increment the counter.
+                if self.fails < 3:  # Retry login to the wallet.
+                    print(f'{red}Login to OpenSea failed. Retrying.{reset}')
+                    web.driver.refresh()  # Reload the page (is the login failed?).
+                    self.login()  # Retry everything.
+                else:  # Too many fails.
+                    self.fails = 0  # Reset the counter.
+                    print(f'{red}Login to OpenSea failed. Restarting.{reset}')
+                    web.driver.quit()  # Stop the webdriver.
+                    worker()  # Restart the worker.
 
     def upload(self, number: int) -> bool:
         """Upload multiple NFTs automatically on OpenSea."""
@@ -708,17 +723,38 @@ def cls() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+def worker() -> None:
+    """Main function of the bot."""
+    global web, opensea  # Make these as global statements for classes.
+    for nft_number in range(reader.lenght_file):
+        web = Webdriver()  # Start a new webdriver and init its methods.
+        opensea = OpenSea()  # Init the OpenSea class.
+        wallet.login()  # Connect to MetaMask.
+        opensea.login()  # Connect to OpenSea.
+        structure.get_data(nft_number)  # Structure the data of the NFT.
+        upload = None  # Prevent Undefined value error.
+        if 1 in action:  # 1 = Upload. If user wants to upload the NFT.
+            upload = opensea.upload(nft_number + 1)  # Upload the NFT.
+        if 2 in action:  # 2 - Sale. If user wants to sell the NFT.
+            if 1 in action and not upload:  # Do not upload the NFT because of
+                continue  # a user choice or a failure of the upload.
+            elif isinstance(structure.price, int) or \
+                    isinstance(structure.price, float):
+                if structure.price > 0:  # If price has been defined.
+                    opensea.sale(nft_number + 1)  # Sell NFT.
+        web.driver.quit()  # Stop the webdriver.
+
+
 if __name__ == '__main__':
 
     cls()  # Clear console.
-
     print(f'{green}Created by Maxime Dréan.'
           '\nGithub: https://github.com/maximedrn'
           '\nTelegram: https://t.me/maximedrn'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.4.9 - 2022, 13 February.\n{reset}'
+          f'\n\nVersion 1.5.0 - 2022, 16 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -734,28 +770,6 @@ if __name__ == '__main__':
             'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
     action = perform_action()  # What the user wants to do.
     reader = Reader(data_file())  # Ask for a file and read it.
-    structure = Structure(action)
-
-    for nft_number in range(reader.lenght_file):
-
-        web = Webdriver()  # Start a new webdriver and init its methods.
-        opensea = OpenSea()  # Init the OpenSea clas.
-        wallet.login()  # Connect to MetaMask.
-        opensea.login()  # Connect to OpenSea.
-
-    
-        structure.get_data(nft_number)  # Structure the data of the NFT.
-        upload = None  # Prevent Undefined value error.
-        if 1 in action:  # 1 = Upload. If user wants to upload the NFT.
-            upload = opensea.upload(nft_number + 1)  # Upload the NFT.
-        if 2 in action:  # 2 - Sale. If user wants to sell the NFT.
-            if 1 in action and not upload:  # Do not upload the NFT because of
-                continue  # a user choice or a failure of the upload.
-            elif isinstance(structure.price, int) or \
-                    isinstance(structure.price, float):
-                if structure.price > 0:  # If price has been defined.
-                    opensea.sale(nft_number + 1)  # Sell NFT.
-
-        web.driver.quit()  # Stop the webdriver.
-    
-    print(f'\n{green}All done! Your NFTs have been uploaded/sold.{reset}')
+    structure = Structure(action)  # Structure the file.
+    worker()  # Start the upload or sale.
+    print(f'\n{green}All done!{reset}')
