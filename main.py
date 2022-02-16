@@ -358,7 +358,7 @@ class OpenSea:
             web.clickable('//button[contains(@class, "show-more")]')
             # Click on the "MetaMask" button in list of wallets.
             web.clickable('//*[contains(text(), "MetaMask")]/../..')
-            # web.window_handles(2)  # Switch to the MetaMask pop up tab.
+            web.window_handles(2)  # Switch to the MetaMask pop up tab.
             # Click on the "Next" button.
             web.clickable('//*[@class="button btn-primary"]')
             # Click on the "Connect" button.
