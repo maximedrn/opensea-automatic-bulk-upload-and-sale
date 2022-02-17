@@ -4,7 +4,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.1 - February 17, 2022_).**
+* **(_Version 1.5.2 - February 17, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -38,6 +38,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.2:**
+  * Headless mode support. Download Mozilla Firefox and you can use this bot in the background without any interface.
+  * Fixed the connection to the MetaMask success indicator.
 * **Version 1.5.1:**
   * Fixed the problem of the worker version 1.5.0. The bot now continues to upload and does not restart the upload from the beginning. **[#107](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/107)**.
 * **Version 1.5.0:**
@@ -146,7 +149,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     * ```
       py -m pip install -r requirements.txt
       ```
-  * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/).
+  * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
 * ### Run the bot:
