@@ -659,7 +659,7 @@ If you do not want to add details to the values not required, leave:
  
 * ### Sale only
  
-  If you have already uploaded your NFTs with this bot, a file has been generated with containing the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
+  If you have already uploaded your NFTs with this bot, a file has been generatcontaining the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
 
   <table>
      <tbody>
