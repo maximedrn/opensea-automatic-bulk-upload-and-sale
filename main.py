@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.1 - 2022, 17 February.
+Version 1.5.2 - 2022, 17 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -21,15 +21,16 @@ from colorama import init, Fore, Style
 
 # Selenium module imports: pip install selenium
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 # Webdriver Manager module: pip install webdriver-manager
 from webdriver_manager.chrome import ChromeDriverManager as CDM
+from webdriver_manager.firefox import GeckoDriverManager as GDM
 
 # Python default imports.
 from datetime import datetime as dt
@@ -205,13 +206,15 @@ class Structure:
 class Webdriver:
     """Webdriver class and methods to prevent exceptions."""
 
-    def __init__(self) -> None:
+    def __init__(self, browser: int) -> None:
         """Contains the file paths of the webdriver and the extension."""
-        # Used files path, change them with your path if necessary.
-        self.metamask_extension_path = os.path.abspath('assets/MetaMask.crx')
-        self.driver = self.webdriver()  # Start new webdriver.
+        self.metamask_extension_path = os.path.abspath(  # Extension path.
+            'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
+        # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
+        self.driver = self.chrome() if browser == 0 else self.firefox()
+        self.window = browser  # Window handle value.
 
-    def webdriver(self) -> webdriver:
+    def chrome(self) -> webdriver:
         """Start a webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
         options.add_extension(self.metamask_extension_path)  # Add extension.
@@ -223,6 +226,18 @@ class Webdriver:
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
             CDM(log_level=0).install()), options=options)  # executable_path.
+        driver.maximize_window()  # Maximize window to reach all elements.
+        return driver
+
+    def firefox(self) -> webdriver:
+        options = webdriver.FirefoxOptions()  # Configure options for Firefox.
+        options.add_argument('--headless')  # Headless mode.
+        options.add_argument('--log-level=3')  # No logs is printed.
+        options.add_argument('--mute-audio')  # Audio is muted.
+        options.set_preference('intl.accept_languages', 'en,en-US')
+        driver = webdriver.Firefox(service=Service(  # DeprecationWarning using
+            GDM(log_level=0).install()), options=options)  # executable_path.
+        driver.install_addon(self.metamask_extension_path)  # Add extension.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
 
@@ -262,16 +277,20 @@ class Webdriver:
         self.clickable(element)  # Click on the element then clear its text.
         # Note: change with 'darwin' if it's not working on MacOS.
         control = Keys.COMMAND if os.name == 'posix' else Keys.CONTROL
-        webdriver.ActionChains(self.driver).key_down(control).perform()
-        webdriver.ActionChains(self.driver).send_keys('a').perform()
-        webdriver.ActionChains(self.driver).key_up(control).perform()
+        if self.window == 0:  # ChromeDriver (Google Chrome).
+            webdriver.ActionChains(self.driver).key_down(control).send_keys(
+                'a').key_up(control).perform()
+        elif self.window == 1:  # GeckoDriver (Mozilla Firefox).
+            self.send_keys(element, (control, 'a'))
 
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
+        window_number = {1: 0, 0: 1, 2: 2}[window_number] \
+            if self.window == 1 else window_number
         WDW(self.driver, 30).until(lambda _: len(
             self.driver.window_handles) > window_number)
-        # Switch to the asked tab.
-        self.driver.switch_to.window(self.driver.window_handles[window_number])
+        self.driver.switch_to.window(  # Switch to the asked tab.
+            self.driver.window_handles[window_number])
 
 
 class Wallets:
@@ -284,16 +303,18 @@ class Wallets:
         self.password = password  # Get the new/same password.
         self.wallet = wallet.lower().replace(' ', '_')  # Wallet user choice.
         self.fails = 0  # Counter of fails during wallet connection.
+        self.success = False
 
     def login(self) -> bool:
         """Connect to OpenSea using a specific wallet."""
-        return eval(f'self.{self.wallet}_login()')
+        eval(f'self.{self.wallet}_login()')
+        return self.success
 
     def contract(self) -> None:
         """Use the method of the wallet to sign the contract."""
         eval(f'self.{self.wallet}_contract()')
 
-    def metamask_login(self) -> None:
+    def metamask_login(self) -> bool or None:
         """Login to the MetaMask extension."""
         try:  # Try to login to the MetaMask extension.
             print('Login to MetaMask.', end=' ')
@@ -318,6 +339,7 @@ class Wallets:
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
             print(f'{green}Logged to MetaMask.{reset}')
+            self.success = True
         except Exception:  # Failed - a web element is not accessible.
             self.fails += 1  # Increment the counter.
             if self.fails < 2:  # Retry login to the wallet.
@@ -327,12 +349,12 @@ class Wallets:
                 self.fails = 0  # Reset the counter.
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.driver.quit()  # Stop the webdriver.
-                return False
 
     def metamask_contract(self) -> None:
         """Sign a MetaMask contract to login to OpenSea."""
         # Click on the "Sign" button - Make a contract link.
-        web.clickable('//*[contains(@class, "button btn-secondary")]')
+        web.clickable('//*[contains(@class, "button btn-secondary")]' if \
+            web.window == 0 else '//*[contains(@class, "btn-primary")]')
         try:  # Wait until the MetaMask pop up is closed.
             WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
@@ -348,8 +370,9 @@ class OpenSea:
         self.login_url = 'https://opensea.io/login?referrer=%2Fasset%2Fcreate'
         self.create_url = 'https://opensea.io/asset/create'  # OpenSea URLs.
         self.fails = 0  # Counter of fails during wallet connection.
+        self.success = False
 
-    def login(self) -> None:
+    def login(self) -> bool or None:
         """Login to OpenSea using MetaMask."""
         try:  # Try to login to the OpenSea using MetaMask.
             print('Login to OpenSea.', end=' ')
@@ -361,14 +384,15 @@ class OpenSea:
             web.clickable('//*[contains(text(), "MetaMask")]/../..')
             web.window_handles(2)  # Switch to the MetaMask pop up tab.
             # Click on the "Next" button.
-            web.clickable('//*[@class="button btn-primary"]')
+            web.clickable('//*[contains(@class, "btn-primary")]')
             # Click on the "Connect" button.
-            web.clickable('//*[contains(@class, "button btn-primary")]')
+            web.clickable('//*[contains(@class, "btn-primary")]')
             web.window_handles(2)  # Switch to the MetaMask pop up tab.
             wallet.contract()  # Sign the contract.
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
-            print(f'{green}Logged to OpenSea.{reset}\n')
+            print(f'{green}Logged to OpenSea.{reset}')
+            self.success = True
         except Exception:  # The contract failed.
             try:
                 web.window_handles(1)  # Switch back to the OpenSea tab.
@@ -377,6 +401,7 @@ class OpenSea:
                 # Check if the login worked.
                 WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
                 print(f'{green}Logged to OpenSea.{reset}')
+                self.success = True
             except Exception:
                 self.fails += 1  # Increment the counter.
                 if self.fails < 2:  # Retry login to the wallet.
@@ -388,7 +413,7 @@ class OpenSea:
                     self.fails = 0  # Reset the counter.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.driver.quit()  # Stop the webdriver.
-                    return False
+        return self.success
 
     def upload(self, number: int) -> bool:
         """Upload multiple NFTs automatically on OpenSea."""
@@ -456,7 +481,7 @@ class OpenSea:
                             actual_element = f'/html/body/div[{index + 2}]' + \
                                 '/div/div/div/section/table/tbody/' + \
                                 f'tr[{number_}]/td[{rank}]/div/div/input'
-                            web.clear_text(actual_element)  # Default text.
+                            web.clear_text(actual_element)  # Default value.
                             web.send_keys(actual_element, data[rank - 1])
                 web.clickable('//footer/button')  # Click on the "Save" button.
             # Click on the "Unlockable Content" switch if it's true.
@@ -719,6 +744,25 @@ def data_file() -> str:
         print(f'{red}File doesn\'t exist.{reset}')
 
 
+def choose_browser() -> int:
+    """Ask the user for a browser."""
+    browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
+                'Must used in foreground, you see what\'s happening.',
+                'GeckoDriver (Mozilla Firefox) - Headless mode.\n    '
+                'Can be used in background while doing something else.']
+    while True:
+        print(f'{yellow}\nChoose a browser:')
+        [print(f'{browsers.index(browser) + 1} - {browser}'
+               ) for browser in browsers]  # Print browsers.
+        answer = input('Browser: ')  # Get the user answer.
+        if not answer.isdigit():  # Check if answer is a number.
+            print(f'{red}Answer must be an integer.')
+        elif int(answer) > len(browsers) or int(answer) <= 0:
+            print(f'{red}Browser doesn\'t exist.')
+        else:  # Return the index of browser.
+            return int(answer) - 1
+
+
 def cls() -> None:
     """Clear console function."""
     # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
@@ -734,7 +778,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.1 - 2022, 17 February.\n{reset}'
+          f'\n\nVersion 1.5.2 - 2022, 17 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -749,13 +793,14 @@ if __name__ == '__main__':
         'password', '\nWhat is your MetaMask password? '), read_file(
         'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
     action = perform_action()  # What the user wants to do.
+    browser = choose_browser()  # Get the browser.
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
 
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
-            while True:  # while loop to retry to connect for the NFT.
-                web = Webdriver()  # Start a webdriver and init its methods.
+            while True:  # While loop to retry to connect for the NFT.
+                web = Webdriver(browser)  # Start a webdriver.
                 opensea = OpenSea()  # Init the OpenSea class.
                 if wallet.login() is False:  # Connect to MetaMask.
                     continue  # Restart the while loop.
@@ -771,7 +816,7 @@ if __name__ == '__main__':
                 break  # Stop the while loop and continue the for loop.
 
     elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
-        web = Webdriver()  # Start a new webdriver and init its methods.
+        web = Webdriver(browser)  # Start a new webdriver.
         opensea = OpenSea()  # Init the OpenSea class.
         wallet.login()  # Connect to MetaMask.
         opensea.login()  # Connect to OpenSea.
