@@ -4,7 +4,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.0 - February 16, 2022_).**
+* **(_Version 1.5.1 - February 17, 2022_).**
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
