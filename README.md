@@ -45,6 +45,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * **Version 1.5.2:**
   * Headless mode support. Download Mozilla Firefox and you can use this bot in the background without any interface.
+    Note: Firefox may be unstable and some features may work differently or not at all.
   * Fixed the connection to the MetaMask success indicator.
 * **Version 1.5.1:**
   * Fixed the problem of the worker version 1.5.0. The bot now continues to upload and does not restart the upload from the beginning. **[#107](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/107)**.
