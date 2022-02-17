@@ -3,8 +3,13 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
   (all metadata integrated - Ethereum and Polygon supported)._
 
 ---
+**Please read the README file before using this tool, opening a problem or a discussion, or contacting me. _Thank you!_**  
+  ⇒ _Open a discussion?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**. Make sure you have the **latest modules, browser and bot installed**.  
+  Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data). 
 
-* **(_Version 1.5.2 - February 17, 2022_).**
+---
+
+* **(_Version 1.5.2 - February 17, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
