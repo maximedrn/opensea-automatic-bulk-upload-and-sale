@@ -230,7 +230,7 @@ class Webdriver:
         return driver
 
     def firefox(self) -> webdriver:
-        """Start a Chrome webdriver and return its state."""
+        """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
         options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
