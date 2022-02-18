@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.2 - 2022, 17 February.
+Version 1.5.3 - 2022, 18 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -225,7 +225,7 @@ class Webdriver:
             'prefs', {'intl.accept_languages': 'en,en_US'})
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
-            CDM(log_level=0).install()), options=options)  # executable_path.
+            browser_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
 
@@ -236,7 +236,7 @@ class Webdriver:
         options.add_argument('--mute-audio')  # Audio is muted.
         options.set_preference('intl.accept_languages', 'en,en-US')
         driver = webdriver.Firefox(service=Service(  # DeprecationWarning using
-            GDM(log_level=0).install()), options=options)  # executable_path.
+            browser_path), options=options)  # executable_path.
         driver.install_addon(self.metamask_extension_path)  # Add extension.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
@@ -450,7 +450,7 @@ class OpenSea:
             # Input description.
             structure.is_empty('//*[@id="description"]', structure.description)
             if not structure.is_empty(  # Input collection and select it.
-                    '//form/div[5]/div/div[2]/input', structure.collection):
+                    '//*[@id="collection"]', structure.collection):
                 try:  # Try to click on the collection button.
                     collection = ('//span[contains(text(), "'
                                   f'{structure.collection}")]/../..')
@@ -730,7 +730,6 @@ def data_file() -> str:
                 files_list.append(file)
                 print(f'{file_number} - {os.path.abspath(file)}')
         answer = input('File number: ')
-        cls()  # Clear console.
         if not answer.isdigit():  # Check if answer is a number.
             print(f'{red}Answer must be an integer.{reset}')
         elif int(answer) == 0:  # Browse a file on PC.
@@ -741,7 +740,6 @@ def data_file() -> str:
             return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
         elif int(answer) <= len(files_list):
             return files_list[int(answer) - 1]  # Return path of file.
-        print(f'{red}File doesn\'t exist.{reset}')
 
 
 def choose_browser() -> int:
@@ -778,7 +776,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.2 - 2022, 17 February.\n{reset}'
+          f'\n\nVersion 1.5.3 - 2022, 18 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -796,6 +794,12 @@ if __name__ == '__main__':
     browser = choose_browser()  # Get the browser.
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
+    cls()  # Clear console.
+
+    browser_path = CDM(log_level=0).install() if browser == 0 else \
+        GDM(log_level=0).install()  # Download the webdriver.
+    print(f'{yellow}{"ChromeDriver" if browser == 0 else "GeckoDriver"}'
+          f' browser downloaded in path:{reset} {browser_path}')
 
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
