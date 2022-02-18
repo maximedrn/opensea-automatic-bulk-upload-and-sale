@@ -9,7 +9,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.3 - February 18, 2022_).**  
+* **(_Version 1.5.4 - February 18, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -43,6 +43,10 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.4:**
+  * The HTTPConnectionPool error in Selenium is fixed, it was caused by defining the driver inside a loop. Now the bot will print an error and restart to launch the bot. **[#112](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/112)**.  
+    ➜ For more informations: **[Reddit - Ralphc360's comment](https://www.reddit.com/r/selenium/comments/cuynft/comment/f85odbh/?utm_source=share&utm_medium=web2x&context=3)**.
+  * You can now sell your NFTs on the Ethereum Blockchain for free.
 * **Version 1.5.3:**
   * Fixed the Webdriver-Manager module, it was downloading the ChromeDriver or GeckoDriver at each webdriver launch. Now it uses the path of the downloaded webdriver. **[#112](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/112)**.
   * Fixed the collection input. **[#108](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/108)**.
