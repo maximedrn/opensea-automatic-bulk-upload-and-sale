@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.3 - 2022, 18 February.
+Version 1.5.4 - 2022, 18 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -95,7 +95,7 @@ class Structure:
         self.action = action  # 1, 2 or 1 and 2.
         if 1 in self.action and 2 not in self.action:
             from uuid import uuid4  # A Python default import.
-            self.save_file = f'data/{str(uuid4())[:8]}.csv'
+            self.save_file = f'data/generated_{str(uuid4())[:8]}.csv'
             with open(self.save_file, 'a+', encoding='utf-8') as file:
                 file.write('nft_url;; supply;; blockchain;; type;; price;; '
                            'method;; duration;; specific_buyer;; quantity')
@@ -287,7 +287,7 @@ class Webdriver:
         """Check for window handles and wait until a specific tab is opened."""
         window_number = {1: 0, 0: 1, 2: 2}[window_number] \
             if self.window == 1 else window_number
-        WDW(self.driver, 30).until(lambda _: len(
+        WDW(self.driver, 10).until(lambda _: len(
             self.driver.window_handles) > window_number)
         self.driver.switch_to.window(  # Switch to the asked tab.
             self.driver.window_handles[window_number])
@@ -317,7 +317,7 @@ class Wallets:
     def metamask_login(self) -> bool or None:
         """Login to the MetaMask extension."""
         try:  # Try to login to the MetaMask extension.
-            print('Login to MetaMask.', end=' ')
+            print('\nLogin to MetaMask.', end=' ')
             web.window_handles(0)  # Switch to the MetaMask extension tab.
             web.driver.refresh()  # Reload the page to prevent a blank page.
             # Click on the "Start" button.
@@ -399,7 +399,7 @@ class OpenSea:
                 web.window_handles(2)  # Switch to the MetaMask pop up tab.
                 wallet.contract()  # Sign the contract.
                 # Check if the login worked.
-                WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
+                WDW(web.driver, 10).until(EC.url_to_be(self.create_url))
                 print(f'{green}Logged to OpenSea.{reset}')
                 self.success = True
             except Exception:
@@ -718,6 +718,25 @@ def perform_action() -> list:
         print(f'{red}Answer must be a strictly positive integer.{reset}')
 
 
+def choose_browser() -> int:
+    """Ask the user for a browser."""
+    browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
+                'Must used in foreground, you see what\'s happening.',
+                'GeckoDriver (Mozilla Firefox) - Headless mode.\n    '
+                'Can be used in background while doing something else.']
+    while True:
+        print(f'{yellow}\nChoose a browser:')
+        [print(f'{browsers.index(browser) + 1} - {browser}'
+               ) for browser in browsers]  # Print browsers.
+        answer = input('Browser: ')  # Get the user answer.
+        if not answer.isdigit():  # Check if answer is a number.
+            print(f'{red}Answer must be an integer.')
+        elif int(answer) > len(browsers) or int(answer) <= 0:
+            print(f'{red}Browser doesn\'t exist.')
+        else:  # Return the index of browser.
+            return int(answer) - 1
+
+
 def data_file() -> str:
     """Read the data folder and extract JSON, CSV and XLSX files."""
     while True:
@@ -742,23 +761,16 @@ def data_file() -> str:
             return files_list[int(answer) - 1]  # Return path of file.
 
 
-def choose_browser() -> int:
-    """Ask the user for a browser."""
-    browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
-                'Must used in foreground, you see what\'s happening.',
-                'GeckoDriver (Mozilla Firefox) - Headless mode.\n    '
-                'Can be used in background while doing something else.']
-    while True:
-        print(f'{yellow}\nChoose a browser:')
-        [print(f'{browsers.index(browser) + 1} - {browser}'
-               ) for browser in browsers]  # Print browsers.
-        answer = input('Browser: ')  # Get the user answer.
-        if not answer.isdigit():  # Check if answer is a number.
-            print(f'{red}Answer must be an integer.')
-        elif int(answer) > len(browsers) or int(answer) <= 0:
-            print(f'{red}Browser doesn\'t exist.')
-        else:  # Return the index of browser.
-            return int(answer) - 1
+def worker_sale() -> None:
+    """Sale the NFTs after uploading or not."""
+    if not (isinstance(structure.price, int) or \
+            isinstance(structure.price, float)):
+        print(f'{yellow}Sale aborted: price must be a number.{reset}')
+    elif (structure.price <= 0 and 'Poly' in structure.blockchain) \
+            or (structure.price < 0 and 'Eth' in structure.blockchain):
+        print(f'{yellow}Sale aborted: price not defined or null.{reset}')
+    else:  # If price has been defined.
+         opensea.sale(nft_number + 1)  # Sell NFT.
 
 
 def cls() -> None:
@@ -776,7 +788,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.3 - 2022, 18 February.\n{reset}'
+          f'\n\nVersion 1.5.4 - 2022, 18 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -804,32 +816,28 @@ if __name__ == '__main__':
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
             while True:  # While loop to retry to connect for the NFT.
-                web = Webdriver(browser)  # Start a webdriver.
-                opensea = OpenSea()  # Init the OpenSea class.
-                if wallet.login() is False:  # Connect to MetaMask.
-                    continue  # Restart the while loop.
-                if opensea.login() is False:  # Connect to OpenSea.
-                    continue  # Restart the while loop.
-                structure.get_data(nft_number)  # Structure the data of NFT.
-                if opensea.upload(nft_number + 1) and 2 in action:
-                    if isinstance(structure.price, int) or \
-                            isinstance(structure.price, float):
-                        if structure.price > 0:  # If price has been defined.
-                            opensea.sale(nft_number + 1)  # Sell NFT.
-                web.driver.quit()  # Stop the webdriver.
-                break  # Stop the while loop and continue the for loop.
-
+                try:  # To prevent Selenium HTTPConnectionPool.
+                    web = Webdriver(browser)  # Start a webdriver.
+                    opensea = OpenSea()  # Init the OpenSea class.
+                    if wallet.login() is False:  # Connect to MetaMask.
+                        continue  # Restart the while loop.
+                    if opensea.login() is False:  # Connect to OpenSea.
+                        continue  # Restart the while loop.
+                    structure.get_data(nft_number)  # Structure the data
+                    if opensea.upload(nft_number + 1) and 2 in action:
+                        worker_sale()  # Sale of the NFTs.
+                    web.driver.quit()  # Stop the webdriver.
+                    break  # Stop the while loop and continue the for loop.
+                except Exception as error:  # Selenium HTTPConnectionPool.
+                    print(f'{red}An error occured.{reset} {error}')
     elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
         web = Webdriver(browser)  # Start a new webdriver.
         opensea = OpenSea()  # Init the OpenSea class.
         wallet.login()  # Connect to MetaMask.
         opensea.login()  # Connect to OpenSea.
         for nft_number in range(reader.lenght_file):
-            structure.get_data(nft_number)  # Structure the data of the NFT.
-            if isinstance(structure.price, int) or \
-                    isinstance(structure.price, float):
-                if structure.price > 0:  # If price has been defined.
-                    opensea.sale(nft_number + 1)  # Sell NFT.
-            web.driver.quit()  # Stop the webdriver.
+            structure.get_data(nft_number)  # Structure the data.
+            worker_sale()  # Sale of the NFTs.
+        web.driver.quit()  # Stop the webdriver.
 
     print(f'\n{green}All done!{reset}')
