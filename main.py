@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.4 - 2022, 18 February.
+Version 1.5.5 - 2022, 18 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -215,7 +215,7 @@ class Webdriver:
         self.window = browser  # Window handle value.
 
     def chrome(self) -> webdriver:
-        """Start a webdriver and return its state."""
+        """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
         options.add_extension(self.metamask_extension_path)  # Add extension.
         options.add_argument('log-level=3')  # No logs is printed.
@@ -230,6 +230,7 @@ class Webdriver:
         return driver
 
     def firefox(self) -> webdriver:
+        """Start a Chrome webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
         options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
@@ -353,8 +354,8 @@ class Wallets:
     def metamask_contract(self) -> None:
         """Sign a MetaMask contract to login to OpenSea."""
         # Click on the "Sign" button - Make a contract link.
-        web.clickable('//*[contains(@class, "button btn-secondary")]' if \
-            web.window == 0 else '//*[contains(@class, "btn-primary")]')
+        web.clickable('(//*[contains(@class, "signature") and conta'
+                      'ins(@class, "footer")])[position()=1]/button[2]')
         try:  # Wait until the MetaMask pop up is closed.
             WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
@@ -657,15 +658,15 @@ class OpenSea:
                                   '/div/div/button')  # "Sign" button.
                 web.window_handles(2)  # Switch to the MetaMask pop up tab.
                 wallet.contract()  # Sign the contract.
-            except Exception:  # No deposit or an unknown error occured.
-                raise TE('You need to make a deposit before proceeding'
-                         ' to listing of your NFTs.')
+            except Exception:  # An error occured while listing the NFT.
+                raise TE('Cannot sign the MetaMask contract.')
             web.window_handles(1)  # Switch back to the OpenSea tab.
             try:  # Wait until the NFT is listed.
                 web.visible('//header/h4')  # "Your NFT is listed!".
                 print(f'{green}NFT put up for sale.{reset}')
-            except Exception:  # An error occured while listing the NFT.
-                raise TE('The NFT is not listed.')
+            except Exception:  # No deposit or an unknown error occured.
+                raise TE('You need to make a deposit before proceeding'
+                         ' to listing of your NFTs (ETH).')
         except Exception as error:  # Failed, an error has occured.
             print(f'{red}NFT sale cancelled.{reset} {error}')
 
@@ -761,16 +762,16 @@ def data_file() -> str:
             return files_list[int(answer) - 1]  # Return path of file.
 
 
-def worker_sale() -> None:
+def worker_sale(nft_number: int) -> None:
     """Sale the NFTs after uploading or not."""
-    if not (isinstance(structure.price, int) or \
+    if not (isinstance(structure.price, int) or
             isinstance(structure.price, float)):
         print(f'{yellow}Sale aborted: price must be a number.{reset}')
     elif (structure.price <= 0 and 'Poly' in structure.blockchain) \
             or (structure.price < 0 and 'Eth' in structure.blockchain):
         print(f'{yellow}Sale aborted: price not defined or null.{reset}')
     else:  # If price has been defined.
-         opensea.sale(nft_number + 1)  # Sell NFT.
+        opensea.sale(nft_number + 1)  # Sell NFT.
 
 
 def cls() -> None:
@@ -788,7 +789,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.4 - 2022, 18 February.\n{reset}'
+          f'\n\nVersion 1.5.5 - 2022, 18 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -825,7 +826,7 @@ if __name__ == '__main__':
                         continue  # Restart the while loop.
                     structure.get_data(nft_number)  # Structure the data
                     if opensea.upload(nft_number + 1) and 2 in action:
-                        worker_sale()  # Sale of the NFTs.
+                        worker_sale(nft_number)  # Sale of the NFTs.
                     web.driver.quit()  # Stop the webdriver.
                     break  # Stop the while loop and continue the for loop.
                 except Exception as error:  # Selenium HTTPConnectionPool.
@@ -837,7 +838,7 @@ if __name__ == '__main__':
         opensea.login()  # Connect to OpenSea.
         for nft_number in range(reader.lenght_file):
             structure.get_data(nft_number)  # Structure the data.
-            worker_sale()  # Sale of the NFTs.
+            worker_sale(nft_number)  # Sale of the NFTs.
         web.driver.quit()  # Stop the webdriver.
 
-    print(f'\n{green}All done!{reset}')
+    print(f'{green}All done!{reset}')
