@@ -44,7 +44,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Changelog
 
 * **Version 1.5.5:**
-  * Fixed the `metamask_sign()` method. It was not signing the contract when completing the listing for the Ethereum Blockchain.
+  * Fixed the `metamask_contract()` method. It was not signing the contract when completing the listing for the Ethereum Blockchain.
   * Minor fixes.
 * **Version 1.5.4:**
   * The HTTPConnectionPool error in Selenium is fixed, it was caused by defining the driver inside a loop. Now the bot will print an error and restart to launch the bot. **[#112](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/112)**.  
