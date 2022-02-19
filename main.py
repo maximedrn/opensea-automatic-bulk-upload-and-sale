@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.5 - 2022, 18 February.
+Version 1.5.6 - 2022, 19 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -131,18 +131,9 @@ class Structure:
     def dict_to_list(self, element: dict or str) -> list or str:
         """Transform a dictionnary into a list. - JSON file method."""
         if isinstance(element, list):  # If element is a list.
-            final_list = []  # Final list that will be return.
-            for item in element:  # For each item in this list.
-                temp_list = []  # Store all key's value.
-                if isinstance(item, dict):  # If element is a dict.
-                    # For each key in dict (item), get key's value.
-                    [temp_list.append(item.get(key)) for key in item]
-                else:
-                    temp_list = item  # Do nothing.
-                final_list.append(temp_list)  # Append the temp list.
-            return final_list
-        else:
-            return element  # Return the same element.
+            return [[item.get(key) for key in item] if isinstance(
+                item, dict) else item for item in element]
+        return element  # Return the same element.
 
     def change_type(self, nft_data: list) -> list:
         """Change type of element with a literal eval."""
@@ -206,10 +197,11 @@ class Structure:
 class Webdriver:
     """Webdriver class and methods to prevent exceptions."""
 
-    def __init__(self, browser: int) -> None:
+    def __init__(self, browser: int, browser_path: str) -> None:
         """Contains the file paths of the webdriver and the extension."""
         self.metamask_extension_path = os.path.abspath(  # Extension path.
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
+        self.browser_path = browser_path  # Get the browser path.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
         self.driver = self.chrome() if browser == 0 else self.firefox()
         self.window = browser  # Window handle value.
@@ -225,7 +217,7 @@ class Webdriver:
             'prefs', {'intl.accept_languages': 'en,en_US'})
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
-            browser_path), options=options)  # executable_path.
+            self.browser_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
 
@@ -237,7 +229,7 @@ class Webdriver:
         options.add_argument('--mute-audio')  # Audio is muted.
         options.set_preference('intl.accept_languages', 'en,en-US')
         driver = webdriver.Firefox(service=Service(  # DeprecationWarning using
-            browser_path), options=options)  # executable_path.
+            self.browser_path), options=options)  # executable_path.
         driver.install_addon(self.metamask_extension_path)  # Add extension.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
@@ -318,7 +310,7 @@ class Wallets:
     def metamask_login(self) -> bool or None:
         """Login to the MetaMask extension."""
         try:  # Try to login to the MetaMask extension.
-            print('\nLogin to MetaMask.', end=' ')
+            print('Login to MetaMask.', end=' ')
             web.window_handles(0)  # Switch to the MetaMask extension tab.
             web.driver.refresh()  # Reload the page to prevent a blank page.
             # Click on the "Start" button.
@@ -789,7 +781,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.5 - 2022, 18 February.\n{reset}'
+          f'\n\nVersion 1.5.6 - 2022, 19 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -817,8 +809,9 @@ if __name__ == '__main__':
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
             while True:  # While loop to retry to connect for the NFT.
+                print('')  # Separate each NFT's outputs.
                 try:  # To prevent Selenium HTTPConnectionPool.
-                    web = Webdriver(browser)  # Start a webdriver.
+                    web = Webdriver(browser, browser_path)  # Start webdriver.
                     opensea = OpenSea()  # Init the OpenSea class.
                     if wallet.login() is False:  # Connect to MetaMask.
                         continue  # Restart the while loop.
@@ -830,9 +823,14 @@ if __name__ == '__main__':
                     web.driver.quit()  # Stop the webdriver.
                     break  # Stop the while loop and continue the for loop.
                 except Exception as error:  # Selenium HTTPConnectionPool.
-                    print(f'{red}An error occured.{reset} {error}')
+                    print(f'{red}Launch error.{reset} {error}')
+                    try:  # Try to close the webdriver.
+                        web.driver.quit()  # Close the webdriver.
+                    except Exception:  # In case no webdriver started.
+                        pass  # Ignore the exception.
+
     elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
-        web = Webdriver(browser)  # Start a new webdriver.
+        web = Webdriver(browser, browser_path)  # Start a new webdriver.
         opensea = OpenSea()  # Init the OpenSea class.
         wallet.login()  # Connect to MetaMask.
         opensea.login()  # Connect to OpenSea.
