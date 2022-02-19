@@ -9,7 +9,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.5 - February 18, 2022_).**  
+* **(_Version 1.5.6 - February 19, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -43,6 +43,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.6:**
+  * The `dict_to_list()` method has been optimized and shortened.
+  * Minor fixes.
 * **Version 1.5.5:**
   * Fixed the `metamask_contract()` method. It was not signing the contract when completing the listing for the Ethereum Blockchain.
   * Minor fixes.
