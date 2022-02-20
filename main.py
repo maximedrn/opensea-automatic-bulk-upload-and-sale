@@ -882,10 +882,10 @@ if __name__ == '__main__':
                 try:  # To prevent Selenium HTTPConnectionPool.
                     web = Webdriver(browser, browser_path)  # Start webdriver.
                     opensea = OpenSea()  # Init the OpenSea class.
-                    """if wallet.login() is False:  # Connect to MetaMask.
+                    if wallet.login() is False:  # Connect to MetaMask.
                         continue  # Restart the while loop.
                     if opensea.login() is False:  # Connect to OpenSea.
-                        continue  # Restart the while loop."""
+                        continue  # Restart the while loop.
                     structure.get_data(nft_number)  # Structure the data
                     if opensea.upload(nft_number + 1) and 2 in action:
                         worker_sale(nft_number)  # Sale of the NFTs.
