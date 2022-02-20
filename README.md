@@ -715,7 +715,8 @@ If you do not want to add details to the values not required, leave:
            <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
            <td>String</td>
            <td></td>
-           <td>"sale_type": "Timed Auction",</td>
+           <td>"sale_type": "Timed Auction",
+             <br>"sale_type": "",</td>
            <td>Timed Auction;;</td>
            <td>Timed Auction</td>
         </tr>
@@ -739,7 +740,8 @@ If you do not want to add details to the values not required, leave:
             <br>["method, ""]</td>
            <td>"method": ["Sell with declining price", 0.002],
               <br>"method": ["Sell to highest bidder", 0.05],
-              <br>"method": ["Sell to highest bidder", ""],</td>
+              <br>"method": ["Sell to highest bidder", ""],
+              <br>"method": "",</td>
            <td>["Sell with declining price", 0.002];;
               <br>["Sell to highest bidder", 0.05];;
               <br>["Sell to highest bidder", ""];;
@@ -760,6 +762,7 @@ If you do not want to add details to the values not required, leave:
            <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
               <br>"duration": ["1 week"],
               <br>"duration": "1 week",
+              <br>"duration": "",
            </td>
            <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
               <br>["1 week"];;
@@ -780,7 +783,8 @@ If you do not want to add details to the values not required, leave:
             <br>False</td>
            <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
                <br>"specific_buyer": [false]
-               <br>"specific_buyer": false</td>
+               <br>"specific_buyer": false,
+               <br>specific_buyer": "",</td>
            <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
               <br>[False];;
               <br>False;;
@@ -794,7 +798,8 @@ If you do not want to add details to the values not required, leave:
            <td><strong>Quantity * (only for 1+ supplies)</strong></td>
            <td>Integer</td>
            <td></td>
-           <td>"quantity": 4</td>
+           <td>"quantity": 4
+             <br>"quantity": ""</td>
            <td>4</td>
            <td>4</td>
         </tr>
