@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.7 - 2022, 20 February.
+Version 1.5.8 - 2022, 23 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -93,6 +93,7 @@ class Structure:
         self.file = reader.file.copy()  # File data copy.
         self.extension = reader.extension  # File extension copy.
         self.action = action  # 1, 2 or 1 and 2.
+        self.structured = False  # If the file is well structured.
         self.upload_file, self.upload_and_sale_file, \
             self.sale_file = '', '', ''  # Data save files.
         self.upload_details = [  # All the upload details.
@@ -102,12 +103,15 @@ class Structure:
         self.sale_details = [  # All the sale details.
             'nft_url', 'supply', 'blockchain', 'type', 'price',
             'method', 'duration', 'specific_buyer', 'quantity']
+        self.upload_and_sale_details = self.upload_details + \
+            self.sale_details[3:]  # All the upload and sale details.
 
     def get_data(self, nft_number: int) -> None:
         """Get NFT's data."""
         self.nft_number = nft_number
         # Eval function: self.structure_{FILE_EXTENSION}()
         eval(f'self.structure_{self.extension}()')
+        return self.structured
 
     def structure_json(self) -> None:
         """Transform JSON dictionnaries list to a whole list."""
@@ -152,10 +156,16 @@ class Structure:
                 list_.append(element)
         return list_
 
-    def structure_data(self, nft_data: list) -> None:
+    def structure_data(self, nft_data: list) -> bool:
         """Structure each data of the NFT in a variable."""
         # self.nft_data_list = nft_data  # For development.
         index = 9 if 1 not in self.action else 0
+        if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
+            or (1 in self.action and len(nft_data) < 12) or (2 in self.action
+            and len(nft_data) < 9):  # File is badly structured.
+            print(f'{red}Your file is poorly structured for this NFT.\nCheck '
+                  f'that elements are present and in the right order.{reset}')
+            return  # Do not try to structure the file.
         if 1 in self.action:  # Upload part.
             self.file_path: str or list = nft_data[0]
             self.nft_name: str = str(nft_data[1])  # Set string value to
@@ -180,6 +190,7 @@ class Structure:
             self.nft_url: str = str(nft_data[0])
             self.supply: int = nft_data[1]
             self.blockchain: str = str(nft_data[2]).capitalize()
+        self.structured = True
 
     def is_empty(self, element: str, data: str, value: str = '') -> bool:
         """Check if data is empty and input its value."""
@@ -212,8 +223,7 @@ class Structure:
 
     def save_upload_and_sale(self) -> None:
         """Save all the details of the NFT for a new upload and sale."""
-        self.save('upload_and_sale',
-                  self.upload_details + self.sale_details[3:])
+        self.save('upload_and_sale', self.upload_and_sale_details)
 
     def save_sale(self, future: bool = False) -> None:
         """Save all the details of the NFT for a (failed) sale."""
@@ -296,11 +306,11 @@ class Webdriver:
         if self.window == 1:  # GeckoDriver (Mozilla Firefox).
             self.send_keys(element, '-'.join(
                 reversed(keys.split('-'))) if '-' in keys else keys)
-            return
+            return  # Quit the method.
         keys = keys.split('-') if '-' in keys else [keys]
         keys = [keys[1], keys[0], keys[2]] if len(keys) > 1 else keys
-        for part in range(len(keys) - 1 if keys[len(keys) - 1]  # Compare years
-                          == str(dt.now().year) else len(keys)):  # for clicks.
+        for part in range(len(keys) - 1 if keys[len(keys) - 1] == str(
+                          dt.now().year) else len(keys)):  # Number of clicks.
             self.clickable(element)  # Click first on the element.
             self.send_keys(element, keys[part])  # Then send it the date.
 
@@ -458,9 +468,9 @@ class OpenSea:
                     web.quit()  # Stop the webdriver.
         return self.success
 
-    def upload(self, number: int) -> bool:
+    def upload(self) -> bool:
         """Upload multiple NFTs automatically on OpenSea."""
-        print(f'Uploading NFT n°{number}/{reader.lenght_file}.', end=' ')
+        print(f'Uploading NFT.', end=' ')
         try:  # Go to the OpenSea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
             if isinstance(structure.file_path, list):
@@ -567,10 +577,10 @@ class OpenSea:
                           '[position()=1]/div/span/button')  # "Create" button.
             WDW(web.driver, 30).until(lambda _: web.driver.current_url !=
                                       self.create_url + '?enable_supply=true')
+            print(f'{green}NFT uploaded.{reset}')
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.nft_url = web.driver.current_url  # Edit the NFT URL.
                 structure.save_sale(True)  # Save for a future listing.
-            print(f'{green}NFT uploaded.{reset}')
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset} {error}')
@@ -580,11 +590,11 @@ class OpenSea:
                 structure.save_upload() if 2 not in structure.action else \
                     structure.save_upload_and_sale()  # Save the details.
                 return False  # It failed.
-            self.upload(number)  # Try to re-upload the NFT.
+            self.upload()  # Try to re-upload the NFT.
 
-    def sale(self, number: int, date: str = '%d-%m-%Y %H:%M') -> None:
+    def sale(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
-        print(f'Sale of the NFT n°{number}/{len(structure.file)}.', end=' ')
+        print(f'Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
             if 2 in structure.action and 1 not in structure.action:
                 web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
@@ -711,8 +721,18 @@ class OpenSea:
                 wallet.contract()  # Sign the contract.
             except Exception:  # An error occured while listing the NFT.
                 raise TE('Cannot sign the MetaMask contract.')
-            web.window_handles(1)  # Switch back to the OpenSea tab.
-            web.visible('//header/h4')  # "Your NFT is listed!".
+            try:  # Check if the NFT is listed.
+                web.window_handles(1)  # Switch back to the OpenSea tab.
+                web.visible('//header/h4[contains(text(), "listed")]')
+            except Exception:  # Sometimes popup is do not detected.
+                try:  # Reload and check if listed.
+                    web.window_handles(1)  # Switch back to the OpenSea tab.
+                    web.driver.get(web.driver.current_url.split('/sell')[0])
+                    if 'listing' not in web.visible(  # "Cancel listings".
+                        '//button[contains(@class, "second-button")]').text:
+                        raise Exception()  # Probably not listed.
+                except Exception:  # Not able to tell if the NFT is listed.
+                    raise TE('Something went wrong.')
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset} {error}')
@@ -722,7 +742,7 @@ class OpenSea:
             if self.retries_sale > 1:  # Too much fails.
                 structure.save_sale()  # Save the NFT details for a sale.
                 return False  # It failed.
-            self.sale(number)  # Try to re-upload the NFT.
+            self.sale()  # Try to re-upload the NFT.
 
 
 def choose_wallet() -> int:
@@ -816,7 +836,7 @@ def data_file() -> str:
             return files_list[int(answer) - 1]  # Return path of file.
 
 
-def worker_sale(nft_number: int) -> None:
+def worker_sale() -> None:
     """Sale the NFTs after uploading or not."""
     if not (isinstance(structure.price, int) or
             isinstance(structure.price, float)):
@@ -825,7 +845,7 @@ def worker_sale(nft_number: int) -> None:
             or (structure.price < 0 and 'Eth' in structure.blockchain):
         print(f'{yellow}Sale aborted: price not defined or null.{reset}')
     else:  # If price has been defined.
-        opensea.sale(nft_number + 1)  # Sell NFT.
+        opensea.sale()  # Sell NFT.
 
 
 def cls() -> None:
@@ -843,7 +863,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.7 - 2022, 20 February.\n{reset}'
+          f'\n\nVersion 1.5.8 - 2022, 23 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -871,24 +891,25 @@ if __name__ == '__main__':
                 GDM(log_level=0).install()  # Download the webdriver.
             print(f'{green}{webdriver_} downloaded:{reset} \n{browser_path}')
             break  # Stop the while loop.
-        except Exception:
-            print(f'{red}Browser download failed. Retrying.')
+        except Exception as error:
+            print(f'{red}Browser download failed. Retrying. {reset}{error}')
             pass  # Ignore the exception.
 
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
             while True:  # While loop to retry to connect for the NFT.
-                print('')  # Separate each NFT's outputs.
+                print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
                 try:  # To prevent Selenium HTTPConnectionPool.
+                    if not structure.get_data(nft_number): # Structure data.
+                        break  # Break the while loop.
                     web = Webdriver(browser, browser_path)  # Start webdriver.
                     opensea = OpenSea()  # Init the OpenSea class.
                     if wallet.login() is False:  # Connect to MetaMask.
                         continue  # Restart the while loop.
                     if opensea.login() is False:  # Connect to OpenSea.
                         continue  # Restart the while loop.
-                    structure.get_data(nft_number)  # Structure the data
-                    if opensea.upload(nft_number + 1) and 2 in action:
-                        worker_sale(nft_number)  # Sale of the NFTs.
+                    if opensea.upload() and 2 in action:
+                        worker_sale()  # Sale of the NFTs.
                     web.quit()  # Stop the webdriver.
                     break  # Stop the while loop and continue the for loop.
                 except Exception as error:  # Selenium HTTPConnectionPool.
@@ -898,13 +919,15 @@ if __name__ == '__main__':
     elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
         web = Webdriver(browser, browser_path)  # Start a new webdriver.
         opensea = OpenSea()  # Init the OpenSea class.
-        print('')  # Separate each NFT's outputs.
+        print('')  # Separate outputs.
         wallet.login()  # Connect to MetaMask.
         opensea.login()  # Connect to OpenSea.
         for nft_number in range(reader.lenght_file):
-            print('')  # Separate each NFT's outputs.
-            structure.get_data(nft_number)  # Structure the data.
-            worker_sale(nft_number)  # Sale of the NFTs.
+            print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
+            if structure.get_data(nft_number):  # Structure the data.
+                worker_sale()  # Sale of the NFTs.
         web.quit()  # Stop the webdriver.
 
-    print(f'{green}All done!{reset}')
+    print(f'\n{green}All done!{reset}\nIn order to support me,'
+          ' you can make donations to me at this address:\n'
+          '0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E (Ethereum).')
