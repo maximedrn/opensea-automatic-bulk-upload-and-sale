@@ -589,7 +589,7 @@ class OpenSea:
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset}',
-                  error if not 'Stacktrace' in error else "\n", end='')
+                  error if not 'Stacktrace' in str(error) else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_upload += 1  # Increment the counter.
             if self.retries_upload > 0:  # Too much fails.
@@ -743,7 +743,7 @@ class OpenSea:
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset}',
-                  error if not 'Stacktrace' in error else "\n", end='')
+                  error if not 'Stacktrace' in str(error) else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_sale += 1  # Increment the counter.
             if self.retries_sale > 1:  # Too much fails.
