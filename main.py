@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.8 - 2022, 23 February.
+Version 1.5.9 - 2022, 25 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -21,7 +21,8 @@ from colorama import init, Fore, Style
 
 # Selenium module imports: pip install selenium
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service as SC
+from selenium.webdriver.firefox.service import Service as SG
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
@@ -254,7 +255,7 @@ class Webdriver:
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        driver = webdriver.Chrome(service=Service(  # DeprecationWarning using
+        driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
@@ -266,7 +267,7 @@ class Webdriver:
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.set_preference('intl.accept_languages', 'en,en-US')
-        driver = webdriver.Firefox(service=Service(  # DeprecationWarning using
+        driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         driver.install_addon(self.metamask_extension_path)  # Add extension.
         driver.maximize_window()  # Maximize window to reach all elements.
@@ -409,9 +410,13 @@ class Wallets:
 
     def metamask_close(self) -> None:
         """Close the MetaMask popup."""
-        if len(web.driver.window_handles) >= 3:
-            web.window_handles(2)  # Switch to the MetaMask popup.
-            web.driver.close()  # Close the popup extension.
+        if len(web.driver.window_handles) > 2:
+            try:
+                web.window_handles(2)  # Switch to the MetaMask popup.
+                web.driver.close()  # Close the popup extension.
+                web.window_handles(1)  # Switch back to OpenSea.
+            except Exception:
+                pass  # Ignore the exception.
 
 
 class OpenSea:
@@ -583,7 +588,8 @@ class OpenSea:
                 structure.save_sale(True)  # Save for a future listing.
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
-            print(f'{red}Upload failed.{reset} {error}')
+            print(f'{red}Upload failed.{reset}',
+                  error if not 'Stacktrace' in error else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_upload += 1  # Increment the counter.
             if self.retries_upload > 0:  # Too much fails.
@@ -600,6 +606,7 @@ class OpenSea:
                 web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
             else:  # The NFT has just been uploaded.
                 web.driver.get(web.driver.current_url + '/sell')  # Sale page.
+            structure.nft_url = web.driver.current_url.split('/sell')[0]
             if not isinstance(structure.supply, int):
                 raise TE('The supply number must be an integer.')
             elif structure.supply == 1 and structure.blockchain == 'Ethereum':
@@ -727,7 +734,7 @@ class OpenSea:
             except Exception:  # Sometimes popup is do not detected.
                 try:  # Reload and check if listed.
                     web.window_handles(1)  # Switch back to the OpenSea tab.
-                    web.driver.get(web.driver.current_url.split('/sell')[0])
+                    web.driver.get(structure.nft_url)
                     if 'listing' not in web.visible(  # "Cancel listings".
                         '//button[contains(@class, "second-button")]').text:
                         raise Exception()  # Probably not listed.
@@ -735,8 +742,8 @@ class OpenSea:
                     raise TE('Something went wrong.')
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
-            print(f'{red}NFT sale cancelled.{reset} {error}')
-            structure.nft_url = web.driver.current_url.split('/sell')[0]
+            print(f'{red}NFT sale cancelled.{reset}',
+                  error if not 'Stacktrace' in error else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_sale += 1  # Increment the counter.
             if self.retries_sale > 1:  # Too much fails.
@@ -863,7 +870,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.8 - 2022, 23 February.\n{reset}'
+          f'\n\nVersion 1.5.9 - 2022, 25 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -883,7 +890,8 @@ if __name__ == '__main__':
     structure = Structure(action)  # Structure the file.
     cls()  # Clear console.
 
-    while True:  # Try until it works.
+    download_failed = 0
+    while True:
         try:
             webdriver_ = 'ChromeDriver' if browser == 0 else 'GeckoDriver'
             print(f'Downloading the {webdriver_}.', end=' ')
@@ -891,8 +899,14 @@ if __name__ == '__main__':
                 GDM(log_level=0).install()  # Download the webdriver.
             print(f'{green}{webdriver_} downloaded:{reset} \n{browser_path}')
             break  # Stop the while loop.
-        except Exception as error:
-            print(f'{red}Browser download failed. Retrying. {reset}{error}')
+        except Exception:
+            print(f'{red}Browser download failed.{reset}', end=' ')
+            download_failed += 1  # Increment the fails counter.
+            if download_failed > 4:
+                browser_path = input(f'\nDownload and extract the {webdriver_}.'
+                                     '\nThen paste its path here: ')
+                break  # Stop the while loop.
+            print(f'{red}Retrying.{reset}')
             pass  # Ignore the exception.
 
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
@@ -914,7 +928,10 @@ if __name__ == '__main__':
                     break  # Stop the while loop and continue the for loop.
                 except Exception as error:  # Selenium HTTPConnectionPool.
                     print(f'{red}Launch error.{reset} {error}')
-                    web.quit()  # Close the webdriver.
+                    try:
+                        web.quit()  # Close the webdriver.
+                    except Exception:
+                        pass  # No webdriver opened.
 
     elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
         web = Webdriver(browser, browser_path)  # Start a new webdriver.
