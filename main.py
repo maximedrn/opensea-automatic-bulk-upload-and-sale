@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.9 - 2022, 25 February.
+Version 1.5.10 - 2022, 26 February.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -344,22 +344,27 @@ class Wallets:
         """Get the wallet and connect to the extension/etc."""
         self.recovery_phrase = recovery_phrase  # Get the phrase.
         self.password = password  # Get the new/same password.
-        self.wallet = wallet.lower().replace(' ', '_')  # Wallet user choice.
+        self.wallet = wallet  # Wallet user choice.
+        self.wallet_function = wallet.lower().replace(' ', '_')
         self.fails = 0  # Counter of fails during wallet connection.
         self.success = False
 
     def login(self) -> bool:
         """Connect to OpenSea using a specific wallet."""
-        eval(f'self.{self.wallet}_login()')
+        eval(f'self.{self.wallet_function}_login()')
         return self.success
+
+    def sign(self) -> None:
+        """Use the method of the wallet to sign the login."""
+        eval(f'self.{self.wallet_function}_sign()')
 
     def contract(self) -> None:
         """Use the method of the wallet to sign the contract."""
-        eval(f'self.{self.wallet}_contract()')
+        eval(f'self.{self.wallet_function}_contract()')
 
     def close(self) -> None:
         """Close any popup or page opened by an extension."""
-        eval(f'self.{self.wallet}_close()')
+        eval(f'self.{self.wallet_function}_close()')
 
     def metamask_login(self) -> bool or None:
         """Login to the MetaMask extension."""
@@ -397,8 +402,18 @@ class Wallets:
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
 
+    def metamask_sign(self) -> None:
+        web.window_handles(2)  # Switch to the MetaMask pop up tab.
+        # Click on the "Next" button.
+        web.clickable('//*[contains(@class, "btn-primary")]')
+        # Click on the "Connect" button.
+        web.clickable('//*[contains(@class, "btn-primary")]')
+        web.window_handles(2)  # Switch to the MetaMask pop up tab.
+        self.metamask_contract()  # Sign the contract.
+
     def metamask_contract(self) -> None:
         """Sign a MetaMask contract to login to OpenSea."""
+        web.window_handles(2)  # Switch to the MetaMask pop up tab.
         # Click on the "Sign" button - Make a contract link.
         web.clickable('(//*[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
@@ -439,15 +454,9 @@ class OpenSea:
             web.driver.get(self.login_url)  # Go to the OpenSea login URL.
             # Click on the "Show more options" button.
             web.clickable('//button[contains(@class, "show-more")]')
-            # Click on the "MetaMask" button in list of wallets.
-            web.clickable('//*[contains(text(), "MetaMask")]/../..')
-            web.window_handles(2)  # Switch to the MetaMask pop up tab.
-            # Click on the "Next" button.
-            web.clickable('//*[contains(@class, "btn-primary")]')
-            # Click on the "Connect" button.
-            web.clickable('//*[contains(@class, "btn-primary")]')
-            web.window_handles(2)  # Switch to the MetaMask pop up tab.
-            wallet.contract()  # Sign the contract.
+            # Click on the wallet button in list of wallets.
+            web.clickable(f'//*[contains(text(), "{wallet.wallet}")]/../..')
+            wallet.sign()  # Sign the login on OpenSea.
             # Check if the login worked.
             WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
             print(f'{green}Logged to OpenSea.{reset}')
@@ -455,7 +464,6 @@ class OpenSea:
         except Exception:  # The contract failed.
             try:
                 web.window_handles(1)  # Switch back to the OpenSea tab.
-                web.window_handles(2)  # Switch to the MetaMask pop up tab.
                 wallet.contract()  # Sign the contract.
                 # Check if the login worked.
                 WDW(web.driver, 10).until(EC.url_to_be(self.create_url))
@@ -605,8 +613,8 @@ class OpenSea:
             if 2 in structure.action and 1 not in structure.action:
                 web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
             else:  # The NFT has just been uploaded.
-                web.driver.get(web.driver.current_url + '/sell')  # Sale page.
-            structure.nft_url = web.driver.current_url.split('/sell')[0]
+                structure.nft_url = web.driver.current_url
+                web.driver.get(structure.nft_url + '/sell')  # Sale page.
             if not isinstance(structure.supply, int):
                 raise TE('The supply number must be an integer.')
             elif structure.supply == 1 and structure.blockchain == 'Ethereum':
@@ -722,9 +730,8 @@ class OpenSea:
                 raise TE('The submit button cannot be clicked.')
             try:  # Polygon blockchain requires a click on a button.
                 if structure.blockchain == 'Polygon':
-                    web.clickable('//div[@data-testid="Panel"][last()]/div/div'
-                                  '/div/div/button')  # "Sign" button.
-                web.window_handles(2)  # Switch to the MetaMask pop up tab.
+                    web.clickable(  # Click on the "Sign" button.
+                        '//div[@class="ActionPanel--content"]/button')  
                 wallet.contract()  # Sign the contract.
             except Exception:  # An error occured while listing the NFT.
                 raise TE('Cannot sign the MetaMask contract.')
@@ -749,6 +756,7 @@ class OpenSea:
             if self.retries_sale > 1:  # Too much fails.
                 structure.save_sale()  # Save the NFT details for a sale.
                 return False  # It failed.
+            web.driver.get(structure.nft_url)
             self.sale()  # Try to re-upload the NFT.
 
 
@@ -765,7 +773,7 @@ def choose_wallet() -> int:
         elif int(answer) > len(wallets) or int(answer) <= 0:
             print(f'{red}Wallet doesn\'t exist.')
         else:  # Return the name of wallet with a function format.
-            return wallets[int(answer) - 1].lower().replace(' ', '_')
+            return wallets[int(answer) - 1]
 
 
 def read_file(file_: str, question: str) -> str:
@@ -870,7 +878,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.9 - 2022, 25 February.\n{reset}'
+          f'\n\nVersion 1.5.10 - 2022, 26 February.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -946,5 +954,5 @@ if __name__ == '__main__':
         web.quit()  # Stop the webdriver.
 
     print(f'\n{green}All done!{reset}\nIn order to support me,'
-          ' you can make donations to me at this address:\n'
+          ' you can make donations at this address:\n'
           '0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E (Ethereum).')
