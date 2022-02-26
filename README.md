@@ -9,7 +9,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.9 - February 25, 2022_).**  
+* **(_Version 1.5.10- February 26, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -45,6 +45,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.10:**
+  * Minor fixes concerning the `sale()` method of the OpenSea class.
+  * Fixed exception iteration error.
 * **Version 1.5.9:**
   * The `close()` method of the Webdriver class has been fixed. It creates an exception when listing NFTs. As a result, it does not try to list them a second time. **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144), [#145](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/145), [#149](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/149)**.
   * During the download, when the webdriver starts, sometimes an error occurs and creates an exception. It was supposed to close the webdriver but it caused the bot to crash.
