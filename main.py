@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.10 - 2022, 26 February.
+Version 1.5.11 - 2022, 02 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -162,8 +162,8 @@ class Structure:
         # self.nft_data_list = nft_data  # For development.
         index = 9 if 1 not in self.action else 0
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
-            or (1 in self.action and len(nft_data) < 12) or (2 in self.action
-            and len(nft_data) < 9):  # File is badly structured.
+            or (1 in self.action and len(nft_data) < 12) or (  # File is badly
+                2 in self.action and len(nft_data) < 9):  # structured.
             print(f'{red}Your file is poorly structured for this NFT.\nCheck '
                   f'that elements are present and in the right order.{reset}')
             return  # Do not try to structure the file.
@@ -403,6 +403,7 @@ class Wallets:
                 web.quit()  # Stop the webdriver.
 
     def metamask_sign(self) -> None:
+        """Sign the MetaMask contract to login to OpenSea."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
         # Click on the "Next" button.
         web.clickable('//*[contains(@class, "btn-primary")]')
@@ -412,10 +413,15 @@ class Wallets:
         self.metamask_contract()  # Sign the contract.
 
     def metamask_contract(self) -> None:
-        """Sign a MetaMask contract to login to OpenSea."""
+        """Sign a MetaMask contract to upload or confirm sale."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
+        web.driver.execute_script(  # Scroll the popup down.
+            "arguments[0].scrollTop = arguments[0].scrollHeight",
+            web.visible('(//div[contains(@class, "signature") and '  
+                        'contains(@class, "rows")])[position()=1]'))
+        web.driver.switch_to.default_content()
         # Click on the "Sign" button - Make a contract link.
-        web.clickable('(//*[contains(@class, "signature") and conta'
+        web.clickable('(//div[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
         try:  # Wait until the MetaMask pop up is closed.
             WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
@@ -483,7 +489,7 @@ class OpenSea:
 
     def upload(self) -> bool:
         """Upload multiple NFTs automatically on OpenSea."""
-        print(f'Uploading NFT.', end=' ')
+        print('Uploading NFT.', end=' ')
         try:  # Go to the OpenSea create URL and input all datas of the NFT.
             web.driver.get(self.create_url + '?enable_supply=true')
             if isinstance(structure.file_path, list):
@@ -597,7 +603,7 @@ class OpenSea:
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset}',
-                  error if not 'Stacktrace' in str(error) else "\n", end='')
+                  error if 'Stacktrace' not in str(error) else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_upload += 1  # Increment the counter.
             if self.retries_upload > 0:  # Too much fails.
@@ -608,7 +614,7 @@ class OpenSea:
 
     def sale(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
-        print(f'Sale of the NFT.', end=' ')
+        print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
             if 2 in structure.action and 1 not in structure.action:
                 web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
@@ -731,7 +737,7 @@ class OpenSea:
             try:  # Polygon blockchain requires a click on a button.
                 if structure.blockchain == 'Polygon':
                     web.clickable(  # Click on the "Sign" button.
-                        '//div[@class="ActionPanel--content"]/button')  
+                        '//*[contains(@id, "Body react-aria")]/div/div/button')
                 wallet.contract()  # Sign the contract.
             except Exception:  # An error occured while listing the NFT.
                 raise TE('Cannot sign the MetaMask contract.')
@@ -742,15 +748,15 @@ class OpenSea:
                 try:  # Reload and check if listed.
                     web.window_handles(1)  # Switch back to the OpenSea tab.
                     web.driver.get(structure.nft_url)
-                    if 'listing' not in web.visible(  # "Cancel listings".
-                        '//button[contains(@class, "second-button")]').text:
+                    if 'listing' not in web.visible('//button[contains(@class,'
+                                                    ' "second-button")]').text:
                         raise Exception()  # Probably not listed.
                 except Exception:  # Not able to tell if the NFT is listed.
                     raise TE('Something went wrong.')
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset}',
-                  error if not 'Stacktrace' in str(error) else "\n", end='')
+                  error if 'Stacktrace' not in str(error) else "\n", end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_sale += 1  # Increment the counter.
             if self.retries_sale > 1:  # Too much fails.
@@ -878,7 +884,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.10 - 2022, 26 February.\n{reset}'
+          f'\n\nVersion 1.5.11 - 2022, 02 March.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -911,8 +917,8 @@ if __name__ == '__main__':
             print(f'{red}Browser download failed.{reset}', end=' ')
             download_failed += 1  # Increment the fails counter.
             if download_failed > 4:
-                browser_path = input(f'\nDownload and extract the {webdriver_}.'
-                                     '\nThen paste its path here: ')
+                browser_path = input(f'\nDownload and extract the {webdriver_}'
+                                     '.\nThen paste its path here: ')
                 break  # Stop the while loop.
             print(f'{red}Retrying.{reset}')
             pass  # Ignore the exception.
@@ -922,7 +928,7 @@ if __name__ == '__main__':
             while True:  # While loop to retry to connect for the NFT.
                 print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
                 try:  # To prevent Selenium HTTPConnectionPool.
-                    if not structure.get_data(nft_number): # Structure data.
+                    if not structure.get_data(nft_number):  # Structure data.
                         break  # Break the while loop.
                     web = Webdriver(browser, browser_path)  # Start webdriver.
                     opensea = OpenSea()  # Init the OpenSea class.
@@ -945,8 +951,12 @@ if __name__ == '__main__':
         web = Webdriver(browser, browser_path)  # Start a new webdriver.
         opensea = OpenSea()  # Init the OpenSea class.
         print('')  # Separate outputs.
-        wallet.login()  # Connect to MetaMask.
-        opensea.login()  # Connect to OpenSea.
+        while True:
+            if wallet.login() is False:  # Connect to MetaMask.
+                continue  # Restart the while loop.
+            if opensea.login() is False:  # Connect to OpenSea.
+                continue  # Restart the while loop.
+            break  # Stop the while loop.
         for nft_number in range(reader.lenght_file):
             print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
             if structure.get_data(nft_number):  # Structure the data.
