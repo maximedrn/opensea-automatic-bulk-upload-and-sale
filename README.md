@@ -3,13 +3,18 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
   (all metadata integrated - Ethereum and Polygon supported)._
 
 ---
+
+⇒ **Due to OpenSea's download updates, solving a reCAPTCHA for each download is necessary.  
+  As a robot cannot solve a reCAPTCHA a hundred/thousand times in a row, you must do it manually.
+  The `main-recaptcha.py` file is the version that provides this functionality.**
+
 **Please read the README file before using this tool, opening a problem or a discussion, or contacting me. _Thank you!_**  
   ⇒ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**. Make sure you have the **latest modules, browser and bot installed**.  
   Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data). 
 
 ---
 
-* **(_Version 1.5.11 - March 02, 2022_).**  
+* **(_Version 1.5.11 - March 05, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -45,6 +50,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.11-reCAPTCHA:**
+  * Temporary update. **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157)**.
 * **Version 1.5.11:**
   * Correction of the MetaMask contract signature (feedback needed). **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144)**.
   * Wyvern 2.3 contract support (beta - need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152)**.
