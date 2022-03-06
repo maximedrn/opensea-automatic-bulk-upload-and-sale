@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.11 - 2022, 02 March.
+Version 1.5.12 - 2022, 06 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -58,11 +58,9 @@ class Reader:
         # Get splitted file name (['text', '.txt']) and then remove the dot.
         self.extension = os.path.splitext(self.path)[1][1:].lower()
         # Check if the extension is supported by the Reader class.
-        if self.extension in ('json', 'csv', 'xlsx'):
-            # Eval function: self.extract_{FILE_EXTENSION}_file()
-            eval(f'self.extract_{self.extension}_file()')
-        else:  # Stop running the script.
+        if self.extension not in ('json', 'csv', 'xlsx'):
             exit('The file extension is not supported.')
+        eval(f'self.extract_{self.extension}_file()')
 
     def extract_json_file(self) -> None:
         """Transform JSON file format to a list of dictionaries."""
@@ -159,7 +157,6 @@ class Structure:
 
     def structure_data(self, nft_data: list) -> bool:
         """Structure each data of the NFT in a variable."""
-        # self.nft_data_list = nft_data  # For development.
         index = 9 if 1 not in self.action else 0
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
             or (1 in self.action and len(nft_data) < 12) or (  # File is badly
@@ -402,24 +399,19 @@ class Wallets:
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
 
-    def metamask_sign(self) -> None:
+    def metamask_sign(self, new_contract: bool = False) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        # Click on the "Next" button.
-        web.clickable('//*[contains(@class, "btn-primary")]')
-        # Click on the "Connect" button.
-        web.clickable('//*[contains(@class, "btn-primary")]')
-        web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        self.metamask_contract()  # Sign the contract.
+        for _ in range(2):  # "Next" and "Connect" buttons.
+            web.clickable('//*[contains(@class, "btn-primary")]')
+        self.metamask_contract(new_contract)  # Sign the contract.
 
-    def metamask_contract(self) -> None:
+    def metamask_contract(self, new_contract: bool) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        web.driver.execute_script(  # Scroll the popup down.
-            "arguments[0].scrollTop = arguments[0].scrollHeight",
-            web.visible('(//div[contains(@class, "signature") and '  
-                        'contains(@class, "rows")])[position()=1]'))
-        web.driver.switch_to.default_content()
+        if new_contract:  # Wyvern 2.3 requires a scroll down.
+            web.click('(//div[contains(@class, "signature") and conta'
+                      'ins(@class, "scroll-button")])[position()=1]')
         # Click on the "Sign" button - Make a contract link.
         web.clickable('(//div[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
@@ -738,7 +730,9 @@ class OpenSea:
                 if structure.blockchain == 'Polygon':
                     web.clickable(  # Click on the "Sign" button.
                         '//*[contains(@id, "Body react-aria")]/div/div/button')
-                wallet.contract()  # Sign the contract.
+                    wallet.contract()  # Sign the contract.
+                else:  # Sign the Wyvern 2.3 contract.
+                    wallet.contract(True)  # True: Wyvern 2.3 arrow click.
             except Exception:  # An error occured while listing the NFT.
                 raise TE('Cannot sign the MetaMask contract.')
             try:  # Check if the NFT is listed.
@@ -884,7 +878,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.11 - 2022, 02 March.\n{reset}'
+          f'\n\nVersion 1.5.12 - 2022, 06 March.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -904,24 +898,21 @@ if __name__ == '__main__':
     structure = Structure(action)  # Structure the file.
     cls()  # Clear console.
 
-    download_failed = 0
-    while True:
-        try:
-            webdriver_ = 'ChromeDriver' if browser == 0 else 'GeckoDriver'
-            print(f'Downloading the {webdriver_}.', end=' ')
-            browser_path = CDM(log_level=0).install() if browser == 0 else \
-                GDM(log_level=0).install()  # Download the webdriver.
-            print(f'{green}{webdriver_} downloaded:{reset} \n{browser_path}')
-            break  # Stop the while loop.
-        except Exception:
-            print(f'{red}Browser download failed.{reset}', end=' ')
-            download_failed += 1  # Increment the fails counter.
-            if download_failed > 4:
-                browser_path = input(f'\nDownload and extract the {webdriver_}'
-                                     '.\nThen paste its path here: ')
-                break  # Stop the while loop.
-            print(f'{red}Retrying.{reset}')
-            pass  # Ignore the exception.
+    try:
+        webdriver_ = 'ChromeDriver' if browser == 0 else 'GeckoDriver'
+        print(f'Downloading the {webdriver_}.', end=' ')
+        browser_path = CDM(log_level=0).install() if browser == 0 else \
+            GDM(log_level=0).install()  # Download the webdriver.
+        print(f'{green}{webdriver_} downloaded:{reset} \n{browser_path}')
+    except Exception:
+        print(f'{red}Browser download failed.{reset}')
+        browser_path = os.path.abspath(
+            'assets/' + 'chromedriver.exe' if os.name == 'nt' else
+            'chromedriver' if browser == 0 else 'geckodriver.exe' if os.name
+            == 'nt' else 'geckodriver')
+        if not os.path.exists(browser_path):
+            exit('Download the webdriver and place it in the assets/ folder.')
+        print(f'Webdriver path set as {browser_path}')
 
     if 1 in action:  # Upload the NFT and sale it (if user chooses it).
         for nft_number in range(reader.lenght_file):
