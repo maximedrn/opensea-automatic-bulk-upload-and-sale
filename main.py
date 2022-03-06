@@ -410,8 +410,8 @@ class Wallets:
         """Sign a MetaMask contract to upload or confirm sale."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
         if new_contract:  # Wyvern 2.3 requires a scroll down.
-            web.click('(//div[contains(@class, "signature") and conta'
-                      'ins(@class, "scroll-button")])[position()=1]')
+            web.clickable('(//div[contains(@class, "signature") and con'
+                      'tains(@class, "scroll-button")])[position()=1]')
         # Click on the "Sign" button - Make a contract link.
         web.clickable('(//div[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
