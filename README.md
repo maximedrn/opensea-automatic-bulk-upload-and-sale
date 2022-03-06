@@ -14,7 +14,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.11 - March 05, 2022_).**  
+* **(_Version 1.5.12 - March 06, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -50,11 +50,13 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.5.12:**
+  * Wyvern 2.3 contract support (need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#161](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/161), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165)**. 
 * **Version 1.5.11-reCAPTCHA:**
   * Temporary update. **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157)**.
 * **Version 1.5.11:**
-  * Correction of the MetaMask contract signature (feedback needed). **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144)**.
-  * Wyvern 2.3 contract support (beta - need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152)**.
+  * <strike>Correction of the MetaMask contract signature (feedback needed).</strike> **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144)**.
+  * <strike>Wyvern 2.3 contract support (beta - need feedbacks).</strike> **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152)**.
   * _In progress: improved support for MacOS (M1) - duration and contract list issues._
 * **Version 1.5.10:**
   * Minor fixes concerning the `sale()` method of the OpenSea class.
