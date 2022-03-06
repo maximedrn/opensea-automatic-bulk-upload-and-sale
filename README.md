@@ -4,7 +4,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-⇒ **Due to OpenSea's download updates, solving a reCAPTCHA for each download is necessary.  
+⇒ **Due to OpenSea's upload updates, solving a reCAPTCHA for each upload is necessary.  
   As a robot cannot solve a reCAPTCHA a hundred/thousand times in a row, you must do it manually.
   The `main-recaptcha.py` file is the version that provides this functionality.**
 
