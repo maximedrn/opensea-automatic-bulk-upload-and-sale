@@ -1,0 +1,11 @@
+{
+    "bus": ["bus", "buses"],
+    "car": ["car", "cars", "vehicle", "vehicles"],
+    "bicycle": ["bicycle", "bicycles"],
+    "fire hydrant": ["fire hydrant", "fire hydrants", "a fire hydrant"],
+    "traffic light": ["traffic light", "traffic lights"],
+    "motorcycle": ["motorcycle", "motorcycles"],
+    "train": ["train", "trains"],
+    "taxi": ["taxi", "taxis"],
+    "crosswalk": ["crosswalk", "crosswalks", "pedestrian crossing"]
+}
