@@ -1,12 +1,8 @@
 # Automatically and massively upload and sell your non-fungible tokens on OpenSea using Python Selenium.
 _A Selenium Python bot to automatically and bulky upload and sell your NFTs on OpenSea  
-  (all metadata integrated - Ethereum and Polygon supported)._
+  (all metadata integrated - Ethereum and Polygon supported) - reCAPTCHA solver included._
 
 ---
-
-⇒ **Due to OpenSea's upload updates, solving a reCAPTCHA for each upload is necessary.  
-  As a robot cannot solve a reCAPTCHA a hundred/thousand times in a row, you must do it manually.
-  The `main-recaptcha.py` file is the version that provides this functionality.**
 
 **Please read the README file before using this tool, opening a problem or a discussion, or contacting me. _Thank you!_**  
   ⇒ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**. Make sure you have the **latest modules, browser and bot installed**.  
