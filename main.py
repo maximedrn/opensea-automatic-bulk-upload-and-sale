@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.5.12 - 2022, 06 March.
+Version 1.6.0 - 2022, 21 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -38,6 +38,8 @@ from datetime import datetime as dt
 from glob import glob
 import os
 
+import recaptcha
+
 
 """Colorama module constants."""
 # This module may not work under MacOS.
@@ -59,7 +61,7 @@ class Reader:
         self.extension = os.path.splitext(self.path)[1][1:].lower()
         # Check if the extension is supported by the Reader class.
         if self.extension not in ('json', 'csv', 'xlsx'):
-            exit('The file extension is not supported.')
+            exit_('The file extension is not supported.')
         eval(f'self.extract_{self.extension}_file()')
 
     def extract_json_file(self) -> None:
@@ -248,10 +250,13 @@ class Webdriver:
         options.add_extension(self.metamask_extension_path)  # Add extension.
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
+        options.add_argument('--disable-infobars')
+        options.add_argument('--disable-popup-blocking')
         options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        options.add_experimental_option('excludeSwitches', [
+            'enable-logging', 'enable-automation'])
         driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
@@ -263,6 +268,8 @@ class Webdriver:
         options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
+        options.add_argument('--disable-infobars')
+        options.add_argument('--disable-popup-blocking')
         options.set_preference('intl.accept_languages', 'en,en-US')
         driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
@@ -401,9 +408,12 @@ class Wallets:
 
     def metamask_sign(self, new_contract: bool = False) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
-        web.window_handles(2)  # Switch to the MetaMask pop up tab.
+        windows = web.driver.window_handles  # Opened windows.
         for _ in range(2):  # "Next" and "Connect" buttons.
+            web.window_handles(2)  # Switch to the MetaMask pop up tab.
             web.clickable('//*[contains(@class, "btn-primary")]')
+        WDW(web.driver, 10).until(  # Wait for the new MetaMask tab.
+            lambda _: windows != web.driver.window_handles)
         self.metamask_contract(new_contract)  # Sign the contract.
 
     def metamask_contract(self, new_contract: bool) -> None:
@@ -411,7 +421,7 @@ class Wallets:
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
         if new_contract:  # Wyvern 2.3 requires a scroll down.
             web.clickable('(//div[contains(@class, "signature") and con'
-                      'tains(@class, "scroll-button")])[position()=1]')
+                          'tains(@class, "scroll-button")])[position()=1]')
         # Click on the "Sign" button - Make a contract link.
         web.clickable('(//div[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
@@ -476,7 +486,6 @@ class OpenSea:
                 else:  # Too many fails.
                     self.fails = 0  # Reset the counter.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
-                    web.quit()  # Stop the webdriver.
         return self.success
 
     def upload(self) -> bool:
@@ -586,6 +595,13 @@ class OpenSea:
                 structure.blockchain = 'Ethereum'
             web.clickable('(//div[contains(@class, "submit")])'  # Click on the
                           '[position()=1]/div/span/button')  # "Create" button.
+            try:  # Wait for the reCAPTCHA to be displayed.
+                web.visible('(//div[@class="g-recaptcha"])[position()=1]')
+                print(f'{yellow}Solving the reCAPTCHA.{reset}', end=' ')
+                gateway.proceed()
+                print(f'{green}Solved.{reset}')
+            except Exception:  # reCAPTCHA is not visible.
+                raise TE('Cannot solve the reCAPTCHA.')
             WDW(web.driver, 30).until(lambda _: web.driver.current_url !=
                                       self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
@@ -595,7 +611,7 @@ class OpenSea:
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset}',
-                  error if 'Stacktrace' not in str(error) else "\n", end='')
+                  error if 'Stacktrace' not in str(error) else '\n', end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_upload += 1  # Increment the counter.
             if self.retries_upload > 0:  # Too much fails.
@@ -750,7 +766,7 @@ class OpenSea:
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset}',
-                  error if 'Stacktrace' not in str(error) else "\n", end='')
+                  error if 'Stacktrace' not in str(error) else '\n', end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_sale += 1  # Increment the counter.
             if self.retries_sale > 1:  # Too much fails.
@@ -802,9 +818,8 @@ def perform_action() -> list:
             '2 - Upload NFTs (12 details/NFT).', '3 - Sell '
             'NFTs (9 details/NFT including 3 autogenerated).']]
         number = input('Action number: ')
-        if number.isdigit():  # Check if answer is a number.
-            if int(number) > 0:
-                return [[1, 2], [1], [2]][int(number) - 1]
+        if number.isdigit() and 0 < int(number) <= 3:
+            return [[1, 2], [1], [2]][int(number) - 1]
         print(f'{red}Answer must be a strictly positive integer.{reset}')
 
 
@@ -863,6 +878,11 @@ def worker_sale() -> None:
         opensea.sale()  # Sell NFT.
 
 
+def exit_(message: str) -> None:
+    """Use the Python exit method with a red text to stop the program."""
+    exit(f'{red}{message}{reset}')
+
+
 def cls() -> None:
     """Clear console function."""
     # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
@@ -875,10 +895,11 @@ if __name__ == '__main__':
     print(f'{green}Created by Maxime Dréan.'
           '\nGithub: https://github.com/maximedrn'
           '\nTelegram: https://t.me/maximedrn'
+          '\nEthereum: 0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.5.12 - 2022, 06 March.\n{reset}'
+          f'\n\nVersion 1.6.0 - 2022, 06 March.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -911,48 +932,36 @@ if __name__ == '__main__':
             'chromedriver' if browser == 0 else 'geckodriver.exe' if os.name
             == 'nt' else 'geckodriver')
         if not os.path.exists(browser_path):
-            exit('Download the webdriver and place it in the assets/ folder.')
+            exit_('Download the webdriver and place it in the assets/ folder.')
         print(f'Webdriver path set as {browser_path}')
 
-    if 1 in action:  # Upload the NFT and sale it (if user chooses it).
-        for nft_number in range(reader.lenght_file):
-            while True:  # While loop to retry to connect for the NFT.
-                print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
-                try:  # To prevent Selenium HTTPConnectionPool.
-                    if not structure.get_data(nft_number):  # Structure data.
-                        break  # Break the while loop.
-                    web = Webdriver(browser, browser_path)  # Start webdriver.
-                    opensea = OpenSea()  # Init the OpenSea class.
-                    if wallet.login() is False:  # Connect to MetaMask.
-                        continue  # Restart the while loop.
-                    if opensea.login() is False:  # Connect to OpenSea.
-                        continue  # Restart the while loop.
-                    if opensea.upload() and 2 in action:
-                        worker_sale()  # Sale of the NFTs.
-                    web.quit()  # Stop the webdriver.
-                    break  # Stop the while loop and continue the for loop.
-                except Exception as error:  # Selenium HTTPConnectionPool.
-                    print(f'{red}Launch error.{reset} {error}')
-                    try:
-                        web.quit()  # Close the webdriver.
-                    except Exception:
-                        pass  # No webdriver opened.
+    try:  # Try to init the reCAPTCHA models.
+        gateway = recaptcha.Gateway()
+    except Exception as error:
+        exit_('An error occured while loading Yolov5 and RealESRGAN.\nPlease '
+              'verify that your computer is enough powerful,\nevery modules '
+              f'are installed and files presents in the directory.\n{error}')
+    opensea = OpenSea()  # Init the OpenSea class.
+    cls()  # Clear console.
 
-    elif 2 in action and 1 not in action:  # "not 1" to be sure - Sale only.
+    while True:
         web = Webdriver(browser, browser_path)  # Start a new webdriver.
-        opensea = OpenSea()  # Init the OpenSea class.
-        print('')  # Separate outputs.
-        while True:
-            if wallet.login() is False:  # Connect to MetaMask.
-                continue  # Restart the while loop.
-            if opensea.login() is False:  # Connect to OpenSea.
-                continue  # Restart the while loop.
-            break  # Stop the while loop.
-        for nft_number in range(reader.lenght_file):
-            print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
-            if structure.get_data(nft_number):  # Structure the data.
+        if wallet.login() is False:  # Connect to MetaMask.
+            continue  # Restart the while loop.
+        if opensea.login() is False:  # Connect to OpenSea.
+            continue  # Restart the while loop.
+        break  # Stop the while loop.
+    gateway.webdriver(web)  # Send the instance of the Webdriver class.
+
+    for nft_number in range(reader.lenght_file):
+        print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
+        if structure.get_data(nft_number):  # Structure data.
+            if 1 in action:
+                if opensea.upload() and 2 in action:
+                    worker_sale()  # Sale of the NFTs.
+            elif 2 in action:
                 worker_sale()  # Sale of the NFTs.
-        web.quit()  # Stop the webdriver.
+    web.quit()  # Stop the webdriver.
 
     print(f'\n{green}All done!{reset}\nIn order to support me,'
           ' you can make donations at this address:\n'
