@@ -14,7 +14,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.5.12 - March 06, 2022_).**  
+* **(_Version 1.6.0 - March 21, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -22,7 +22,6 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 * **[What does this bot do?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#what-does-this-bot-do)**
 * **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#changelog).**
-* **[To do list](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#to-do-list).**
 * **[Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**.
   * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-bot).
@@ -39,7 +38,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ## What does this bot do?
 
-This script allows you to upload and sell **as many NFTs as you want to OpenSea**, all **automatically** and **quickly** (about 2.5 NFTs per minute). **All metadata are integrated**, and the **Ethereum** and **Polygon** Blockchains are supported.  
+This script allows you to upload and sell **as many NFTs as you want to OpenSea**, all **automatically** and **quickly**. **All metadata are integrated**, and the **Ethereum** and **Polygon** Blockchains are supported.  
 
 **You can decide whether you want to upload or sell your NFTs, or both**. If you upload your NFTs and sell them later, a CSV file is created with the URL of the NFT as well as its Blockchain and supply number.
 
@@ -50,10 +49,11 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.6.0:**
+  * The OpenSea connection problem seems to be fixed. An open tabs check has been added. **[#159](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/159), [#167](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/167), [#181](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/181), [#187](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/187)**.
+  * reCAPTCHA solver added (Real ESRGAN + Yolov5x6 models used with PyTorch). **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157), [#179](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/179), [#186](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/186)**.
 * **Version 1.5.12:**
   * Wyvern 2.3 contract support (need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#161](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/161), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165)**. 
-* **Version 1.5.11-reCAPTCHA:**
-  * Temporary update. **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157)**.
 * **Version 1.5.11:**
   * <strike>Correction of the MetaMask contract signature (feedback needed).</strike> **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144)**.
   * <strike>Wyvern 2.3 contract support (beta - need feedbacks).</strike> **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152)**.
@@ -143,29 +143,6 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
   * Inital commit.
 
 
-## To do list
-
-* ❌ Graphic User Interface.
-* ❌ Website for NFTs creation.
-* ✔ <strike>Data file browsing feature.</strike>
-* ✔ <strike>CSV structure reader and interpreter.</strike>
-* ✔ <strike>JSON structure reader and interpreter.</strike>
-* ✔ <strike>XLSX structure reader and interpreter.</strike>
-* ✔ <strike>MetaMask automatic login.</strike>
-* ❌ OpenSea automatic login with different wallets.
-  * ✔ <strike>OpenSea automatic login with MetaMask.</strike>
-* ❌ Change of wallet for the same account.
-* ❌ OpenSea Testnet automatic login.
-* ❌ Collection creator for OpenSea.
-* ✔ <strike>Automatic NFT upload.</strike>
-* ✔ <strike>Automatic NFT sale.</strike>
-* ❌ Update of NFT metadata.
-* ✔ <strike>Ethereum and Polygon blockchains support.</strike>
-* ✔ <strike>1+ supplies support.</strike>
-* ❌ "Sell as bundle" part (not planned to be added).
-
-
-
 ## Instructions
 
 * ### Basic installation of Python for beginners:
@@ -174,7 +151,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     ```
     git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
-  * It requires [Python](https://www.python.org/) 3.7 or a newest version - _developped with Python 3.9.7_.
+  * It requires [Python](https://www.python.org/) 3.9 - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
 
 * ### Configuration of the bot:
