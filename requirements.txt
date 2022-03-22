@@ -28,7 +28,6 @@ setuptools
 tensorflow
 tensorflowjs
 tensorrt
-tflite_runtime
 thop
 tqdm
 webdriver_manager
