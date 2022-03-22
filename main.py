@@ -265,7 +265,7 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        #options.add_argument('--headless')  # Headless mode.
+        options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
