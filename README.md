@@ -150,6 +150,17 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     nvidia-smi
     ```
   * If your CUDA version is earlier than 11.6, update it at the [NVIDIA website] (https://developer.nvidia.com/cuda-downloads).
+  * Then type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
+  
+    ```
+    pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+    ```
+* If your graphic card doesn't have CUDA:
+  * Type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
+
+    ```
+    pip install torch torchvision torchaudio
+    ```
 * A computer with enough power.
 
 ## Instructions
