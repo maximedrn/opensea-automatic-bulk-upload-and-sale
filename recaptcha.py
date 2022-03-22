@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.0 - 2022, 21 March.
+Version 1.6.1 - 2022, 22 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -20,7 +20,6 @@ the digital world much smoother.
 from colorama import init, Fore, Style
 
 # Selenium module imports: pip install selenium
-from genericpath import exists
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait as WDW
@@ -257,6 +256,7 @@ class Solver:
     def proceed(self) -> None: 
         """Call methods to solve the reCAPTCHA."""
         self.open_challenge()
+        failed = 0
         while True:
             try:  # Check if the reCAPTCHA is solved.
                 if not self.challenge_opened():
@@ -270,7 +270,15 @@ class Solver:
                 else:  # Class is not defined: reload the challenge.
                     actions.reload()
             except Exception:
-                break  # The reCAPTCHA disapears: solved.
+                if failed < 2:
+                    try:  # Check if the challenge is opened.
+                        if self.challenge_opened():
+                            failed += 1
+                            continue  # Retry to solve it.
+                        break  # It's not opened: solved.
+                    except Exception:
+                        break  # The reCAPTCHA disapears: solved.
+                raise Exception()
 
 
 class Gateway:
