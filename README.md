@@ -143,13 +143,13 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Prerequisites
 
 * A graphics card (GPU) with CUDA (Compute Unified Device Architecture).
-  * Search for your GPU on [GPUZoo] (https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
+  * Search for your GPU on [GPUZoo](https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
   * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
     ```
     nvidia-smi
     ```
-  * If your CUDA version is earlier than 11.6, update it at the [NVIDIA website] (https://developer.nvidia.com/cuda-downloads).
+  * If your CUDA version is earlier than 11.6, update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
   * Then type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
   
     ```
