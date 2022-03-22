@@ -18,6 +18,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 * **[What does this bot do?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#what-does-this-bot-do)**
 * **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#changelog).**
+* **[Prerequisites](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#prerequisites)**.
 * **[Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**.
   * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-bot).
@@ -139,6 +140,17 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * **Version 1.0:** 
   * Inital commit.
 
+## Prerequisites
+
+* A graphics card (GPU) with CUDA (Compute Unified Device Architecture).
+  * Search for your GPU on [GPUZoo] (https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
+  * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
+
+    ```
+    nvidia-smi
+    ```
+  * If your CUDA version is earlier than 11.6, update it at the [NVIDIA website] (https://developer.nvidia.com/cuda-downloads).
+* A computer with enough power.
 
 ## Instructions
 
@@ -148,7 +160,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     ```
     git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
-  * It requires [Python](https://www.python.org/) 3.9 - _developped with Python 3.9.7_.
+  * It requires [Python](https://www.python.org/) 3.9 (3.9.7, 3.9.8, 3.9.9, 3.9.10, 3.9.11) - _developped with Python 3.9.7_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
 
 * ### Configuration of the bot:
