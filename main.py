@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.0 - 2022, 21 March.
+Version 1.6.1 - 2022, 22 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -265,7 +265,7 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        options.add_argument('--headless')  # Headless mode.
+        #options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -362,9 +362,9 @@ class Wallets:
         """Use the method of the wallet to sign the login."""
         eval(f'self.{self.wallet_function}_sign()')
 
-    def contract(self) -> None:
+    def contract(self, new_contract: bool = False) -> None:
         """Use the method of the wallet to sign the contract."""
-        eval(f'self.{self.wallet_function}_contract()')
+        eval(f'self.{self.wallet_function}_contract({new_contract})')
 
     def close(self) -> None:
         """Close any popup or page opened by an extension."""
@@ -406,7 +406,7 @@ class Wallets:
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
 
-    def metamask_sign(self, new_contract: bool = False) -> None:
+    def metamask_sign(self) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
         windows = web.driver.window_handles  # Opened windows.
         for _ in range(2):  # "Next" and "Connect" buttons.
@@ -414,9 +414,9 @@ class Wallets:
             web.clickable('//*[contains(@class, "btn-primary")]')
         WDW(web.driver, 10).until(  # Wait for the new MetaMask tab.
             lambda _: windows != web.driver.window_handles)
-        self.metamask_contract(new_contract)  # Sign the contract.
+        self.metamask_contract()  # Sign the contract.
 
-    def metamask_contract(self, new_contract: bool) -> None:
+    def metamask_contract(self, new_contract: bool = False) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
         if new_contract:  # Wyvern 2.3 requires a scroll down.
@@ -471,8 +471,8 @@ class OpenSea:
             self.success = True
         except Exception:  # The contract failed.
             try:
-                web.window_handles(1)  # Switch back to the OpenSea tab.
                 wallet.contract()  # Sign the contract.
+                web.window_handles(1)  # Switch back to the OpenSea tab.
                 # Check if the login worked.
                 WDW(web.driver, 10).until(EC.url_to_be(self.create_url))
                 print(f'{green}Logged to OpenSea.{reset}')
@@ -486,6 +486,7 @@ class OpenSea:
                 else:  # Too many fails.
                     self.fails = 0  # Reset the counter.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
+                    web.quit()  # Stop the webdriver.
         return self.success
 
     def upload(self) -> bool:
@@ -899,7 +900,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.0 - 2022, 06 March.\n{reset}'
+          f'\n\nVersion 1.6.1 - 2022, 22 March.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
