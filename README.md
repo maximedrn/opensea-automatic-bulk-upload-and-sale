@@ -48,7 +48,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * **Version 1.6.0:**
   * The OpenSea connection problem seems to be fixed. An open tabs check has been added. **[#159](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/159), [#167](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/167), [#181](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/181), [#187](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/187)**.
-  * reCAPTCHA solver added (Real ESRGAN + Yolov5x6 models used with PyTorch). **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157), [#179](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/179), [#186](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/186)**.
+  * reCAPTCHA solver added (Real ESRGAN + Yolov5x6 models used with PyTorch). **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157), [#179](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/179), [#186](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/186)**.  
     ➜ Future improvements: models of crosswalks, chimneys, bridges.
 * **Version 1.5.12:**
   * Wyvern 2.3 contract support (need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#161](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/161), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165)**. 
@@ -155,6 +155,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     ```
     pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
     ```
+    _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
 * If your graphic card doesn't have CUDA:
   * Type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
 
