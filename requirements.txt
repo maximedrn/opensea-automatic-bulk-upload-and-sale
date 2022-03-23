@@ -6,6 +6,7 @@ matplotlib==3.5.1
 numpy==1.22.3
 opencv_python==4.5.5.62
 pandas==1.4.1
+openpyxl==3.0.9
 Pillow==9.0.1
 protobuf==3.19.4
 psutil==5.9.0
