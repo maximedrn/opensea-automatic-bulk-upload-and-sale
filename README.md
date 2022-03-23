@@ -177,7 +177,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     ```
     git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
-  * It requires [Python](https://www.python.org/) 3.9 (3.9.7, 3.9.8, 3.9.9, 3.9.10, 3.9.11) - _developped with Python 3.9.7_.
+  * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.9_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
 
 * ### Configuration of the bot:
