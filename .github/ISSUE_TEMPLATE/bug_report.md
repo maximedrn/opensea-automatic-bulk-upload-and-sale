@@ -2,8 +2,8 @@
 name: Bug report
 about: Create a report to help me improve the bot.
 title: Issue while using the bot.
-labels: bug
-assignees: maximedrn
+labels: ''
+assignees: ''
 
 ---
 
