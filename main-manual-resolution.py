@@ -264,7 +264,6 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -831,10 +830,8 @@ def perform_action() -> list:
 
 def choose_browser() -> int:
     """Ask the user for a browser."""
-    browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
-                'Must used in foreground, you see what\'s happening.',
-                'GeckoDriver (Mozilla Firefox) - Headless mode.\n    '
-                'Can be used in background while doing something else.']
+    browsers = ['ChromeDriver (Google Chrome) - No headless mode.',
+                'GeckoDriver (Mozilla Firefox) - No headless mode.']
     while True:
         print(f'{yellow}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
