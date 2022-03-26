@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.1 - 2022, 22 March.
+Version 1.6.2 - 2022, 26 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -34,9 +34,10 @@ from webdriver_manager.chrome import ChromeDriverManager as CDM
 from webdriver_manager.firefox import GeckoDriverManager as GDM
 
 # Python default imports.
+from os.path import abspath, splitext, isfile, exists, getsize
+from os import name as osname, system as ossystem
 from datetime import datetime as dt
 from glob import glob
-import os
 
 
 """Colorama module constants."""
@@ -56,7 +57,7 @@ class Reader:
         # Get file's extension to lowercase (MacOS support).
         self.path = path  # Instance the file path.
         # Get splitted file name (['text', '.txt']) and then remove the dot.
-        self.extension = os.path.splitext(self.path)[1][1:].lower()
+        self.extension = splitext(self.path)[1][1:].lower()
         # Check if the extension is supported by the Reader class.
         if self.extension not in ('json', 'csv', 'xlsx'):
             exit_('The file extension is not supported.')
@@ -206,7 +207,7 @@ class Structure:
 
     def save(self, mode: str, details: list) -> None:
         """Save in the file all details of the NFT."""
-        if not os.path.isfile(os.path.abspath(eval(f'self.{mode}_file'))):
+        if not isfile(abspath(eval(f'self.{mode}_file'))):
             self.create_file(  # Create the upload file.
                 mode, ''.join(f'{detail};; ' for detail in details))
         with open(eval(f'self.{mode}_file'), 'a+', encoding='utf-8') as file:
@@ -235,7 +236,7 @@ class Webdriver:
 
     def __init__(self, browser: int, browser_path: str) -> None:
         """Contains the file paths of the webdriver and the extension."""
-        self.metamask_extension_path = os.path.abspath(  # Extension path.
+        self.metamask_extension_path = abspath(  # Extension path.
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
         self.browser_path = browser_path  # Get the browser path.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
@@ -263,7 +264,7 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        #options.add_argument('--headless')  # Headless mode.
+        options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -321,7 +322,7 @@ class Webdriver:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then clear its text.
         # Note: change with 'darwin' if it's not working on MacOS.
-        control = Keys.COMMAND if os.name == 'posix' else Keys.CONTROL
+        control = Keys.COMMAND if osname == 'posix' else Keys.CONTROL
         if self.window == 0:  # ChromeDriver (Google Chrome).
             webdriver.ActionChains(self.driver).key_down(control).send_keys(
                 'a').key_up(control).perform()
@@ -403,6 +404,7 @@ class Wallets:
                 self.fails = 0  # Reset the counter.
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
+        self.fails = 0
 
     def metamask_sign(self) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
@@ -417,9 +419,12 @@ class Wallets:
     def metamask_contract(self, new_contract: bool = False) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
         web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        if new_contract:  # Wyvern 2.3 requires a scroll down.
-            web.clickable('(//div[contains(@class, "signature") and con'
-                          'tains(@class, "scroll-button")])[position()=1]')
+        if web.window == 1 and new_contract:  # GeckoDriver.
+            web.clickable('(//div[contains(@class, "signature") and '
+                          'contains(@class, "scroll")])[position()=1]')
+        elif web.window == 0 and new_contract:
+            web.driver.execute_script(  # Scroll down.
+                'window.scrollTo(0, document.body.scrollHeight);')
         # Click on the "Sign" button - Make a contract link.
         web.clickable('(//div[contains(@class, "signature") and conta'
                       'ins(@class, "footer")])[position()=1]/button[2]')
@@ -485,6 +490,7 @@ class OpenSea:
                     self.fails = 0  # Reset the counter.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
+        self.fails = 0
         return self.success
 
     def upload(self) -> bool:
@@ -494,24 +500,24 @@ class OpenSea:
             web.driver.get(self.create_url + '?enable_supply=true')
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
-                    file_path = os.path.abspath(structure.file_path[0])
-                    preview = os.path.abspath(structure.file_path[1])
+                    file_path = abspath(structure.file_path[0])
+                    preview = abspath(structure.file_path[1])
             else:  # No preview file.
-                file_path = os.path.abspath(structure.file_path)
-            if not os.path.exists(file_path):  # Upload the NFT file.
+                file_path = abspath(structure.file_path)
+            if not exists(file_path):  # Upload the NFT file.
                 raise TE('File doesn\'t exist or path is incorrect.')
-            if os.path.getsize(file_path) / (1024 ** 2) > 100:
+            if getsize(file_path) / (1024 ** 2) > 100:
                 raise TE('File size must be less than 100 MegaBytes.')
-            if os.path.splitext(file_path)[1][1:].lower() not in \
+            if splitext(file_path)[1][1:].lower() not in \
                 ('jpg', 'jpeg', 'png', 'gif', 'svg', 'mp4',  # Check the file
                  'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):  # extensions.
                 raise TE('The file extension is not supported on OpenSea.')
             structure.is_empty('//*[@id="media"]', file_path)
-            if os.path.splitext(file_path)[1][1:].lower() in \
+            if splitext(file_path)[1][1:].lower() in \
                     ('mp4', 'webm', 'mp3', 'wav', 'ogg', 'glb', 'gltf'):
-                if not os.path.exists(preview):  # Upload the NFT file.
+                if not exists(preview):  # Upload the NFT file.
                     raise TE('File doesn\'t exist or path is incorrect.')
-                if os.path.getsize(preview) / (1024 ** 2) > 100:
+                if getsize(preview) / (1024 ** 2) > 100:
                     raise TE('File size must be less than 100 MegaBytes.')
                 structure.is_empty('//input[@name="preview"]', preview)
             # Input NFT name.
@@ -601,7 +607,7 @@ class OpenSea:
             except Exception:  # reCAPTCHA is not visible or not solved.
                 raise TE('Failed at reCAPTCHA.')
             WDW(web.driver, 600).until(lambda _: web.driver.current_url !=
-                                      self.create_url + '?enable_supply=true')
+                                       self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.nft_url = web.driver.current_url  # Edit the NFT URL.
@@ -612,11 +618,12 @@ class OpenSea:
                   error if 'Stacktrace' not in str(error) else '\n', end='')
             wallet.close()  # Close the MetaMask popup.
             self.retries_upload += 1  # Increment the counter.
-            if self.retries_upload > 0:  # Too much fails.
+            if self.retries_upload > 1:  # Too much fails.
                 structure.save_upload() if 2 not in structure.action else \
                     structure.save_upload_and_sale()  # Save the details.
                 return False  # It failed.
             self.upload()  # Try to re-upload the NFT.
+        self.retries_upload = 0
 
     def sale(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
@@ -772,6 +779,7 @@ class OpenSea:
                 return False  # It failed.
             web.driver.get(structure.nft_url)
             self.sale()  # Try to re-upload the NFT.
+        self.retries_sale = 0
 
 
 def choose_wallet() -> int:
@@ -792,9 +800,9 @@ def choose_wallet() -> int:
 
 def read_file(file_: str, question: str) -> str:
     """Read file or ask for data to write in text file."""
-    if not os.path.isfile(f'assets/{file_}.txt'):
-        open(f'assets/{file_}.txt', 'a')  # Create a file if it doesn't exist.
-    with open(f'assets/{file_}.txt', 'r+', encoding='utf-8') as file:
+    if not isfile(abspath(f'assets/{file_}.txt')):
+        open(abspath(f'assets/{file_}.txt'), 'a')  # If file doesn't exist.
+    with open(abspath(f'assets/{file_}.txt'), 'r+', encoding='utf-8') as file:
         text = file.read()  # Read the file.
         if text == '':  # If the file is empty.
             text = input(question)  # Ask the question.
@@ -850,7 +858,7 @@ def data_file() -> str:
             for file in files:
                 file_number += 1
                 files_list.append(file)
-                print(f'{file_number} - {os.path.abspath(file)}')
+                print(f'{file_number} - {abspath(file)}')
         answer = input('File number: ')
         if not answer.isdigit():  # Check if answer is a number.
             print(f'{red}Answer must be an integer.{reset}')
@@ -884,7 +892,7 @@ def exit_(message: str) -> None:
 def cls() -> None:
     """Clear console function."""
     # Clear console for Windows using 'cls' and Linux & Mac using 'clear'.
-    os.system('cls' if os.name == 'nt' else 'clear')
+    ossystem('cls' if osname == 'nt' else 'clear')
 
 
 if __name__ == '__main__':
@@ -897,7 +905,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.1 - 2022, 22 March.\n{reset}'
+          f'\n\nVersion 1.6.2 - 2022, 26 March.\n{reset}'
           'Solve reCAPTCHAs manually - for computers that '
           'can\'t do it automatically.'
           '\nIf you face any problem, please open an issue.')
@@ -927,11 +935,11 @@ if __name__ == '__main__':
         print(f'{green}{webdriver_} downloaded:{reset} \n{browser_path}')
     except Exception:
         print(f'{red}Browser download failed.{reset}')
-        browser_path = os.path.abspath(
-            'assets/' + 'chromedriver.exe' if os.name == 'nt' else
-            'chromedriver' if browser == 0 else 'geckodriver.exe' if os.name
+        browser_path = abspath(
+            'assets/' + 'chromedriver.exe' if osname == 'nt' else
+            'chromedriver' if browser == 0 else 'geckodriver.exe' if osname
             == 'nt' else 'geckodriver')
-        if not os.path.exists(browser_path):
+        if not exists(browser_path):
             exit_('Download the webdriver and place it in the assets/ folder.')
         print(f'Webdriver path set as {browser_path}')
 
