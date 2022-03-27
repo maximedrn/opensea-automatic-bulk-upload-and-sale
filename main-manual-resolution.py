@@ -238,6 +238,8 @@ class Webdriver:
         """Contains the file paths of the webdriver and the extension."""
         self.metamask_extension_path = abspath(  # Extension path.
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
+        self.coinbase_extension_path = abspath(  # Extension path.
+            'assets/CoinbaseWallet.crx')
         self.browser_path = browser_path  # Get the browser path.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
         self.driver = self.chrome() if browser == 0 else self.firefox()
@@ -246,7 +248,13 @@ class Webdriver:
     def chrome(self) -> webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
-        options.add_extension(self.metamask_extension_path)  # Add extension.
+
+        # Add wallet extension according to user choice
+        if user_wallet == 'MetaMask':
+            options.add_extension(self.metamask_extension_path)
+        elif user_wallet == 'Coinbase Wallet':
+            options.add_extension(self.coinbase_extension_path)
+
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -443,6 +451,72 @@ class Wallets:
             except Exception:
                 pass  # Ignore the exception.
 
+    def coinbase_wallet_login(self) -> bool or None:
+        """Login to the Coinbase wallet."""
+        try:
+            print('Login to Coinbase Wallet.', end=' ')
+            # Switch to the Coinbase Wallet extension tab.
+            web.window_handles(0)
+            web.driver.refresh()  # Reload the page to prevent a blank page.
+
+            # Click on the "Import wallet" button.
+            web.clickable('(//*[@data-testid="btn-import-existing-wallet"])')
+            # Click on the "Enter recovery phrase" button.
+            web.clickable('(//*[@data-testid="btn-import-recovery-phrase"])')
+            # Input the recovery phrase.
+            web.send_keys(
+                '//*[@data-testid="seed-phrase-input"]', self.recovery_phrase)
+            # Click on the "Import Wallet" button.
+            web.clickable('(//*[@data-testid="btn-import-wallet"])')
+            # Input a new password or the same password of your account.
+            web.send_keys('//*[@id="Password"]', self.password)
+            web.send_keys('//*[@id="Verify password"]', self.password)
+            # Click on the "I have read and agree to the..." checkbox.
+            web.clickable(
+                '(//*[@data-testid="terms-and-privacy-policy-parent"])')
+            # Click on the "Submit" button.
+            web.clickable('(//*[@data-testid="btn-password-continue"])')
+            print(f'{green}Logged to Coinbase Wallet.{reset}')
+            self.success = True
+        except Exception:  # Failed - a web element is not accessible.
+            self.fails += 1  # Increment the counter.
+            if self.fails < 2:  # Retry login to the wallet.
+                print(f'{red}Login to Coinbase Wallet failed. Retrying.{reset}')
+                self.coinbase_wallet_login()
+            else:  # Too many fails.
+                self.fails = 0  # Reset the counter.
+                print(f'{red}Login to Coinbase Wallet failed. Restarting.{reset}')
+                web.quit()  # Stop the webdriver.
+
+    def coinbase_wallet_sign(self) -> None:
+        """Sign the Coinbase Wallet contract to login to OpenSea."""
+        web.window_handles(2)  # Switch to the Coinbase Wallet pop up tab.
+        web.clickable('(//*[@data-testid="allow-authorize-button"])')
+        try:  # Wait until the Coinbase Wallet pop up is closed.
+            WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
+        except TE:
+            self.coinbase_wallet_contract()  # Sign the contract a second time.
+        web.window_handles(1)  # Switch back to the OpenSea tab.
+
+    def coinbase_wallet_contract(self, new_contract: bool = False) -> None:
+        """Sign a Coinbase Wallet contract to upload or confirm sale."""
+        web.window_handles(2)  # Switch to the Coinbase Wallet pop up tab.
+        web.clickable('(//*[@data-testid="sign-message"])')
+        try:  # Wait until the Coinbase Wallet pop up is closed.
+            WDW(web.driver, 10).until(EC.number_of_windows_to_be(2))
+        except TE:
+            self.coinbase_wallet_contract()  # Sign the contract a second time.
+        web.window_handles(1)  # Switch back to the OpenSea tab.
+
+    def coinbase_wallet_close(self) -> None:
+        """Close the Coinbase Wallet popup."""
+        if len(web.driver.window_handles) > 2:
+            try:
+                web.window_handles(2)  # Switch to the Coinbase Wallet popup.
+                web.driver.close()  # Close the popup extension.
+                web.window_handles(1)  # Switch back to OpenSea.
+            except Exception:
+                pass  # Ignore the exception.
 
 class OpenSea:
     """Main class: OpenSea automatic uploader."""
@@ -615,7 +689,7 @@ class OpenSea:
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset}',
                   error if 'Stacktrace' not in str(error) else '\n', end='')
-            wallet.close()  # Close the MetaMask popup.
+            wallet.close()  # Close the wallet extension popup.
             self.retries_upload += 1  # Increment the counter.
             if self.retries_upload > 1:  # Too much fails.
                 structure.save_upload() if 2 not in structure.action else \
@@ -754,7 +828,7 @@ class OpenSea:
                 else:  # Sign the Wyvern 2.3 contract.
                     wallet.contract(True)  # True: Wyvern 2.3 arrow click.
             except Exception:  # An error occured while listing the NFT.
-                raise TE('Cannot sign the MetaMask contract.')
+                raise TE('Cannot sign the wallet contract.')
             try:  # Check if the NFT is listed.
                 web.window_handles(1)  # Switch back to the OpenSea tab.
                 web.visible('//header/h4[contains(text(), "listed")]')
@@ -771,7 +845,7 @@ class OpenSea:
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset}',
                   error if 'Stacktrace' not in str(error) else '\n', end='')
-            wallet.close()  # Close the MetaMask popup.
+            wallet.close()  # Close the wallet extension popup.
             self.retries_sale += 1  # Increment the counter.
             if self.retries_sale > 1:  # Too much fails.
                 structure.save_sale()  # Save the NFT details for a sale.
@@ -783,7 +857,7 @@ class OpenSea:
 
 def choose_wallet() -> int:
     """Ask the user for a wallet to connect to OpenSea."""
-    wallets = ['MetaMask']  # New wallets will be added.
+    wallets = ['MetaMask', 'Coinbase Wallet']  # New wallets will be added.
     while True:
         print(f'{yellow}\nChoose a wallet:')
         [print(f'{wallets.index(wallet) + 1} - {wallet}'
@@ -915,9 +989,20 @@ if __name__ == '__main__':
           '\nAny distribution, modification or commercial use is strictly'
           f' prohibited.{reset}')
 
-    wallet = Wallets(choose_wallet(), read_file(  # Send credentials.
-        'password', '\nWhat is your MetaMask password? '), read_file(
-        'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
+    user_wallet = choose_wallet()
+
+    # Coinbase wallet extension only available for Chrome
+    #  so don't ask to user to choice a different browser,
+    #  maybe show a message to user to explain this ?
+    if user_wallet == 'Coinbase Wallet':
+        browser = 0
+    else:
+        browser = choose_browser()  # Ask to user to choice browser.
+
+    wallet = Wallets(user_wallet, read_file(  # Send credentials.
+        'password', '\nWhat is your wallet password? '), read_file(
+        'recovery_phrase', '\nWhat is your wallet recovery phrase? '))
+
     action = perform_action()  # What the user wants to do.
     browser = choose_browser()  # Get the browser.
     reader = Reader(data_file())  # Ask for a file and read it.
@@ -945,7 +1030,7 @@ if __name__ == '__main__':
 
     while True:
         web = Webdriver(browser, browser_path)  # Start a new webdriver.
-        if wallet.login() is False:  # Connect to MetaMask.
+        if wallet.login() is False:  # Connect to user wallet.
             continue  # Restart the while loop.
         if opensea.login() is False:  # Connect to OpenSea.
             continue  # Restart the while loop.
