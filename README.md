@@ -48,7 +48,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Changelog
 
 * **Version 1.6.3:**
-  * Added support for Coinbase Wallet (many thanks to **@MathieuAndrade**!).
+  * Added support for Coinbase Wallet (many thanks to **[MathieuAndrade](https://github.com/MathieuAndrade)**!).
 * **Version 1.6.2:**
   * Wyvern 2.3 contract signature fixed for ChromeDriver and GeckoDriver. **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165), [#183](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/183), [#201](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/201)**.
   * Minor corrections and improvements.
