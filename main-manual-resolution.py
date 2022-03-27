@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.2 - 2022, 26 March.
+Version 1.6.3 - 2022, 27 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -238,8 +238,7 @@ class Webdriver:
         """Contains the file paths of the webdriver and the extension."""
         self.metamask_extension_path = abspath(  # Extension path.
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
-        self.coinbase_extension_path = abspath(  # Extension path.
-            'assets/CoinbaseWallet.crx')
+        self.coinbase_extension_path = abspath('assets/CoinbaseWallet.crx')
         self.browser_path = browser_path  # Get the browser path.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
         self.driver = self.chrome() if browser == 0 else self.firefox()
@@ -248,13 +247,11 @@ class Webdriver:
     def chrome(self) -> webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
-
-        # Add wallet extension according to user choice
+        # Add wallet extension according to user choice.
         if user_wallet == 'MetaMask':
             options.add_extension(self.metamask_extension_path)
         elif user_wallet == 'Coinbase Wallet':
             options.add_extension(self.coinbase_extension_path)
-
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -455,16 +452,13 @@ class Wallets:
         """Login to the Coinbase wallet."""
         try:
             print('Login to Coinbase Wallet.', end=' ')
-            # Switch to the Coinbase Wallet extension tab.
-            web.window_handles(0)
+            web.window_handles(0)  # Switch to the Coinbase Wallet extension.
             web.driver.refresh()  # Reload the page to prevent a blank page.
-
             # Click on the "Import wallet" button.
             web.clickable('(//*[@data-testid="btn-import-existing-wallet"])')
             # Click on the "Enter recovery phrase" button.
             web.clickable('(//*[@data-testid="btn-import-recovery-phrase"])')
-            # Input the recovery phrase.
-            web.send_keys(
+            web.send_keys(  # Input the recovery phrase.
                 '//*[@data-testid="seed-phrase-input"]', self.recovery_phrase)
             # Click on the "Import Wallet" button.
             web.clickable('(//*[@data-testid="btn-import-wallet"])')
@@ -481,11 +475,11 @@ class Wallets:
         except Exception:  # Failed - a web element is not accessible.
             self.fails += 1  # Increment the counter.
             if self.fails < 2:  # Retry login to the wallet.
-                print(f'{red}Login to Coinbase Wallet failed. Retrying.{reset}')
+                print(f'{red}Login to Coinbase failed. Retrying.{reset}')
                 self.coinbase_wallet_login()
             else:  # Too many fails.
                 self.fails = 0  # Reset the counter.
-                print(f'{red}Login to Coinbase Wallet failed. Restarting.{reset}')
+                print(f'{red}Login to Coinbase failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
 
     def coinbase_wallet_sign(self) -> None:
@@ -517,6 +511,7 @@ class Wallets:
                 web.window_handles(1)  # Switch back to OpenSea.
             except Exception:
                 pass  # Ignore the exception.
+
 
 class OpenSea:
     """Main class: OpenSea automatic uploader."""
@@ -976,7 +971,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.2 - 2022, 26 March.\n{reset}'
+          f'\n\nVersion 1.6.3 - 2022, 27 March.\n{reset}'
           'Solve reCAPTCHAs manually - for computers that '
           'can\'t do it automatically.'
           '\nIf you face any problem, please open an issue.')
@@ -990,21 +985,11 @@ if __name__ == '__main__':
           f' prohibited.{reset}')
 
     user_wallet = choose_wallet()
-
-    # Coinbase wallet extension only available for Chrome
-    #  so don't ask to user to choice a different browser,
-    #  maybe show a message to user to explain this ?
-    if user_wallet == 'Coinbase Wallet':
-        browser = 0
-    else:
-        browser = choose_browser()  # Ask to user to choice browser.
-
     wallet = Wallets(user_wallet, read_file(  # Send credentials.
-        'password', '\nWhat is your wallet password? '), read_file(
-        'recovery_phrase', '\nWhat is your wallet recovery phrase? '))
-
+        'password', '\nWhat is your MetaMask password? '), read_file(
+        'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
     action = perform_action()  # What the user wants to do.
-    browser = choose_browser()  # Get the browser.
+    browser = 0 if user_wallet == 'Coinbase Wallet' else choose_browser()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
     cls()  # Clear console.
