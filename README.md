@@ -11,7 +11,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.6.2 - March 26, 2022_).**  
+* **(_Version 1.6.3 - March 27, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 
@@ -47,6 +47,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.6.3:**
+  * Added support for Coinbase Wallet (many thanks to **@MathieuAndrade**!).
 * **Version 1.6.2:**
   * Wyvern 2.3 contract signature fixed for ChromeDriver and GeckoDriver. **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165), [#183](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/183), [#201](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/201)**.
   * Minor corrections and improvements.
