@@ -163,14 +163,14 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     nvidia-smi
     ```
   * If your CUDA version is earlier than 11.3, update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
-  * Then type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
+  * Then type this command to install PyTorch (**install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**):
   
     ```
     pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
     ```
     _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
 * If your graphic card doesn't have CUDA:
-  * Type this command to install PyTorch (install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)):
+  * Type this command to install PyTorch (**install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**):
 
     ```
     pip install torch torchvision torchaudio
@@ -190,7 +190,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * ### Configuration of the bot:
   * Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master`.
-  * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux):
+  * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux and administrator privileges for Windows):
     
     * ```
       pip install -r requirements.txt
