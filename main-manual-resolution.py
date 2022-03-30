@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.3 - 2022, 27 March.
+Version 1.6.4 - 2022, 30 March.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -680,6 +680,7 @@ class OpenSea:
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.nft_url = web.driver.current_url  # Edit the NFT URL.
                 structure.save_sale(True)  # Save for a future listing.
+            self.retries_upload = 0
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{red}Upload failed.{reset}',
@@ -689,9 +690,9 @@ class OpenSea:
             if self.retries_upload > 1:  # Too much fails.
                 structure.save_upload() if 2 not in structure.action else \
                     structure.save_upload_and_sale()  # Save the details.
+                self.retries_upload = 0
                 return False  # It failed.
             self.upload()  # Try to re-upload the NFT.
-        self.retries_upload = 0
 
     def sale(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
@@ -971,7 +972,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.3 - 2022, 27 March.\n{reset}'
+          f'\n\nVersion 1.6.4 - 2022, 30 March.\n{reset}'
           'Solve reCAPTCHAs manually - for computers that '
           'can\'t do it automatically.'
           '\nIf you face any problem, please open an issue.')
