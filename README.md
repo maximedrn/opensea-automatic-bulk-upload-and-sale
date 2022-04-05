@@ -216,6 +216,11 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     * ```
       py -m pip install -r requirements.txt
       ```
+  * _Optional_: Install the required modules for the reCAPTCHA solver (only if your graphics card can support CUDA - [Prerequisites](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#Prerequisites)) using this or a similar command above:
+
+    ```
+    pip install -r requirements_recaptcha.txt
+    ```
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
