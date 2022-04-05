@@ -19,6 +19,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 # Table of contents
 
 * **[What does this bot do?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#what-does-this-bot-do)**
+* **[Useful tools to have for this bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#useful-tools-to-have-for-this-bot)**.
 * **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#changelog).**
 * **[Prerequisites](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#prerequisites)**.
 * **[Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**.
@@ -29,11 +30,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
   * [Upload and sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-and-sale).
   * [Upload only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-only).
   * [Sale only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#sale-only).
-  * **[EASILY CREATE YOUR METADATA FILE](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/discussions/124)**.  
-    **➜ [Download the application](https://testflight.apple.com/join/XtJI9qTW)**.
 * **[Configuration of the sale part of the NFTs](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-sale-part-of-the-nfts).**
-* **[Known issues and important things to know](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#known-issues-and-important-things-to-know).**
-
 
 ## What does this bot do?
 
@@ -45,6 +42,12 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 **0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E** (Ethereum).  
 ➜ **Or you can buy me a NFT from my collection [Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts) if this bot was useful to you**.
 
+## Useful tools to have for this bot
+
+* Easily create your metadata file on your iPhone.  
+  **Download the app: https://testflight.apple.com/join/XtJI9qTW.**
+* Scrape your already downloaded collections to be ready for sale using this robot.  
+  **Discover this tool: https://github.com/maximedrn/opensea-collection-scraper.**
 
 ## Changelog
 
@@ -181,12 +184,13 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Instructions
 
-* ### Basic installation of Python for beginners:
-  * [Download the repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
+* [Download the repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
     
     ```
     git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
+
+* ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.9_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
 
@@ -226,7 +230,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Data files structure
 
-If you do not want to add details to the values not required, leave:
+* If you do not want to add details to the values not required, leave:
   * **a blank cell** for XLSX files (Excel):
     <table>
      <tbody>
@@ -254,6 +258,17 @@ If you do not want to add details to the values not required, leave:
     "nft_name": "NFT #1",
     "description": "",
     ```
+
+* **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can see for the JSON file *(it applies to all file formats)*:**
+  
+  ```json
+  // You can use this format for your path:
+  "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
+  // or this one:
+  "file_path": "C:\\Users\\Admin\\Desktop\\MyNFTs\\nft_0001.png",
+  // but not this one (you can see that "\" is highlighted in red):
+  "file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png",
+  ```
 
 <strong>Required values *</strong>  
   (Mandatory value in certain specified cases)
@@ -850,7 +865,9 @@ If you do not want to add details to the values not required, leave:
 ## Configuration of the sale part of the NFTs
 
 When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.  
-**Note: The maximum duration of sale should be at most 6 months. It must be entered in the form of start date - end date.**
+**Note: The maximum duration of sale should be at most 6 months. It must be entered in the form of start date - end date.**  
+
+Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
 
   <table>
      <tbody>
@@ -905,42 +922,3 @@ When you want to sell your NFTs, Opensea requires various details according to t
         </tr>
      </tbody>
   </table>
-
-
-## Known issues and important things to know
-
-* Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
-* **The file path should not contain a unique "\\". It can be a "/" or a "\\\\", as you can see for the JSON file *(it applies to all file formats)*:**
-  
-  ```json
-  // You can use this format for your path:
-  "file_path": "C:/Users/Admin/Desktop/MyNFTs/nft_0001.png",
-  // or this one:
-  "file_path": "C:\\Users\\Admin\\Desktop\\MyNFTs\\nft_0001.png",
-  // but not this one (you can see that "\" is highlighted in red):
-  "file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png",
-  ```
-* The bot may crash at the beginning when loading the MetaMask extension (a Selenium module issue), An error like the one below should appear:  
-  
-  ```python
-  selenium.common.exceptions.WebDriverException:
-  Message: unknown error: failed to wait for extension background page to load:
-  chrome-extension://nkbihfbeogaeaoehlefnkodbefpgknn/background.html from timeout:
-  Timed out receiving message from renderer: 10.000
-  ```
-* When lauching the webdriver, Selenium can raise an exception:
-  
-  ```python
-  driver = webdriver.Chrome(service=Service( # DeprecationWarning using
-  TypeError: WebDriver.init() got an unexpected keyword argument 'service'
-  ```
-  You must update your Selenium version to 4.1.0 or higher by typing in the command prompt:
-  
-  ```
-  pip install selenium --upgrade
-  ```
-  You can now verify that a more recent version of Selenium is installed by typing:
-  
-  ```
-  pip show selenium
-  ```  
