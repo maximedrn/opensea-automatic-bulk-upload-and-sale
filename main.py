@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.4 - 2022, 30 March.
+Version 1.6.5 - 2022, 05 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -671,14 +671,17 @@ class OpenSea:
                           '[position()=1]/div/span/button')  # "Create" button.
             try:  # Wait for the reCAPTCHA to be displayed.
                 web.visible('(//div[@class="g-recaptcha"])[position()=1]')
-                print(f'{yellow}Solving the reCAPTCHA.{reset}', end=' ')
-                gateway.proceed()
-                print(f'{green}Solved.{reset}', end=' ')
-            except Exception as e:  # reCAPTCHA is not visible.
-                print(e)
+                if solver:  # reCAPTCHA solver activated.
+                    print(f'{yellow}Solving the reCAPTCHA.{reset}', end=' ')
+                    gateway.proceed()
+                    print(f'{green}Solved.{reset}', end=' ')
+                else:  # When solved, webpage changes.
+                    print(f'{yellow}reCAPTCHA displayed.{reset}', end=' ')
+            except Exception:  # reCAPTCHA is not visible.
                 raise TE('Cannot solve the reCAPTCHA.')
-            WDW(web.driver, 30).until(lambda _: web.driver.current_url !=
-                                      self.create_url + '?enable_supply=true')
+            WDW(web.driver, 30 if solver else 600).until(
+                lambda _: web.driver.current_url !=
+                self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.nft_url = web.driver.current_url  # Edit the NFT URL.
@@ -977,7 +980,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.4 - 2022, 30 March.\n{reset}'
+          f'\n\nVersion 1.6.5 - 2022, 05 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -993,6 +996,13 @@ if __name__ == '__main__':
         'password', '\nWhat is your MetaMask password? '), read_file(
         'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
     action = perform_action()  # What the user wants to do.
+    if 1 in action and 'y' in input(
+            '\nDo you want to enable the reCAPTCHA solver? (y/[n]) ').lower():
+        print(f'{green}reCAPTCHA solver enabled.{reset}')
+        solver = True
+    else:  # reCAPTCHA solver disabled.
+        print(f'{yellow}reCAPTCHA solver disabled.{reset}')
+        solver = False
     browser = 0 if user_wallet == 'Coinbase Wallet' else choose_browser()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
@@ -1014,14 +1024,14 @@ if __name__ == '__main__':
             exit_('Download the webdriver and place it in the assets/ folder.')
         print(f'Webdriver path set as {browser_path}')
 
-    if 1 in action:
+    if 1 in action and solver:
         try:  # Try to init the reCAPTCHA models.
             import recaptcha
             gateway = recaptcha.Gateway()
         except Exception as error:
-            exit_('An error occured while loading Yolov5 and RealESRGAN.\n'
-                  'Please verify that your computer is enough powerful,\n'
-                  'every modules are installed and files presents in the'
+            exit_('\nAn error occured while loading Yolov5 and RealESRGAN.'
+                  '\nPlease verify that your computer is enough powerful,'
+                  '\nevery modules are installed and files presents in the'
                   f' directory.\n{error}')
     opensea = OpenSea()  # Init the OpenSea class.
     cls()  # Clear console.
