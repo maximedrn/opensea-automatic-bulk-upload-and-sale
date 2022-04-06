@@ -257,6 +257,7 @@ class Webdriver:
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--lang=en-US')  # Set webdriver language
+        options.add_argument(' --disable-dev-shm-usage')
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
         options.add_experimental_option('excludeSwitches', [
