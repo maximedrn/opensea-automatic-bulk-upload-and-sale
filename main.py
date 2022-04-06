@@ -348,10 +348,11 @@ class Wallets:
     """Allows connection to OpenSea with different wallets."""
 
     def __init__(self, wallet: int, password: int,
-                 recovery_phrase: str) -> None:
+                 recovery_phrase: str, pk: str) -> None:
         """Get the wallet and connect to the extension/etc."""
         self.recovery_phrase = recovery_phrase  # Get the phrase.
         self.password = password  # Get the new/same password.
+        self.pk = pk # Get the account primary key
         self.wallet = wallet  # Wallet user choice.
         self.wallet_function = wallet.lower().replace(' ', '_')
         self.fails = 0  # Counter of fails during wallet connection.
@@ -398,6 +399,13 @@ class Wallets:
             # Wait until the login worked and click on the "All done" button".
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
+            # Change account
+            web.clickable('//*[contains(@class, "popover-header__button")][position()=1]')
+            web.clickable('//*[contains(@class, "account-menu__icon")][position()=1]')
+            web.clickable('//*[contains(@class, "account-menu__item account -menu__item--clickable")][position()=2]')
+            web.send_keys('//*[@id="private-key-box"]', self.pk)
+            web.clickable('//*[contains(@class, "btn-secondary")][position()=1]')
+
             print(f'{green}Logged to MetaMask.{reset}')
             self.success = True
         except Exception:  # Failed - a web element is not accessible.
@@ -994,7 +1002,8 @@ if __name__ == '__main__':
     user_wallet = choose_wallet()
     wallet = Wallets(user_wallet, read_file(  # Send credentials.
         'password', '\nWhat is your MetaMask password? '), read_file(
-        'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '))
+        'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '),
+        read_file('pk', '\nWhat is you account primary key? '))
     action = perform_action()  # What the user wants to do.
     if 1 in action and 'y' in input(
             '\nDo you want to enable the reCAPTCHA solver? (y/[n]) ').lower():
