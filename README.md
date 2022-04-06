@@ -46,8 +46,10 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * Easily create your metadata file on your iPhone.  
   **Download the app: https://testflight.apple.com/join/XtJI9qTW.**
-* Scrape your already downloaded collections to be ready for sale using this robot.  
+* Scrape your already uploaded collections to be ready for sale using this robot.  
   **Discover this tool: https://github.com/maximedrn/opensea-collection-scraper.**
+* Convert your metadata JSON file from one type to another (`Upload` to `Upload & Sale`, `Upload & Sale` to `Upload`) or arrange it in the specified order.
+  **Discover this tool: https://github.com/maximedrn/opensea-file-compatibilizer.**
 
 ## Changelog
 
