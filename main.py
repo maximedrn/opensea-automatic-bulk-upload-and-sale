@@ -402,7 +402,7 @@ class Wallets:
             # Change account
             web.clickable('//*[contains(@class, "popover-header__button")][position()=1]')
             web.clickable('//*[contains(@class, "account-menu__icon")][position()=1]')
-            web.clickable('//*[contains(@class, "account-menu__item account -menu__item--clickable")][position()=2]')
+            web.clickable('//*[contains(@class, "account-menu__item account-menu__item--clickable")][position()=2]')
             web.send_keys('//*[@id="private-key-box"]', self.pk)
             web.clickable('//*[contains(@class, "btn-secondary")][position()=1]')
 
