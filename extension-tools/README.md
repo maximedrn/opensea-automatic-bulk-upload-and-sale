@@ -1,7 +1,7 @@
 # OpenSea Automatic Bulk Upload And Sale extension tools
 _Discover extension tools for this bot._
 
-Please ensure that OpenSea Automatic Bulk Upload and Sale bot works on your computer before purchasing any of these tools.
+Please ensure that the **OpenSea Automatic Bulk Upload and Sale** bot works on your computer before purchasing any of these tools.
 
 ## Extension tools
 
