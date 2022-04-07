@@ -15,13 +15,13 @@ Please read the README file before using this tool, opening a problem or a discu
 
 # Table of contents
 
-* **[What does this bot do?](https://github.com/maximedrn/opensea-collection-scraper#what-does-this-bot-do)**
-* **[Changelog](https://github.com/maximedrn/opensea-collection-scraper#changelog).**
-* **[Instructions](https://github.com/maximedrn/opensea-collection-scraper#instructions)**.
-  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea-collection-scraper#basic-installation-of-python-for-beginners).
-  * [Basic installation of NodeJS for beginners](https://github.com/maximedrn/opensea-collection-scraper#basic-installation-of-nodejs-for-beginners).
-  * [Configuration of the bot](https://github.com/maximedrn/opensea-collection-scraper#configuration-of-the-bot).
-  * [Run the bot](https://github.com/maximedrn/opensea-collection-scraper#run-the-bot).
+* **[What does this bot do?](#what-does-this-bot-do)**
+* **[Changelog](#changelog).**
+* **[Instructions](#instructions)**.
+  * [Basic installation of Python for beginners](#basic-installation-of-python-for-beginners).
+  * [Basic installation of NodeJS for beginners](#basic-installation-of-nodejs-for-beginners).
+  * [Configuration of the bot](#configuration-of-the-bot).
+  * [Run the bot](#run-the-bot).
 
 ## What does this bot do?
 
