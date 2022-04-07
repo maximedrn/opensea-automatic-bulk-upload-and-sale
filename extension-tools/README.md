@@ -18,4 +18,4 @@ This script allows you to convert or make compatible a file with the [OpenSea Au
 
 You just have to choose your file and select its file type to arrange the details in a specific order **or** the type in which you want to convert it (from `Upload` to `Upload & Sale`, from `Upload & Sale` to `Upload`, etc).
 
-➜ **Discover this tool: [File compatibilizer](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).**
+➜ **Discover this tool: [File Compatibilizer](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).**
