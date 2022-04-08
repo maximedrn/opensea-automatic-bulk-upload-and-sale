@@ -1053,7 +1053,7 @@ if __name__ == '__main__':
         if opensea.login() is False:  # Connect to OpenSea.
             continue  # Restart the while loop.
         break  # Stop the while loop.
-    if 1 in action:
+    if 1 in action and solver:
         gateway.webdriver(web)  # Send the instance of the Webdriver class.
 
     for nft_number in range(reader.lenght_file):
