@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.6 - 2022, 06 April.
+Version 1.6.7 - 2022, 08 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -38,6 +38,7 @@ from os.path import abspath, splitext, isfile, exists, getsize
 from os import name as osname, system as ossystem
 from datetime import datetime as dt
 from glob import glob
+from sys import exit
 
 
 """Colorama module constants."""
@@ -349,11 +350,11 @@ class Wallets:
     """Allows connection to OpenSea with different wallets."""
 
     def __init__(self, wallet: int, password: int,
-                 recovery_phrase: str, pk: str) -> None:
+                 recovery_phrase: str, private_key: str) -> None:
         """Get the wallet and connect to the extension/etc."""
         self.recovery_phrase = recovery_phrase  # Get the phrase.
         self.password = password  # Get the new/same password.
-        self.pk = pk # Get the account primary key
+        self.private_key = private_key  # Get the account primary key.
         self.wallet = wallet  # Wallet user choice.
         self.wallet_function = wallet.lower().replace(' ', '_')
         self.fails = 0  # Counter of fails during wallet connection.
@@ -397,16 +398,18 @@ class Wallets:
             web.clickable('(//*[@role="checkbox"])[2]')
             # Click on the "Import" button.
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
-            # Wait until the login worked and click on the "All done" button".
+            # Wait until the login worked and click on the "All done" button.
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
-            # Change account
-            web.clickable('//*[contains(@class, "popover-header__button")][position()=1]')
-            web.clickable('//*[contains(@class, "account-menu__icon")][position()=1]')
-            web.clickable('//*[contains(@class, "account-menu__item account-menu__item--clickable")][position()=2]')
-            web.send_keys('//*[@id="private-key-box"]', self.pk)
-            web.clickable('//*[contains(@class, "btn-secondary")][position()=1]')
-
+            if self.private_key != '':
+                # Change account.
+                web.clickable('//button[@data-testid="popover-close"]')
+                web.clickable('//*[@class="account-menu__icon"][position()=1]')
+                web.clickable('//*[contains(@class, "account-menu__item--'
+                              'clickable")][position()=2]')
+                web.send_keys('//*[@id="private-key-box"]', self.private_key)
+                web.clickable('//*[contains(@class, "btn-secondary")]'
+                              '[position()=1]')
             print(f'{green}Logged to MetaMask.{reset}')
             self.success = True
         except Exception:  # Failed - a web element is not accessible.
@@ -888,10 +891,12 @@ def read_file(file_: str, question: str) -> str:
         open(abspath(f'assets/{file_}.txt'), 'a')  # If file doesn't exist.
     with open(abspath(f'assets/{file_}.txt'), 'r+', encoding='utf-8') as file:
         text = file.read()  # Read the file.
-        if text == '':  # If the file is empty.
-            text = input(question)  # Ask the question.
-            if input(f'Do you want to save your {file_} in '
-                     'a text file? (y/n) ').lower() != 'y':
+        if text != '':  # If the file is not empty.
+            return text
+        text = input(question)  # Ask the question.
+        if text != '':  # If answer is not empty.
+            if input(f'Do you want to save your {file_.replace("_", " ")}'
+                     ' in a text file? (y/n) ').lower() != 'y':
                 print(f'{yellow}Not saved.{reset}')
             else:
                 file.write(text)  # Write the text in file.
@@ -989,7 +994,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.6 - 2022, 06 April.\n{reset}'
+          f'\n\nVersion 1.6.7 - 2022, 08 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -1004,7 +1009,8 @@ if __name__ == '__main__':
     wallet = Wallets(user_wallet, read_file(  # Send credentials.
         'password', '\nWhat is your MetaMask password? '), read_file(
         'recovery_phrase', '\nWhat is your MetaMask recovery phrase? '),
-        read_file('pk', '\nWhat is you account primary key? '))
+        read_file('private_key', '\nWhat is you account private key? '
+                  '(Press [ENTER] to ignore this step) '))
     action = perform_action()  # What the user wants to do.
     if 1 in action and 'y' in input(
             '\nDo you want to enable the reCAPTCHA solver? (y/[n]) ').lower():
@@ -1041,8 +1047,8 @@ if __name__ == '__main__':
         except Exception as error:
             exit_('\nAn error occured while loading Yolov5 and RealESRGAN.'
                   '\nPlease verify that your computer is enough powerful,'
-                  '\nevery modules are installed and files presents in the'
-                  f' directory.\n{error}')
+                  '\nevery modules are installed and files are correctly '
+                  f'\ndownloaded and presents in the directory.\n{error}')
     opensea = OpenSea()  # Init the OpenSea class.
     cls()  # Clear console.
 
