@@ -18,19 +18,19 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 # Table of contents
 
-* **[What does this bot do?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#what-does-this-bot-do)**
-* **[Useful tools to have for this bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#useful-tools-to-have-for-this-bot)**.
-* **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#changelog).**
-* **[Prerequisites](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#prerequisites)**.
-* **[Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**.
-  * [Basic installation of Python for beginners](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#basic-installation-of-python-for-beginners).
-  * [Configuration of the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-bot).
-  * [Run the bot](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#run-the-bot).
-* **[Data files structure](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure).**
-  * [Upload and sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-and-sale).
-  * [Upload only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#upload-only).
-  * [Sale only](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#sale-only).
-* **[Configuration of the sale part of the NFTs](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#configuration-of-the-sale-part-of-the-nfts).**
+* **[What does this bot do?](#what-does-this-bot-do)**
+* **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot)**.
+* **[Changelog](#changelog).**
+* **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
+* **[Instructions](#instructions)**.
+  * [Basic installation of Python for beginners](#basic-installation-of-python-for-beginners).
+  * [Configuration of the bot](#configuration-of-the-bot).
+  * [Run the bot](#run-the-bot).
+* **[Data files structure](#data-files-structure).**
+  * [Upload and sale](#upload-and-sale).
+  * [Upload only](#upload-only).
+  * [Sale only](#sale-only).
+* **[Configuration of the sale part of the NFTs](#configuration-of-the-sale-part-of-the-nfts).**
 
 ## What does this bot do?
 
@@ -169,29 +169,43 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * **Version 1.0:** 
   * Inital commit.
 
-## Prerequisites
+## Prerequisites for reCAPTCHA solver
 
-* A graphics card (GPU) with CUDA (Compute Unified Device Architecture).
-  * Search for your GPU on [GPUZoo](https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
-  * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
+You will need a graphics card (GPU) with CUDA (Compute Unified Device Architecture).
+* Search for your GPU on [GPUZoo](https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
+* Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
-    ```
-    nvidia-smi
-    ```
-  * If your CUDA version is earlier than 11.3, update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
-  * Then type this command to install PyTorch (**install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**):
+  ```
+  nvidia-smi
+  ```
+* If your CUDA version is earlier than 11.3, try to update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
+* Then type one of these commands to install PyTorch (may require ``sudo`` on Linux and administrator privileges for Windows):
   
-    ```
+  * ```
     pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
     ```
-    _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
-* If your graphic card doesn't have CUDA:
-  * Type this command to install PyTorch (**install Python and pip first: [Instructions](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#instructions)**):
+  * ```
+    pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+    ```
+  
+  _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
+* Install the required modules for the reCAPTCHA solver typing one of these commands (may require ``sudo`` on Linux and administrator privileges for Windows):
 
+  * ```
+    pip install -r requirements_recaptcha.txt
     ```
-    pip install torch torchvision torchaudio
+  * ```
+    pip3 install -r requirements_recaptcha.txt
     ```
-* A computer with enough power.
+  * ```
+    python -m pip install -r requirements_recaptcha.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements_recaptcha.txt
+    ```
+  * ```
+    py -m pip install -r requirements_recaptcha.txt
+    ```
 
 ## Instructions
 
@@ -224,11 +238,6 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
     * ```
       py -m pip install -r requirements.txt
       ```
-  * _Optional_: Install the required modules for the reCAPTCHA solver (only if your graphics card can support CUDA - [Prerequisites](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#Prerequisites)) using this or a similar command above:
-
-    ```
-    pip install -r requirements_recaptcha.txt
-    ```
   * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
   * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
     **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
