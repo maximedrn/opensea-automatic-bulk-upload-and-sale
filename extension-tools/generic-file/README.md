@@ -89,7 +89,7 @@ In the details part of the generic file, you have to complete with the value you
   * `-1`: it will add a specific number of digits depending on the number of NFTs (10000 NFTs ➜ `00001`, `00002`, etc).
   * Any strictly positive number: number of digits (3 digits ➜ `001`, ... `100`, etc).
 
-* Parameter part:
+* Settings part:
   * `overwrite`: it will overwrite the entire contents of a metadata file.
   * `overwrite_empty`: it will overwrite the details of a metadata file only if they are as default value.
   * `append`: it will append the value of any list of dictionary details (properties, levels, stats).
