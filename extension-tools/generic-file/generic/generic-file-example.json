@@ -1,0 +1,84 @@
+{
+    "details": {
+        "file_path": {
+            "file_path": "C:/Users/Administrator/Desktop/NFTs/generated_nft_{}.png",
+            "incrementation": "number",
+            "format": -1
+        },
+        "nft_name": {
+            "nft_name": "My NFT #{}",
+            "incrementation": "number",
+            "format": -1
+        },
+        "external_link": {
+            "external_link": "https://mynfts.com/nft/{}",
+            "incrementation": "number",
+            "format": 0
+        },
+        "description": {
+            "description": "This is my new NFT (N°{}). Please buy it!",
+            "incrementation": "number",
+            "format": 0
+        },
+        "collection": "MyCollection",
+        "properties": [
+            {
+                "type": "Dog",
+                "name": "Male"
+            },
+            {
+                "type": "Cat",
+                "name": "Female"
+            }
+        ],
+        "levels": [
+            {
+                "name": "Strenght",
+                "from": 1,
+                "to": 10
+            },
+            {
+                "name": "Width",
+                "from": 1,
+                "to": 10
+            }
+        ],
+        "stats": [
+            {
+                "name": "Age",
+                "from": 0,
+                "to": 99
+            },
+            {
+                "name": "Speed",
+                "from": 0,
+                "to": 25
+            }
+        ],
+        "unlockable_content": {
+            "unlockable_content": "Thank you for purchasing the NFT {}!",
+            "incrementation": "number",
+            "format": -1
+        },
+        "explicit_and_sensitive_content": true,
+        "supply": 2,
+        "blockchain": "Polygon",
+        "sale_type": "Timed Auction",
+        "price": 0.025,
+        "method": [
+            "Sell with declining price",
+            0.002
+        ],
+        "duration": [
+            "01-01-2023 15:00",
+            "01-04-2023 15:00"
+        ],
+        "specific_buyer": "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E",
+        "quantity": 1
+    },
+    "settings": {
+        "overwrite": true,
+        "overwrite_empty": false,
+        "append": false
+    }
+}

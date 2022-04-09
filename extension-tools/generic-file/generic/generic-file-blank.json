@@ -1,0 +1,47 @@
+{
+    "details": {
+        "file_path": {
+            "file_path": "",
+            "incrementation": "",
+            "format": 0
+        },
+        "nft_name": {
+            "nft_name": "",
+            "incrementation": "",
+            "format": 0
+        },
+        "external_link": {
+            "external_link": "",
+            "incrementation": "",
+            "format": 0
+        },
+        "description": {
+            "description": "",
+            "incrementation": "",
+            "format": 0
+        },
+        "collection": "",
+        "properties": [],
+        "levels": [],
+        "stats": [],
+        "unlockable_content": {
+            "unlockable_content": "",
+            "incrementation": "",
+            "format": 0
+        },
+        "explicit_and_sensitive_content": false,
+        "supply": 1,
+        "blockchain": "",
+        "sale_type": [],
+        "price": 0,
+        "method": [],
+        "duration": [],
+        "specific_buyer": "",
+        "quantity": 1
+    },
+    "settings": {
+        "overwrite": false,
+        "overwrite_empty": false,
+        "append": false
+    }
+}
