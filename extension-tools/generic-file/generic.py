@@ -77,6 +77,7 @@ def file_type() -> list:
 def file_lenght() -> int:
     """Ask for the file lenght and return its value."""
 
+
 def data_file(folder: str) -> str:
     """Read the data folder and extract JSON files."""
 
