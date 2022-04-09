@@ -82,6 +82,7 @@ In the details part of the generic file, you have to complete with the value you
   You may have different file names, URLs or descriptions for each of your NFTs, so these details will be different for each NFT.
   * `number`: it will use a numeric value for incrementing (1, 2, 3, 4, etc).
   * ``letter``: it will use the alphabet for incrementing (`A` to `Z`, then `AA` to `AZ`, etc).
+  This value (number or letter) will be added wherever you place `{}` in your detail.
 
 * What does the "format" value mean?
   This is the way `"increment": "number",` will work.
