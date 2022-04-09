@@ -91,5 +91,5 @@ In the details part of the generic file, you have to complete with the value you
 
 * Parameter part:
   * `overwrite`: it will overwrite the entire contents of a metadata file.
-  * `overwrite_blank`: it will overwrite the details of a metadata file only if they are as default value.
+  * `overwrite_empty`: it will overwrite the details of a metadata file only if they are as default value.
   * `append`: it will append the value of any list of dictionary details (properties, levels, stats).
