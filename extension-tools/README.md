@@ -5,6 +5,14 @@ Please ensure that the **OpenSea Automatic Bulk Upload and Sale** bot works on y
 
 ## Extension tools
 
+* ### Generic file:
+
+This script allows you to generate a whole file from a generic file or to modify a file by replacing massively some values by others.  
+
+You just have to fill a simple generic file with 21 details (18 for NFTs and 3 for formatting and file parameters) and run the script. Your file will be generated with common values for all your NFTs.  
+
+➜ **Discover this tool: [Generic File](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
+
 * ### Collection scraper:
 
 This script allows you to scrape the URLs of NFTs from your collection, automatically and quickly. It facilitates the sale of NFTs already uploaded to OpenSea before, without the help of the latter.  
