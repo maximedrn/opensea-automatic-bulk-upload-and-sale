@@ -21,6 +21,7 @@ Please read the README file before using this tool, opening a problem or a discu
   * [Basic installation of Python for beginners](#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](#configuration-of-the-bot).
   * [Run the bot](#run-the-bot).
+* **[How to complete the generic file?](#how-to-complete-the-generic-file)**
 
 ## What does this bot do?
 
@@ -72,3 +73,23 @@ You just have to fill a simple generic file with 21 details (18 for NFTs and 3 f
       ```
    * Choose your generic file, select the type of the new file (`Upload`, `Sale` or `Upload & Sale`) and choose a metadata file or the lenght of the file.
    * The file will be saved in the `data/` folder.
+
+## How to complete the generic file?
+
+In the details part of the generic file, you have to complete with the value you want to put in your metadata file.
+
+* What does the value "`incrementation`" mean?  
+  You may have different file names, URLs or descriptions for each of your NFTs, so these details will be different for each NFT.
+  * `number`: it will use a numeric value for incrementing (1, 2, 3, 4, etc).
+  * ``letter``: it will use the alphabet for incrementing (`A` to `Z`, then `AA` to `AZ`, etc).
+
+* What does the "format" value mean?
+  This is the way `"increment": "number",` will work.
+  * `0` : default value, numbers will be incremented in a basic way.
+  * `-1`: it will add a specific number of digits depending on the number of NFTs (10000 NFTs ➜ `00001`, `00002`, etc).
+  * Any strictly positive number: number of digits (3 digits ➜ `001`, ... `100`, etc).
+
+* Parameter part:
+  * `overwrite`: it will overwrite the entire contents of a metadata file.
+  * `overwrite_blank`: it will overwrite the details of a metadata file only if they are as default value.
+  * `append`: it will append the value of any list of dictionary details (properties, levels, stats).
