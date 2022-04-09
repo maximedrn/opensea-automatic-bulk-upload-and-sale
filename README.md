@@ -50,6 +50,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
   **Discover this tool: [Collection Scraper](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).**
 * Convert your metadata JSON file from one type to another (`Upload` to `Upload & Sale`, `Upload & Sale` to `Upload`) or arrange it in the specified order.  
   **Discover this tool: [File Compatibilizer](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).**
+* Generate a whole file from a generic file or modify a file by replacing massively some values by others.  
+  **Discover this tool: [Generic File](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
 
 ## Changelog
 
