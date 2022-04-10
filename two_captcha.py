@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.8 - 2022, 10 April.
+Version 1.6.8.1 - 2022, 10 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -56,8 +56,8 @@ class TwoCaptcha:
         sleep(randint(3, 5))  # Wait between 3 and 5 seconds.
         web.driver.execute_script('document.getElementById("g-recaptcha'
                                   f'-response").innerHTML="{token}";')
-        web.driver.execute_script(  # Submit form.
-            'document.getElementsByTagName("form")[0].submit();')
+        web.driver.execute_script('___grecaptcha_cfg.clients[0]'
+                                  f'.l.l.callback("{token}");')
         return True
 
 
