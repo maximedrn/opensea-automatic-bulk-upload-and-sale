@@ -16,7 +16,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/).
 * _If you want to use the 2Captcha API to resolve reCAPTCHAs_.  
-  **Paid service**: $0.75 per 1000 reCAPTCHAs.
+  **Paid service**: $0.75 per 1000 reCAPTCHAs.  
   Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).
 
 # Table of contents
