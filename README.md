@@ -11,7 +11,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-* **(_Version 1.6.7 - April 08, 2022_).**  
+* **(_Version 1.6.8 - April 10, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/).
@@ -55,6 +55,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
+* **Version 1.6.8:**
+  * Added support for the 2Captcha API. **[#239](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/239)**.
+  * Minor fixes.
 * **Version 1.6.7:**
   * Improved MetaMask wallet switching, you can use the default account by skipping this step.
   * Fixed the `gateway` problem. **[#249](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/249)**.
