@@ -85,7 +85,7 @@ In the details part of the generic file, you have to complete with the value you
   
   **This value (number or letter) will be added wherever you place `{}` in your detail.**
 
-* What does the "format" value mean?
+* What does the "format" value mean?  
   This is the way `"increment": "number",` will work.
   * `0` : default value, numbers will be incremented in a basic way.
   * `-1`: it will add a specific number of digits depending on the number of NFTs (10000 NFTs ➜ `00001`, `00002`, etc).
