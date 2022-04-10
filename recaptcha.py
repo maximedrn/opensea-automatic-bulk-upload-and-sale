@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.2 - 2022, 26 March.
+Version 1.6.8 - 2022, 10 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -253,7 +253,7 @@ class Solver:
                     clicked.append(_element)
         return True  # Yolov5 successed.
 
-    def proceed(self) -> None:
+    def proceed(self) -> bool:
         """Call methods to solve the reCAPTCHA."""
         self.open_challenge()
         failed = 0
@@ -279,6 +279,7 @@ class Solver:
                     except Exception:
                         break  # The reCAPTCHA disapears: solved.
                 raise Exception()
+        return True
 
 
 class Gateway:
@@ -295,6 +296,6 @@ class Gateway:
         global web
         web = webdriver
 
-    def proceed(self) -> None:
+    def proceed(self) -> bool:
         """Gateway between the two scripts to call the proceed method."""
-        solver.proceed()
+        return solver.proceed()
