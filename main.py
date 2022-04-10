@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.7 - 2022, 08 April.
+Version 1.6.8 - 2022, 10 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -418,7 +418,6 @@ class Wallets:
                 print(f'{red}Login to MetaMask failed. Retrying.{reset}')
                 self.metamask_login()
             else:  # Too many fails.
-                self.fails = 0  # Reset the counter.
                 print(f'{red}Login to MetaMask failed. Restarting.{reset}')
                 web.quit()  # Stop the webdriver.
         self.fails = 0
@@ -568,7 +567,6 @@ class OpenSea:
                     web.driver.refresh()  # Reload the page (login failed?).
                     self.login()  # Retry everything.
                 else:  # Too many fails.
-                    self.fails = 0  # Reset the counter.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
         self.fails = 0
@@ -681,17 +679,18 @@ class OpenSea:
                 structure.blockchain = 'Ethereum'
             web.clickable('(//div[contains(@class, "submit")])'  # Click on the
                           '[position()=1]/div/span/button')  # "Create" button.
-            try:  # Wait for the reCAPTCHA to be displayed.
+            try:
                 web.visible('(//div[@class="g-recaptcha"])[position()=1]')
-                if solver:  # reCAPTCHA solver activated.
+                if solver in [2, 3]:  # reCAPTCHA solver activated.
                     print(f'{yellow}Solving the reCAPTCHA.{reset}', end=' ')
-                    gateway.proceed()
+                    if not gateway.proceed():
+                        raise TE('Cannot solve the reCAPTCHA.')
                     print(f'{green}Solved.{reset}', end=' ')
                 else:  # When solved, webpage changes.
                     print(f'{yellow}reCAPTCHA displayed.{reset}', end=' ')
-            except Exception:  # reCAPTCHA is not visible.
-                raise TE('Cannot solve the reCAPTCHA.')
-            WDW(web.driver, 30 if solver else 600).until(
+            except Exception:
+                raise TE('Something went wrong at reCAPTCHA.')
+            WDW(web.driver, 600 if solver == 1 else 20).until(
                 lambda _: web.driver.current_url !=
                 self.create_url + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
@@ -918,6 +917,21 @@ def perform_action() -> list:
         print(f'{red}Answer must be a strictly positive integer.{reset}')
 
 
+def recaptcha_solver() -> int:
+    """Suggest multiple reCAPTCHA solver to the user."""
+    while True:
+        [print(string) for string in [
+            f'{yellow}\nChoose a reCAPTCHA solver:{reset}',
+            '1 - Manual solver.', '2 - Automatic solver using Yolov5.',
+            '3 - Automatic solver using 2Captcha.']]
+        number = input('Action number: ')
+        if number.isdigit() and 0 < int(number) <= 3:
+            return int(number), read_file(
+                'two_captcha_key', 'What is your 2Captcha API key? '
+            ) if number == '3' else ''
+        print(f'{red}Answer must be a strictly positive integer.{reset}')
+
+
 def choose_browser() -> int:
     """Ask the user for a browser."""
     browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
@@ -994,7 +1008,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.7 - 2022, 08 April.\n{reset}'
+          f'\n\nVersion 1.6.8 - 2022, 10 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -1012,13 +1026,7 @@ if __name__ == '__main__':
         read_file('private_key', '\nWhat is you account private key? '
                   '(Press [ENTER] to ignore this step) '))
     action = perform_action()  # What the user wants to do.
-    if 1 in action and 'y' in input(
-            '\nDo you want to enable the reCAPTCHA solver? (y/[n]) ').lower():
-        print(f'{green}reCAPTCHA solver enabled.{reset}')
-        solver = True
-    else:  # reCAPTCHA solver disabled.
-        print(f'{yellow}reCAPTCHA solver disabled.{reset}')
-        solver = False
+    solver, key = recaptcha_solver()  # Way reCAPTCHA will be solved.
     browser = 0 if user_wallet == 'Coinbase Wallet' else choose_browser()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
@@ -1040,7 +1048,7 @@ if __name__ == '__main__':
             exit_('Download the webdriver and place it in the assets/ folder.')
         print(f'Webdriver path set as {browser_path}')
 
-    if 1 in action and solver:
+    if 1 in action and solver == 2:
         try:  # Try to init the reCAPTCHA models.
             import recaptcha
             gateway = recaptcha.Gateway()
@@ -1049,17 +1057,24 @@ if __name__ == '__main__':
                   '\nPlease verify that your computer is enough powerful,'
                   '\nevery modules are installed and files are correctly '
                   f'\ndownloaded and presents in the directory.\n{error}')
+    elif 1 in action and solver == 3:
+        import two_captcha
+        gateway = two_captcha.Gateway(key)
     opensea = OpenSea()  # Init the OpenSea class.
     cls()  # Clear console.
 
     while True:
-        web = Webdriver(browser, browser_path)  # Start a new webdriver.
-        if wallet.login() is False:  # Connect to user wallet.
-            continue  # Restart the while loop.
-        if opensea.login() is False:  # Connect to OpenSea.
-            continue  # Restart the while loop.
-        break  # Stop the while loop.
-    if 1 in action and solver:
+        try:
+            web = Webdriver(browser, browser_path)  # Start a new webdriver.
+            if wallet.login() is False:  # Connect to user wallet.
+                continue  # Restart the while loop.
+            if opensea.login() is False:  # Connect to OpenSea.
+                continue  # Restart the while loop.
+            break  # Stop the while loop.
+        except Exception:
+            web.quit()
+            continue  # Retry.
+    if 1 in action and solver in [2, 3]:
         gateway.webdriver(web)  # Send the instance of the Webdriver class.
 
     for nft_number in range(reader.lenght_file):
