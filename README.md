@@ -18,8 +18,13 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 # Table of contents
 
-* **[What does this bot do?](#what-does-this-bot-do)**
+* **[What does this bot do?](#what-does-this-bot-do)** 
 * **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot)**.
+  * [Discover them](https://maximedrn.gumroad.com/).
+  * [Create metadata file on your phone](#create-metadata-file-on-your-phone).
+  * [Scrape your collection](#scrape-your-collection).
+  * [Make your file compatible](#make-your-file-compatible).
+  * [Generate your metadata file](#generate-your-metadata-file).
 * **[Changelog](#changelog).**
 * **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
 * **[Instructions](#instructions)**.
@@ -44,13 +49,17 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Useful tools to have for this bot
 
-* Easily create your metadata file on your iPhone.  
+* ### Create metadata file on your phone  
+  Easily create your metadata file on your iPhone.  
   **Download the app: https://testflight.apple.com/join/XtJI9qTW.**
-* Scrape your already uploaded collections to be ready for sale using this robot.  
+* ### Scrape your collection  
+  Scrape your already uploaded collections to be ready for sale using this robot.  
   **Discover this tool: [Collection Scraper](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).**
-* Convert your metadata JSON file from one type to another (`Upload` to `Upload & Sale`, `Upload & Sale` to `Upload`) or arrange it in the specified order.  
+* ### Make your file compatible  
+  Convert your metadata JSON file from one type to another (`Upload` to `Upload & Sale`, `Upload & Sale` to `Upload`) or arrange it in the specified order.  
   **Discover this tool: [File Compatibilizer](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).**
-* Generate a whole file from a generic file or modify a file by replacing massively some values by others.  
+* ### Generate your metadata file
+  Generate a whole file from a generic file or modify a file by replacing massively some values by others.  
   **Discover this tool: [Generic File](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
 
 ## Changelog
