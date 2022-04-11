@@ -25,9 +25,9 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 * **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot)**.
   * [Discover them](https://maximedrn.gumroad.com/).
   * [Create metadata file on your phone](#create-metadata-file-on-your-phone).
-  * [Scrape your collection](#scrape-your-collection).
-  * [Make your file compatible](#make-your-file-compatible).
-  * [Generate your metadata file](#generate-your-metadata-file).
+  * [Scrape your collection](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).
+  * [Make your file compatible](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).
+  * [Generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
 * **[Changelog](#changelog).**
 * **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
 * **[Instructions](#instructions)**.
