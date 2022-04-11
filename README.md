@@ -5,9 +5,9 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 ---
 
 **Please read the README file before using this tool, opening a problem or a discussion, or contacting me.**  
-  ⇒ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**.  
-  ⇒ Make sure you have the **latest modules, browser and bot installed**.  
-  ⇒ Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data). 
+  ➜ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**.  
+  ➜ Make sure you have the **latest modules, browser and bot installed**.  
+  ➜ Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data). 
 
 ---
 
@@ -271,6 +271,8 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
 
 
 ## Data files structure
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ Easily generate your metadata file using this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/edit/master/README.md#generate-your-metadata-file).**
 
 * If you do not want to add details to the values not required, leave:
   * **a blank cell** for XLSX files (Excel):
@@ -910,6 +912,8 @@ When you want to sell your NFTs, Opensea requires various details according to t
 **Note: The maximum duration of sale should be at most 6 months. It must be entered in the form of start date - end date.**  
 
 Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ You have already uploaded your NFTs on OpenSea and you don't want to copy the URLs one by one?** Use this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#scrape-your-collection)!
 
   <table>
      <tbody>
