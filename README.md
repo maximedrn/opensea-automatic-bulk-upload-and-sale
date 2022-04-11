@@ -272,7 +272,7 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
 
 ## Data files structure
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ Easily generate your metadata file using this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/edit/master/README.md#generate-your-metadata-file).**
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ Easily generate your metadata file using this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
 
 * If you do not want to add details to the values not required, leave:
   * **a blank cell** for XLSX files (Excel):
@@ -913,7 +913,7 @@ When you want to sell your NFTs, Opensea requires various details according to t
 
 Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ You have already uploaded your NFTs on OpenSea and you don't want to copy the URLs one by one?** Use this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#scrape-your-collection)!
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ You have already uploaded your NFTs on OpenSea and you don't want to copy the URLs one by one?** Use this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper)!
 
   <table>
      <tbody>
