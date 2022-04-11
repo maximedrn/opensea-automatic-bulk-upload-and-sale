@@ -4,12 +4,14 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-**Please read the README file before using this tool, opening a problem or a discussion, or contacting me.**  
+### **Please read the README file before using this tool, opening a problem or a discussion, or contacting me.**  
   ➜ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**.  
   ➜ Make sure you have the **latest modules, browser and bot installed**.  
   ➜ Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data). 
 
 ---
+
+### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
 * **(_Version 1.6.8 - April 10, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
@@ -19,15 +21,17 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
   **Paid service**: $0.75 per 1000 reCAPTCHAs.  
   Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).
 
+---
+
 # Table of contents
 
 * **[What does this bot do?](#what-does-this-bot-do)** 
-* **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot)**.
+* **Useful tools to have for this bo.**
   * [Discover them](https://maximedrn.gumroad.com/).
   * [Create metadata file on your phone](#create-metadata-file-on-your-phone).
-  * [Scrape your collection](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).
+  * [Scrape your collection (URLs scraper)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).
   * [Make your file compatible](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).
-  * [Generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
+  * [Easily generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
 * **[Changelog](#changelog).**
 * **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
 * **[Instructions](#instructions)**.
@@ -49,21 +53,6 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ➜ **If you sell any NFT with this bot, you can consider sharing some of your earnings**: 😉
 **0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E** (Ethereum).  
 ➜ **Or you can buy me a NFT from my collection [Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts) if this bot was useful to you**.
-
-## Useful tools to have for this bot
-
-* ### Create metadata file on your phone  
-  Easily create your metadata file on your iPhone.  
-  **Download the app: https://testflight.apple.com/join/XtJI9qTW.**
-* ### Scrape your collection  
-  Scrape your already uploaded collections to be ready for sale using this robot.  
-  **Discover this tool: [Collection Scraper](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).**
-* ### Make your file compatible  
-  Convert your metadata JSON file from one type to another (`Upload` to `Upload & Sale`, `Upload & Sale` to `Upload`) or arrange it in the specified order.  
-  **Discover this tool: [File Compatibilizer](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).**
-* ### Generate your metadata file
-  Generate a whole file from a generic file or modify a file by replacing massively some values by others.  
-  **Discover this tool: [Generic File](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
 
 ## Changelog
 
