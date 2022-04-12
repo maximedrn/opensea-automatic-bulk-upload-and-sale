@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.9 - 2022, 12 April.
+Version 1.6.9.1 - 2022, 12 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -576,9 +576,11 @@ class OpenSea:
         """Upload multiple NFTs automatically on OpenSea."""
         print('Uploading NFT.', end=' ')
         try:  # Go to the OpenSea create URL and input all datas of the NFT.
-            web.driver.get(self.create_url.format(
-                'collection/' + structure.collection + '/', 's' if ' ' not in
-                structure.collection else '', '') + '?enable_supply=true')
+            web.driver.get((self.create_url.format(
+                'collection/' + structure.collection + '/', 's') if structure
+                .collection.lower() == structure.collection and ' ' not in
+                structure.collection else self.create_url.format('', '')) +
+                '?enable_supply=true')
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
                     file_path = abspath(structure.file_path[0])
@@ -1010,7 +1012,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.9 - 2022, 12 April.\n{reset}'
+          f'\n\nVersion 1.6.9.1 - 2022, 12 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
