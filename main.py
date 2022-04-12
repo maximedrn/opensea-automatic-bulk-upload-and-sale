@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.9.1 - 2022, 12 April.
+Version 1.6.9.2 - 2022, 12 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -579,8 +579,8 @@ class OpenSea:
             web.driver.get((self.create_url.format(
                 'collection/' + structure.collection + '/', 's') if structure
                 .collection.lower() == structure.collection and ' ' not in
-                structure.collection else self.create_url.format('', '')) +
-                '?enable_supply=true')
+                structure.collection and structure.collection != '' else
+                self.create_url.format('', '')) + '?enable_supply=true')
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
                     file_path = abspath(structure.file_path[0])
@@ -610,7 +610,8 @@ class OpenSea:
             structure.is_empty('//*[@id="external_link"]', structure.link)
             # Input description.
             structure.is_empty('//*[@id="description"]', structure.description)
-            if ' ' in structure.collection and not structure.is_empty(
+            if ' ' in structure.collection and structure.collection.lower() \
+                == structure.collection and not structure.is_empty(
                     '//*[@id="collection"]', structure.collection):
                 try:  # Try to click on the collection button.
                     collection = ('//span[contains(text(), "'
@@ -696,7 +697,7 @@ class OpenSea:
                 raise TE('Something went wrong at reCAPTCHA.')
             WDW(web.driver, 600 if solver == 1 else 20).until(
                 lambda _: web.driver.current_url !=
-                self.create_url + '?enable_supply=true')
+                self.create_url.format('', '') + '?enable_supply=true')
             print(f'{green}NFT uploaded.{reset}')
             if 2 not in structure.action:  # Save the data for future upload.
                 structure.nft_url = web.driver.current_url  # Edit the NFT URL.
@@ -1012,7 +1013,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.9.1 - 2022, 12 April.\n{reset}'
+          f'\n\nVersion 1.6.9.2 - 2022, 12 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
