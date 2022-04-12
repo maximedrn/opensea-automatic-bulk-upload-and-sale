@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.8 - 2022, 10 April.
+Version 1.6.9 - 2022, 12 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -531,7 +531,7 @@ class OpenSea:
     def __init__(self) -> None:
         """Get the password and the recovery_phrase from the text file."""
         self.login_url = 'https://opensea.io/login?referrer=%2Fasset%2Fcreate'
-        self.create_url = 'https://opensea.io/asset/create'  # OpenSea URLs.
+        self.create_url = 'https://opensea.io/{}asset{}/create'
         self.fails = 0  # Counter of fails during wallet connection.
         self.retries_upload = 0  # Counter of upload retries.
         self.retries_sale = 0  # Counter of sale retries.
@@ -548,16 +548,16 @@ class OpenSea:
             # Click on the wallet button in list of wallets.
             web.clickable(f'//*[contains(text(), "{wallet.wallet}")]/../..')
             wallet.sign()  # Sign the login on OpenSea.
-            # Check if the login worked.
-            WDW(web.driver, 15).until(EC.url_to_be(self.create_url))
+            WDW(web.driver, 15).until(  # Check if the login worked.
+                EC.url_to_be(self.create_url.format('', '')))
             print(f'{green}Logged to OpenSea.{reset}')
             self.success = True
         except Exception:  # The contract failed.
             try:
                 wallet.contract()  # Sign the contract.
                 web.window_handles(1)  # Switch back to the OpenSea tab.
-                # Check if the login worked.
-                WDW(web.driver, 10).until(EC.url_to_be(self.create_url))
+                WDW(web.driver, 10).until(  # Check if the login worked.
+                    EC.url_to_be(self.create_url.format('', '')))
                 print(f'{green}Logged to OpenSea.{reset}')
                 self.success = True
             except Exception:
@@ -576,7 +576,9 @@ class OpenSea:
         """Upload multiple NFTs automatically on OpenSea."""
         print('Uploading NFT.', end=' ')
         try:  # Go to the OpenSea create URL and input all datas of the NFT.
-            web.driver.get(self.create_url + '?enable_supply=true')
+            web.driver.get(self.create_url.format(
+                'collection/' + structure.collection + '/', 's' if ' ' not in
+                structure.collection else '', '') + '?enable_supply=true')
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
                     file_path = abspath(structure.file_path[0])
@@ -606,7 +608,7 @@ class OpenSea:
             structure.is_empty('//*[@id="external_link"]', structure.link)
             # Input description.
             structure.is_empty('//*[@id="description"]', structure.description)
-            if not structure.is_empty(  # Input collection and select it.
+            if ' ' in structure.collection and not structure.is_empty(
                     '//*[@id="collection"]', structure.collection):
                 try:  # Try to click on the collection button.
                     collection = ('//span[contains(text(), "'
@@ -1008,7 +1010,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.8 - 2022, 10 April.\n{reset}'
+          f'\n\nVersion 1.6.9 - 2022, 12 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
