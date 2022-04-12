@@ -56,7 +56,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
-* **Version 1.6.9:**
+* **Version 1.6.9 + 1.6.9.1:**
   * Added a new feature for collections. You can now use the URL format of your collection. This can solve the problem of collections not being found or clicked in the list.  
     From `Crypto Parrot NFTs` to `crypto-parrot-nfts`, depending on the URL of your collection: `https://opensea.io/collection/crypto-parrot-nfts/`.
 * **Version 1.6.8 + 1.6.8.1:**
