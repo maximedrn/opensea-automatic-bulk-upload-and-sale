@@ -183,7 +183,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * **Version 1.0:** 
   * Inital commit.
 
-</summary>
+</details>
 
 ## Prerequisites for reCAPTCHA solver
 
