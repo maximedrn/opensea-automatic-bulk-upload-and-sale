@@ -13,7 +13,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
-* **(_Version 1.6.8 - April 10, 2022_).**  
+* **(_Version 1.6.9 - April 12, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/).
@@ -368,8 +368,10 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
               <br>"collection": "my-nfts",
               <br>"collection": "",
            </td>
-           <td>My NFTs;;</td>
-           <td>My NFTs.</td>
+           <td>My NFTs;;
+              <br>my-nfts;;</td>
+           <td>My NFTs
+              <br>my-nfts</td>
         </tr>
         <tr>
            <td>Properties</td>
@@ -646,8 +648,10 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
               <br>"collection": "my-nfts",
               <br>"collection": "",
            </td>
-           <td>My NFTs;;</td>
-           <td>My NFTs.</td>
+           <td>My NFTs;;
+              <br>my-nfts;;</td>
+           <td>My NFTs
+              <br>my-nfts</td>
         </tr>
         <tr>
            <td>Properties</td>
