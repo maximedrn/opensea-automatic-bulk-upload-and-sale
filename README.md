@@ -62,7 +62,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * Minor fixes about version 1.6.9.
 
 <details>
-  <summary><strong>Old versions</strong></summary>
+  <summary><strong>Old versions</strong></summary><br />
 
 * **Version 1.6.8 + 1.6.8.1:**
   * Added support for the 2Captcha API. **[#239](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/239)**.
