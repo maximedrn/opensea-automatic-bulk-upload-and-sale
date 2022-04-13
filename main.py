@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.10 - 2022, 13 April.
+Version 1.6.10.1 - 2022, 13 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -565,7 +565,7 @@ class OpenSea:
                 if self.fails < 2:  # Retry login to the wallet.
                     print(f'{red}Login to OpenSea failed. Retrying.{reset}')
                     web.driver.refresh()  # Reload the page (login failed?).
-                    self.login()  # Retry everything.
+                    return self.login()  # Retry everything.
                 else:  # Too many fails.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
@@ -1013,7 +1013,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.10 - 2022, 13 April.\n{reset}'
+          f'\n\nVersion 1.6.10.1 - 2022, 13 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
