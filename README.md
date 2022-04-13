@@ -13,7 +13,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
-* **(_Version 1.6.9 - April 12, 2022_).**  
+* **(_Version 1.6.10 - April 13, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/).
@@ -28,7 +28,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 * **[What does this bot do?](#what-does-this-bot-do)** 
 * **Useful tools to have for this bo.**
   * [Discover them](https://maximedrn.gumroad.com/).
-  * [Create metadata file on your phone](#create-metadata-file-on-your-phone).
+  * [Create metadata file on your phone](https://testflight.apple.com/join/XtJI9qTW).
   * [Scrape your collection (URLs scraper)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).
   * [Make your file compatible](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).
   * [Easily generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
@@ -56,14 +56,16 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
-**Versions 1.6.9 to 1.6.9.3:**
-* Added a new feature for collections. You can now use the URL format of your collection. This can solve the problem of collections not being found or clicked in the list.  
-    From `Crypto Parrot NFTs` to `crypto-parrot-nfts`, depending on the URL of your collection: `https://opensea.io/collection/crypto-parrot-nfts/`.
-* Minor fixes about version 1.6.9.
+**Version 1.6.10:**
+* Fixed restarting the upload or sale when it fails the first time. **[#253](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/253)**.
 
 <details>
   <summary><strong>Old versions</strong></summary><br />
 
+* **Versions 1.6.9 to 1.6.9.3:**
+  * Added a new feature for collections. You can now use the URL format of your collection. This can solve the problem of collections not being found or clicked in the  list.  
+    From `Crypto Parrot NFTs` to `crypto-parrot-nfts`, depending on the URL of your collection: `https://opensea.io/collection/crypto-parrot-nfts/`.
+  * Minor fixes about version 1.6.9.
 * **Version 1.6.8 + 1.6.8.1:**
   * Added support for the 2Captcha API. **[#239](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/239)**.
   * Minor fixes.
