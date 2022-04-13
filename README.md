@@ -207,6 +207,7 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
     pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
     ```
   
+  Or select one of the commands [here](https://pytorch.org/get-started/locally/) depending on your computer.  
   _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
 * Install the required modules for the reCAPTCHA solver typing one of these commands (may require ``sudo`` on Linux and administrator privileges for Windows):
 
