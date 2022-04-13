@@ -190,7 +190,8 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Prerequisites for reCAPTCHA solver
 
-You will need a graphics card (GPU) with CUDA (Compute Unified Device Architecture).
+➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
+You will **need a graphics card (GPU) with CUDA** (Compute Unified Device Architecture).
 * Search for your GPU on [GPUZoo](https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
 * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
@@ -236,7 +237,7 @@ You will need a graphics card (GPU) with CUDA (Compute Unified Device Architectu
     ```
 
 * ### Basic installation of Python for beginners:
-  * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.9_.
+  * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
 
 * ### Configuration of the bot:
