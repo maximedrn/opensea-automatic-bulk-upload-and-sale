@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.9.3 - 2022, 12 April.
+Version 1.6.10 - 2022, 13 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -714,7 +714,7 @@ class OpenSea:
                     structure.save_upload_and_sale()  # Save the details.
                 self.retries_upload = 0
                 return False  # It failed.
-            self.upload()  # Try to re-upload the NFT.
+            return self.upload()  # Try to re-upload the NFT.
 
     def sale(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Set a price for the NFT and sell it."""
@@ -869,7 +869,7 @@ class OpenSea:
                 structure.save_sale()  # Save the NFT details for a sale.
                 return False  # It failed.
             web.driver.get(structure.nft_url)
-            self.sale()  # Try to re-upload the NFT.
+            return self.sale()  # Try to re-upload the NFT.
         self.retries_sale = 0
 
 
@@ -1013,7 +1013,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.9.3 - 2022, 12 April.\n{reset}'
+          f'\n\nVersion 1.6.10 - 2022, 13 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -1022,7 +1022,8 @@ if __name__ == '__main__':
     print(f'{green}Created by Maxime Dréan.'
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
-          f' prohibited.{reset}')
+          f' prohibited.{reset}\n\nExtension tools available here: '
+          'https://maximedrn.gumroad.com/')
 
     user_wallet = choose_wallet()
     wallet = Wallets(user_wallet, read_file(  # Send credentials.
