@@ -59,6 +59,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 * **Version 1.6.11:**
   * Fixed the problem with the collection. **[#258](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/258)**.
   * Fixed 2Captcha callback function. **[#259](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/259)**.
+  * Fixed the problem with downloading the pre-trained file (`urllib.error.URLError: urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate`) by changing the download method.
 
 <details>
   <summary><strong>Old versions</strong></summary><br />
