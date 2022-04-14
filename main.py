@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.11 - 2022, 14 April.
+Version 1.6.11.1 - 2022, 14 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -612,8 +612,8 @@ class OpenSea:
             structure.is_empty('//*[@id="external_link"]', structure.link)
             # Input description.
             structure.is_empty('//*[@id="description"]', structure.description)
-            if ' ' in structure.collection and structure.collection.lower() \
-                != structure.collection and not structure.is_empty(
+            if self.create_url.format('', '') + '?enable_supply=true' == \
+                create_url and not structure.is_empty(
                     '//*[@id="collection"]', structure.collection):
                 try:  # Try to click on the collection button.
                     collection = ('//span[contains(text(), "'
@@ -1014,7 +1014,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.11 - 2022, 14 April.\n{reset}'
+          f'\n\nVersion 1.6.11.1 - 2022, 14 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
