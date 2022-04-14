@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.8 - 2022, 10 April.
+Version 1.6.11 - 2022, 14 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -37,9 +37,10 @@ from realesrgan import RealESRGANer
 # Python default imports.
 from random import randint, uniform, shuffle
 from cv2 import imdecode, IMREAD_COLOR
-from urllib.request import urlretrieve
 from os.path import abspath, exists
+from shutil import copyfileobj
 from itertools import product
+from tqdm.auto import tqdm
 from numpy import asarray
 from requests import get
 from json import loads
@@ -64,25 +65,40 @@ class OCR:
     pretrained on the COCO dataset.
     """
 
-    def load_models(self) -> None:
-        """Load Yolov5, Real-ESRGAN models."""
-        repository_url = 'https://github.com/maximedrn/' + \
+    def __init__(self) -> None:
+        """Contains urls and paths of the pre-trained models."""
+        self.repository_url = 'https://github.com/maximedrn/' + \
             'opensea-automatic-bulk-upload-and-sale/releases/download/'
-        if not exists(abspath('realesrgan/RealESRGAN_x4plus.pth')):
-            print('Downloading Real-ESRGAN pre-trained file', end=' ')
-            urlretrieve(repository_url + 'RealESRGAN/RealESRGAN_x4plus.pth',
-                        abspath('realesrgan/RealESRGAN_x4plus.pth'))
-            print(f'{green}Done.{reset}')
+        self.model_urls = ['RealESRGAN/RealESRGAN_x4plus.pth',
+                           'Yolov5x6/yolov5x6.pt']
+        self.model_path = ['realesrgan/RealESRGAN_x4plus.pth',
+                           'yolov5/yolov5x6.pt']
+        self.models = ['RealESRGAN', 'Yolov5x6']
+
+    def load_models(self) -> None:
+        """Load Real-ESRGAN, Yolov5's basic and custom models."""
+        self.download_models()
         self.upsampler = RealESRGANer(scale=3, model=RRDBNet(
             scale=4, num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23,
-            num_grow_ch=32), model_path='realesrgan/RealESRGAN_x4plus.pth')
-        if not exists(abspath('yolov5/yolov5x6.pt')):
-            print('Downloading Yolov5x6 pre-trained file', end=' ')
-            urlretrieve(repository_url + 'Yolov5x6/yolov5x6.pt',
-                        abspath('yolov5/yolov5x6.pt'))
-            print(f'{green}Done.{reset}')
-        self.model = load(abspath('yolov5'), 'custom', path=abspath(
-                          'yolov5/yolov5x6.pt'), source='local')
+            num_grow_ch=32), model_path=self.model_path[0])
+        self.yolo = load(abspath('yolov5'), 'custom', path=abspath(
+            self.model_path[1]), source='local')
+        self.crosswalks = load(abspath('yolov5'), 'custom', path=abspath(
+            self.model_path[2]), source='local')
+        self.specific_classes = []
+
+    def download_models(self) -> None:
+        """Download and save models."""
+        for url, path, model in zip(
+                self.model_urls, self.model_path, self.models):
+            if not exists(abspath(path)):
+                print(f'Downloading {model} pre-trained file.')
+                with get(self.repository_url + url, stream=True) as request:
+                    with tqdm.wrapattr(request.raw, 'read', desc='', total=int(
+                            request.headers.get('Content-Length'))) as raw:
+                        with open(abspath(path), 'wb') as output:
+                            copyfileobj(raw, output)
+                print(f'{green}Done.{reset} Saved in {path}')
 
     def set_class(self) -> str:
         """Return the class name compatible with Yolov5 model."""
@@ -116,15 +132,23 @@ class OCR:
     def find_object(self, image_list: list, blocks: int = 3) -> list or dict:
         """Find objects using the Yolov5 model and return a list of them."""
         if blocks == 3 and len(self._class) > 0:
-            return [list(loads(self.model(image).pandas().xyxy[
-                0].to_json())['name'].values()) for image in image_list]
+            if self._class not in self.specific_classes:
+                return [list(loads(self.yolo(image).pandas().xyxy[
+                    0].to_json())['name'].values()) for image in image_list]
+            return [list(loads(eval(f'self.{self._class.lower()}')(
+                image).pandas().xyxy[0].to_json())['name'].values(
+            )) for image in image_list]
         elif blocks == 4 and len(self._class) > 0:
-            return self.model(image_list).pandas().xyxy[
-                0].to_dict(orient="records")
+            if self._class not in self.specific_classes:
+                return self.yolo(image_list).pandas().xyxy[
+                    0].to_dict(orient="records")
+            return eval(f'self.{self._class.lower()}')(image_list).pandas(
+            ).xyxy[0].to_dict(orient="records")
         return []
 
     def check_blocks(self, result_list: list, _class: str) -> list:
         """Return blocks that have to be clicked by the bot."""
+        print(result_list)
         return [_class in result for result in result_list]
 
     def object_coordinates(self, chunk_number: int = 4) -> list:
@@ -133,6 +157,7 @@ class OCR:
             '(//img[contains(@class, "rc-image-tile")])[position()=1]'
         ).get_attribute('src')), []
         results = self.find_object(image, 4)
+        print(results)
         for coordinates in [[
                 result['xmin'] + 25, result['ymin'] + 25, result['xmax']
                 - 25, result['ymax'] - 25] for result in results if result[
@@ -208,8 +233,8 @@ class Solver:
         """Check if the challenge frame is displayed."""
         web.driver.switch_to.default_content()
         if 'visible' in web.visible(
-                '(//div[contains(@class, "captcha-bubble")])[position()=1]/..'
-        ).get_attribute('style'):
+                '(//div[contains(@class, "captcha-bubble")])'
+                '[position()=1]/..').get_attribute('style'):
             web.driver.switch_to.frame(web.visible(
                 '//iframe[contains(@title, "recaptcha challenge")]'))
             return True
@@ -255,8 +280,7 @@ class Solver:
 
     def proceed(self) -> bool:
         """Call methods to solve the reCAPTCHA."""
-        self.open_challenge()
-        failed = 0
+        _, failed = self.open_challenge(), 0
         while True:
             try:  # Check if the reCAPTCHA is solved.
                 if not self.challenge_opened():
@@ -268,9 +292,9 @@ class Solver:
                     actions.confirm()  # Confirm or skip the challenge.
                     self.check_error()  # If errors: reload, else confirm.
                 else:  # Class is not defined: reload the challenge.
-                    actions.reload()
-            except Exception:
-                if failed < 2:
+                    actions.reload()  # Reload challenge.
+            except Exception:  # Something went wrong.
+                if failed < 2:  # -2 fails during the challenge.
                     try:  # Check if the challenge is opened.
                         if self.challenge_opened():
                             failed += 1
@@ -278,7 +302,7 @@ class Solver:
                         break  # It's not opened: solved.
                     except Exception:
                         break  # The reCAPTCHA disapears: solved.
-                raise Exception()
+                return False
         return True
 
 
