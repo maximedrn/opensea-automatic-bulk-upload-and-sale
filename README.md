@@ -16,7 +16,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 * **(_Version 1.6.11 - April 14, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
-* Sign up on [Coinbase](https://www.coinbase.com/).
+* Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
 * _If you want to use the 2Captcha API to resolve reCAPTCHAs_.  
   **Paid service**: $2.99 per 1000 reCAPTCHAs.  
   Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).
