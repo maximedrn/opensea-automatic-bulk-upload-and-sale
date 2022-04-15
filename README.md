@@ -58,7 +58,7 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 * **Version 1.6.12:**
   * Added support for blockchain switching on MetaMask (need feedback - may not work with Coinbase Wallet). **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
-  * Fix reCAPTCHA solver with CUDA error `list index out of range`. **[#263](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/263)**.
+  * Fixed `list index out of range` error with reCAPTCHA solver using CUDA. **[#263](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/263)**.
   * Removed unnecessary printouts used during development.
   * Minor corrections for sale part.
 
