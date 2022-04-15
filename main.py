@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.11.1 - 2022, 14 April.
+Version 1.6.12 - 2022, 15 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -365,9 +365,9 @@ class Wallets:
         eval(f'self.{self.wallet_function}_login()')
         return self.success
 
-    def sign(self) -> None:
+    def sign(self, contract: bool = True, page: int = 2) -> None:
         """Use the method of the wallet to sign the login."""
-        eval(f'self.{self.wallet_function}_sign()')
+        eval(f'self.{self.wallet_function}_sign({contract}, {page})')
 
     def contract(self, new_contract: bool = False) -> None:
         """Use the method of the wallet to sign the contract."""
@@ -422,15 +422,16 @@ class Wallets:
                 web.quit()  # Stop the webdriver.
         self.fails = 0
 
-    def metamask_sign(self) -> None:
+    def metamask_sign(self, contract: bool = True, page: int = 2) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
         windows = web.driver.window_handles  # Opened windows.
-        for _ in range(2):  # "Next" and "Connect" buttons.
+        for _ in range(page):  # "Next" and "Connect" buttons.
             web.window_handles(2)  # Switch to the MetaMask pop up tab.
             web.clickable('//*[contains(@class, "btn-primary")]')
-        WDW(web.driver, 10).until(  # Wait for the new MetaMask tab.
-            lambda _: windows != web.driver.window_handles)
-        self.metamask_contract()  # Sign the contract.
+        if contract:
+            WDW(web.driver, 10).until(  # Wait for the new MetaMask tab.
+                lambda _: windows != web.driver.window_handles)
+            self.metamask_contract()  # Sign the contract.
 
     def metamask_contract(self, new_contract: bool = False) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
@@ -536,6 +537,7 @@ class OpenSea:
         self.retries_upload = 0  # Counter of upload retries.
         self.retries_sale = 0  # Counter of sale retries.
         self.success = False  # Boolean returned after login.
+        self.actual_blockchain = 'Ethereum'  # Default blockchain.
 
     def login(self) -> bool or None:
         """Login to OpenSea using user wallet."""
@@ -570,7 +572,6 @@ class OpenSea:
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
         self.fails = 0
-        print(self.success)
         return self.success
 
     def upload(self) -> bool:
@@ -579,9 +580,10 @@ class OpenSea:
         try:  # Go to the OpenSea create URL and input all datas of the NFT.
             create_url = (self.create_url.format(
                 'collection/' + structure.collection + '/', 's') if structure
-                .collection.lower() == structure.collection and ' ' not in
-                structure.collection and structure.collection != '' else
-                self.create_url.format('', '')) + '?enable_supply=true'
+                .collection.lower() == structure.collection and structure
+                .collection.replace('-', '').isalpha() and structure
+                .collection != '' else self.create_url.format('', '')
+                ) + '?enable_supply=true'  # Collection URL or default.
             web.driver.get(create_url)
             if isinstance(structure.file_path, list):
                 if len(structure.file_path) == 2:
@@ -722,7 +724,16 @@ class OpenSea:
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
             if 2 in structure.action and 1 not in structure.action:
-                web.driver.get(structure.nft_url + '/sell')  # NFT sale page.
+                if (structure.blockchain == # Change blockchain.
+                    'Ethereum' != self.actual_blockchain):
+                    web.driver.get(structure.nft_url)
+                    web.clickable('//a[contains(@href, "/sell")]')
+                    web.clickable('//button[contains(text(), "Switch")]')
+                    wallet.sign(False, 1)  # Approve.
+                    web.window_handles(1)  # Switch back to the OpenSea tab.
+                    self.actual_blockchain == 'Ethereum'
+                else:
+                    web.driver.get(structure.nft_url + '/sell')
             else:  # The NFT has just been uploaded.
                 structure.nft_url = web.driver.current_url
                 web.driver.get(structure.nft_url + '/sell')  # Sale page.
@@ -839,8 +850,20 @@ class OpenSea:
                 web.clickable('//button[@type="submit"]')
             except Exception:  # An unknown error has occured.
                 raise TE('The submit button cannot be clicked.')
+            try:  # Switch blockchain.
+                if web.visible('//*[contains(@id, "dy react-aria")]/div/div/bu'
+                               'tton').get_attribute('innerHTML') == 'Switch':
+                    web.clickable(  # Click on the "Switch" button.
+                        '//*[contains(@id, "Body react-aria")]/div/div/button')
+                    wallet.sign(False)  # Approve.
+                    web.window_handles(1)  # Switch back to the OpenSea tab.
+                    self.actual_blockchain = 'Polygon'  # Change blockchain.
+                    print(f'{yellow}Blockchain switched.{reset}')
+                    return self.sale()  # Retry sale.
+            except Exception:
+                pass  # Ignore.
             try:  # Polygon blockchain requires a click on a button.
-                if structure.blockchain == 'Polygon':
+                if structure.blockchain == 'Polygon':  # "Sign" button.
                     web.clickable(  # Click on the "Sign" button.
                         '//*[contains(@id, "Body react-aria")]/div/div/button')
                     wallet.contract()  # Sign the contract.
@@ -852,14 +875,7 @@ class OpenSea:
                 web.window_handles(1)  # Switch back to the OpenSea tab.
                 web.visible('//header/h4[contains(text(), "listed")]')
             except Exception:  # Sometimes popup is do not detected.
-                try:  # Reload and check if listed.
-                    web.window_handles(1)  # Switch back to the OpenSea tab.
-                    web.driver.get(structure.nft_url)
-                    if 'listing' not in web.visible('//button[contains(@class,'
-                                                    ' "second-button")]').text:
-                        raise Exception()  # Probably not listed.
-                except Exception:  # Not able to tell if the NFT is listed.
-                    raise TE('Something went wrong.')
+                raise TE('NFT seems to not be listed.')
             print(f'{green}NFT put up for sale.{reset}')
         except Exception as error:  # Any other error.
             print(f'{red}NFT sale cancelled.{reset}',
@@ -1014,7 +1030,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.11.1 - 2022, 14 April.\n{reset}'
+          f'\n\nVersion 1.6.12 - 2022, 15 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -1033,7 +1049,8 @@ if __name__ == '__main__':
         read_file('private_key', '\nWhat is you account private key? '
                   '(Press [ENTER] to ignore this step) '))
     action = perform_action()  # What the user wants to do.
-    solver, key = recaptcha_solver()  # Way reCAPTCHA will be solved.
+    if 1 in action:
+        solver, key = recaptcha_solver()  # Way reCAPTCHA will be solved.
     browser = 0 if user_wallet == 'Coinbase Wallet' else choose_browser()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
