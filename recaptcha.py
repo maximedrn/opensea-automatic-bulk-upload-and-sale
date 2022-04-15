@@ -83,8 +83,6 @@ class OCR:
             num_grow_ch=32), model_path=self.model_path[0])
         self.yolo = load(abspath('yolov5'), 'custom', path=abspath(
             self.model_path[1]), source='local')
-        self.crosswalks = load(abspath('yolov5'), 'custom', path=abspath(
-            self.model_path[2]), source='local')
         self.specific_classes = []
 
     def download_models(self) -> None:
