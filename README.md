@@ -13,7 +13,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
-* **(_Version 1.6.11 - April 14, 2022_).**  
+* **(_Version 1.6.12 - April 15, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
@@ -56,14 +56,19 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
-* **Version 1.6.11:**
-  * Fixed the problem with the collection. **[#258](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/258)**.
-  * Fixed 2Captcha callback function. **[#259](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/259)**.
-  * Fixed the problem with downloading the pre-trained file (`urllib.error.URLError: urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate`) by changing the download method.
+* **Version 1.6.12:**
+  * Added support for blockchain switching on MetaMask (need feedback - may not work with Coinbase Wallet). **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
+  * Fix reCAPTCHA solver with CUDA error `list index out of range`. **[#263](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/263)**.
+  * Removed unnecessary printouts used during development.
+  * Minor corrections for sale part.
 
 <details>
   <summary><strong>Old versions</strong></summary><br />
 
+* **Version 1.6.11:**
+  * Fixed the problem with the collection. **[#258](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/258)**.
+  * Fixed 2Captcha callback function. **[#259](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/259)**.
+  * Fixed the problem with downloading the pre-trained file (`urllib.error.URLError: urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate`) by changing the download method.
 * **Versions 1.6.10 and 1.6.10.1:**
   * Fixed restarting the upload or sale when it fails the first time. **[#253](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/253)**.
   * Minor correction concerning the connection to OpenSea: the bot made the browser restart instead of trying a second time.
