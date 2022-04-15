@@ -11,7 +11,7 @@ Please read the README file before using this tool, opening a problem or a discu
 
 ---
 
-* **(_Version 1.0.0 - April 04, 2022_).**
+* **(_Version 1.1.0 - April 15, 2022_).**
 
 # Table of contents
 
@@ -31,6 +31,10 @@ You simply enter the name of your collection (based on the collection URL: `http
 
 ## Changelog
 
+* **Version 1.1.0:**
+  * Adding the creation of a file containing duplicates.
+  * Added the creation of a file containing the missing.
+  * Added the name of the NFTs in the files for sale.
 * **Version 1.0.0:**
   * Initial commit.
 
