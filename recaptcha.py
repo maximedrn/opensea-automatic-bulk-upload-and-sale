@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.11 - 2022, 14 April.
+Version 1.6.12 - 2022, 15 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -146,7 +146,6 @@ class OCR:
 
     def check_blocks(self, result_list: list, _class: str) -> list:
         """Return blocks that have to be clicked by the bot."""
-        print(result_list)
         return [_class in result for result in result_list]
 
     def object_coordinates(self, chunk_number: int = 4) -> list:
@@ -155,7 +154,6 @@ class OCR:
             '(//img[contains(@class, "rc-image-tile")])[position()=1]'
         ).get_attribute('src')), []
         results = self.find_object(image, 4)
-        print(results)
         for coordinates in [[
                 result['xmin'] + 25, result['ymin'] + 25, result['xmax']
                 - 25, result['ymax'] - 25] for result in results if result[
