@@ -43,7 +43,6 @@ class TwoCaptcha:
         callback = web.driver.execute_script(open(abspath(
             'recaptcha_callback.js'), 'r', encoding='utf-8').read()
             + 'return recaptchaCallback();')
-        print(callback)
         in_ = getr(f'{self.url_in}&method=userrecaptcha&googlekey='
                    f'{self.get_site_key()}&json=1&invisible=1&pageurl='
                    f'{web.driver.current_url}')
