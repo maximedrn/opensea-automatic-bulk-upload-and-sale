@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.12 - 2022, 15 April.
+Version 1.6.13 - 2022, 16 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -271,7 +271,8 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        options.add_argument('--headless')  # Headless mode.
+        if solver != 1:  # Not manual solver.
+            options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -401,8 +402,7 @@ class Wallets:
             # Wait until the login worked and click on the "All done" button.
             web.visible('//*[contains(@class, "emoji")][position()=1]')
             web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
-            if self.private_key != '':
-                # Change account.
+            if self.private_key != '':  # Change account.
                 web.clickable('//button[@data-testid="popover-close"]')
                 web.clickable('//*[@class="account-menu__icon"][position()=1]')
                 web.clickable('//*[contains(@class, "account-menu__item--'
@@ -539,7 +539,7 @@ class OpenSea:
         self.success = False  # Boolean returned after login.
         self.actual_blockchain = 'Ethereum'  # Default blockchain.
 
-    def login(self) -> bool or None:
+    def login(self) -> bool:
         """Login to OpenSea using user wallet."""
         try:  # Try to login to the OpenSea using user wallet.
             print('Login to OpenSea.', end=' ')
@@ -567,7 +567,7 @@ class OpenSea:
                 if self.fails < 2:  # Retry login to the wallet.
                     print(f'{red}Login to OpenSea failed. Retrying.{reset}')
                     web.driver.refresh()  # Reload the page (login failed?).
-                    self.login()  # Retry everything.
+                    return self.login()  # Retry everything.
                 else:  # Too many fails.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
@@ -723,20 +723,17 @@ class OpenSea:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            if 2 in structure.action and 1 not in structure.action:
-                if (structure.blockchain == # Change blockchain.
-                    'Ethereum' != self.actual_blockchain):
+            if (structure.blockchain == # Change blockchain.
+                'Ethereum' != self.actual_blockchain):
+                if 2 in structure.action and 1 not in structure.action:
                     web.driver.get(structure.nft_url)
-                    web.clickable('//a[contains(@href, "/sell")]')
-                    web.clickable('//button[contains(text(), "Switch")]')
-                    wallet.sign(False, 1)  # Approve.
-                    web.window_handles(1)  # Switch back to the OpenSea tab.
-                    self.actual_blockchain == 'Ethereum'
-                else:
-                    web.driver.get(structure.nft_url + '/sell')
-            else:  # The NFT has just been uploaded.
-                structure.nft_url = web.driver.current_url
-                web.driver.get(structure.nft_url + '/sell')  # Sale page.
+                web.clickable('//a[contains(@href, "/sell")]')
+                web.clickable('//button[contains(text(), "Switch")]')
+                wallet.sign(False, 1)  # Approve.
+                web.window_handles(1)  # Switch back to the OpenSea tab.
+                self.actual_blockchain == 'Ethereum'
+            structure.nft_url = web.driver.current_url.replace('/sell', '')
+            web.driver.get(structure.nft_url + '/sell')  # Sale page.
             if not isinstance(structure.supply, int):
                 raise TE('The supply number must be an integer.')
             elif structure.supply == 1 and structure.blockchain == 'Ethereum':
@@ -956,10 +953,11 @@ def recaptcha_solver() -> int:
 
 def choose_browser() -> int:
     """Ask the user for a browser."""
-    browsers = ['ChromeDriver (Google Chrome) - No headless mode.\n    '
-                'Must used in foreground, you see what\'s happening.',
-                'GeckoDriver (Mozilla Firefox) - Headless mode.\n    '
-                'Can be used in background while doing something else.']
+    browsers = ['ChromeDriver (Google Chrome)' + (' - No headless mode.\n    '
+                'Must used in foreground, you see what\'s happening.'
+                if solver != 1 else '.'), 'GeckoDriver (Mozilla Firefox)' +
+                ('- Headless mode.\n    Can be used in background while '
+                 'doing something else.' if solver != 1 else '.')]
     while True:
         print(f'{yellow}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
@@ -1030,7 +1028,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.12 - 2022, 15 April.\n{reset}'
+          f'\n\nVersion 1.6.13 - 2022, 16 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
@@ -1049,8 +1047,7 @@ if __name__ == '__main__':
         read_file('private_key', '\nWhat is you account private key? '
                   '(Press [ENTER] to ignore this step) '))
     action = perform_action()  # What the user wants to do.
-    if 1 in action:
-        solver, key = recaptcha_solver()  # Way reCAPTCHA will be solved.
+    solver, key = recaptcha_solver() if 1 in action else ('', '')
     browser = 0 if user_wallet == 'Coinbase Wallet' else choose_browser()
     reader = Reader(data_file())  # Ask for a file and read it.
     structure = Structure(action)  # Structure the file.
