@@ -1,12 +1,17 @@
 {
     "details": {
         "file_path": {
-            "file_path": "C:/Users/Administrator/Desktop/NFTs/generated_nft_{}.png",
+            "file_path": "C:/Users/Administrator/Desktop/NFTs/generated_nft_{}.mp4",
             "incrementation": "number",
             "format": -1
         },
         "nft_name": {
             "nft_name": "My NFT #{}",
+            "incrementation": "number",
+            "format": -1
+        },
+        "preview": {
+            "preview": "C:/Users/Administrator/Desktop/NFTs/generated_nft_{}.png",
             "incrementation": "number",
             "format": -1
         },
