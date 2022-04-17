@@ -11,7 +11,7 @@ Please read the README file before using this tool, opening a problem or a discu
 
 ---
 
-* **(_Version 1.0.0 - April 09, 2022_).**
+* **(_Version 1.1.0 - April 17, 2022_).**
 
 # Table of contents
 
@@ -31,6 +31,9 @@ You just have to fill a simple generic file with 21 details (18 for NFTs and 3 f
 
 ## Changelog
 
+* **Version 1.1.0:**
+  * Added support for preview file in the generic file.
+  * Fixed the problem of unlockable content to false when set to true in the data file.
 * **Version 1.0.0:**
   * Initial commit.
 
