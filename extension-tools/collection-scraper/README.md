@@ -3,7 +3,7 @@ _A Python and JavaScript Puppeteer bot to automatically scrape your collections 
 
 ---
 
-**Please ensure that [OpenSea Automatic Bulk Upload and Sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale) bot works on your computer before reading and purchasing this repository**.  
+**Please ensure that [OpenSea Automatic Bulk Upload and Sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale) bot works on your computer before reading and purchasing this tool**.  
 Please read the README file before using this tool, opening a problem or a discussion, or contacting me.  
 ➜ Open an issue? Provide your operating system and detail your error.  
 ➜ Make sure you have the latest modules and bot installed.  
@@ -12,6 +12,13 @@ Please read the README file before using this tool, opening a problem or a discu
 ---
 
 * **(_Version 1.2.0 - April 17, 2022_).**
+
+
+<a href="https://maximedrn.gumroad.com/l/opensea-collection-scraper">
+ 
+![Image of the product](https://public-files.gumroad.com/x22ga3lh92vk4nlm8odsmtqu57nv)
+ 
+</a>
 
 # Table of contents
 
@@ -43,9 +50,6 @@ You simply enter the name of your collection (based on the collection URL: `http
   * Initial commit.
 
 ## Instructions
-
-* **Buy the [full version](https://maximedrn.gumroad.com/l/opensea-collection-scraper) of this bot on Gumroad after proceeding to these steps.**  
-  ➜ 25% discount with the code `opensea` for the first 10 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-collection-scraper/opensea).
 
 * ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
