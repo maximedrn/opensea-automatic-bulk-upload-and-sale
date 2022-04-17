@@ -36,7 +36,7 @@ You just have to choose your file and select its file type to arrange the detail
 ## Instructions
 
 * **Buy the [full version](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer) of this bot on Gumroad after proceeding to these steps.**  
-  ⇒ 25% discount with the code `opensea` for the first 10 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer/opensea).
+  ➜ 25% discount with the code `opensea` for the first 10 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer/opensea).
 
 * ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
