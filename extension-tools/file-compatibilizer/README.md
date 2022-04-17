@@ -5,9 +5,9 @@ _A Python bot to automatically convert and make compatible a file with the OpenS
 
 **Please ensure that [OpenSea Automatic Bulk Upload and Sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale) bot works on your computer before reading and purchasing this repository**.  
 Please read the README file before using this tool, opening a problem or a discussion, or contacting me.  
-⇒ Open an issue? Provide your operating system and detail your error.  
-⇒ Make sure you have the latest modules and bot installed.  
-⇒ Read the pinned and opened issues.
+➜ Open an issue? Provide your operating system and detail your error.  
+➜ Make sure you have the latest modules and bot installed.  
+➜ Read the pinned and opened issues.
 
 ---
 
