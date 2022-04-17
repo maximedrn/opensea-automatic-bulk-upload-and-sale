@@ -13,6 +13,12 @@ Please read the README file before using this tool, opening a problem or a discu
 
 * **(_Version 1.1.0 - April 17, 2022_).**
 
+<a href="https://maximedrn.gumroad.com/l/opensea-generic-file">
+ 
+![Image of the product](https://public-files.gumroad.com/zz5z6ms055ukb2olcepz8n6khwbk)
+ 
+</a>
+
 # Table of contents
 
 * **[What does this bot do?](#what-does-this-bot-do)**
@@ -39,8 +45,6 @@ You just have to fill a simple generic file with 21 details (18 for NFTs and 3 f
 
 ## Instructions
 
-* **Buy the [full version](https://maximedrn.gumroad.com/l/opensea-generic-file) of this bot on Gumroad after proceeding to these steps.**  
-  ➜ 25% discount with the code `generate` for the first 5 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-generic-file/generate).
 * ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
