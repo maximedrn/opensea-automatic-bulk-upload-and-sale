@@ -5,9 +5,9 @@ _A Python bot to automatically create a fully ready file for upload, sale or bot
 
 **Please ensure that [OpenSea Automatic Bulk Upload and Sale](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale) bot works on your computer before reading and purchasing this repository**.  
 Please read the README file before using this tool, opening a problem or a discussion, or contacting me.  
-⇒ Open an issue? Provide your operating system and detail your error.  
-⇒ Make sure you have the latest modules and bot installed.  
-⇒ Read the pinned and opened issues.
+➜ Open an issue? Provide your operating system and detail your error.  
+➜ Make sure you have the latest modules and bot installed.  
+➜ Read the pinned and opened issues.
 
 ---
 
@@ -40,7 +40,7 @@ You just have to fill a simple generic file with 21 details (18 for NFTs and 3 f
 ## Instructions
 
 * **Buy the [full version](https://maximedrn.gumroad.com/l/opensea-generic-file) of this bot on Gumroad after proceeding to these steps.**  
-  ⇒ 25% discount with the code `generate` for the first 5 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-generic-file/generate).
+  ➜ 25% discount with the code `generate` for the first 5 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-generic-file/generate).
 * ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
   * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
