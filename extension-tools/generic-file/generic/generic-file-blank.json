@@ -5,6 +5,11 @@
             "incrementation": "",
             "format": 0
         },
+        "preview": {
+            "preview": "",
+            "incrementation": "",
+            "format": 0
+        },
         "nft_name": {
             "nft_name": "",
             "incrementation": "",
@@ -40,7 +45,7 @@
         "quantity": 1
     },
     "settings": {
-        "overwrite": false,
+        "overwrite": true,
         "overwrite_empty": false,
         "append": false
     }
