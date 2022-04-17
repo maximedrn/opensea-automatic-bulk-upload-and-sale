@@ -13,6 +13,12 @@ Please read the README file before using this tool, opening a problem or a discu
 
 * **(_Version 1.0.0 - April 06, 2022_).**
 
+<a href="https://maximedrn.gumroad.com/l/opensea-file-compatibilizer">
+ 
+![Image of the product](https://public-files.gumroad.com/vx289yn5796wyb9lkz8whfqjqai8)
+ 
+</a>
+
 # Table of contents
 
 * **[What does this bot do?](#what-does-this-bot-do)**
@@ -34,9 +40,6 @@ You just have to choose your file and select its file type to arrange the detail
   * Initial commit.
 
 ## Instructions
-
-* **Buy the [full version](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer) of this bot on Gumroad after proceeding to these steps.**  
-  ➜ 25% discount with the code `opensea` for the first 10 who passed through [this link](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer/opensea).
 
 * ### Basic installation of Python for beginners:
   * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
