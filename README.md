@@ -13,7 +13,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
-* **(_Version 1.6.13 - April 16, 2022_).**  
+* **(_Version 1.6.14 - April 18, 2022_).**  
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
@@ -56,14 +56,17 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 ## Changelog
 
-* **Version 1.6.13:**
-  * Improved manual resolution for reCAPTCHA. **[#264](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/264)**.
-  * Fixed some issues with blockchain change. **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
+* **Version 1.6.14:**
+  * Fixed the problem of the URL with the "Sale only".
   * Minor fixes.
 
 <details>
   <summary><strong>Old versions</strong></summary><br />
 
+* **Version 1.6.13:**
+  * Improved manual resolution for reCAPTCHA. **[#264](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/264)**.
+  * Fixed some issues with blockchain change. **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
+  * Minor fixes.
 * **Version 1.6.12:**
   * Added support for blockchain switching on MetaMask (need feedback - may not work with Coinbase Wallet). **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
   * Fixed `list index out of range` error with reCAPTCHA solver using CUDA. **[#263](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/263)**.
