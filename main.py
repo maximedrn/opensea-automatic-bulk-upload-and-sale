@@ -7,7 +7,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.6.13 - 2022, 16 April.
+Version 1.6.14 - 2022, 18 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -566,8 +566,9 @@ class OpenSea:
                 self.fails += 1  # Increment the counter.
                 if self.fails < 2:  # Retry login to the wallet.
                     print(f'{red}Login to OpenSea failed. Retrying.{reset}')
+                    web.window_handles(1)  # Switch back to the OpenSea tab.
                     web.driver.refresh()  # Reload the page (login failed?).
-                    return self.login()  # Retry everything.
+                    self.login()  # Retry everything.
                 else:  # Too many fails.
                     print(f'{red}Login to OpenSea failed. Restarting.{reset}')
                     web.quit()  # Stop the webdriver.
@@ -723,7 +724,7 @@ class OpenSea:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            if (structure.blockchain == # Change blockchain.
+            if (structure.blockchain ==  # Change blockchain.
                 'Ethereum' != self.actual_blockchain):
                 if 2 in structure.action and 1 not in structure.action:
                     web.driver.get(structure.nft_url)
@@ -732,8 +733,11 @@ class OpenSea:
                 wallet.sign(False, 1)  # Approve.
                 web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.actual_blockchain == 'Ethereum'
-            structure.nft_url = web.driver.current_url.replace('/sell', '')
-            web.driver.get(structure.nft_url + '/sell')  # Sale page.
+            else:  # If it's already set to Ethereum.
+                if 1 in structure.action:
+                    structure.nft_url = web.driver.current_url\
+                        .replace('/sell', '')  # Remove the "/sell" part.
+                web.driver.get(structure.nft_url + '/sell')  # Sale page.
             if not isinstance(structure.supply, int):
                 raise TE('The supply number must be an integer.')
             elif structure.supply == 1 and structure.blockchain == 'Ethereum':
@@ -1028,7 +1032,7 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           ' prohibited.'
-          f'\n\nVersion 1.6.13 - 2022, 16 April.\n{reset}'
+          f'\n\nVersion 1.6.14 - 2022, 18 April.\n{reset}'
           '\nIf you face any problem, please open an issue.')
 
     input('\nPRESS [ENTER] TO CONTINUE. ')
