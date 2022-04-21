@@ -11,7 +11,7 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
-[![Miniature](https://user-images.githubusercontent.com/91475935/164474251-a48f41c4-05a2-4d78-9a63-ef95f47bb6ea.png)](https://youtu.be/sM-YncZmZzc)
+[![Video preview](https://user-images.githubusercontent.com/91475935/164508886-fbd3014c-af11-4ac3-971a-e332e88a9346.png)](https://youtu.be/sM-YncZmZzc)
 
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
@@ -35,11 +35,11 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
   * [Make your file compatible](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).
   * [Easily generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
 * **[Changelog](#changelog).**
-* **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
 * **[Instructions](#instructions)**.
   * [Basic installation of Python for beginners](#basic-installation-of-python-for-beginners).
   * [Configuration of the bot](#configuration-of-the-bot).
   * [Run the bot](#run-the-bot).
+* **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
 * **[Data files structure](#data-files-structure).**
   * [Upload and sale](#upload-and-sale).
   * [Upload only](#upload-only).
@@ -206,50 +206,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 
 </details>
 
-## Prerequisites for reCAPTCHA solver
-
-➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
-* You will **need a one of these graphics card (GPU)**:
-  * GTX 1080.
-  * RTX 2060, RTX 2070, RTX 2080.
-  * RTX 3060, RTX 3070, RTX 3080, RTX 3090.
-  * Any Ti version of these graphics cards.
-* Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
-
-  ```
-  nvidia-smi
-  ```
-* If your CUDA version is earlier than 11.3, try to update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
-* Then type one of these commands to install PyTorch (may require ``sudo`` on Linux and administrator privileges for Windows):
-  
-  * ```
-    pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
-    ```
-  * ```
-    pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
-    ```
-  
-  Or select one of the commands [here](https://pytorch.org/get-started/locally/) depending on your computer.  
-  _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
-* Install the required modules for the reCAPTCHA solver typing one of these commands (may require ``sudo`` on Linux and administrator privileges for Windows):
-
-  * ```
-    pip install -r requirements_recaptcha.txt
-    ```
-  * ```
-    pip3 install -r requirements_recaptcha.txt
-    ```
-  * ```
-    python -m pip install -r requirements_recaptcha.txt
-    ```
-  * ```
-    python3 -m pip install -r requirements_recaptcha.txt
-    ```
-  * ```
-    py -m pip install -r requirements_recaptcha.txt
-    ```
-
 ## Instructions
+
+[![Video preview](https://user-images.githubusercontent.com/91475935/164508781-e2825542-0ab1-47b1-86e8-6ea4e49bbd1a.png)](https://youtu.be/jtERa6i9e1k)
 
 * [Download the repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
     
@@ -294,8 +253,52 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
       python3 main.py
       ```
 
+## Prerequisites for reCAPTCHA solver
+
+➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
+* You will **need a one of these graphics card (GPU)**:
+  * GTX 1080.
+  * RTX 2060, RTX 2070, RTX 2080.
+  * RTX 3060, RTX 3070, RTX 3080, RTX 3090.
+  * Any Ti version of these graphics cards.
+* Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
+
+  ```
+  nvidia-smi
+  ```
+* If your CUDA version is earlier than 11.3, try to update it at the [NVIDIA website](https://developer.nvidia.com/cuda-downloads).
+* Then type one of these commands to install PyTorch (may require ``sudo`` on Linux and administrator privileges for Windows):
+  
+  * ```
+    pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+    ```
+  * ```
+    pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+    ```
+  
+  Or select one of the commands [here](https://pytorch.org/get-started/locally/) depending on your computer.  
+  _Previous versions of PyTorch with older CUDA version: https://pytorch.org/get-started/previous-versions/_
+* Install the required modules for the reCAPTCHA solver typing one of these commands (may require ``sudo`` on Linux and administrator privileges for Windows):
+
+  * ```
+    pip install -r requirements_recaptcha.txt
+    ```
+  * ```
+    pip3 install -r requirements_recaptcha.txt
+    ```
+  * ```
+    python -m pip install -r requirements_recaptcha.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements_recaptcha.txt
+    ```
+  * ```
+    py -m pip install -r requirements_recaptcha.txt
+    ```
 
 ## Data files structure
+
+[![Video preview](https://user-images.githubusercontent.com/91475935/164508497-ddddb3f8-a379-4d87-8885-7d85b78ee756.png)](https://youtu.be/67eRggoadOQ)
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ Easily generate your metadata file using this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
 
@@ -819,9 +822,9 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
            <td><strong>NFT URL * </strong></td>
            <td>String</td>
            <td></td>
-           <td>"nft_url": "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145",</td>
-           <td>https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145;;</td>
-           <td>https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99995353970554757559721471534129028266698199001274859511402524949800648966145</td>
+           <td>"nft_url": "https://opensea.io/assets/matic/...",</td>
+           <td>https://opensea.io/...;;</td>
+           <td>https://opensea.io/assets/matic/...</td>
         </tr>
         <tr>
            <td><strong>Supply *</strong></td>
