@@ -1042,7 +1042,8 @@ if __name__ == '__main__':
           '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
           '\nAny distribution, modification or commercial use is strictly'
           f' prohibited.{reset}\n\nExtension tools available here: '
-          'https://maximedrn.gumroad.com/')
+          'https://maximedrn.gumroad.com/\nTutorials on YouTube: '
+          'https://www.youtube.com/channel/UCoqpR1OLbswIyQVatKBoGxA')
 
     user_wallet = choose_wallet()
     wallet = Wallets(user_wallet, read_file(  # Send credentials.
