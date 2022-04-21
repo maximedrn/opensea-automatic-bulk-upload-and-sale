@@ -11,6 +11,8 @@ _A Selenium Python bot to automatically and bulky upload and sell your NFTs on O
 
 ---
 
+[![Miniature](https://user-images.githubusercontent.com/91475935/164474251-a48f41c4-05a2-4d78-9a63-ef95f47bb6ea.png)](https://youtu.be/sM-YncZmZzc)
+
 ### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
 
 * **(_Version 1.6.14 - April 18, 2022_).**  
@@ -207,8 +209,11 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
 ## Prerequisites for reCAPTCHA solver
 
 ➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
-You will **need a graphics card (GPU) with CUDA** (Compute Unified Device Architecture).
-* Search for your GPU on [GPUZoo](https://www.gpuzoo.com/) and check if CUDA is compatible (Cores / Texture -> CUDA).
+* You will **need a one of these graphics card (GPU)**:
+  * GTX 1080.
+  * RTX 2060, RTX 2070, RTX 2080.
+  * RTX 3060, RTX 3070, RTX 3080, RTX 3090.
+  * Any Ti version of these graphics cards.
 * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
   ```
