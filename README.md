@@ -1,112 +1,160 @@
-# Automatically and massively upload and sell your non-fungible tokens on OpenSea using Python Selenium.
-_A Selenium Python bot to automatically and bulky upload and sell your NFTs on OpenSea  
-  (all metadata integrated - Ethereum and Polygon supported) - reCAPTCHA solver included._
+# Automatically and massively upload and list your non-fungible tokens on the OpenSea marketplace using Python Selenium.
+
+_A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
+  All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
+➜ **Version 1.7.0** (April 28, 2022).
+
+If you like :green_heart: my work and this tool:
+*  Do not hesitate to **fork :fork_and_knife:** this repository.
+*  Do not hesitate to **add a star :star:** to this repository.
 
 ---
 
-### **Please read the README file before using this tool, opening a problem or a discussion, or contacting me.**  
-  ➜ _Open an issue?_ Provide an **excerpt from your metadata file**, your **operating system** and **detail your error**.  
-  ➜ Make sure you have the **latest modules, browser and bot installed**.  
-  ➜ Read the [pinned **and** opened issues](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues), see the [example metadata files](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/data).  
-  ➜ **Fork** :fork_and_knife: and add a **Star** :star: to this repository if you like my work :green_heart:.
+**[![How to upload 10k+ NFTs to OpenSea?](https://user-images.githubusercontent.com/91475935/166058768-1b7da2b4-59d4-4445-ad10-a725a31905fa.png)](https://www.youtube.com/watch?v=sM-YncZmZzc)**
 
----
+**Please read the README file before using this tool, opening an issue or a discussion, or contacting me.**  
+_You will certainly find a solution by **reading :book:** or consulting the issues already present._
 
-[![Video preview](https://user-images.githubusercontent.com/91475935/164508886-fbd3014c-af11-4ac3-971a-e332e88a9346.png)](https://youtu.be/sM-YncZmZzc)
+* **Want to open an issue?**
+   * Explain your problem in a few lines, accompanied by **images :framed_picture:** or a **video :clapper:**.
+   * Provide an **excerpt from your metadata file :spiral_notepad:**.
+   * Specify your **operating system :gear:** as well as the **version of Python :snake:** used and that of the bot.
+* Make sure you have the latest version of the Python modules, browser and bot installed.
+* Read the **pinned :pushpin: and opened issues**, see the structure of the metadata files.
 
-### **If you want to promote the tools of this bot and benefit from a percentage of sales of them, you can join my [affiliate program](https://maximedrn.gumroad.com/affiliates) (_25% of the price of a sale will be yours_).**
-
-* **(_Version 1.7.0 - April 28, 2022_).**  
+**Useful links :link: and websites to consult before using this bot:**
 * Sign up on [OpenSea](https://opensea.io/).
 * Sign up on [MetaMask](https://metamask.io/).
 * Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
-* _If you want to use the 2Captcha API to resolve reCAPTCHAs_.  
-  **Paid service**: $2.99 per 1000 reCAPTCHAs.  
-  Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).
+* Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).  
+  **Paid service**: $2.99 per 1000 reCAPTCHAs.
+* Join my **[affiliate program](https://maximedrn.gumroad.com/affiliates)** to promote the tools - **25% commission** per sale.
 
 ---
 
 # Table of contents
 
-* **[What does this bot do?](#what-does-this-bot-do)** 
-* **Useful tools to have for this bo.**
-  * [Discover them](https://maximedrn.gumroad.com/).
-  * [Create metadata file on your phone](https://testflight.apple.com/join/XtJI9qTW).
-  * [Scrape your collection (URLs scraper)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper).
-  * [Make your file compatible](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/file-compatibilizer).
-  * [Easily generate your metadata file](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).
-* **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/CHANGELOG.md).**
-* **[Instructions](#instructions)**.
-  * [Basic installation of Python for beginners](#basic-installation-of-python-for-beginners).
-  * [Configuration of the bot](#configuration-of-the-bot).
-  * [Run the bot](#run-the-bot).
-* **[Prerequisites for reCAPTCHA solver](#prerequisites-for-recaptcha-solver)**.
-* **[Data files structure](#data-files-structure).**
-  * [Upload and sale](#upload-and-sale).
-  * [Upload only](#upload-only).
-  * [Sale only](#sale-only).
-* **[Configuration of the sale part of the NFTs](#configuration-of-the-sale-part-of-the-nfts).**
+* **[What does this bot do?](#what-does-this-bot-do)** What can I do with it? How easy does it make my job?
+* **[Frequently asked questions](#frequently-asked-questions)** about this bot.
+* **[Instructions](#instructions) to install and configure this bot**.
+  * [Installation of Python](#installation-of-python), step by step learn how to install Python.
+  * [Installation and configuration of the bot](#installation-and-configuration-of-the-bot), step by step learn how to download and configure this bot.
+  * [Configuration of the reCAPTCHA solver using Yolov5x6](#configuration-of-the-recaptcha-solver-using-yolov5x6), a solver that use pre-trained models to solve reCAPTCHAs automatically.
+  * [How to run the bot?](#how-to-run-the-bot) - discover different features of the bot.
+* **[Metadata files structure](#metadata-files-structure).**
+  * [Important things to know](#important-things-to-know) about empty details, JSON path format, etc.
+  * ["Upload and sale" metadata file](#upload-and-sale-metadata-file) table of details.
+  * ["Upload only" metadata file](#upload-only-metadata-file) table of details.
+  * ["Sale only" metadata file](#sale-only-metadata-file) table of details.
+  * [Explanation of the different details for the listing part](#explanation-of-the-different-details-for-the-listing-part).
+* **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot).**
+  * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
+  * [File Compatibilizer](#file-compatibilizer), convert your file from a specific structure to another one and make your file compatible.
+  * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
+* **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/CHANGELOG.md)** and new features.
 
-## What does this bot do?
 
-This script allows you to upload and sell **as many NFTs as you want to OpenSea**, all **automatically** and **quickly**. **All metadata are integrated**, and the **Ethereum** and **Polygon** Blockchains are supported.  
+# What does this bot do?
 
-**You can decide whether you want to upload or sell your NFTs, or both**. If you upload your NFTs and sell them later, a CSV file is created with the URL of the NFT as well as its Blockchain and supply number.
+With this bot, **you can choose to upload, list or even both your non-fungible tokens** on the OpenSea marketplace.  
 
-➜ **If you sell any NFT with this bot, you can consider sharing some of your earnings**: 😉
-**0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E** (Ethereum).  
-➜ **Or you can buy me a NFT from my collection [Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts) if this bot was useful to you**.
+You just have to **create a metadata file** following the requested structure, JSON, CSV and XLSX (Excel file) formats are available.  
+This file will include every detail for each NFT.  
+Then, you just have to **launch the bot** and **select the action you want to perform**, as well as the metadata file created.  
+Finally, **the bot will automate the tedious task of uploading or listing NFTs, one by one by hand, for several days**.  
 
-## Instructions
+* Absolutely **all upload details are supported**, you can add as many properties as you want.
+* **All file formats** offered by OpenSea **are compatible**, including images, videos or even 3D models.
+* **Ethereum and Polygon blockchains are supported**, and the switch between these two blockchains is also supported.
+* In case of failure during an upload, a listing or when you only want to upload your NFTs on OpenSea, **a file is generated with details already filled** in or to be filled in.
 
-[![Video preview](https://user-images.githubusercontent.com/91475935/164508781-e2825542-0ab1-47b1-86e8-6ea4e49bbd1a.png)](https://youtu.be/jtERa6i9e1k)
+You can see an example of a collection uploaded with this bot: **[Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts)**.
 
-* [Download the repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt:
+
+# Frequently asked questions
+
+### Should I be worried about using my wallet credentials?
+
+According to **Rule #1** of the MetaMask "Safety Tips", it is requested to "**Never share your 12-word Secret Recovery Phrase (SRP) or private keys**". However, your wallet credentials are **only used** for the purpose of connecting to your wallet extension. The bot follows the procedure for the first connection to a wallet on a new browser (importing from a recovery phrase followed by creating a new password). Thus, none of this information is recovered, everything happens on your side. Moreover, you are free to choose whether or not to save your credentials in text files in the `assets/` folder.
+
+### Is there an easy way to get the URLs of already uploaded NFTs?
+
+A tool to retrieve URLs from NFTs is available. You can learn more about this tool [here](#collection-scraper).
+
+### How to find missing and duplicates NFTs in my collection?
+
+A tool to extract NFTs to get the missing and duplicates is available. You can learn more about this tool [here](#collection-scraper).
+
+### Is there a quick way to create metadata file?
+
+A tool to generate a complete metadata file from a single file is available. You can learn more about this tool [here](#generic-file-maker).
+
+
+# Instructions
+
+**[![How to install and setup the tool?](https://user-images.githubusercontent.com/91475935/166057944-fcf6a4a9-f0e4-407e-a918-64e345260f7c.png)](https://www.youtube.com/watch?v=jtERa6i9e1k)**
+
+## Installation of Python
+
+* Download and install [Python](https://www.python.org/) _(version 3.9.11 recommended)_ according to your operating system.
+  * Make sure you add Python in your path by checking the checkbox when you run the installation.
+* Check that your version of Python is correct by typing one of these commands in a command prompt:
+
+  * ```
+    python --version
+    ```
+  * ```
+    python3 --version
+    ```
+  * ```
+    py --version
+    ```
+* If pip is not installed by default with Python, install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
+* Verify that pip is correctly installed by typing one of thess commands in a command prompt:
+
+  * ```
+    pip --version
+    ```
+  * ```
+    pip3 --version
+    ```  
+  
+## Installation and configuration of the bot
+
+* [Download this repository](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/archive/refs/heads/master.zip) or clone it by typing this command in your command prompt (it requires [Git](https://git-scm.com/downloads)):
     
     ```
     git clone https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale.git
     ```
-
-* ### Basic installation of Python for beginners:
-  * It requires [Python](https://www.python.org/) 3.9.7+ (3.10 can be unstable) - _developped with Python 3.9.11_.
-  * Install [pip](https://pip.pypa.io/en/stable/installation/) to be able to have needed Python modules.
-
-* ### Configuration of the bot:
-  * Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master`.
-  * Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux and administrator privileges for Windows):
+* Extract the repository folder from the ZIP file, you should have a folder named  `opensea-automatic-bulk-upload-and-sale-master/`.
+* Open a command prompt in the repository folder and type one of these commands (may require ``sudo`` on MacOS and Linux and administrator privileges for Windows):
     
-    * ```
-      pip install -r requirements.txt
-      ```
-    * ```
-      pip3 install -r requirements.txt
-      ```
-    * ```
-      python -m pip install -r requirements.txt
-      ```
-    * ```
-      python3 -m pip install -r requirements.txt
-      ```
-    * ```
-      py -m pip install -r requirements.txt
-      ```
-  * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
-  * Create your NFTs data file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
-    **[What structure should the files have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
-* ### Run the bot:
-  * Open a command prompt in the `opensea-automatic-bulk-upload-and-sale-master/` folder path.
-  * Type one of these commands to run the bot:
-    
-    * ```
-      python main.py
-      ```
-    * ```
-      python3 main.py
-      ```
+  * ```
+    pip install -r requirements.txt
+    ```
+  * ```
+    pip3 install -r requirements.txt
+    ```
+  * ```
+    python -m pip install -r requirements.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements.txt
+    ```
+  * ```
+    py -m pip install -r requirements.txt
+    ```
+* Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
+* Create your metadata file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
+  **[What structure should my metadata file have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
 
-## Prerequisites for reCAPTCHA solver
+</details>
+
+## Configuration of the reCAPTCHA solver using Yolov5x6
 
 ➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
+➜ _Only available for Windows and Linux users._
+
 * You will **need a one of these graphics card (GPU)**:
   * GTX 1080.
   * RTX 2060, RTX 2070, RTX 2080.
@@ -146,14 +194,109 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
   * ```
     py -m pip install -r requirements_recaptcha.txt
     ```
+  
+## How to run the bot?
 
-## Data files structure
+* Open a command prompt in the `opensea-automatic-bulk-upload-and-sale-master/` folder path.
+* Type one of these commands to run the bot:
+    
+  * ```
+    python main.py
+    ```
+  * ```
+    python3 main.py
+    ```
+ * You should see this appear:
 
-[![Video preview](https://user-images.githubusercontent.com/91475935/164508497-ddddb3f8-a379-4d87-8885-7d85b78ee756.png)](https://youtu.be/67eRggoadOQ)
+   ```diff
+   + Created by Maxime Dréan.
+   + Copyright © 2022 Maxime Dréan. All rights reserved.
+   + Any distribution, modification or commercial use is strictly prohibited.
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ Easily generate your metadata file using this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/generic-file).**
+   Extension tools available here: https://maximedrn.gumroad.com/
+   Tutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLbswIyQVatKBoGxA
 
-* If you do not want to add details to the values not required, leave:
+   ! Choose a wallet:
+   1 - MetaMask
+   2 - Coinbase Wallet
+   # Enter the number of the wallet: 1 or 2.
+   Wallet: 
+
+   # Enter the password of or a new password for your wallet.
+   What is your wallet password?
+   # Enter "y" or "n" depending on whether you want to save this detail or not.
+   Do you want to save your password in a text file? (y/n)
+   + Saved.
+   ! Not saved.
+
+   # Enter the recovery phrase of your wallet.
+   What is your wallet recovery phrase?
+   # Enter "y" or "n" depending on whether you want to save this detail or not.
+   Do you want to save your recovery phrase in a text file? (y/n)
+   + Saved.
+   ! Not saved.
+
+   # Enter the private key of your account if you want to change your account on your wallet.
+   What is your account private key? (Press [ENTER] to ignore this step)
+   # Enter "y" or "n" depending on whether you want to save this detail or not.
+   Do you want to save your private key in a text file? (y/n)
+   + Saved.
+   ! Not saved.
+
+   ! Choose an action to perform:
+   1 - Upload and sell NFTs (18 details/NFT).
+   2 - Upload NFTs (12 details/NFT).
+   3 - Sell NFTs (9 details/NFT including 3 autogenerated).
+   # Enter the number of the action: 1, 2 or 3.
+   Action number:
+
+   ! Choose a reCAPTCHA solver:
+   1 - Manual solver.
+   2 - Automatic solver using Yolov5.
+   3 - Automatic solver using 2Captcha.
+   # Enter the number of the solver you want to use: 1, 2 or 3.
+   Action number:
+
+   ! Choose a browser:
+   1 - ChromeDriver (Google Chrome) - No headless mode.
+       Must used in foreground, you see what's happening.
+   2 - GeckoDriver (Mozilla Firefox)- Headless mode.
+       Can be used in background while doing something else.
+   # Enter the number of browser you want to use: 1 or 2.
+   Browser:
+
+   ! Choose your file:
+   0 - Browse a file on PC.
+   1 - data\json_structure_sale_only.json
+   2 - data\json_structure_upload_and_sale.json
+   3 - data\json_structure_upload_only.json
+   6 - data\csv_structure_sale_only.csv
+   7 - data\csv_structure_upload_and_sale.csv
+   8 - data\csv_structure_upload_only.csv
+   10 - data\xlsx_structure_sale_only.xlsx
+   11 - data\xlsx_structure_upload_and_sale.xlsx
+   12 - data\xlsx_structure_upload_only.xlsx
+   # Enter the number of the metadata file you want to use - 0 if your file is not in the "data/" folder.
+   File number:
+   ```
+* Then it will download a webdriver according to your choice and your browser version.
+  * If the download fails, you can download the [ChromeDriver](https://chromedriver.chromium.org/downloads) according to your Google Chrome browser version, or the [GeckoDriver](https://github.com/mozilla/geckodriver/releases) according to your Mozilla Firefox browser version.
+  * To know the version of your browser, consult these sites:
+    * Google Chrome: [What version of Chrome do I have?](https://www.whatismybrowser.com/detect/what-version-of-chrome-do-i-have)
+    * Mozilla Firefox: [What version of Firefox do I have?](https://www.whatismybrowser.com/detect/what-version-of-firefox-do-i-have)
+ * If you selected the automatic reCAPTCHA solver using Yolov5, 2 files will be downloaded:
+   * `realesrgan/RealESRGAN_x4plus.pth`: 63.9 MB. Available [here](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/releases/tag/RealESRGAN) if the download fails.
+   * `yolov5/yolov5x6.pt`: 269 MB. Available [here](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/releases/tag/Yolov5x6) if the download fails.
+
+# Metadata files structure
+
+**[![How to create my metadata file?](https://user-images.githubusercontent.com/91475935/166058945-6b2bdbeb-db8d-4f87-929a-4e481818c957.png)](https://www.youtube.com/watch?v=67eRggoadOQ)**
+
+**➜ Easily generate your metadata file using this [tool](#generic-file-maker).**
+
+## Important things to know
+
+* If you do not want to add details to the values not required (**all details are required**), leave:
   * **a blank cell** for XLSX files (Excel):
     <table>
      <tbody>
@@ -193,663 +336,1159 @@ This script allows you to upload and sell **as many NFTs as you want to OpenSea*
   "file_path": "C:\Users\Admin\Desktop\MyNFTs\nft_0001.png",
   ```
 
-<strong>Required values *</strong>  
-  (Mandatory value in certain specified cases)
+* <strong>Required values *</strong>
+* Mandatory value in certain specified cases are in brackets
+  
+</details>
 
-* ### Upload and sale
-
-  <table>
-     <tbody>
-        <tr>
-           <td>Details</td>
-           <td>Data Types</td>
-           <td>Literal examples</td>
-           <td>JSON examples</td>
-           <td>CSV examples</td>
-           <td>XLSX examples</td>
-        </tr>
-        <tr>
-           <td><strong>File Path * </strong>(The preview is only for files that are not images)</td>
-           <td>String or List</td>
-           <td></td>
-           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
-           <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
-           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
-           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
-        </tr>
-        <tr>
-           <td><strong>NFT Name *</strong></td>
-           <td>String</td>
-           <td></td>
-           <td>"nft_name": "NFT #1",</td>
-           <td>NFT #1;;</td>
-           <td>NFT #1</td>
-        </tr>
-        <tr>
-           <td>External Link</td>
-           <td>String</td>
-           <td></td>
-           <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
-              <br>"external_link": "",
-           </td>
-           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
-           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
-        </tr>
-        <tr>
-           <td>Description</td>
-           <td>String</td>
-           <td></td>
-           <td>"description": "This is my first NFT.",
-              <br>"description": "",
-           </td>
-           <td>This is my first NFT.;;</td>
-           <td>This is my first NFT.</td>
-        </tr>
-        <tr>
-           <td>Collection</td>
-           <td>String</td>
-           <td></td>
-           <td>"collection": "My NFTs",
-              <br>"collection": "my-nfts",
-              <br>"collection": "",
-           </td>
-           <td>My NFTs;;
-              <br>my-nfts;;</td>
-           <td>My NFTs
-              <br>my-nfts</td>
-        </tr>
-        <tr>
-           <td>Properties</td>
-           <td>List[[String, String], ...]
-            <br>List[String, String]</td>
-           <td>["type", "name"]
-            <br>[["type", "name"], ["type", "name"]]</td>
-           <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
-              <br>"properties": [{ "type": "Dog", "name": "Male" }],
-              <br>"properties": "",
-           </td>
-           <td>[["Dog", "Male"], ["Cat", "Female"]];;
-              <br>[["Dog", "Male"]];;
-              <br>["Dog", "Male"];;
-           </td>
-           <td>[["Dog", "Male"], ["Cat", "Female"]]
-              <br>[["Dog", "Male"]]
-              <br>["Dog", "Male"]
-           </td>
-        </tr>
-        <tr>
-           <td>Levels</td>
-           <td>List[[String, Integer, Integer], ...]
-            <br>List[String, Integer, Integer]</td>
-           <td>["name", value_from, value_to]
-            <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
-           <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
-              <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
-              <br>"levels": "",
-           </td>
-           <td>[["Speed", 2, 5], ["Width", 1, 10]];;
-              <br>[["Speed", 2, 5]];;
-              <br>["Speed", 2, 5];;
-           </td>
-           <td>[["Speed", 2, 5], ["Width", 1, 10]]
-              <br>[["Speed", 2, 5]]
-              <br>["Speed", 2, 5]
-           </td>
-        </tr>
-        <tr>
-           <td>Stats</td>
-           <td>List[[String, Integer, Integer], ...]
-            <br>List[String, Integer, Integer]</td>
-           <td>["name", value_from, value_to]
-            <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
-           <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
-              <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
-              <br>"stats": "",
-           </td>
-           <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
-              <br>[["Strenght", 10, 100]];;
-              <br>["Strenght", 10, 100];;
-           </td>
-           <td>[["Strenght", 10, 100], ["Age", 1, 99]]
-              <br>[["Strenght", 10, 100]]
-              <br>["Strenght", 10, 100]
-           </td>
-        </tr>
-        <tr>
-           <td>Unlockable Content</td>
-           <td>List[Boolean, String]
-            <br>List[Boolean]
-            <br>Boolean</td>
-           <td>[True, "unlockable_content"]
-            <br>[False]
-            <br>False</td>
-           <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
-              <br>"unlockable_content": [false],
-              <br>"unlockable_content": false,
-              <br>"unlockable_content": "",
-           </td>
-           <td>[True, "Thank you for purchasing my NFT!"];;
-              <br>[False];;
-              <br>False;;
-           </td>
-           <td>[True, "Thank you for purchasing my NFT!"]
-              <br>[False]
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td>Explicit And Sensitive Content</td>
-           <td>Boolean</td>
-           <td></td>
-           <td>"explicit_and_sensitive_content": true,
-              <br>"explicit_and_sensitive_content": false,
-              <br>"explicit_and_sensitive_content": "",
-           </td>
-           <td>True;;
-              <br>False;;
-           </td>
-           <td>True
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td>Supply</td>
-           <td>Integer</td>
-           <td></td>
-           <td>"supply": 1,
-              <br>"supply" : "",
-           </td>
-           <td>1;;</td>
-           <td>1</td>
-        </tr>
-        <tr>
-           <td>Blockchain</td>
-           <td>String</td>
-           <td></td>
-           <td>"blockchain": "Polygon",
-              <br>"blockchain" : "",
-           </td>
-           <td>Polygon;;</td>
-           <td>Polygon</td>
-        </tr>
-        <tr>
-           <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
-           <td>String</td>
-           <td></td>
-           <td>"sale_type": "Timed Auction",
-              <br>"sale_type": "",
-           </td>
-           <td>Timed Auction;;</td>
-           <td>Timed Auction</td>
-        </tr>
-        <tr>
-           <td><strong>Price *</strong></td>
-           <td>Float or Integer</td>
-           <td></td>
-           <td>"price": 5,
-              <br>"price": 0.25,
-           </td>
-           <td>5;;
-              <br>0.25;;
-           </td>
-           <td>5
-              <br>0.25
-           </td>
-        </tr>
-        <tr>
-           <td>Method (only for "Timed Auction")</td>
-           <td>List[String, Float]</td>
-           <td>["method", price]
-            <br>["method, ""]</td>
-           <td>"method": ["Sell with declining price", 0.002],
-              <br>"method": ["Sell to highest bidder", 0.05],
-              <br>"method": ["Sell to highest bidder", ""],
-              <br>"method": "",
-           </td>
-           <td>["Sell with declining price", 0.002];;
-              <br>["Sell to highest bidder", 0.05];;
-              <br>["Sell to highest bidder", ""];;
-           </td>
-           <td>["Sell with declining price", 0.002]
-              <br>["Sell to highest bidder", 0.05]
-              <br>["Sell to highest bidder", ""]
-           </td>
-        </tr>
-        <tr>
-           <td>Duration ("DD-MM-YYYY HH:MM")</td>
-           <td>List[String, String]
-            <br>List[String]
-            <br>String</td>
-           <td>["from_date", "to_date"]
-            <br>["days/weeks/months"]
-            <br>"days/weeks/months"</td>
-           <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
-              <br>"duration": ["1 week"],
-              <br>"duration": "1 week",
-              <br>"duration": "",
-           </td>
-           <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
-              <br>["1 week"];;
-              <br>1 week;;
-           </td>
-           <td>["01-01-2022 14:00", "01-04-2022 15:00"]
-              <br>["1 week"]
-              <br>1 week
-           </td>
-        </tr>
-        <tr>
-           <td>Specific Buyer</td>
-           <td>List[Boolean, String]
-            <br>[Boolean]
-            <br>Boolean</td>
-           <td>[True, "wallet"]
-            <br>[False]
-            <br>False</td>
-           <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],
-              <br>"specific_buyer": [false],
-              <br>"specific_buyer": false,
-              <br>"specific_buyer": "",
-           </td>
-           <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
-              <br>[False];;
-              <br>False;;
-           </td>
-           <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
-              <br>[False]
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td><strong>Quantity * (only for 1+ supplies)</strong></td>
-           <td>Integer</td>
-           <td></td>
-           <td>"quantity": 4
-              <br>"quantity": ""
-           </td>
-           <td>4</td>
-           <td>4</td>
-        </tr>
-     </tbody>
-  </table>
- 
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
- 
-* ### Upload only
-
-  <table>
-     <tbody>
-        <tr>
-           <td>Details</td>
-           <td>Data Types</td>
-           <td>Literal examples</td>
-           <td>JSON examples</td>
-           <td>CSV examples</td>
-           <td>XLSX examples</td>
-        </tr>
-        <tr>
-           <td><strong>File Path *</strong> (The preview is only for files that are not images)</td>
-           <td>String or List</td>
-           <td></td>
-           <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
-           <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
-           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
-           <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
-           <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;</td>
-        </tr>
-        <tr>
-           <td><strong>NFT Name *</strong></td>
-           <td>String</td>
-           <td></td>
-           <td>"nft_name": "NFT #1",</td>
-           <td>NFT #1;;</td>
-           <td>NFT #1</td>
-        </tr>
-        <tr>
-           <td>External Link</td>
-           <td>String</td>
-           <td></td>
-           <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
-              <br>"external_link": "",
-           </td>
-           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
-           <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
-        </tr>
-        <tr>
-           <td>Description</td>
-           <td>String</td>
-           <td></td>
-           <td>"description": "This is my first NFT.",
-              <br>"description": "",
-           </td>
-           <td>This is my first NFT.;;</td>
-           <td>This is my first NFT.</td>
-        </tr>
-        <tr>
-           <td>Collection</td>
-           <td>String</td>
-           <td></td>
-           <td>"collection": "My NFTs",
-              <br>"collection": "my-nfts",
-              <br>"collection": "",
-           </td>
-           <td>My NFTs;;
-              <br>my-nfts;;</td>
-           <td>My NFTs
-              <br>my-nfts</td>
-        </tr>
-        <tr>
-           <td>Properties</td>
-           <td>List[[String, String], ...]
-            <br>List[String, String]</td>
-           <td>["type", "name"]
-            <br>[["type", "name"], ["type", "name"]]</td>
-           <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
-              <br>"properties": [{ "type": "Dog", "name": "Male" }],
-              <br>"properties": "",
-           </td>
-           <td>[["Dog", "Male"], ["Cat", "Female"]];;
-              <br>[["Dog", "Male"]];;
-              <br>["Dog", "Male"];;
-           </td>
-           <td>[["Dog", "Male"], ["Cat", "Female"]]
-              <br>[["Dog", "Male"]]
-              <br>["Dog", "Male"]
-           </td>
-        </tr>
-        <tr>
-           <td>Levels</td>
-           <td>List[[String, Integer, Integer], ...]
-            <br>List[String, Integer, Integer]</td>
-           <td>["name", value_from, value_to]
-            <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
-           <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
-              <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
-              <br>"levels": "",
-           </td>
-           <td>[["Speed", 2, 5], ["Width", 1, 10]];;
-              <br>[["Speed", 2, 5]];;
-              <br>["Speed", 2, 5];;
-           </td>
-           <td>[["Speed", 2, 5], ["Width", 1, 10]]
-              <br>[["Speed", 2, 5]]
-              <br>["Speed", 2, 5]
-           </td>
-        </tr>
-        <tr>
-           <td>Stats</td>
-           <td>List[[String, Integer, Integer], ...]
-            <br>List[String, Integer, Integer]</td>
-           <td>["name", value_from, value_to]
-            <br>[["name", value_from, value_to], ["name", value_from, value_to]]</td>
-           <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
-              <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
-              <br>"stats": "",
-           </td>
-           <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
-              <br>[["Strenght", 10, 100]];;
-              <br>["Strenght", 10, 100];;
-           </td>
-           <td>[["Strenght", 10, 100], ["Age", 1, 99]]
-              <br>[["Strenght", 10, 100]]
-              <br>["Strenght", 10, 100]
-           </td>
-        </tr>
-        <tr>
-           <td>Unlockable Content</td>
-           <td>List[Boolean, String]
-            <br>List[Boolean]
-            <br>Boolean</td>
-           <td>[True, "unlockable_content"]
-            <br>[False]
-            <br>False</td>
-           <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
-              <br>"unlockable_content": [false],
-              <br>"unlockable_content": false,
-              <br>"unlockable_content": "",
-           </td>
-           <td>[True, "Thank you for purchasing my NFT!"];;
-              <br>[False];;
-              <br>False;;
-           </td>
-           <td>[True, "Thank you for purchasing my NFT!"]
-              <br>[False]
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td>Explicit And Sensitive Content</td>
-           <td>Boolean</td>
-           <td></td>
-           <td>"explicit_and_sensitive_content": true,
-              <br>"explicit_and_sensitive_content": false,
-              <br>"explicit_and_sensitive_content": "",
-           </td>
-           <td>True;;
-              <br>False;;
-           </td>
-           <td>True
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td><strong>Supply *</strong></td>
-           <td>Integer</td>
-           <td></td>
-           <td>"supply": 1,</td>
-           <td>1;;</td>
-           <td>1</td>
-        </tr>
-        <tr>
-           <td><strong>Blockchain *</strong></td>
-           <td>String</td>
-           <td></td>
-           <td>"blockchain": "Polygon"</td>
-           <td>Polygon</td>
-           <td>Polygon</td>
-        </tr>
-     </tbody>
-  </table>
- 
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_only.xlsx).
- 
-* ### Sale only
- 
-  If you have already uploaded your NFTs with this bot, a file has been generatcontaining the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
-
-  <table>
-     <tbody>
-        <tr>
-           <td>Details</td>
-           <td>Data Types</td>
-           <td>Literal examples</td>
-           <td>JSON examples</td>
-           <td>CSV examples</td>
-           <td>XLSX examples</td>
-        </tr>
-        <tr>
-           <td><strong>NFT URL * </strong></td>
-           <td>String</td>
-           <td></td>
-           <td>"nft_url": "https://opensea.io/assets/matic/...",</td>
-           <td>https://opensea.io/...;;</td>
-           <td>https://opensea.io/assets/matic/...</td>
-        </tr>
-        <tr>
-           <td><strong>Supply *</strong></td>
-           <td>Integer</td>
-           <td></td>
-           <td>"supply": 1,</td>
-           <td>1;;</td>
-           <td>1</td>
-        </tr>
-        <tr>
-           <td><strong>Blockchain *</strong></td>
-           <td>String</td>
-           <td></td>
-           <td>"blockchain": "Polygon",</td>
-           <td>Polygon;;</td>
-           <td>Polygon</td>
-        </tr>
-        <tr>
-           <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
-           <td>String</td>
-           <td></td>
-           <td>"sale_type": "Timed Auction",
-             <br>"sale_type": "",</td>
-           <td>Timed Auction;;</td>
-           <td>Timed Auction</td>
-        </tr>
-        <tr>
-           <td><strong>Price *</strong></td>
-           <td>Float or Integer</td>
-           <td></td>
-           <td>"price": 5,
-              <br>"price: 0.25,</td>
-           <td>5;;
-              <br>0.25;;
-           </td>
-           <td>5
-              <br>0.25
-           </td>
-        </tr>
-        <tr>
-           <td>Method (only for "Timed Auction")</td>
-           <td>List[String, Float]</td>
-           <td>["method", price]
-            <br>["method, ""]</td>
-           <td>"method": ["Sell with declining price", 0.002],
-              <br>"method": ["Sell to highest bidder", 0.05],
-              <br>"method": ["Sell to highest bidder", ""],
-              <br>"method": "",</td>
-           <td>["Sell with declining price", 0.002];;
-              <br>["Sell to highest bidder", 0.05];;
-              <br>["Sell to highest bidder", ""];;
-           </td>
-           <td>["Sell with declining price", 0.002]
-              <br>["Sell to highest bidder", 0.05]
-              <br>["Sell to highest bidder", ""]
-           </td>
-        </tr>
-        <tr>
-           <td>Duration ("DD-MM-YYYY HH:MM")</td>
-           <td>List[String, String]
-            <br>List[String]
-            <br>String</td>
-           <td>["from_date", "to_date"]
-            <br>["days/weeks/months"]
-            <br>"days/weeks/months"</td>
-           <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
-              <br>"duration": ["1 week"],
-              <br>"duration": "1 week",
-              <br>"duration": "",
-           </td>
-           <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
-              <br>["1 week"];;
-              <br>1 week;;
-           </td>
-           <td>["01-01-2022 14:00", "01-04-2022 15:00"]
-              <br>["1 week"]
-              <br>1 week
-           </td>
-        </tr>
-        <tr>
-           <td>Specific Buyer</td>
-           <td>List[Boolean, String]
-            <br>[Boolean]
-            <br>Boolean</td>
-           <td>[True, "wallet"]
-            <br>[False]
-            <br>False</td>
-           <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
-               <br>"specific_buyer": [false]
-               <br>"specific_buyer": false,
-               <br>specific_buyer": "",</td>
-           <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
-              <br>[False];;
-              <br>False;;
-           </td>
-           <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
-              <br>[False]
-              <br>False
-           </td>
-        </tr>
-        <tr>
-           <td><strong>Quantity * (only for 1+ supplies)</strong></td>
-           <td>Integer</td>
-           <td></td>
-           <td>"quantity": 4
-             <br>"quantity": ""</td>
-           <td>4</td>
-           <td>4</td>
-        </tr>
-     </tbody>
-  </table>
-
-  And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_sale_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_sale_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_sale_only.xlsx).
-
-
-## Configuration of the sale part of the NFTs
+## "Upload and sale" metadata file
 
 When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.  
-**Note: The maximum duration of sale should be at most 6 months. It must be entered in the form of start date - end date.**  
+**Note: The maximum duration of sale should be at most 6 months.**  
 
 Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) &nbsp; **➜ You have already uploaded your NFTs on OpenSea and you don't want to copy the URLs one by one?** Use this [tool](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/tree/master/extension-tools/collection-scraper)!
+<details>
+    <summary>Display the table.</summary>
+    <br />
+    <table>
+        <tbody>
+            <tr>
+                <td>Details</td>
+                <td>Data Types</td>
+                <td>Literal examples</td>
+                <td>JSON examples</td>
+                <td>CSV examples</td>
+                <td>XLSX examples</td>
+            </tr>
+            <tr>
+                <td><strong>File Path * </strong>(The preview is only for files that are not images)</td>
+                <td>String or List</td>
+                <td></td>
+                <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+                    <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],
+                </td>
+                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
+                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+                </td>
+                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
+                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+                </td>
+            </tr>
+            <tr>
+                <td><strong>NFT Name *</strong></td>
+                <td>String</td>
+                <td></td>
+                <td>"nft_name": "NFT #1",</td>
+                <td>NFT #1;;</td>
+                <td>NFT #1</td>
+            </tr>
+            <tr>
+                <td>External Link</td>
+                <td>String</td>
+                <td></td>
+                <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
+                    <br>"external_link": "",
+                </td>
+                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
+                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>String</td>
+                <td></td>
+                <td>"description": "This is my first NFT.",
+                    <br>"description": "",
+                </td>
+                <td>This is my first NFT.;;</td>
+                <td>This is my first NFT.</td>
+            </tr>
+            <tr>
+                <td>Collection</td>
+                <td>String</td>
+                <td></td>
+                <td>"collection": "My NFTs",
+                    <br>"collection": "my-nfts",
+                    <br>"collection": "",
+                </td>
+                <td>My NFTs;;
+                    <br>my-nfts;;
+                </td>
+                <td>My NFTs
+                    <br>my-nfts
+                </td>
+            </tr>
+            <tr>
+                <td>Properties</td>
+                <td>List[[String, String], ...]
+                    <br>List[String, String]
+                </td>
+                <td>["type", "name"]
+                    <br>[["type", "name"], ["type", "name"]]
+                </td>
+                <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
+                    <br>"properties": [{ "type": "Dog", "name": "Male" }],
+                    <br>"properties": "",
+                </td>
+                <td>[["Dog", "Male"], ["Cat", "Female"]];;
+                    <br>[["Dog", "Male"]];;
+                    <br>["Dog", "Male"];;
+                </td>
+                <td>[["Dog", "Male"], ["Cat", "Female"]]
+                    <br>[["Dog", "Male"]]
+                    <br>["Dog", "Male"]
+                </td>
+            </tr>
+            <tr>
+                <td>Levels</td>
+                <td>List[[String, Integer, Integer], ...]
+                    <br>List[String, Integer, Integer]
+                </td>
+                <td>["name", value_from, value_to]
+                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+                </td>
+                <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
+                    <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
+                    <br>"levels": "",
+                </td>
+                <td>[["Speed", 2, 5], ["Width", 1, 10]];;
+                    <br>[["Speed", 2, 5]];;
+                    <br>["Speed", 2, 5];;
+                </td>
+                <td>[["Speed", 2, 5], ["Width", 1, 10]]
+                    <br>[["Speed", 2, 5]]
+                    <br>["Speed", 2, 5]
+                </td>
+            </tr>
+            <tr>
+                <td>Stats</td>
+                <td>List[[String, Integer, Integer], ...]
+                    <br>List[String, Integer, Integer]
+                </td>
+                <td>["name", value_from, value_to]
+                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+                </td>
+                <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
+                    <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
+                    <br>"stats": "",
+                </td>
+                <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
+                    <br>[["Strenght", 10, 100]];;
+                    <br>["Strenght", 10, 100];;
+                </td>
+                <td>[["Strenght", 10, 100], ["Age", 1, 99]]
+                    <br>[["Strenght", 10, 100]]
+                    <br>["Strenght", 10, 100]
+                </td>
+            </tr>
+            <tr>
+                <td>Unlockable Content</td>
+                <td>List[Boolean, String]
+                    <br>List[Boolean]
+                    <br>Boolean
+                </td>
+                <td>[True, "unlockable_content"]
+                    <br>[False]
+                    <br>False
+                </td>
+                <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
+                    <br>"unlockable_content": [false],
+                    <br>"unlockable_content": false,
+                    <br>"unlockable_content": "",
+                </td>
+                <td>[True, "Thank you for purchasing my NFT!"];;
+                    <br>[False];;
+                    <br>False;;
+                </td>
+                <td>[True, "Thank you for purchasing my NFT!"]
+                    <br>[False]
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td>Explicit And Sensitive Content</td>
+                <td>Boolean</td>
+                <td></td>
+                <td>"explicit_and_sensitive_content": true,
+                    <br>"explicit_and_sensitive_content": false,
+                    <br>"explicit_and_sensitive_content": "",
+                </td>
+                <td>True;;
+                    <br>False;;
+                </td>
+                <td>True
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td>Supply</td>
+                <td>Integer</td>
+                <td></td>
+                <td>"supply": 1,
+                    <br>"supply" : "",
+                </td>
+                <td>1;;</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Blockchain</td>
+                <td>String</td>
+                <td></td>
+                <td>"blockchain": "Polygon",
+                    <br>"blockchain" : "",
+                </td>
+                <td>Polygon;;</td>
+                <td>Polygon</td>
+            </tr>
+            <tr>
+                <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
+                <td>String</td>
+                <td></td>
+                <td>"sale_type": "Timed Auction",
+                    <br>"sale_type": "",
+                </td>
+                <td>Timed Auction;;</td>
+                <td>Timed Auction</td>
+            </tr>
+            <tr>
+                <td><strong>Price *</strong></td>
+                <td>Float or Integer</td>
+                <td></td>
+                <td>"price": 5,
+                    <br>"price": 0.25,
+                </td>
+                <td>5;;
+                    <br>0.25;;
+                </td>
+                <td>5
+                    <br>0.25
+                </td>
+            </tr>
+            <tr>
+                <td>Method (only for "Timed Auction")</td>
+                <td>List[String, Float]</td>
+                <td>["method", price]
+                    <br>["method, ""]
+                </td>
+                <td>"method": ["Sell with declining price", 0.002],
+                    <br>"method": ["Sell to highest bidder", 0.05],
+                    <br>"method": ["Sell to highest bidder", ""],
+                    <br>"method": "",
+                </td>
+                <td>["Sell with declining price", 0.002];;
+                    <br>["Sell to highest bidder", 0.05];;
+                    <br>["Sell to highest bidder", ""];;
+                </td>
+                <td>["Sell with declining price", 0.002]
+                    <br>["Sell to highest bidder", 0.05]
+                    <br>["Sell to highest bidder", ""]
+                </td>
+            </tr>
+            <tr>
+                <td>Duration ("DD-MM-YYYY HH:MM")</td>
+                <td>List[String, String]
+                    <br>List[String]
+                    <br>String
+                </td>
+                <td>["from_date", "to_date"]
+                    <br>["days/weeks/months"]
+                    <br>"days/weeks/months"
+                </td>
+                <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
+                    <br>"duration": ["1 week"],
+                    <br>"duration": "1 week",
+                    <br>"duration": "",
+                </td>
+                <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
+                    <br>["1 week"];;
+                    <br>1 week;;
+                </td>
+                <td>["01-01-2022 14:00", "01-04-2022 15:00"]
+                    <br>["1 week"]
+                    <br>1 week
+                </td>
+            </tr>
+            <tr>
+                <td>Specific Buyer</td>
+                <td>List[Boolean, String]
+                    <br>[Boolean]
+                    <br>Boolean
+                </td>
+                <td>[True, "wallet"]
+                    <br>[False]
+                    <br>False
+                </td>
+                <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],
+                    <br>"specific_buyer": [false],
+                    <br>"specific_buyer": false,
+                    <br>"specific_buyer": "",
+                </td>
+                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
+                    <br>[False];;
+                    <br>False;;
+                </td>
+                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+                    <br>[False]
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Quantity * (only for 1+ supplies)</strong></td>
+                <td>Integer</td>
+                <td></td>
+                <td>"quantity": 4
+                    <br>"quantity": ""
+                </td>
+                <td>4</td>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+</details>
+ 
+And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
+ 
+## "Upload only" metadata file
 
-  <table>
-     <tbody>
+<details>
+    <summary>Display the table.</summary>
+    <br />
+    <table>
+        <tbody>
+            <tr>
+                <td>Details</td>
+                <td>Data Types</td>
+                <td>Literal examples</td>
+                <td>JSON examples</td>
+                <td>CSV examples</td>
+                <td>XLSX examples</td>
+            </tr>
+            <tr>
+                <td><strong>File Path *</strong> (The preview is only for files that are not images)</td>
+                <td>String or List</td>
+                <td></td>
+                <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+                    <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],
+                </td>
+                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
+                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+                </td>
+                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
+                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+                </td>
+            </tr>
+            <tr>
+                <td><strong>NFT Name *</strong></td>
+                <td>String</td>
+                <td></td>
+                <td>"nft_name": "NFT #1",</td>
+                <td>NFT #1;;</td>
+                <td>NFT #1</td>
+            </tr>
+            <tr>
+                <td>External Link</td>
+                <td>String</td>
+                <td></td>
+                <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
+                    <br>"external_link": "",
+                </td>
+                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
+                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>String</td>
+                <td></td>
+                <td>"description": "This is my first NFT.",
+                    <br>"description": "",
+                </td>
+                <td>This is my first NFT.;;</td>
+                <td>This is my first NFT.</td>
+            </tr>
+            <tr>
+                <td>Collection</td>
+                <td>String</td>
+                <td></td>
+                <td>"collection": "My NFTs",
+                    <br>"collection": "my-nfts",
+                    <br>"collection": "",
+                </td>
+                <td>My NFTs;;
+                    <br>my-nfts;;
+                </td>
+                <td>My NFTs
+                    <br>my-nfts
+                </td>
+            </tr>
+            <tr>
+                <td>Properties</td>
+                <td>List[[String, String], ...]
+                    <br>List[String, String]
+                </td>
+                <td>["type", "name"]
+                    <br>[["type", "name"], ["type", "name"]]
+                </td>
+                <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
+                    <br>"properties": [{ "type": "Dog", "name": "Male" }],
+                    <br>"properties": "",
+                </td>
+                <td>[["Dog", "Male"], ["Cat", "Female"]];;
+                    <br>[["Dog", "Male"]];;
+                    <br>["Dog", "Male"];;
+                </td>
+                <td>[["Dog", "Male"], ["Cat", "Female"]]
+                    <br>[["Dog", "Male"]]
+                    <br>["Dog", "Male"]
+                </td>
+            </tr>
+            <tr>
+                <td>Levels</td>
+                <td>List[[String, Integer, Integer], ...]
+                    <br>List[String, Integer, Integer]
+                </td>
+                <td>["name", value_from, value_to]
+                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+                </td>
+                <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
+                    <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
+                    <br>"levels": "",
+                </td>
+                <td>[["Speed", 2, 5], ["Width", 1, 10]];;
+                    <br>[["Speed", 2, 5]];;
+                    <br>["Speed", 2, 5];;
+                </td>
+                <td>[["Speed", 2, 5], ["Width", 1, 10]]
+                    <br>[["Speed", 2, 5]]
+                    <br>["Speed", 2, 5]
+                </td>
+            </tr>
+            <tr>
+                <td>Stats</td>
+                <td>List[[String, Integer, Integer], ...]
+                    <br>List[String, Integer, Integer]
+                </td>
+                <td>["name", value_from, value_to]
+                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+                </td>
+                <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
+                    <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
+                    <br>"stats": "",
+                </td>
+                <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
+                    <br>[["Strenght", 10, 100]];;
+                    <br>["Strenght", 10, 100];;
+                </td>
+                <td>[["Strenght", 10, 100], ["Age", 1, 99]]
+                    <br>[["Strenght", 10, 100]]
+                    <br>["Strenght", 10, 100]
+                </td>
+            </tr>
+            <tr>
+                <td>Unlockable Content</td>
+                <td>List[Boolean, String]
+                    <br>List[Boolean]
+                    <br>Boolean
+                </td>
+                <td>[True, "unlockable_content"]
+                    <br>[False]
+                    <br>False
+                </td>
+                <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
+                    <br>"unlockable_content": [false],
+                    <br>"unlockable_content": false,
+                    <br>"unlockable_content": "",
+                </td>
+                <td>[True, "Thank you for purchasing my NFT!"];;
+                    <br>[False];;
+                    <br>False;;
+                </td>
+                <td>[True, "Thank you for purchasing my NFT!"]
+                    <br>[False]
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td>Explicit And Sensitive Content</td>
+                <td>Boolean</td>
+                <td></td>
+                <td>"explicit_and_sensitive_content": true,
+                    <br>"explicit_and_sensitive_content": false,
+                    <br>"explicit_and_sensitive_content": "",
+                </td>
+                <td>True;;
+                    <br>False;;
+                </td>
+                <td>True
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Supply *</strong></td>
+                <td>Integer</td>
+                <td></td>
+                <td>"supply": 1,</td>
+                <td>1;;</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><strong>Blockchain *</strong></td>
+                <td>String</td>
+                <td></td>
+                <td>"blockchain": "Polygon"</td>
+                <td>Polygon</td>
+                <td>Polygon</td>
+            </tr>
+        </tbody>
+    </table>
+</details>
+ 
+And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_only.xlsx).
+  
+## "Sale only" metadata file
+
+If you have already uploaded your NFTs with this bot, a file has been generated containing the URL, the Blockchain and the supply number of each NFT. You have to complete it with sale values.
+  
+When you want to sell your NFTs, Opensea requires various details according to their Blockchain or supply number.  
+**Note: The maximum duration of sale should be at most 6 months.**  
+
+Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
+
+<details>
+    <summary>Display the table.</summary>
+    <br />
+    <table>
+        <tbody>
+            <tr>
+                <td>Details</td>
+                <td>Data Types</td>
+                <td>Literal examples</td>
+                <td>JSON examples</td>
+                <td>CSV examples</td>
+                <td>XLSX examples</td>
+            </tr>
+            <tr>
+                <td><strong>NFT URL * </strong></td>
+                <td>String</td>
+                <td></td>
+                <td>"nft_url": "https://opensea.io/assets/matic/...",</td>
+                <td>https://opensea.io/...;;</td>
+                <td>https://opensea.io/assets/matic/...</td>
+            </tr>
+            <tr>
+                <td><strong>Supply *</strong></td>
+                <td>Integer</td>
+                <td></td>
+                <td>"supply": 1,</td>
+                <td>1;;</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><strong>Blockchain *</strong></td>
+                <td>String</td>
+                <td></td>
+                <td>"blockchain": "Polygon",</td>
+                <td>Polygon;;</td>
+                <td>Polygon</td>
+            </tr>
+            <tr>
+                <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
+                <td>String</td>
+                <td></td>
+                <td>"sale_type": "Timed Auction",
+                    <br>"sale_type": "",
+                </td>
+                <td>Timed Auction;;</td>
+                <td>Timed Auction</td>
+            </tr>
+            <tr>
+                <td><strong>Price *</strong></td>
+                <td>Float or Integer</td>
+                <td></td>
+                <td>"price": 5,
+                    <br>"price: 0.25,
+                </td>
+                <td>5;;
+                    <br>0.25;;
+                </td>
+                <td>5
+                    <br>0.25
+                </td>
+            </tr>
+            <tr>
+                <td>Method (only for "Timed Auction")</td>
+                <td>List[String, Float]</td>
+                <td>["method", price]
+                    <br>["method, ""]
+                </td>
+                <td>"method": ["Sell with declining price", 0.002],
+                    <br>"method": ["Sell to highest bidder", 0.05],
+                    <br>"method": ["Sell to highest bidder", ""],
+                    <br>"method": "",
+                </td>
+                <td>["Sell with declining price", 0.002];;
+                    <br>["Sell to highest bidder", 0.05];;
+                    <br>["Sell to highest bidder", ""];;
+                </td>
+                <td>["Sell with declining price", 0.002]
+                    <br>["Sell to highest bidder", 0.05]
+                    <br>["Sell to highest bidder", ""]
+                </td>
+            </tr>
+            <tr>
+                <td>Duration ("DD-MM-YYYY HH:MM")</td>
+                <td>List[String, String]
+                    <br>List[String]
+                    <br>String
+                </td>
+                <td>["from_date", "to_date"]
+                    <br>["days/weeks/months"]
+                    <br>"days/weeks/months"
+                </td>
+                <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
+                    <br>"duration": ["1 week"],
+                    <br>"duration": "1 week",
+                    <br>"duration": "",
+                </td>
+                <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
+                    <br>["1 week"];;
+                    <br>1 week;;
+                </td>
+                <td>["01-01-2022 14:00", "01-04-2022 15:00"]
+                    <br>["1 week"]
+                    <br>1 week
+                </td>
+            </tr>
+            <tr>
+                <td>Specific Buyer</td>
+                <td>List[Boolean, String]
+                    <br>[Boolean]
+                    <br>Boolean
+                </td>
+                <td>[True, "wallet"]
+                    <br>[False]
+                    <br>False
+                </td>
+                <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+                    <br>"specific_buyer": [false]
+                    <br>"specific_buyer": false,
+                    <br>specific_buyer": "",
+                </td>
+                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
+                    <br>[False];;
+                    <br>False;;
+                </td>
+                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+                    <br>[False]
+                    <br>False
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Quantity * (only for 1+ supplies)</strong></td>
+                <td>Integer</td>
+                <td></td>
+                <td>"quantity": 4
+                    <br>"quantity": ""
+                </td>
+                <td>4</td>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+</details>
+
+And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_sale_only.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_sale_only.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_sale_only.xlsx).
+
+## Explanation of the different details for the listing part
+
+<table>
+    <tbody>
         <tr>
-           <td colspan="15">Ethereum</td>
-           <td colspan="7">Polygon</td>
+            <td colspan="15">Ethereum</td>
+            <td colspan="7">Polygon</td>
         </tr>
         <tr>
-           <td colspan="11">Supply number equal to 1</td>
-           <td colspan="4">Supply number higher than 1</td>
-           <td colspan="3">Supply number equal to 1</td>
-           <td colspan="4">Supply number higher than 1</td>
+            <td colspan="11">Supply number equal to 1</td>
+            <td colspan="4">Supply number higher than 1</td>
+            <td colspan="3">Supply number equal to 1</td>
+            <td colspan="4">Supply number higher than 1</td>
         </tr>
         <tr>
-           <td colspan="3">Fixed Price</td>
-           <td colspan="8">Timed Auction</td>
-           <td colspan="4"></td>
-           <td colspan="3"></td>
-           <td colspan="4"></td>
+            <td colspan="3">Fixed Price</td>
+            <td colspan="8">Timed Auction</td>
+            <td colspan="4"></td>
+            <td colspan="3"></td>
+            <td colspan="4"></td>
         </tr>
         <tr>
-           <td colspan="3"></td>
-           <td colspan="4">Sell to highest bidder</td>
-           <td colspan="4">Sell with declining price</td>
-           <td colspan="4"></td>
-           <td colspan="3"></td>
-           <td colspan="4"></td>
+            <td colspan="3"></td>
+            <td colspan="4">Sell to highest bidder</td>
+            <td colspan="4">Sell with declining price</td>
+            <td colspan="4"></td>
+            <td colspan="3"></td>
+            <td colspan="4"></td>
         </tr>
         <tr>
-           <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
-           <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week)</td>
-           <td><i>(Optional)</i> <strong>Reserved Price</strong> (WETH) greater than 1 WETH and greater than the <strong>Starting Price</strong>.</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
-           <td><strong>Starting Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
-           <td><strong>Ending Price</strong> (ETH) less than the <strong>Starting Price</strong>.</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
-           <td><strong>Quantity</strong></td>
-           <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
-           <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
-           <td><strong>Quantity</strong></td>
-           <td><strong>Price</strong> (ETH)</td>
-           <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
-           <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week)</td>
+            <td><i>(Optional)</i> <strong>Reserved Price</strong> (WETH) greater than 1 WETH and greater than the <strong>Starting Price</strong>.</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Starting Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date or 1 day, 3 days, 1 week)</td>
+            <td><strong>Ending Price</strong> (ETH) less than the <strong>Starting Price</strong>.</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Quantity</strong></td>
+            <td><strong>Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
+            <td><strong>Quantity</strong></td>
+            <td><strong>Price</strong> (ETH)</td>
+            <td><strong>Duration</strong> (from a date to an other date <strong>or</strong> 1 day, 3 days, 1 week, 1 month)</td>
+            <td>Reserve for a <strong>specific buyer</strong></td>
         </tr>
-     </tbody>
-  </table>
+    </tbody>
+</table>
+  
+</details>
+
+# Useful tools to have for this bot
+
+All these tools are not free and are only add-ons. You can still use the bot without these tools.  
+The complete list of tools is available on [Gumroad](https://maximedrn.gumroad.com/).
+
+## Collection Scraper
+
+With this OpenSea collection scraper, you can retrieve the entire URLs of the NFTs of a collection automatically.  
+It facilitates the listing of NFTs already uploaded to OpenSea before, without the help of the latter.  
+
+The bot takes care of sorting among the NFTs by creating different files compatible with the "Sale only" part of the bot.  
+Thus a "**full**" file containing all NFTs, a "**unique**" file containing each NFT individually based on their names, a "**duplicate**" file containing all duplicated NFTs of the collection and a "**missing**" file containing all missing NFTs will be created, and these in all formats compatible with the bot (JSON, CSV and XLSX).  
+**Purchase this tool - [Collection Scraper](https://maximedrn.gumroad.com/l/opensea-collection-scraper).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation
+
+* Download and install [Node.js](https://nodejs.org/) LTS version.
+* Extract the repository folder from the ZIP file, you should have a folder named `opensea-collection-scraper/`.
+* Open a command prompt in the repository folder and type one of these commands (may require sudo on MacOS and Linux and administrator privileges for Windows):
+
+  * ```
+    pip install -r requirements.txt
+    ```
+  * ```
+    pip3 install -r requirements.txt
+    ```
+  * ```
+    python -m pip install -r requirements.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements.txt
+    ```
+  * ```
+    py -m pip install -r requirements.txt
+    ```
+* Still in your command prompt, type this command (may require sudo on MacOS and Linux and administrator privileges for Windows - a `node_modules/` folder should be created):
+  
+  ```
+  npm install
+  ```
+  
+### Run the bot
+
+* Open a command prompt in the `opensea-collection-scraper/` folder path and type one of these commands to run the bot:
+
+  * ```
+    python scraper.py
+    ```
+  * ```
+    python3 scraper.py
+    ```
+* Enter the name of your collection, based on the collection URL: `https://opensea.io/collection/crypto-parrot-nfts` ➜ `crypto-parrot-nfts`.
+* JSON, CSV and XLSX files will be generated and stored in the `data/` folder of the repository.  
+
+### Changelog
+
+* **Version 1.3.0:**
+  * Major fixes.
+  * The collection limit is 20,000 NFTs maximum.
+  * The bot now scrapes twice.
+* **Version 1.2.0:**
+  * Correction of missing name in CSV files.
+  * Correction of the creation of missing files.
+  * Improved functioning of the duplicate detector.
+* **Version 1.1.0:**
+  * Adding the creation of a file containing duplicates.
+  * Added the creation of a file containing the missing.
+  * Added the name of the NFTs in the files for sale.
+* **Version 1.0.0:**
+  * Initial commit.
+
+</details>
+  
+## Generic File Maker
+
+With this OpenSea collection scraper, you can generate a whole file from a generic file or modify a file by replacing massively some values by others.  
+You just have to fill a simple generic file with 21 details (18 for NFTs and 3 for formatting and file parameters) and run the script.  
+Your file will be generated with common values for all your NFTs.  
+It faciliates the creation of your metadata file.  
+**Purchase this tool - [Generic File Maker](https://maximedrn.gumroad.com/l/opensea-generic-file).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation
+
+* Extract the repository folder from the ZIP file, you should have a folder named `opensea-generic-file/`.
+* Open a command prompt in the repository folder and type one of these commands (may require sudo on MacOS and Linux and administrator privileges for Windows):
+
+  * ```
+    pip install -r requirements.txt
+    ```
+  * ```
+    pip3 install -r requirements.txt
+    ```
+  * ```
+    python -m pip install -r requirements.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements.txt
+    ```
+  * ```
+    py -m pip install -r requirements.txt
+    ```
+  
+### Run the bot
+
+* Open a command prompt in the `opensea-generic-file/` folder path and type one of these commands to run the bot:
+
+  * ```
+    python generic.py
+    ```
+  * ```
+    python3 generic.py
+    ```
+* You should see this appear:
+  ```diff
+  + Created by Maxime Dréan.
+  + Copyright © 2022 Maxime Dréan. All rights reserved.
+  + Any distribution, modification or commercial use is strictly prohibited.
+
+  ! Choose an action to perform:
+  1 - Duplicate from existing file.
+  2 - Generate a new file.
+  # Enter the number of the action: 1 (if you already have a metadata file) or 2 (if you want to create a new file).
+  Action number:
+
+  ! Choose your generic file:
+  0 - Browse a file on PC.
+  1 - generic\generic-file-blank.json
+  2 - generic-file-example.json
+  # Enter the number of the generic file you want to use.
+  File number:
+
+  ! Convert to/file type:
+  1 - Upload & sale (18 details).
+  2 - Upload (12 details).
+  3 - Sale (9 details).
+  # Enter the number of the file structure.
+  Action number:
+
+  # This part appears if you choose "Duplicate from an existing file".
+  ! Choose your data file:
+  0 - Browse a file on PC.
+  1 - data/_metadata.json
+  # Enter the number of the metadata file you want to use - 0 if your file is not in the "data/" folder.
+  File number:
+
+  Creating file. Done.
+  + Saved in data/b2ef894e.json.
+  ```
+
+### Changelog
+
+* **Version 1.1.0:**
+  * Added support for preview file in the generic file.
+  * Fixed the problem of unlockable content to false when set to true in the data file.
+* **Version 1.0.0:**
+  * Initial commit.
+
+### How to complete the generic file?
+
+* In the details part of the generic file, you have to complete with the value you want to put in your metadata file.
+
+* What does the value "`incrementation`" mean?  
+  You may have different file names, URLs or descriptions for each of your NFTs, so these details will be different for each NFT.
+  * `number`: it will use a numeric value for incrementing (1, 2, 3, 4, etc).
+  * ``letter``: it will use the alphabet for incrementing (`A` to `Z`, then `AA` to `AZ`, etc).
+  
+  **This value (number or letter) will be added wherever you place `{}` in your detail.**
+
+* What does the "format" value mean?  
+  This is the way `"increment": "number",` will work.
+  * `0` : default value, numbers will be incremented in a basic way.
+  * `-1`: it will add a specific number of digits depending on the number of NFTs (10000 NFTs ➜ `00001`, `00002`, etc).
+  * Any strictly positive number: number of digits (3 digits ➜ `001`, ... `100`, etc).
+
+* Settings part:
+  * `overwrite`: it will overwrite the entire contents of a metadata file.
+  * `overwrite_empty`: it will overwrite the details of a metadata file only if they are as default value.
+  * `append`: it will append the value of any list of dictionary details (properties, levels, stats).
+
+</details>
+
+## File Compatibilizer
+
+With this file compatibilizer, you can convert a metadata file of one specific type into another (`Upload` into `Upload and Sale`, into `Sale` and vice versa).
+In addition, it organizes the details in a specific order to be compatible with the bot.  
+**Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation
+
+* Extract the repository folder from the ZIP file, you should have a folder named `opensea-file-compatibilizer/`.
+* Open a command prompt in the repository folder and type one of these commands (may require sudo on MacOS and Linux and administrator privileges for Windows):
+
+  * ```
+    pip install -r requirements.txt
+    ```
+  * ```
+    pip3 install -r requirements.txt
+    ```
+  * ```
+    python -m pip install -r requirements.txt
+    ```
+  * ```
+    python3 -m pip install -r requirements.txt
+    ```
+  * ```
+    py -m pip install -r requirements.txt
+    ```
+  
+### Run the bot
+
+* Open a command prompt in the `opensea-file-compatibilizer/` folder path and type one of these commands to run the bot:
+
+  * ```
+    python compatibilizer.py
+    ```
+  * ```
+    python3 compatibilizer.py
+    ```
+* Choose your file.
+* Select its file type to arrange the details in a specific order or the type in which you want to convert it.
+* The file will be saved in the `data/` folder.
+
+### Changelog
+
+* **Version 1.0.0:**
+  * Initial commit.
+
+</details>
+
+# Changelog
+
+## Version 1.7.0:
+  * Split the `main.py` file into different structures to make the bot more modular and compatible with future tools.
+  * Fixed the problem of connecting to OpenSea which opens a tab to download MetaMask.
+
+<details>
+  <summary>Earlier versions.</summary>
+
+### Version 1.6.14:
+  * Fixed the problem of the URL with the "Sale only".
+  * Minor fixes.
+
+### Version 1.6.13:
+  * Improved manual resolution for reCAPTCHA. **[#264](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/264)**.
+  * Fixed some issues with blockchain change. **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
+  * Minor fixes.
+
+### Version 1.6.12:
+  * Added support for blockchain switching on MetaMask (need feedback - may not work with Coinbase Wallet). **[#262](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/262)**.
+  * Fixed `list index out of range` error with reCAPTCHA solver using CUDA. **[#263](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/263)**.
+  * Removed unnecessary printouts used during development.
+  * Minor corrections for sale part.
+
+### Version 1.6.11:
+  * Fixed the problem with the collection. **[#258](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/258)**.
+  * Fixed 2Captcha callback function. **[#259](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/259)**.
+  * Fixed the problem with downloading the pre-trained file (`urllib.error.URLError: urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate`) by changing the download method.
+
+### Versions 1.6.10 and 1.6.10.1:
+  * Fixed restarting the upload or sale when it fails the first time. **[#253](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/253)**.
+  * Minor correction concerning the connection to OpenSea: the bot made the browser restart instead of trying a second time.
+
+### Versions 1.6.9 to 1.6.9.3:
+  * Added a new feature for collections. You can now use the URL format of your collection. This can solve the problem of collections not being found or clicked in the  list.  
+    From `Crypto Parrot NFTs` to `crypto-parrot-nfts`, depending on the URL of your collection: `https://opensea.io/collection/crypto-parrot-nfts/`.
+  * Minor fixes about version 1.6.9.
+
+### Versions 1.6.8 and 1.6.8.1:
+  * Added support for the 2Captcha API. **[#239](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/239)**.
+  * Minor fixes.
+
+### Version 1.6.7:
+  * Improved MetaMask wallet switching, you can use the default account by skipping this step.
+  * Fixed the `gateway` problem. **[#249](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/249)**.
+
+### Version 1.6.6:
+  * You can now select the wallet you want to use with MetaMask (many thanks to **[EmilianoBruni](https://github.com/EmilianoBruni)**!). **[#36](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/36), [#103](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/103)**.  
+  _[How to get my private key?](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key)_
+
+### Version 1.6.5:
+  * Merge the `main.py` and `main-manual-resolution.py` files.
+  * Dissociation of the requirements files, one for the bot and one for the reCAPTCHA solver.
+
+### Version 1.6.4:
+  * The bot did not go to the sale page after the sequence of a failure and a success. **[#225](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/225)**.
+
+### Version 1.6.3:
+  * Added support for Coinbase Wallet (many thanks to **[MathieuAndrade](https://github.com/MathieuAndrade)**!).
+
+### Version 1.6.2:
+  * Wyvern 2.3 contract signature fixed for ChromeDriver and GeckoDriver. **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165), [#183](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/183), [#201](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/201)**.
+  * Minor corrections and improvements.
+  * Yolov5x6 and Real-ESRGAN models, and the `recaptcha.py` file are not loaded when the "Sale only" option is selected.
+
+### Version 1.6.1:
+  * Updated the `requirements.txt` file, conflicts and problems seem to be corrected.
+  * Removed unnecessary files from the `yolov5/` directory.
+  * Fixed the problem of connection to OpenSea.
+  * Improved reCAPTCHA verification when solved.
+
+### Version 1.6.0:
+  * The OpenSea connection problem seems to be fixed. An open tabs check has been added. **[#159](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/159), [#167](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/167), [#181](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/181), [#187](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/187)**.
+  * reCAPTCHA solver added (Real ESRGAN + Yolov5x6 models used with PyTorch). **[#157](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/157), [#179](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/179), [#186](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/186)**.  
+    ➜ Future improvements: models of crosswalks, chimneys, bridges.
+
+### Version 1.5.12:
+  * Wyvern 2.3 contract support (need feedbacks). **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152), [#161](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/161), [#165](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/165)**. 
+
+### Version 1.5.11:
+  * <strike>Correction of the MetaMask contract signature (feedback needed).</strike> **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144)**.
+  * <strike>Wyvern 2.3 contract support (beta - need feedbacks).</strike> **[#152](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/152)**.
+  * _In progress: improved support for MacOS (M1) - duration and contract list issues._
+
+### Version 1.5.10:
+  * Minor fixes concerning the `sale()` method of the OpenSea class.
+  * Fixed exception iteration error.
+
+### Version 1.5.9:
+  * The `close()` method of the Webdriver class has been fixed. It creates an exception when listing NFTs. As a result, it does not try to list them a second time. **[#144](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/144), [#145](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/145), [#149](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/149)**.
+  * During the download, when the webdriver starts, sometimes an error occurs and creates an exception. It was supposed to close the webdriver but it caused the bot to crash.
+  * The download of webdriver requires a manual entry of the path after a number of failures.
+
+### Version 1.5.8:
+  * Errors related to incorrectly formatted files are now supported. An error is displayed but the bot does not stop abruptly. **[#90](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/90)**.
+  * False listing errors are reduced, the robot checks a second time if the NFT is correctly listed.
+
+### Version 1.5.7:
+  * With each failed upload or sale, the bot retries a second time before saving the NFT data in an autogenerated file.
+  * The duration has been fixed for GeckoDriver (Mozilla Firefox).  **[#121](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/121)**.
+
+### Version 1.5.6:
+  * The `dict_to_list()` method has been optimized and shortened.
+  * Minor fixes.
+
+### Version 1.5.5:
+  * Fixed the `metamask_contract()` method. It was not signing the contract when completing the listing for the Ethereum Blockchain.
+  * Minor fixes.
+
+### Version 1.5.4:
+  * The HTTPConnectionPool error in Selenium is fixed, it was caused by defining the driver inside a loop. Now the bot will print an error and restart to launch the bot. **[#112](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/112)**.  
+    ➜ For more informations: **[Reddit - Ralphc360's comment](https://www.reddit.com/r/selenium/comments/cuynft/comment/f85odbh/?utm_source=share&utm_medium=web2x&context=3)**.
+  * You can now sell your NFTs on the Ethereum Blockchain for free.
+
+### Version 1.5.3:
+  * Fixed the Webdriver-Manager module, it was downloading the ChromeDriver or GeckoDriver at each webdriver launch. Now it uses the path of the downloaded webdriver. **[#112](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/112)**.
+  * Fixed the collection input. **[#108](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/108)**.
+
+### Version 1.5.2:
+  * Headless mode support. Download Mozilla Firefox and you can use this bot in the background without any interface.
+    Note: Firefox may be unstable and some features may work differently or not at all.  **[#64](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/64), [#69](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/discussions/69), [#106](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/106)**.
+  * Fixed the connection to the MetaMask success indicator.
+
+### Version 1.5.1:
+  * Fixed the problem of the worker version 1.5.0. The bot now continues to upload and does not restart the upload from the beginning. **[#107](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/107)**.
+
+### Version 1.5.0:
+  * The reCAPTCHAs can now be bypassed. The bot restarts for each upload - it's a bit slow but it works. **[#98](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/98), [#102](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/pull/102)**.  
+    Thanks to **[Kanishka-Chandra](https://github.com/Kanishka-Chandra)** and **[elwanm](https://github.com/elwanm)**.
+  * The bot restarts after 3 failed connections to the wallet or to OpenSea.
+
+### Version 1.4.9:
+  * Minor fixes.
+  * Developers can now add new wallets if they wish.
+  * ChromeDriver is automatically downloaded - no need to do it manually (`pip install -r requirements.txt` required).
+  * _The reCAPTCHAs solver is not integrated/configured._
+
+### Version 1.4.8:
+  * <strike>Added a new feature that allows to upload more than 50 items in a collection. Requires to be activated (asked at launch).</strike> (Method used: https://www.youtube.com/watch?v=8wpmjh8xrXo). **Update:** This method is useless because [OpenSea went back on its words](https://twitter.com/opensea/status/1486843201352716289). The limit has been removed.
+  * Minor fix.
+
+### Version 1.4.7:
+  * The default language of ChromeDriver is now English to ensure maximum compatibility. The date did not work in some countries because of the different formats that OpenSea offers. **[#67](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/67)**.
+  * Minor fix (Colorama module).
+
+### Version 1.4.6:
+  * The duration has been corrected. OpenSea does not allow to change the year when the next year is more than 6 months away. So it was impossible to enter the month without it being replaced by December (12 - maximum number because the year was entered instead); **Note: maximum duration is 6 months. [#55](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/55)**.
+  * The connection to OpenSea has *certainly* been corrected. (need feedback about this - I don't have any problems on my side). **[#53](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/53), [#58](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/58), [#61](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/61)**.
+
+### Version 1.4.5:
+  * Minor fix for Linux users. The `clear_text(self)` method inserts an "A" when it tries to clear the inputs before sending the data. **[#39](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/39)**.
+
+### Version 1.4.4:
+  * Connection to OpenSea with MetaMask corrected. Download of the extension was requested. **[#53](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/53)**.
+  * Connection to OpenSea with MetaMask improved.
+
+### Version 1.4.3:
+  * File preview is now added. **[#48](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/48)**.
+
+### Version 1.4.2:
+  * Listing of NFT on the Ethereum Blockchain is fully supported. **Be sure to make a deposit and have more than 0.05 ETH on your wallet.**
+
+### Version 1.4.1:
+  * Small fix for XLSX files. Empty cells were interpreted as "NaN", which is not interpreted as an empty string for Python. **[#18](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/18), [#23](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/23)**.
+
+### Version 1.4.0:
+  * You can now decide whether you want to upload or sell your NFTs, or both. **[#3](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/3), [#22](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/22)**.
+  * Signing the MetaMask contract works every time. It can take 30 seconds to be signed when connecting to OpenSea. **[#5](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/5), [#17](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/17)**.
+  * After uploading the NFT, the bot would crash when it tried to sell it (the URL was not correct). Now it doesn't. **[#17](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/17)**.
+  * MacOS and Linux support improved.
+  * Calendar method improved.
+
+### Version 1.3.0:
+  * Important fixes. **[#4](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/4), [#6](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/6), [#10](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/10), [#11](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/11), [#12](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/12), [#14](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/14)**.
+  * CSV file modified: separator changed (from ";" to ";;").
+
+### Version 1.2.0:
+  * Possibility to set a price for each NFT added.  
+    ➜ 1+ supplies and Polygon blockchain support added.
+  * Supply input issue fixed.
+  * Calendar method improved.
+
+### Version 1.2.0-alpha:
+  * Possibility to set a price for each NFT added.
+
+### Version 1.1.0:
+  * XLSX support added.
+  * PC-wide data file browse support.
+  * Properties, Stats and Levels issues fixed. **[#1](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/1)**.
+
+### Version 1.0.0:
+  * Inital commit.
+  
+</details>
+  
