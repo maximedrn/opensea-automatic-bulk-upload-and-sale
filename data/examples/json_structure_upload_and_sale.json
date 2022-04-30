@@ -1,0 +1,152 @@
+{
+     "nft": [
+       {
+         "file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+         "nft_name": "NFT #1",
+         "external_link": "https://github.com/maximedrn/opensea_automatic_uploader",
+         "description": "This is my first NFT.",
+         "collection": "My First NFT",
+         "properties": [
+           {
+             "type": "Dog",
+             "name": "Male"
+           },
+           {
+             "type": "Cat",
+             "name": "Female"
+           }
+         ],
+         "levels": [
+           {
+             "name": "Speed",
+             "from": 2,
+             "to": 5
+           },
+           {
+             "name": "Width",
+             "from": 1,
+             "to": 10
+           }
+         ],
+         "stats": [
+           {
+             "name": "Strenght",
+             "from": 10,
+             "to": 100
+           },
+           {
+             "name": "Age",
+             "from": 1,
+             "to": 99
+           }
+         ],
+         "unlockable_content": [
+           true,
+           "Thank you for purchasing my NFT!"
+         ],
+         "explicit_and_sensitive_content": true,
+         "supply": 1,
+         "blockchain": "Polygon",
+         "sale_type": "Timed Auction",
+         "price": 5,
+         "method": [
+           "Sell with declining price",
+           0.002
+         ],
+         "duration": [
+           "01-01-2022 14:00", "01-04-2022 15:00"
+         ],
+         "specific_buyer": [
+           true,
+           "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"
+         ],
+         "quantity": 1
+       },
+       {
+         "file_path": "C:/Users/Admin/Desktop/NFT/nft_0002.png",
+         "nft_name": "NFT #2",
+         "external_link": "https://github.com/maximedrn/opensea_automatic_uploader",
+         "description": "This is my second NFT.",
+         "collection": "My Second NFT",
+         "properties": [
+           {
+             "type": "Dog",
+             "name": "Male"
+           }
+         ],
+         "levels": [
+           {
+             "name": "Speed",
+             "from": 2,
+             "to": 5
+           }
+         ],
+         "stats": [
+           {
+             "name": "Strenght",
+             "from": 10,
+             "to": 100
+           }
+         ],
+         "unlockable_content": [
+           false
+         ],
+         "explicit_and_sensitive_content": false,
+         "supply": 10,
+         "blockchain": "Ethereum",
+         "sale_type": "Fixed Price",
+         "price": 0.02,
+         "method": [
+           "Sell to highest bidder",
+           0.1
+         ],
+         "duration": [
+           "1 week"
+         ],
+         "specific_buyer": [
+           false
+         ],
+         "quantity": 2
+       },
+       {
+         "file_path": "C:/Users/Admin/Desktop/NFT/nft_0003.png",
+         "nft_name": "NFT #3",
+         "external_link": "https://github.com/maximedrn/opensea_automatic_uploader",
+         "description": "This is my third NFT.",
+         "collection": "My Third NFT",
+         "properties": "",
+         "levels": "",
+         "stats": "",
+         "unlockable_content": false,
+         "explicit_and_sensitive_content": false,
+         "supply": 1,
+         "blockchain": "",
+         "sale_type": "",
+         "price": 0.02,
+         "method": "",
+         "duration": "1 week",
+         "specific_buyer": false,
+         "quantity": ""
+       },
+       {
+         "file_path": "C:/Users/Admin/Desktop/NFT/nft_0004.png",
+         "nft_name": "NFT #4",
+         "external_link": "",
+         "description": "",
+         "collection": "",
+         "properties": "",
+         "levels": "",
+         "stats": "",
+         "unlockable_content": "",
+         "explicit_and_sensitive_content": "",
+         "supply": "",
+         "blockchain": "",
+         "sale_type": "",
+         "price": 0.02,
+         "method": "",
+         "duration": "",
+         "specific_buyer": "",
+         "quantity": ""
+       }
+     ]
+   }
