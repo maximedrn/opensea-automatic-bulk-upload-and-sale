@@ -48,8 +48,7 @@ def login():
             wallet.init_wallet(web)  # Send web instance.
             if wallet.login() and Login(web, wallet).login():
                 return web  # Stop the while loop.
-        except Exception as error:  # Stop the browser.
-            # print(error)  # Show up the error.
+        except Exception:  # Stop the browser.
             web.quit() if web is not None else None
 
 
