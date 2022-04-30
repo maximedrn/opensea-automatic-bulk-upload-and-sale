@@ -10,13 +10,6 @@ Telegram: https://t.me/maximedrn
 
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
-
-Version 1.7.0 - 2022, 24 April.
-
-Transfer as many non-fungible tokens as you want to
-the OpenSea marketplace. Easy, efficient and fast,
-this tool lets you make your life as an Artist of
-the digital world much smoother.
 """
 
 
@@ -39,8 +32,9 @@ class Wallet:
         self.success = False  # Boolean returned after login.
 
     def init_wallet(self, web: object) -> None:
-        # Import the wallet class required.
-        exec(f'from .{self.wallet.lower()} import {self.wallet}')
+        """Import the wallet class required using exec()."""
+        exec(f'from .{self.wallet.replace(" ", "_").lower()}'
+             f' import {self.wallet.replace(" ", "")}')
         exec(f'self._wallet = {self.wallet.replace(" ", "")}(web, self)')
 
     def login(self) -> bool:
