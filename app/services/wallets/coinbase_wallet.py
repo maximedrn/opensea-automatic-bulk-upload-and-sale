@@ -10,13 +10,6 @@ Telegram: https://t.me/maximedrn
 
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
-
-Version 1.7.0 - 2022, 24 April.
-
-Transfer as many non-fungible tokens as you want to
-the OpenSea marketplace. Easy, efficient and fast,
-this tool lets you make your life as an Artist of
-the digital world much smoother.
 """
 
 
@@ -25,7 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
 
-# A Python internal import.
+#  Python internal imports.
 from ...utils.colors import GREEN, RED, RESET
 
 
@@ -38,52 +31,53 @@ class CoinbaseWallet:
         self.wallet = wallet  # From the Wallet class.
 
     def login(self) -> bool:
-        """Login to the Coinbase self.wallet."""
+        """Login to the Coinbase Wallet."""
         try:
-            print('Login to Coinbase self.wallet.', end=' ')
+            print('Login to Coinbase Wallet.', end=' ')
             self.web.window_handles(0)  # Switch to the Coinbase Wallet extension.
             self.web.driver.refresh()  # Reload the page to prevent a blank page.
             # Click on the "Import wallet" button.
-            self.web.clickable('(//*[@data-testid="btn-import-existing-wallet"])')
+            self.web.clickable('//*[@data-testid="btn-import-existing-wallet"]')
             # Click on the "Enter recovery phrase" button.
-            self.web.clickable('(//*[@data-testid="btn-import-recovery-phrase"])')
+            self.web.clickable('//*[@data-testid="btn-import-recovery-phrase"]')
             self.web.send_keys(  # Input the recovery phrase.
                 '//*[@data-testid="seed-phrase-input"]', self.wallet.recovery_phrase)
             # Click on the "Import Wallet" button.
-            self.web.clickable('(//*[@data-testid="btn-import-wallet"])')
+            self.web.clickable('//*[@data-testid="btn-import-wallet"]')
             # Input a new password or the same password of your account.
             self.web.send_keys('//*[@id="Password"]', self.wallet.password)
             self.web.send_keys('//*[@id="Verify password"]', self.wallet.password)
             # Click on the "I have read and agree to the..." checkbox.
             self.web.clickable(
-                '(//*[@data-testid="terms-and-privacy-policy-parent"])')
+                '//*[@data-testid="terms-and-privacy-policy-parent"]')
             # Click on the "Submit" button.
-            self.web.clickable('(//*[@data-testid="btn-password-continue"])')
-            print(f'{GREEN}Logged to Coinbase self.wallet.{RESET}')
-            return True
+            self.web.clickable('//*[@data-testid="btn-password-continue"]')
+            print(f'{GREEN}Logged to Coinbase Wallet.{RESET}')
+            self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
             self.fails += 1  # Increment the counter.
-            if self.fails < 2:  # Retry login to the self.wallet.
-                print(f'{RED}Login to Coinbase failed. Retrying.{RESET}')
-                return self.login()
-            print(f'{RED}Login to Coinbase failed. Restarting.{RESET}')
-            self.web.quit()  # Stop the webdriver.
-            return False
+            if self.fails < 2:  # Retry login to the Coinbase Wallet.
+                print(f'{RED}Login to Coinbase Wallet failed. Retrying.{RESET}')
+                self.login()
+            else:  # Failed twice - the wallet is not accessible.
+                print(f'{RED}Login to Coinbase Wallet failed. Restarting.{RESET}')
+                self.web.quit()  # Stop the webdriver.
+                self.wallet.success = False
 
-    def sign(self) -> None:
+    def sign(self, _: bool, __: int) -> None:
         """Sign the Coinbase Wallet contract to login to OpenSea."""
         self.web.window_handles(2)  # Switch to the Coinbase Wallet pop up tab.
-        self.web.clickable('(//*[@data-testid="allow-authorize-button"])')
+        self.web.clickable('//*[@data-testid="allow-authorize-button"]')
         try:  # Wait until the Coinbase Wallet pop up is closed.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
             self.contract()  # Sign the contract a second time.
         self.web.window_handles(1)  # Switch back to the OpenSea tab.
 
-    def contract(self, new_contract: bool = False) -> None:
+    def contract(self, _: bool) -> None:
         """Sign a Coinbase Wallet contract to upload or confirm sale."""
         self.web.window_handles(2)  # Switch to the Coinbase Wallet pop up tab.
-        self.web.clickable('(//*[@data-testid="sign-message"])')
+        self.web.clickable('//*[@data-testid="sign-message"]')
         try:  # Wait until the Coinbase Wallet pop up is closed.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
