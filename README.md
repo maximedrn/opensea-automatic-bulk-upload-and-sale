@@ -1425,11 +1425,14 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Version 1.7.1:
-  * Fixed the several issues with the Coinbase Wallet. **[#278](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/278)**.
+## Version 1.7.2:
+ * Modification of the `main.py` file to make it more compatible with the new tools of the future.
 
 <details>
   <summary>Earlier versions.</summary>
+  
+### Version 1.7.1:
+  * Fixed the several issues with the Coinbase Wallet. **[#278](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/278)**.
 
 ### Version 1.7.0:
   * Split the `main.py` file into different structures to make the bot more modular and compatible with future tools.
