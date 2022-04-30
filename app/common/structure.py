@@ -91,7 +91,7 @@ class Structure:
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
         index = 9 if 1 not in self.action else 0  # Remove 9 if "Sale only".
-        # Checj if the file is well structured or not by checking lenght.
+        # Check if the file is well structured or not by checking lenght.
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
                 or (1 in self.action and len(nft_data) < 12) or \
                 (2 in self.action and len(nft_data) < 9):
