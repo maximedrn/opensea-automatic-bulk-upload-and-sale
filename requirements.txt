@@ -1,5 +1,5 @@
 # pip install -r requirements-manual-resolution.txt
-# Use Python 3.9.9
+# Use Python 3.9+, or Python 3.9.9 or 3.9.11 if you use the Yolov5x6 reCAPTCHA solver.
 colorama==0.4.4
 pandas==1.4.1
 openpyxl==3.0.9
