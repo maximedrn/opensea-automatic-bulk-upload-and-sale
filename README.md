@@ -51,6 +51,7 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
   * [File Compatibilizer](#file-compatibilizer), convert your file from a specific structure to another one and make your file compatible.
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
+* **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/CHANGELOG.md)** and new features.
 
 
@@ -1296,6 +1297,131 @@ In addition, it organizes the details in a specific order to be compatible with 
   * Initial commit.
 
 </details>
+
+
+# Repository structure
+
+Absolutely all files must be present for the bot to work properly. Some files are available by purchasing external tools, these allow to facilitate the task of uploading or listing on OpenSea or offer new features.
+
+<details>
+  <summary>Display the repository structure.</summary>
+  <br />
+
+```css
+opensea-automatic-upload-and-sale-master
+├── .github  /* Can be removed. */
+│   ╰── workflows  /* Can be removed. */
+│       ├── codeql-analysis.yml  /* Can be removed. */
+│       ╰── stale_issues.yml  /* Can be removed. */
+├── app
+│   ├── common
+│   │   ├── __init__.py
+│   │   ├── reader.py
+│   │   ├── save.py
+│   │   ╰── structure.py
+│   ├── services
+│   │   ├── processes
+│   │   │   ├── __init__.py
+│   │   │   ├── login.py
+│   │   │   ├── sale.py
+│   │   │   ╰── upload.py
+│   │   ├── solvers
+│   │   │   ├── __init__.py
+│   │   │   ├── recaptcha_callback.js  /* Can be removed if you don't want to use the 2Captcha solver. */
+│   │   │   ├── recaptcha.py  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
+│   │   │   ├── solver.py
+│   │   │   ╰── two_captcha.py  /* Can be removed if you don't want to use the 2Captcha solver. */
+│   │   ├── wallets
+│   │   │   ├── __init__.py
+│   │   │   ├── coinbase_wallet.py  /* Can be removed if you don't want to use Coinbase Wallet. */
+│   │   │   ├── metamask.py  /* Can be removed if you don't want to use MetaMask. */
+│   │   │   ╰── wallet.py
+│   │   ├── __init__.py
+│   │   ╰── webdriver.py
+│   ├── utils
+│   │   ├── __init__.py
+│   │   ├── colors.py
+│   │   ├── const.py
+│   │   ├── func.py
+│   │   ├── user.py
+│   │   ╰── values.py
+│   ╰── __init__.py
+├── assets
+│   ├── classes.json  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
+│   ├── CoinbaseWallet.crx  /* Can be removed if you don't want to use the Coinbase Wallet extension. */
+│   ├── MetaMask.crx  /* Can be removed if you don't want to use the MetaMask wallet with Google Chrome. */
+│   ╰── MetaMask.xpi  /* Can be removed if you don't want to use the MetaMask wallet with Mozilla Firefox. */
+├── data
+│   ├── examples  /* Can be removed. */
+│   │   ├── csv_structure_sale_only.csv
+│   │   ├── csv_structure_upload_and_sale.csv
+│   │   ├── csv_structure_upload_only.csv
+│   │   ├── json_structure_sale_only.json
+│   │   ├── json_structure_upload_and_sale.json
+│   │   ├── json_structure_upload_only.json
+│   │   ├── xlsx_structure_sale_only.xlsx
+│   │   ├── xlsx_structure_upload_and_sale.xlsx
+│   │   ╰── xlsx_structure_upload_only.xlsx
+│   ├── csv_structure_sale_only.csv  /* Can be removed. */
+│   ├── csv_structure_upload_and_sale.csv  /* Can be removed. */
+│   ├── csv_structure_upload_only.csv  /* Can be removed. */
+│   ├── json_structure_sale_only.json  /* Can be removed. */
+│   ├── json_structure_upload_and_sale.json  /* Can be removed. */
+│   ├── json_structure_upload_only.json  /* Can be removed. */
+│   ├── xlsx_structure_sale_only.xlsx  /* Can be removed. */
+│   ├── xlsx_structure_upload_and_sale.xlsx  /* Can be removed. */
+│   ╰── xlsx_structure_upload_only.xlsx  /* Can be removed. */
+├── realesrgan  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
+│   ├── archs
+│   │   ├── __init__.py
+│   │   ├── discriminator_arch.py
+│   │   ╰── srvgg_arch.py
+│   ├── data
+│   │   ├── __init__.py
+│   │   ├── realesrgan_dataset.py
+│   │   ╰── realesrgan_paired_dataset.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   ├── realesrgan_model.py
+│   │   ╰── realesrnet_model.py
+│   ├── __init__.py
+│   ├── RealESRGAN_x4plus.pth
+│   ╰── utils.py
+├── yolov5  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
+│   ├── models
+│   │   ├── hub
+│   │   │   ╰── yolov5x6.yaml
+│   │   ├── __init__.py
+│   │   ├── common.py
+│   │   ├── experimental.py
+│   │   ├── yolo.py
+│   │   ╰── yolov5x.yaml
+│   ├── utils
+│   │   ├── __init__.py
+│   │   ├── activations.py
+│   │   ├── augmentations.py
+│   │   ├── autoanchor.py
+│   │   ├── datasets.py
+│   │   ├── downloads.py
+│   │   ├── general.py
+│   │   ├── metrics.py
+│   │   ├── plots.py
+│   │   ╰── torch_utils.py
+│   ├── export.py
+│   ├── hubconf.py
+│   ╰── yolov5x6.pt
+├── .gitignore  /* Can be removed. */
+├── LICENSE  /* Can be removed. */
+├── README.md  /* Can be removed. */
+├── requirements_recaptcha.txt  /* Can be removed after installing modules. */
+├── requirements.txt  /* Can be removed after installing modules. */
+├── main.py
+├── multiprocess.py  /* Available in the "Multiprocess" tool. */
+╰── task.py  /* Available in the "Multiprocess" tool. */
+```
+  
+</details>
+
 
 # Changelog
 
