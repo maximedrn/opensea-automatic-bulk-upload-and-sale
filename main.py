@@ -9,7 +9,7 @@ Telegram: https://t.me/maximedrn
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 
-Version 1.7.0 - 2022, 28 April.
+Version 1.7.1 - 2022, 30 April.
 
 Transfer as many non-fungible tokens as you want to
 the OpenSea marketplace. Easy, efficient and fast,
@@ -48,7 +48,8 @@ def login():
             wallet.init_wallet(web)  # Send web instance.
             if wallet.login() and Login(web, wallet).login():
                 return web  # Stop the while loop.
-        except Exception:  # Stop the browser.
+        except Exception as error:  # Stop the browser.
+            # print(error)  # Show up the error.
             web.quit() if web is not None else None
 
 
