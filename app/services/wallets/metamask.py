@@ -10,13 +10,6 @@ Telegram: https://t.me/maximedrn
 
 Copyright © 2022 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
-
-Version 1.7.0 - 2022, 24 April.
-
-Transfer as many non-fungible tokens as you want to
-the OpenSea marketplace. Easy, efficient and fast,
-this tool lets you make your life as an Artist of
-the digital world much smoother.
 """
 
 
@@ -73,7 +66,7 @@ class MetaMask:
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
             self.fails += 1  # Increment the counter.
-            if self.fails < 2:  # Retry login to the self.wallet.
+            if self.fails < 2:  # Retry login to the MetaMask.
                 print(f'{RED}Login to MetaMask failed. Retrying.{RESET}')
                 self.login()
             else:  # Failed twice - the wallet is not accessible.
