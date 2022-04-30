@@ -1426,7 +1426,7 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ## Version 1.7.2:
- * Modification of the `main.py` file to make it more compatible with the new tools of the future.
+ * Modification of the `main.py` file to make it more compatible with the new future tools.
 
 <details>
   <summary>Earlier versions.</summary>
