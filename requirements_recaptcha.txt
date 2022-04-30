@@ -1,5 +1,5 @@
 # pip install -r requirements_recaptcha.txt
-# Use Python 3.9.9
+# Use Python 3.9.9 or 3.9.11.
 basicsr==1.3.5
 matplotlib==3.5.1
 numpy==1.22.3
