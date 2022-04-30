@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **Version 1.7.0** (April 28, 2022).
+➜ **Version 1.7.1** (April 30, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -1299,13 +1299,16 @@ In addition, it organizes the details in a specific order to be compatible with 
 
 # Changelog
 
-## Version 1.7.0:
-  * Split the `main.py` file into different structures to make the bot more modular and compatible with future tools.
-  * Fixed the problem of connecting to OpenSea which opens a tab to download MetaMask.
+## Version 1.7.1:
+  * Fixed the several issues with the Coinbase Wallet. **[#278](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/278)**.
 
 <details>
   <summary>Earlier versions.</summary>
 
+### Version 1.7.0:
+  * Split the `main.py` file into different structures to make the bot more modular and compatible with future tools.
+  * Fixed the problem of connecting to OpenSea which opens a tab to download MetaMask.
+  
 ### Version 1.6.14:
   * Fixed the problem of the URL with the "Sale only".
   * Minor fixes.
