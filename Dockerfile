@@ -1,4 +1,14 @@
-# Basic nginx dockerfile starting with Ubuntu 20.04
-FROM ubuntu:20.04
-RUN apt-get -y update
-RUN apt-get -y install nginx
+FROM python:3-alpine
+
+# Install default requirements.
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Install PyTorch module.
+RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+
+# Install requirements for the Yolov5x6 reCAPTCHA solver.
+COPY requirements_recaptcha.txt .
+RUN pip install -r requirements_recaptcha.txt
+
+ENTRYPOINT ["python", "main.py"]
