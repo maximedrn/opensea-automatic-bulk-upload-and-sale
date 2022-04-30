@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.9.12-alpine3.15
 
 # Install default requirements.
 COPY requirements.txt .
