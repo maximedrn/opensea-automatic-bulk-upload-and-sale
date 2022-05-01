@@ -76,9 +76,10 @@ def recaptcha_solver() -> int:
         [print(string) for string in [
             f'{YELLOW}\nChoose a reCAPTCHA solver:{RESET}',
             '1 - Manual solver.', '2 - Automatic solver using Yolov5.',
-            '3 - Automatic solver using 2Captcha.']]
+            '3 - Automatic solver using 2Captcha.',
+            '4 - No reCAPTCHA (OpenSea exploit - do not report!).']]
         number = input('Action number: ')
-        if number.isdigit() and 0 < int(number) <= 3:
+        if number.isdigit() and 0 < int(number) <= 4:
             return int(number), read_file(
                 'two_captcha_key', 'What is your 2Captcha API key? '
             ) if number == '3' else ''
