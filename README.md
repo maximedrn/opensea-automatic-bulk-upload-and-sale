@@ -49,8 +49,9 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Explanation of the different details for the listing part](#explanation-of-the-different-details-for-the-listing-part).
 * **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot).**
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
-  * [File Compatibilizer](#file-compatibilizer), convert your file from a specific structure to another one and make your file compatible.
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
+  * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
+  * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/CHANGELOG.md)** and new features.
 
@@ -1064,6 +1065,8 @@ The complete list of tools is available on [Gumroad](https://maximedrn.gumroad.c
 
 ## Collection Scraper
 
+[![Collection Scraper](https://user-images.githubusercontent.com/91475935/166142344-cd0bd61e-6ea5-45fc-bdd6-a007c991ed19.png)](https://maximedrn.gumroad.com/l/opensea-collection-scraper)
+
 With this OpenSea collection scraper, you can retrieve the entire URLs of the NFTs of a collection automatically.  
 It facilitates the listing of NFTs already uploaded to OpenSea before, without the help of the latter.  
 
@@ -1136,11 +1139,13 @@ Thus a "**full**" file containing all NFTs, a "**unique**" file containing each 
   
 ## Generic File Maker
 
+[![Generic File Maker](https://user-images.githubusercontent.com/91475935/166142331-6afe4920-f34a-47c1-9dfc-4e8ffd3ae57a.png)](https://maximedrn.gumroad.com/l/opensea-generic-file-maker)
+
 With this OpenSea collection scraper, you can generate a whole file from a generic file or modify a file by replacing massively some values by others.  
 You just have to fill a simple generic file with 21 details (18 for NFTs and 3 for formatting and file parameters) and run the script.  
 Your file will be generated with common values for all your NFTs.  
 It faciliates the creation of your metadata file.  
-**Purchase this tool - [Generic File Maker](https://maximedrn.gumroad.com/l/opensea-generic-file).**
+**Purchase this tool - [Generic File Maker](https://maximedrn.gumroad.com/l/opensea-generic-file-maker).**
 
 <details>
   <summary>View this section.</summary>
@@ -1246,11 +1251,55 @@ It faciliates the creation of your metadata file.
 
 </details>
 
-## File Compatibilizer
+## Multiprocessing
+
+With this Multiprocessing tool, you can download and list your NFTs **twice as fast**.  
+It splits your file into two subfiles, one taking the odd indexes in the metadata file and the other taking the even indexes.  
+Then two command prompts open and work like the main robot but at the same time.  
+
+Note: it requires a fairly powerful computer (a minimum of 8GB of RAM and a processor with a minimum of 2 cores).  
+If your computer has some mismatch with the main bot, do not buy this tool.
+
+**Purchase this tool - [Multiprocessing](https://maximedrn.gumroad.com/l/opensea-multiprocessing).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation
+
+* **Make sure you have version 1.7.0 or higher.**
+* Extract the 2 files from the ZIP file, you should have a file named `multiprocessing.py` and another named `task.py`.
+* Navigate to the "Upload and Sale" bot repository, and place these two files in the parent directory (`opensea-automatic-upload-and-sale/`).
+  
+### Run the bot
+
+* Open a command prompt in the repository folder (same as the main bot) and type one of these commands to run the bot:
+
+  * ```
+    python multiprocessing.py
+    ```
+  * ```
+    python3 multiprocessing.py
+    ```
+* Select your choices as in the main bot.
+* When two command prompts are open, you can close the `multiprocessing.py` tab.
+* Now the bot runs two instances and upload/list or both your NFTs.
+
+### Changelog
+
+* **Version 1.0.0:**
+  * Initial commit.
+
+</details>
+
+## File Compatibilizer and Converter
+
+[![File Compatibilizer](https://user-images.githubusercontent.com/91475935/166142304-b457f939-375e-452d-b4b7-1fa47db0adc3.png)](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer-and-converter)
 
 With this file compatibilizer, you can convert a metadata file of one specific type into another (`Upload` into `Upload and Sale`, into `Sale` and vice versa).
 In addition, it organizes the details in a specific order to be compatible with the bot.  
-**Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer).**
+**Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer-and-converter).**
 
 <details>
   <summary>View this section.</summary>
