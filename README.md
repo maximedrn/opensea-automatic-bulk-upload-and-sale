@@ -1139,7 +1139,7 @@ Thus a "**full**" file containing all NFTs, a "**unique**" file containing each 
   
 ## Generic File Maker
 
-[![Generic File Maker](https://user-images.githubusercontent.com/91475935/166142331-6afe4920-f34a-47c1-9dfc-4e8ffd3ae57a.png)](https://maximedrn.gumroad.com/l/opensea-generic-file-maker)
+[![Generic File Maker](https://user-images.githubusercontent.com/91475935/166142331-6afe4920-f34a-47c1-9dfc-4e8ffd3ae57a.png)](https://maximedrn.gumroad.com/l/opensea-generic-file)
 
 With this OpenSea collection scraper, you can generate a whole file from a generic file or modify a file by replacing massively some values by others.  
 You just have to fill a simple generic file with 21 details (18 for NFTs and 3 for formatting and file parameters) and run the script.  
@@ -1298,7 +1298,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ## File Compatibilizer and Converter
 
-[![File Compatibilizer](https://user-images.githubusercontent.com/91475935/166142304-b457f939-375e-452d-b4b7-1fa47db0adc3.png)](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer-and-converter)
+[![File Compatibilizer](https://user-images.githubusercontent.com/91475935/166142304-b457f939-375e-452d-b4b7-1fa47db0adc3.png)](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer)
 
 With this file compatibilizer, you can convert a metadata file of one specific type into another (`Upload` into `Upload and Sale`, into `Sale` and vice versa).
 In addition, it organizes the details in a specific order to be compatible with the bot.  
