@@ -140,9 +140,10 @@ class Upload:
     def unlockable_content(self) -> None:
         """Toggle the switch button and send the unlockable content."""
         if isinstance(self.structure.unlockable_content, list) and \
-            len(self.structure.unlockable_content) == 0 and isinstance(
+            len(self.structure.unlockable_content) == 2 and isinstance(
                 self.structure.unlockable_content[0], bool) and \
-                self.structure.unlockable_content[0]:
+                self.structure.unlockable_content[0] and \
+                    self.structure.unlockable_content[1] != '':
             self.web.send_keys('//*[@id="unlockable-content-toggle"]',
                                Keys.ENTER)  # Toggle the switch button.
             self.web.send_keys(  # Input the unlockable content.
