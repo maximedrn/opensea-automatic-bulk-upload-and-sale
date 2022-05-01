@@ -25,7 +25,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.2.1 - 2022, 01 May.{RESET}'
+    f'\n\nVersion 1.7.3 - 2022, 01 May.{RESET}'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -45,6 +45,17 @@ RECOVERY_PHRASE = '\nWhat is your wallet recovery phrase? '
 
 PRIVATE_KEY = '\nWhat is your account private key? ' + \
     '(Press [ENTER] to ignore this step) '
+
+YOLO_ERROR = (
+    '\nAn error occured while loading Yolov5 and RealESRGAN.'
+    '\nPlease verify that your computer is powerful enough,'
+    '\nevery modules are installed and files are correctly '
+    f'\ndownloaded and presents in the right directory.\n{RESET}')
+
+NO_CAPTCHA_ERROR = (
+    'Cannot found the file. Please check that you placed it correctly or'
+    ' that you purchased this extension. (available here: '
+    'https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)')
 
 ALL_DONE = (
     f'\n{GREEN}All done!{RESET}'
