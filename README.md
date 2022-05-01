@@ -53,7 +53,7 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
-* **[Changelog](#changelog)** and new features.
+* **[Changelog](#changelog-4)** and new features.
 
 
 # What does this bot do?
