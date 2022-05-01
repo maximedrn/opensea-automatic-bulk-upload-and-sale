@@ -1312,6 +1312,7 @@ Up to 150 NFTs per hour and much more with the [Multiprocessing tool](#multiproc
 
 ### Installation and run the bot
 
+* **Make sure you have version 1.7.3 or higher.**
 * Extract the file from the ZIP file, you should have a file named `no-captcha.py`.
 * Place it in this directory: `opensea-automatic-bulk-upload-and-sale/app/services/solvers/`.
 * Start the main bot and at reCAPTCHA select the 4th option.
