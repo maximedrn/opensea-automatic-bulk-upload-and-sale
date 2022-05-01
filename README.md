@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **[Version 1.7.2.1](#version-172-and-1721)** (May 01, 2022).
+➜ **[Version 1.7.3](#version-173)** (May 01, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -51,6 +51,7 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
+  * [reCAPTCHA Bypasser](#recaptcha-bypasser), use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](#changelog-4)** and new features.
@@ -1296,6 +1297,27 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 </details>
 
+## reCAPTCHA Bypasser
+
+[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166158393-ea9395a6-2bf3-4e80-83b2-d6c54f4c3580.png)](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)
+
+With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
+The upload speed is such that there would be no reCAPTCHA. Rediscover OpenSea before reCAPTCHAs!  
+Up to 150 NFTs per hour and much more with the [Multiprocessing tool](#multiprocessing).
+**Purchase this tool - [reCAPTCHA Bypasser](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation and run the bot
+
+* Extract the file from the ZIP file, you should have a file named `no-captcha.py`.
+* Place it in this directory: `opensea-automatic-bulk-upload-and-sale/app/services/solvers/`.
+* Start the main bot and at reCAPTCHA select the 4th option.
+  
+</details>
+  
 ## File Compatibilizer and Converter
 
 [![File Compatibilizer](https://user-images.githubusercontent.com/91475935/166142304-b457f939-375e-452d-b4b7-1fa47db0adc3.png)](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer)
@@ -1379,7 +1401,8 @@ opensea-automatic-upload-and-sale-master
 │   │   │   ╰── upload.py
 │   │   ├── solvers
 │   │   │   ├── __init__.py
-│   │   │   ├── recaptcha_callback.js  /* Can be removed if you don't want to use the 2Captcha solver. */
+│   │   │   ├── no_captcha.py  /* Can be removed if you don't want to use the reCAPTCHA exploit. */
+│   │   │   ├── recaptcha_callback.js  /* Can be removed if you don't want to use the 2Captcha solver or the reCAPTCHA exploit. */
 │   │   │   ├── recaptcha.py  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
 │   │   │   ├── solver.py
 │   │   │   ╰── two_captcha.py  /* Can be removed if you don't want to use the 2Captcha solver. */
@@ -1477,12 +1500,15 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Version 1.7.2 and 1.7.2.1:
- * Modification of the `main.py` file to make it more compatible with the new future tools.
- * Fixed `list index out of range` error with unlockable content.
+### Version 1.7.3:
+ * Added support for a new [reCAPTCHA ~solver~ bypasser](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser) exploit.
 
 <details>
   <summary>Earlier versions.</summary>
+
+### Versions 1.7.2 and 1.7.2.1:
+ * Modification of the `main.py` file to make it more compatible with the new future tools.
+ * Fixed `list index out of range` error with unlockable content.
   
 ### Version 1.7.1:
   * Fixed the several issues with the Coinbase Wallet. **[#278](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/278)**.
