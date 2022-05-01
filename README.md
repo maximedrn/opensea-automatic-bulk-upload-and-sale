@@ -1258,7 +1258,7 @@ It faciliates the creation of your metadata file.
 
 With this Multiprocessing tool, you can upload and list your NFTs **twice as fast**.  
 It splits your file into two subfiles, one taking the odd indexes in the metadata file and the other taking the even indexes.  
-Then two command prompts open and work like the main robot but at the same time.  
+Then two command prompts open and work like the main bot but at the same time.  
 
 Note: it requires a fairly powerful computer (a minimum of 8GB of RAM and a processor with a minimum of 2 cores).  
 If your computer has some mismatch with the main bot, do not buy this tool.
@@ -1283,7 +1283,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
     python multiprocessing.py
     ```
   * ```
-    python3 multiprocessing.py
+    python3 multiprocess.py
     ```
 * Select your choices as in the main bot.
 * When two command prompts are open, you can close the `multiprocessing.py` tab.
