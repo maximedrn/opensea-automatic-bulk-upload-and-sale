@@ -53,7 +53,7 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
-* **[Changelog](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/CHANGELOG.md)** and new features.
+* **[Changelog](#changelog)** and new features.
 
 
 # What does this bot do?
@@ -1145,7 +1145,7 @@ With this OpenSea collection scraper, you can generate a whole file from a gener
 You just have to fill a simple generic file with 21 details (18 for NFTs and 3 for formatting and file parameters) and run the script.  
 Your file will be generated with common values for all your NFTs.  
 It faciliates the creation of your metadata file.  
-**Purchase this tool - [Generic File Maker](https://maximedrn.gumroad.com/l/opensea-generic-file-maker).**
+**Purchase this tool - [Generic File Maker](https://maximedrn.gumroad.com/l/opensea-generic-file).**
 
 <details>
   <summary>View this section.</summary>
@@ -1302,7 +1302,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 With this file compatibilizer, you can convert a metadata file of one specific type into another (`Upload` into `Upload and Sale`, into `Sale` and vice versa).
 In addition, it organizes the details in a specific order to be compatible with the bot.  
-**Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer-and-converter).**
+**Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer).**
 
 <details>
   <summary>View this section.</summary>
