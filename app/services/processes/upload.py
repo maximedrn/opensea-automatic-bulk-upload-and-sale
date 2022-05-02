@@ -189,13 +189,15 @@ class Upload:
         """Check if reCAPTCHA is displayed and call the solver."""
         try:
             self.web.visible('(//div[@class="g-recaptcha"])[position()=1]')
-            if self.solver in [2, 3]:  # reCAPTCHA solver activated.
+            if self.solver in [2, 3, 4]:  # reCAPTCHA solver activated.
                 print(f'{YELLOW}Solving the reCAPTCHA.{RESET}', end=' ')
                 if not self.recaptcha.solve(self.web):
                     raise TE('Cannot solve the reCAPTCHA.')
                 print(f'{GREEN}Solved.{RESET}', end=' ')
             else:  # When solved, webpage changes.
                 print(f'{YELLOW}reCAPTCHA displayed.{RESET}', end=' ')
+            if self.solver == 4:
+                self.submit()  # Submit the form.
         except Exception:
             raise TE('Something went wrong at reCAPTCHA.')
 
