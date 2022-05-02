@@ -1062,7 +1062,8 @@ And it gives you something like this: [JSON](https://github.com/maximedrn/opense
 # Useful tools to have for this bot
 
 All these tools are not free and are only add-ons. You can still use the bot without these tools.  
-The complete list of tools is available on [Gumroad](https://maximedrn.gumroad.com/).
+The complete list of tools is available on [Gumroad](https://maximedrn.gumroad.com/).  
+If you are not able to pay by Paypal or credit card on Gumroad, contact me on Telegram. You will be able to make a payment by cryptocurrency.
 
 ## Collection Scraper
 
@@ -1299,12 +1300,12 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ## reCAPTCHA Bypasser
 
-[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166158393-ea9395a6-2bf3-4e80-83b2-d6c54f4c3580.png)](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)
+[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166158393-ea9395a6-2bf3-4e80-83b2-d6c54f4c3580.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
 
 With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
 The upload speed is such that there would be no reCAPTCHA. Rediscover OpenSea before reCAPTCHAs!  
 Up to 150 NFTs per hour and much more with the [Multiprocessing tool](#multiprocessing).  
-**Purchase this tool - [reCAPTCHA Bypasser](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser).**
+**Purchase this tool - [reCAPTCHA Bypasser](https://maximedrn.gumroad.com/l/opensea-no-recaptcha).**
 
 <details>
   <summary>View this section.</summary>
@@ -1502,7 +1503,7 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ### Version 1.7.3:
- * Added support for a new [reCAPTCHA ~solver~ bypasser](https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser) exploit.
+ * Added support for a new [reCAPTCHA ~solver~ bypasser](#opensea-recaptcha-bypasser) exploit.
 
 <details>
   <summary>Earlier versions.</summary>
