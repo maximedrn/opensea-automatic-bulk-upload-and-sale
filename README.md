@@ -51,7 +51,7 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
-  * [reCAPTCHA Bypasser](#recaptcha-bypasser), use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
+  * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**[demonstration](https://www.youtube.com/watch?v=Xph_sjbWoyE))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](#changelog-4)** and new features.
@@ -1300,7 +1300,8 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ## reCAPTCHA Bypasser
 
-[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166158393-ea9395a6-2bf3-4e80-83b2-d6c54f4c3580.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
+[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166677194-c0a19ec8-1e1c-4bee-91e2-0a3d80e7f7a5.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
+**Demonstration video available [here](https://www.youtube.com/watch?v=Xph_sjbWoyE)**.
 
 With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
 The upload speed is such that there would be no reCAPTCHA. Rediscover OpenSea before reCAPTCHAs!  
