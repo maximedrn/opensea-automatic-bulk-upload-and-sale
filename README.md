@@ -1313,7 +1313,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
 The upload speed is such that there would be no reCAPTCHA. Rediscover OpenSea before reCAPTCHAs!  
-Up to 150 NFTs per hour and much more with the [Multiprocessing tool](#multiprocessing).  
+Up to 400 NFTs per hour and much more with the [Multiprocessing tool](#multiprocessing).  
 **Purchase this tool - [reCAPTCHA Bypasser](https://maximedrn.gumroad.com/l/opensea-no-recaptcha).**
 
 <details>
