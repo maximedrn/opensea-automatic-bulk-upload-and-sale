@@ -233,7 +233,8 @@ class Upload:
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
             print(f'{RED}Upload failed.{RESET}',
-                  error if 'Stacktrace' not in str(error) else '')
+                  str(error).replace('Message: ', '') if 'Stacktrace'
+                  not in str(error) else '\n', end='')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
