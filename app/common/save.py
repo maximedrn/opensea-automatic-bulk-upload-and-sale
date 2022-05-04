@@ -76,6 +76,6 @@ class Save:
     def save_sale(self, future: bool = False) -> None:
         """Save all the details of the NFT for a new of future sale."""
         # Set an empty value to the missing sale details.
-        [exec(f'self.{detail} = ""' if future else '', {
-            'self': self}) for detail in SALE[3:]]
+        [exec(f'self.structure.{detail} = ""' if future else '',
+         {'self': self}) for detail in SALE[3:]]
         self.save('sale', SALE)
