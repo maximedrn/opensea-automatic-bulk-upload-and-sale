@@ -10,30 +10,15 @@ If you like :green_heart: my work and this tool:
 
 ---
 
-**[![How to upload 10k+ NFTs to OpenSea?](https://user-images.githubusercontent.com/91475935/166058768-1b7da2b4-59d4-4445-ad10-a725a31905fa.png)](https://www.youtube.com/watch?v=sM-YncZmZzc)**
-
-**Please read the README file before using this tool, opening an issue or a discussion, or contacting me.**  
-_You will certainly find a solution by **reading :book:** or consulting the issues already present._
-
-* **Want to open an issue?**
-   * Explain your problem in a few lines, accompanied by **images :framed_picture:** or a **video :clapper:**.
-   * Provide an **excerpt from your metadata file :spiral_notepad:**.
-   * Specify your **operating system :gear:** as well as the **version of Python :snake:** used and that of the bot.
-* Make sure you have the latest version of the Python modules, browser and bot installed.
-* Read the **pinned :pushpin: and opened issues**, see the structure of the metadata files.
-
-**Useful links :link: and websites to consult before using this bot:**
-* Sign up on [OpenSea](https://opensea.io/).
-* Sign up on [MetaMask](https://metamask.io/).
-* Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
-* Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).  
-  **Paid service**: $2.99 per 1000 reCAPTCHAs.
-* Join my **[affiliate program](https://maximedrn.gumroad.com/affiliates)** to promote the tools - **25% commission** per sale.
+### **New**: Bypass reCAPTCHAs using this OpenSea exploit: **[reCAPTCHA Bypasser](#recaptcha-bypasser)**.  
+Watch the [video](https://www.youtube.com/watch?v=Xph_sjbWoyE) to see **how fast** the upload is with this exploit!  
+Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one process.
 
 ---
 
 # Table of contents
 
+* **[Introduction](#introduction)**, video demonstration and useful links. 
 * **[What does this bot do?](#what-does-this-bot-do)** What can I do with it? How easy does it make my job?
 * **[Frequently asked questions](#frequently-asked-questions)** about this bot.
 * **[Instructions](#instructions) to install and configure this bot**.
@@ -55,6 +40,29 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](#changelog-4)** and new features.
+
+
+# Introduction
+
+**[![How to upload 10k+ NFTs to OpenSea?](https://user-images.githubusercontent.com/91475935/166058768-1b7da2b4-59d4-4445-ad10-a725a31905fa.png)](https://www.youtube.com/watch?v=sM-YncZmZzc)**
+
+**Please read the README file before using this tool, opening an issue or a discussion, or contacting me.**  
+_You will certainly find a solution by **reading :book:** or consulting the issues already present._
+
+* **Want to open an issue?**
+   * Explain your problem in a few lines, accompanied by **images :framed_picture:** or a **video :clapper:**.
+   * Provide an **excerpt from your metadata file :spiral_notepad:**.
+   * Specify your **operating system :gear:** as well as the **version of Python :snake:** used and that of the bot.
+* Make sure you have the latest version of the Python modules, browser and bot installed.
+* Read the **pinned :pushpin: and opened issues**, see the structure of the metadata files.
+
+**Useful links :link: and websites to consult before using this bot:**
+* Sign up on [OpenSea](https://opensea.io/).
+* Sign up on [MetaMask](https://metamask.io/).
+* Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
+* Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).  
+  **Paid service**: $2.99 per 1000 reCAPTCHAs.
+* Join my **[affiliate program](https://maximedrn.gumroad.com/affiliates)** to promote the tools - **25% commission** per sale.
 
 
 # What does this bot do?
