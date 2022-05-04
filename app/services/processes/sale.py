@@ -61,8 +61,8 @@ class Sale:
                 self.web.clickable(  # Click on the "Switch" button.
                     '//*[contains(@id, "Body react-aria")]/div/div/button')
                 self.wallet.sign(False)  # Approve.
-                # Switch back to the OpenSea tab.
-                self.web.window_handles(1)
+                self.web.window_handles(1)  # Switch back to the OpenSea tab.
+                self.web.driver.refresh()  # Reload the page.
                 self.actual_blockchain = 'Polygon'  # Change blockchain.
                 print(f'{YELLOW}Blockchain switched.{RESET}')
                 return True
@@ -236,19 +236,22 @@ class Sale:
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
             if self.switch_polygon():  # Switch to Polygon blockchain.
-                return self.sale()  # Retry sale.
-            self.sign_contract()  # Sign the contract.
-            self.check_listed()  # Check if the NFT is listed.
-            print(f'{GREEN}NFT put up for sale.{RESET}')
+                self.sale()  # Retry sale.
+            else:  # Already switched to Polygon or it is Ethereum.
+                self.sign_contract()  # Sign the contract.
+                self.check_listed()  # Check if the NFT is listed.
+                print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
             print(f'{RED}NFT sale cancelled.{RESET}',
-                  error if 'Stacktrace' not in str(error) else '')
+                  str(error).replace('Message: ', '') if 'Stacktrace'
+                  not in str(error) else '\n', end='')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
                 self.save.save_sale()  # Save the NFT details for a sale.
-            self.web.driver.get(self.structure.nft_url)
-            self.sale()  # Try to re-upload the NFT.
+            else:  # Retry to list.
+                self.web.driver.get(self.structure.nft_url)
+                self.sale()  # Try to re-upload the NFT.
         self.fails = 0  # Reset the counter for next listing.
 
 
