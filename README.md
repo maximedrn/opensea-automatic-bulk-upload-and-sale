@@ -1520,7 +1520,7 @@ opensea-automatic-upload-and-sale-master
   <summary>Earlier versions.</summary>
 
 ### Version 1.7.3:
- * Added support for a new [reCAPTCHA ~solver~ bypasser](#opensea-recaptcha-bypasser) exploit.
+ * Added support for a new [reCAPTCHA ~solver~ bypasser](#recaptcha-bypasser) exploit.
   
 ### Versions 1.7.2 and 1.7.2.1:
  * Modification of the `main.py` file to make it more compatible with the new future tools.
