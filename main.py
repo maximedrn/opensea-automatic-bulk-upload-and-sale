@@ -13,10 +13,10 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 
 # Utils functions for GUI and CLI.
-from app.utils.func import cls
+from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
-    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, ALL_DONE
+    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, ALL_DONE, NO_DELETE_ERROR
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
@@ -131,8 +131,11 @@ if __name__ == '__main__':
         cls()  # Clear console.
         browser_path = download_browser(browser)  # Download the webdriver.
         if 3 in action:
-            from app.services.processes.delete import Delete
-            delete = Delete()  # Initialize the Delete class.
+            try:
+                from app.services.processes.delete import Delete
+                delete = Delete()  # Initialize the Delete class.
+            except ImportError:
+                exit(NO_DELETE_ERROR)
         # Initialize the default classes for the bot.
         wallet, reader, structure, save, recaptcha = main(
             wallet_name, password, recovery_phrase, private_key,
