@@ -58,6 +58,9 @@ def process(action: list, solver: int, key: str, structure: object,
     if 2 in action:  # Initialize the Sale class.
         from app.services.processes.sale import check_price, Sale
         sale = Sale(structure, save, web, wallet)
+    if 3 in action:  # Initialize the Delete class.
+        from app.services.processes.delete import Delete
+        delete = Delete(structure, web)
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(reader.lenght_file):
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
@@ -70,6 +73,8 @@ def process(action: list, solver: int, key: str, structure: object,
             # Check the price validity by sending price and blockchain.
             if check_price(structure.price, structure.blockchain):
                 sale.sale()  # Process to listing of the NFT.
+        if 3 in action:  # Delete part.
+            delete.delete()  # Delete the NFT.
     web.quit()  # Stop the webdriver.
 
 
