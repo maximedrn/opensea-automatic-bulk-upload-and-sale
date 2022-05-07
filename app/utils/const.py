@@ -46,6 +46,11 @@ RECOVERY_PHRASE = '\nWhat is your wallet recovery phrase? '
 PRIVATE_KEY = '\nWhat is your account private key? ' + \
     '(Press [ENTER] to ignore this step) '
 
+NO_DELETE_ERROR = (
+    'Cannot found the file. Please check that you placed it correctly or'
+    ' that you purchased this extension. (available here: '
+    'https://maximedrn.gumroad.com/l/opensea-deletion)')
+
 YOLO_ERROR = (
     '\nAn error occured while loading Yolov5 and RealESRGAN.'
     '\nPlease verify that your computer is powerful enough,'
