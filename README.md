@@ -1166,6 +1166,31 @@ With this Deletion tool, you can massively remove NFTs from your account. All yo
 * Extract the file from the ZIP file, you should have a file named `delete.py`.
 * Navigate to the "Upload and Sale" bot repository, and place this file in this directory: `opensea-automatic-bulk-upload-and-sale/app/services/processes/delete.py`.
 * Start the main bot and at action select the 4th option.
+  
+### File structure
+
+**This works exactly like a "Sale Only" file where only the first value will be taken into account (`nft_url`).**
+
+<table>
+   <tbody>
+      <tr>
+         <td>Details</td>
+         <td>Data Types</td>
+         <td>Literal examples</td>
+         <td>JSON examples</td>
+         <td>CSV examples</td>
+         <td>XLSX examples</td>
+      </tr>
+      <tr>
+         <td><strong>NFT URL * </strong></td>
+         <td>String</td>
+         <td></td>
+         <td>"nft_url": "https://opensea.io/assets/matic/..."</td>
+         <td>https://opensea.io/...</td>
+         <td>https://opensea.io/assets/matic/...</td>
+      </tr>
+   </tbody>
+</table>
 
 ### Changelog
 
