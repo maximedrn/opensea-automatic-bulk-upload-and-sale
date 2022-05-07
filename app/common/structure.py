@@ -94,7 +94,8 @@ class Structure:
         # Check if the file is well structured or not by checking lenght.
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
                 or (1 in self.action and len(nft_data) < 12) or \
-                (2 in self.action and len(nft_data) < 9):
+                (2 in self.action and len(nft_data) < 9) or \
+                    (3 in self.action and len(nft_data) < 1):
             print(f'{RED}Your file is poorly structured for this NFT.\nCheck '
                   f'that elements are present and in the right order.{RESET}')
             return  # Do not try to structure the file.
@@ -119,8 +120,10 @@ class Structure:
             self.duration: list or str = nft_data[15 - index]
             self.specific_buyer: list or bool = nft_data[16 - index]
             self.quantity: int = nft_data[17 - index]
-        if index != 0:  # "Sale only" details.
+        if 2 in self.action and index != 0:  # "Sale only" details.
             self.nft_url: str = str(nft_data[0])
             self.supply: int = nft_data[1]
             self.blockchain: str = str(nft_data[2]).capitalize()
+        if 3 in self.action:  # Remove NFTs.
+            self.nft_url: str = str(nft_data[0])
         self.structured = True  # File is well structured.
