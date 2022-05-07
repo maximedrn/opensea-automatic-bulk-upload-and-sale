@@ -26,7 +26,7 @@ from os.path import abspath, splitext, exists, getsize
 
 
 class Upload:
-    """Main class: OpenSea automatic uploader."""
+    """Transfer the NFTs to OpenSea."""
 
     def __init__(self, solver: int, key: str, structure: object,
                  save: object, web: object, wallet: object,
