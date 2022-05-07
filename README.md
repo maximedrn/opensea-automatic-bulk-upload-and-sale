@@ -89,6 +89,15 @@ You can see an example of a collection uploaded with this bot: **[Crypto Parrot]
 
 According to **Rule #1** of the MetaMask "Safety Tips", it is requested to "**Never share your 12-word Secret Recovery Phrase (SRP) or private keys**". However, your wallet credentials are **only used** for the purpose of connecting to your wallet extension. The bot follows the procedure for the first connection to a wallet on a new browser (importing from a recovery phrase followed by creating a new password). Thus, none of this information is recovered, everything happens on your side. Moreover, you are free to choose whether or not to save your credentials in text files in the `assets/` folder.
 
+### Which solver is the best?
+
+It all depends on your choices and the equipment you have.
+* If you have a powerful computer (running Windows or Linux) and you don't want to pay for a paid service, you should choose option number 2: the reCAPTCHA solver with Yolov5x6.
+* If you don't have a powerful computer but don't mind paying for a service, you have 2 solutions.
+  * The first one is option number 3 ([2Captcha](https://2captcha.com?from=13853725)) which is convenient if you want to upload a small collection at an affordable price.
+  * The second option is option number 4 ([reCAPTCHA Bypasser](#recaptcha-bypasser)) which, in addition to speeding up the upload speed, allows you to upload as many collections as you want.
+* If your computer is not powerful enough and you don't want to pay, choose the first option: manual resolution.
+
 ### Is there an easy way to get the URLs of already uploaded NFTs?
 
 A tool to retrieve URLs from NFTs is available. You can learn more about this tool [here](#collection-scraper).
@@ -96,6 +105,7 @@ A tool to retrieve URLs from NFTs is available. You can learn more about this to
 ### How to find missing and duplicates NFTs in my collection?
 
 A tool to extract NFTs to get the missing and duplicates is available. You can learn more about this tool [here](#collection-scraper).
+Then if you want to remove duplicates, you can use this tool [here](#deletion).
 
 ### Is there a quick way to create metadata file?
 
