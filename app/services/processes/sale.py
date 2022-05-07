@@ -22,7 +22,7 @@ from ...utils.colors import GREEN, RED, YELLOW, RESET
 
 
 class Sale:
-    """Main class: OpenSea automatic uploader."""
+    """List the NFTs to OpenSea."""
 
     def __init__(self, structure: object, save: object,
                  web: object, wallet: object) -> None:
@@ -37,8 +37,8 @@ class Sale:
 
     def switch_ethereum(self) -> None:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
-        if (self.structure.blockchain == 'Ethereum' !=
-                self.actual_blockchain):  # Change blockchain.
+        if self.structure.blockchain == 'Ethereum' \
+                != self.actual_blockchain:  # Different blockchain.
             if 1 not in self.structure.action:
                 self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
@@ -65,7 +65,8 @@ class Sale:
                 self.web.driver.refresh()  # Reload the page.
                 self.actual_blockchain = 'Polygon'  # Change blockchain.
                 print(f'{YELLOW}Blockchain switched.{RESET}')
-                return True
+                return True  # Done, blockchain switched.
+            return False  # Not a "Switch" button.
         except Exception:
             return False
 
@@ -236,11 +237,11 @@ class Sale:
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
             if self.switch_polygon():  # Switch to Polygon blockchain.
-                self.sale()  # Retry sale.
-            else:  # Already switched to Polygon or it is Ethereum.
-                self.sign_contract()  # Sign the contract.
-                self.check_listed()  # Check if the NFT is listed.
-                print(f'{GREEN}NFT put up for sale.{RESET}')
+                self.web.driver.refresh()  # Reload the page.
+                return self.sale()  # Re list the NFT.
+            self.sign_contract()  # Sign the contract.
+            self.check_listed()  # Check if the NFT is listed.
+            print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
             print(f'{RED}NFT sale cancelled.{RESET}',
                   str(error).replace('Message: ', '') if 'Stacktrace'
@@ -250,7 +251,6 @@ class Sale:
             if self.fails > 1:  # Too much fails.
                 self.save.save_sale()  # Save the NFT details for a sale.
             else:  # Retry to list.
-                self.web.driver.get(self.structure.nft_url)
                 self.sale()  # Try to re-upload the NFT.
         self.fails = 0  # Reset the counter for next listing.
 
