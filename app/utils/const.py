@@ -25,7 +25,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.5 - 2022, 07 May.{RESET}'
+    f'\n\nVersion 1.7.6 - 2022, 07 May.{RESET}'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
