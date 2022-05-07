@@ -13,10 +13,10 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 
 # Utils functions for GUI and CLI.
-from app.utils.func import cls
+from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
-    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, ALL_DONE
+    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, ALL_DONE, NO_DELETE
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
@@ -59,8 +59,11 @@ def process(action: list, solver: int, key: str, structure: object,
         from app.services.processes.sale import check_price, Sale
         sale = Sale(structure, save, web, wallet)
     if 3 in action:  # Initialize the Delete class.
-        from app.services.processes.delete import Delete
-        delete = Delete(structure, web)
+        try:
+            from app.services.processes.delete import Delete
+            delete = Delete(structure, web)
+        except ImportError:
+            exit(NO_DELETE_ERROR)
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(reader.lenght_file):
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
