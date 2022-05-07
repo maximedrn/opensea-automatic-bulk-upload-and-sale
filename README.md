@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **[Version 1.7.4](#version-174)** (May 04, 2022).
+➜ **[Version 1.7.5](#version-175)** (May 07, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -34,6 +34,7 @@ Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one p
   * [Explanation of the different details for the listing part](#explanation-of-the-different-details-for-the-listing-part).
 * **[Useful tools to have for this bot](#useful-tools-to-have-for-this-bot).**
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
+  * [Deletion](#deletion), massive deletion of NFTs from your account, can be combined with the Collection Scraper. 
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
   * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**[demonstration](https://www.youtube.com/watch?v=Xph_sjbWoyE))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
@@ -1146,6 +1147,32 @@ Thus a "**full**" file containing all NFTs, a "**unique**" file containing each 
   * Initial commit.
 
 </details>
+
+## Deletion
+
+[![Deletion](https://user-images.githubusercontent.com/91475935/167246640-f4a7764f-37ae-46e6-9d5a-91b100eb6d1c.png)](https://maximedrn.gumroad.com/l/opensea-deletion)
+
+With this Deletion tool, you can massively remove NFTs from your account. All you have to do is create a file containing the URL of the NFTs you want to delete, then launch the main bot and select the fourth option. It is even easier if you have the [Collection Scraper](#collection-scraper) tool, which automatically creates a file compatible with this tool.
+
+**Purchase this tool - [Deletion](https://maximedrn.gumroad.com/l/opensea-deletion).**
+
+<details>
+  <summary>View this section.</summary>
+  <br />
+
+### Installation and run the bot
+
+* **Make sure you have version 1.7.5 or higher.**
+* Extract the file from the ZIP file, you should have a file named `delete.py`.
+* Navigate to the "Upload and Sale" bot repository, and place this file in this directory: `opensea-automatic-bulk-upload-and-sale/app/services/processes/delete.py`.
+* Start the main bot and at action select the 4th option.
+
+### Changelog
+
+* **Version 1.0.0:**
+  * Initial commit.
+
+</details>
   
 ## Generic File Maker
 
@@ -1308,7 +1335,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ## reCAPTCHA Bypasser
 
-[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/166677194-c0a19ec8-1e1c-4bee-91e2-0a3d80e7f7a5.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
+[![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/167246654-ffd2059a-e1da-41b2-b152-b81486f1f0e3.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
 **Demonstration video available [here](https://www.youtube.com/watch?v=Xph_sjbWoyE)**.
 
 With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
@@ -1408,6 +1435,7 @@ opensea-automatic-upload-and-sale-master
 │   │   ├── processes
 │   │   │   ├── __init__.py
 │   │   │   ├── login.py
+│   │   │   ├── delete.py  /* Can be removed if you do not have the OpenSea Deletion tool. */
 │   │   │   ├── sale.py
 │   │   │   ╰── upload.py
 │   │   ├── solvers
@@ -1511,13 +1539,17 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Version 1.7.4:
- * Correction of the listing in loop after a failure.
- * Correction of an incorrect file for the generated listing file.
- * Minor corrections and modifications.
+## Version 1.7.5:
+ * Added support for the [OpenSea Deletion](#deletion) tool.
+ * Minor fixes about the listing part.
 
 <details>
   <summary>Earlier versions.</summary>
+  
+### Version 1.7.4:
+ * Correction of the listing in loop after a failure.
+ * Correction of an incorrect file for the generated listing file.
+ * Minor corrections and modifications.
 
 ### Version 1.7.3:
  * Added support for a new [reCAPTCHA ~solver~ bypasser](#recaptcha-bypasser) exploit.
