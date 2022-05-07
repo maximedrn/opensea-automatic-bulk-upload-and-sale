@@ -205,9 +205,7 @@ class Sale:
             if self.structure.blockchain == 'Polygon':  # "Sign" button.
                 self.web.clickable(  # Click on the "Sign" button.
                     '//*[contains(@id, "Body react-aria")]/div/div/button')
-                self.wallet.contract()  # Sign the contract.
-            else:  # Sign the Wyvern 2.3 contract.
-                self.wallet.contract(True)  # True: Wyvern 2.3 arrow click.
+            self.wallet.contract(True)  # Sign the Wyvern 2.3 contract.
         except Exception:  # An error occured while listing the NFT.
             raise TE('Cannot sign the wallet contract.')
 
@@ -237,9 +235,9 @@ class Sale:
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
             if self.switch_polygon():  # Switch to Polygon blockchain.
-                self.web.driver.refresh()  # Reload the page.
                 return self.sale()  # Re list the NFT.
             self.sign_contract()  # Sign the contract.
+            self.web.driver.save_screenshot('test.png')
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
