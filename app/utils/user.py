@@ -87,12 +87,13 @@ def recaptcha_solver() -> int:
         print(f'{RED}Answer must be a strictly positive integer.{RESET}')
 
 
-def choose_browser(solver: int) -> int:
+def choose_browser(solver: int, password: str, recovery_phrase: str) -> int:
     """Ask the user for a browser."""
     browsers = ['ChromeDriver (Google Chrome)' + (
         ' - No headless mode.\n    Must used in foreground, you see what\'s '
-        'happening.' if solver != 1 else '.'), 'GeckoDriver (Mozilla Firefox)'
-        + ('- Headless mode.\n    Can be used in background while '
+        'happening.' if solver != 1 and password != '' and recovery_phrase
+        != '' else '.'), 'GeckoDriver (Mozilla Firefox)' + (
+            '- Headless mode.\n    Can be used in background while '
            'doing something else.' if solver != 1 else '.')]
     while True:
         print(f'{YELLOW}\nChoose a browser:')
