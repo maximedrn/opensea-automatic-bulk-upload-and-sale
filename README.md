@@ -80,7 +80,9 @@ Finally, **the bot will automate the tedious task of uploading or listing NFTs, 
 * **Ethereum and Polygon blockchains are supported**, and the switch between these two blockchains is also supported.
 * In case of failure during an upload, a listing or when you only want to upload your NFTs on OpenSea, **a file is generated with details already filled** in or to be filled in.
 
-You can see an example of a collection uploaded with this bot: **[Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts)**.
+You can see an example of collections transferred with this bot:
+* **[Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts)**, transferred and listed before reCAPTCHAs.
+* **[Rainbow Color Gradients](https://opensea.io/collection/rainbow-color-gradient)**, transferred and listed using the Bypasser reCAPTCHA.
 
 
 # Frequently asked questions
