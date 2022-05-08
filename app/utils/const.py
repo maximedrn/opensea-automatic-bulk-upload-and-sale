@@ -14,7 +14,7 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 
 # Python internal imports.
-from .colors import GREEN, RESET
+from .colors import GREEN, YELLOW, RESET
 
 
 FIRST_PAGE = (
@@ -25,7 +25,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.6 - 2022, 07 May.{RESET}'
+    f'\n\nVersion 1.7.6 - 2022, 08 May.{RESET}'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -39,12 +39,20 @@ SECOND_PAGE = (
     '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
     'swIyQVatKBoGxA')
 
-PASSWORD = '\nWhat is your wallet password? '
+PASSWORD = (
+    '\nWhat is your wallet password? '
+    '(Press [ENTER] to do it manually) ')
 
-RECOVERY_PHRASE = '\nWhat is your wallet recovery phrase? '
+RECOVERY_PHRASE = (
+    '\nWhat is your wallet recovery phrase? '
+    '(Press [ENTER] to do it manually) ')
 
-PRIVATE_KEY = '\nWhat is your account private key? ' + \
-    '(Press [ENTER] to ignore this step) '
+PRIVATE_KEY = (
+    '\nWhat is your account private key? '
+    '(Press [ENTER] to ignore this step) ')
+
+METAMASK_IMPORT = f'{YELLOW}Press [ENTER] when "Import" button is clicked.'
+COINBASE_WALLET_IMPORT = f'{YELLOW}Press [ENTER] when "Submit" button is clicked.'
 
 NO_DELETE_ERROR = (
     'Cannot found the file. Please check that you placed it correctly or'
