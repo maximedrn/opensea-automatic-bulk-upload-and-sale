@@ -39,7 +39,7 @@ def login(wallet: object, browser: int, browser_path: str,
     while True:
         web = None  # Prevent Exception.
         try:  # Try to login to a wallet and OpenSea.
-            web = Webdriver(browser, browser_path, wallet_name, solver)
+            web = Webdriver(browser, browser_path, wallet_name, wallet, solver)
             wallet.init_wallet(web)  # Send web instance.
             if wallet.login() and Login(web, wallet).login():
                 return web  # Stop the while loop.
@@ -48,8 +48,8 @@ def login(wallet: object, browser: int, browser_path: str,
 
 
 def process(action: list, solver: int, key: str, structure: object,
-            save: object, web: object, wallet: object,
-            recaptcha: object, reader: object) -> None:
+            save: object, web: object, wallet: object, recaptcha:
+            object, reader: object, delete: object) -> None:
     """Begin the upload, listing or both, or any process."""
     if 1 in action:  # Initialize the Upload class.
         from app.services.processes.upload import Upload
@@ -91,7 +91,7 @@ def user() -> tuple:
     # Ask what browser the user wants to use
     # if the Coinbase Wallet is not selected.
     browser = 0 if wallet_name == 'Coinbase Wallet' \
-        else choose_browser(solver)
+        else choose_browser(solver, password, recovery_phrase)
     file = data_file()  # Metadata file to read.
     return wallet_name, password, recovery_phrase, private_key, \
         action, solver, key, browser, file
@@ -110,12 +110,18 @@ def main(wallet_name: str, password: str, recovery_phrase: str,
     save = Save(structure)  # Initialize the Save class.
     # Initialize the solver by sending which
     # solver to use and an API key if it is necessary.
-    recaptcha = None
+    recaptcha, delete = None, None
     if 1 in action:
         from app.services.solvers.solver import Solver
         recaptcha = Solver(solver, key)
         recaptcha.init_solver()  # Send web instance.
-    return wallet, reader, structure, save, recaptcha
+    elif 3 in action:
+        try:  # Try to import the file.
+            from app.services.processes.delete import Delete
+            delete = Delete()  # Initialize the Delete class.
+        except ImportError:
+            exit(NO_DELETE_ERROR)
+    return wallet, reader, structure, save, recaptcha, delete
 
 
 if __name__ == '__main__':
@@ -130,20 +136,14 @@ if __name__ == '__main__':
             action, solver, key, browser, file = user()
         cls()  # Clear console.
         browser_path = download_browser(browser)  # Download the webdriver.
-        if 3 in action:
-            try:
-                from app.services.processes.delete import Delete
-                delete = Delete()  # Initialize the Delete class.
-            except ImportError:
-                exit(NO_DELETE_ERROR)
         # Initialize the default classes for the bot.
-        wallet, reader, structure, save, recaptcha = main(
+        wallet, reader, structure, save, recaptcha, delete = main(
             wallet_name, password, recovery_phrase, private_key,
             file, action, solver, key)
         cls()  # Clear console.
         process(action, solver, key, structure, save, login(
             wallet, browser, browser_path, wallet_name, solver),
-            wallet, recaptcha, reader)  # Start the process.
+            wallet, recaptcha, reader, delete)  # Start the process.
         print(ALL_DONE)  # Script stops, all done.
     except KeyboardInterrupt:
         print(f'\n\n{YELLOW}The program has been '
