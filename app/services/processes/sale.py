@@ -37,8 +37,9 @@ class Sale:
 
     def switch_ethereum(self) -> None:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
-        if self.structure.blockchain == 'Ethereum' \
-                != self.actual_blockchain:  # Different blockchain.
+        if self.structure.blockchain == 'Ethereum' and self.\
+                actual_blockchain != 'Ethereum':  # Different blockchain.
+            print('là', self.structure.blockchain)
             if 1 not in self.structure.action:
                 self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
@@ -46,10 +47,9 @@ class Sale:
             self.wallet.sign(False, 1)  # Approve.
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
             self.actual_blockchain == 'Ethereum'
-        else:  # If it's already set to Ethereum.
-            if 1 in self.structure.action:
-                self.structure.nft_url = self.web.driver.current_url\
-                    .replace('/sell', '')  # Remove the "/sell" part.
+        elif 1 in self.structure.action:  # If it's already set to Ethereum.
+            self.structure.nft_url = self.web.driver.current_url\
+                .replace('/sell', '')  # Remove the "/sell" part.
             self.web.driver.get(self.structure.nft_url + '/sell')  # Sale page.
 
     def switch_polygon(self) -> bool:
@@ -237,7 +237,6 @@ class Sale:
             if self.switch_polygon():  # Switch to Polygon blockchain.
                 return self.sale()  # Re list the NFT.
             self.sign_contract()  # Sign the contract.
-            self.web.driver.save_screenshot('test.png')
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
