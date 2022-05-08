@@ -40,15 +40,16 @@ class Webdriver:
     """Webdriver class and methods to prevent exceptions."""
 
     def __init__(self, browser: int, browser_path: str,
-                 wallet: str, solver: int) -> None:
+                 wallet_name: str, wallet: object, solver: int) -> None:
         """Contains the file paths of the webdriver and the extension."""
         self.metamask_extension_path = abspath(  # MetaMask extension path.
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
         self.coinbase_wallet_extension_path = abspath(
             'assets/CoinbaseWallet.crx')  # Coinbase Wallet extension path.
-        self.wallet = wallet.lower().replace(' ', '_')  # Wallet name.
+        self.wallet_name = wallet_name.lower().replace(' ', '_')  # Wallet name.
         self.browser_path = browser_path  # Get the browser path.
         self.solver = solver  # reCAPTCHA solver number.
+        self.wallet = wallet  # Instance of the Wallet class.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
         self.driver = self.chrome() if browser == 0 else self.firefox()
         self.window = browser  # Window handle value.
@@ -57,13 +58,12 @@ class Webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
         # Add wallet extension according to user choice
-        options.add_extension(eval(f'self.{self.wallet}_extension_path'))
+        options.add_extension(eval(f'self.{self.wallet_name}_extension_path'))
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--allow-file-access-from-files')
         options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
@@ -77,14 +77,14 @@ class Webdriver:
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
         options = webdriver.FirefoxOptions()  # Configure options for Firefox.
-        if self.solver != 1:  # Not manual solver.
+        if self.solver != 1 and self.wallet.recovery_phrase != '' and \
+                self.wallet.password != '':  # Not manual solver.
             options.add_argument('--headless')  # Headless mode.
         options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--allow-file-access-from-files')
         options.set_preference('intl.accept_languages', 'en,en-US')
         driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
