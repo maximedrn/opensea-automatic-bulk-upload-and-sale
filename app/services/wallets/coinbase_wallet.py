@@ -20,6 +20,7 @@ from selenium.common.exceptions import TimeoutException as TE
 
 #  Python internal imports.
 from ...utils.colors import GREEN, RED, RESET
+from ...utils.const import COINBASE_WALLET_IMPORT
 
 
 class CoinbaseWallet:
@@ -40,6 +41,12 @@ class CoinbaseWallet:
             self.web.clickable('//*[@data-testid="btn-import-existing-wallet"]')
             # Click on the "Enter recovery phrase" button.
             self.web.clickable('//*[@data-testid="btn-import-recovery-phrase"]')
+            # If the recovery phrase and the password are not set.
+            if self.wallet.recovery_phrase == '' and self.wallet.password == '':
+                input(COINBASE_WALLET_IMPORT)
+                print(f'{GREEN}Logged to Coinbase Wallet.{RESET}')
+                self.wallet.success = True
+                return  # User log in to Coinbase Wallet.
             self.web.send_keys(  # Input the recovery phrase.
                 '//*[@data-testid="seed-phrase-input"]', self.wallet.recovery_phrase)
             # Click on the "Import Wallet" button.
