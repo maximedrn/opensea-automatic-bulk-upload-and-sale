@@ -177,7 +177,7 @@ class Upload:
                                    f'"{self.structure.blockchain}")]/../..')
             except Exception:  # Blockchain is unknown.
                 raise TE('Blockchain is unknown or badly written.')
-        else:  # This is important for the sale part.
+        elif self.structure.blockchain == '':  # Important for the sale part.
             self.structure.blockchain = 'Ethereum'
 
     def submit(self) -> None:
