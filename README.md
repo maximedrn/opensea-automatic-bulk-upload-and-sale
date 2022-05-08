@@ -170,7 +170,7 @@ A tool to generate a complete metadata file from a single file is available. You
     ```
 * Download and install [Google Chrome](https://www.google.com/intl/en_en/chrome/) and/or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/).
 * Create your metadata file containing all details of each NFT. It can be a JSON, CSV or XLSX file. You can save it in the `data/` folder.  
-  **[What structure should my metadata file have?](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale#data-files-structure)**
+  **[What structure should my metadata file have?](#metadata-files-structure)**
 
 </details>
 
