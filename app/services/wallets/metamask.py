@@ -20,6 +20,7 @@ from selenium.common.exceptions import TimeoutException as TE
 
 # Python internal imports.
 from ...utils.colors import GREEN, RED, RESET
+from ...utils.const import METAMASK_IMPORT
 
 
 class MetaMask:
@@ -42,15 +43,19 @@ class MetaMask:
             self.web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
             # Click on the "I agree" button.
             self.web.clickable('//footer/button[2]')
-            # Input the recovery phrase.
-            self.web.send_keys('//input[position()=1]', self.wallet.recovery_phrase)
-            # Input a new password or the same password of your account.
-            self.web.send_keys('//*[@id="password"]', self.wallet.password)
-            self.web.send_keys('//*[@id="confirm-password"]', self.wallet.password)
-            # Click on the "I have read and agree to the..." checkbox.
-            self.web.clickable('(//*[@role="checkbox"])[2]')
-            # Click on the "Import" button.
-            self.web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
+            # If a recovery phrase and password are set.
+            if self.wallet.recovery_phrase != '' and self.wallet.password != '':
+                # Input the recovery phrase.
+                self.web.send_keys('//input[position()=1]', self.wallet.recovery_phrase)
+                # Input a new password or the same password of your account.
+                for path in ('//*[@id="password"]', '//*[@id="confirm-password"]'):
+                    self.web.send_keys(path, self.wallet.password)
+                # Click on the "I have read and agree to the..." checkbox.
+                self.web.clickable('(//*[@role="checkbox"])[2]')
+                self.web.clickable(  # Click on the "Import" button.
+                    '//*[contains(@class, "btn-primary")][position()=1]')
+            else:  # User chose to set the wallet manually.
+                input(METAMASK_IMPORT)
             # Wait until the login worked and click on the "All done" button.
             self.web.visible('//*[contains(@class, "emoji")][position()=1]')
             self.web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
@@ -90,13 +95,13 @@ class MetaMask:
         self.web.window_handles(2)  # Switch to the MetaMask pop up tab.
         if self.web.window == 1 and new_contract:  # GeckoDriver.
             self.web.clickable('(//div[contains(@class, "signature") and '
-                          'contains(@class, "scroll")])[position()=1]')
+                               'contains(@class, "scroll")])[position()=1]')
         elif self.web.window == 0 and new_contract:
             self.web.driver.execute_script(  # Scroll down.
                 'window.scrollTo(0, document.body.scrollHeight);')
         # Click on the "Sign" button - Make a contract link.
         self.web.clickable('(//div[contains(@class, "signature") and conta'
-                      'ins(@class, "footer")])[position()=1]/button[2]')
+                           'ins(@class, "footer")])[position()=1]/button[2]')
         try:  # Wait until the MetaMask pop up is closed.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
