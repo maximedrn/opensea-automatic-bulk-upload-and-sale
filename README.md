@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **[Version 1.7.7](#version-177)** (May 08, 2022).
+➜ **[Version 1.7.8](#version-178)** (May 08, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -11,7 +11,7 @@ If you like :green_heart: my work and this tool:
 ---
 
 ### **New**: Bypass reCAPTCHAs using this OpenSea exploit: **[reCAPTCHA Bypasser](#recaptcha-bypasser)**.  
-Watch the [video](https://www.youtube.com/watch?v=Xph_sjbWoyE) to see **how fast** the upload is with this exploit!  
+Watch the videos ([1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk)) to see **how fast** the upload is with this exploit!  
 Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one process.
 
 ---
@@ -37,7 +37,7 @@ Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one p
   * [Deletion](#deletion), massive deletion of NFTs from your account, can be combined with the Collection Scraper. 
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
-  * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**[demonstration](https://www.youtube.com/watch?v=Xph_sjbWoyE))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
+  * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**demonstration: [1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](#changelog-4)** and new features.
@@ -1373,7 +1373,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 ## reCAPTCHA Bypasser
 
 [![reCAPTCHA Bypasser](https://user-images.githubusercontent.com/91475935/167246654-ffd2059a-e1da-41b2-b152-b81486f1f0e3.png)](https://maximedrn.gumroad.com/l/opensea-no-recaptcha)
-**Demonstration video available [here](https://www.youtube.com/watch?v=Xph_sjbWoyE)**.
+**Demonstration videos available: [1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk)**.
 
 With this tool, you can upload your NFTs without reCAPTCHA on OpenSea. It uses an exploit that bypass the reCAPTCHA.  
 The upload speed is such that there would be no reCAPTCHA. Rediscover OpenSea before reCAPTCHAs!  
@@ -1576,13 +1576,16 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Version 1.7.7:
- * You can now choose whether you want to configure your wallet manually or not.
- * Minor changes.
+### Version 1.7.8:
+ * Correction of the listing on Polygon when the option "Upload and Sale" is selected.
 
 <details>
   <summary>Earlier versions.</summary>
 
+### Version 1.7.7:
+ * You can now choose whether you want to configure your wallet manually or not.
+ * Minor changes.
+  
 ### Version 1.7.6:
  * Fixed failure of the contract signature on Polygon blockchain. **[#288](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/288)**.
   
