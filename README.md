@@ -14,6 +14,8 @@ If you like :green_heart: my work and this tool:
 Watch the videos ([1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk)) to see **how fast** the upload is with this exploit!  
 Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one process.
 
+https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-86dc-33d11577d10b.mp4
+
 ---
 
 # Table of contents
