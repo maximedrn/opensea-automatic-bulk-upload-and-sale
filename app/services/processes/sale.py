@@ -39,7 +39,6 @@ class Sale:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
         if self.structure.blockchain == 'Ethereum' and self.\
                 actual_blockchain != 'Ethereum':  # Different blockchain.
-            print('là', self.structure.blockchain)
             if 1 not in self.structure.action:
                 self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
@@ -213,7 +212,7 @@ class Sale:
         """Check if the NFT is listed."""
         try:
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.visible('//header/h4[contains(text(), "listed")]')
+            self.web.visible('//header/h4')
         except Exception:  # Sometimes popup is do not detected.
             raise TE('NFT seems to not be listed.')
 
