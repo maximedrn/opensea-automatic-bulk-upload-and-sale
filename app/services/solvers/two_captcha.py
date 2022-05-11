@@ -57,7 +57,7 @@ class TwoCaptcha:
             waiting_time += 1  # Increase the waiting time.
         sleep(randint(3, 5))  # Wait between 3 and 5 seconds.
         web.driver.execute_script('document.getElementById("g-recaptcha'
-                                       f'-response").innerHTML="{token}";')
+                                  f'-response").innerHTML="{token}";')
         web.driver.execute_script(f'{callback}("{token}");')
         return True
 
