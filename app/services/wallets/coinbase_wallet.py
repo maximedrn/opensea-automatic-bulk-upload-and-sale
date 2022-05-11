@@ -24,6 +24,7 @@ from ...utils.const import COINBASE_WALLET_IMPORT
 
 
 class CoinbaseWallet:
+    """Allow the connection and the signature of contracts."""
 
     def __init__(self, web: object, wallet: object) -> None:
         self.fails = 0  # Counter of fails during wallet connection.
@@ -35,27 +36,28 @@ class CoinbaseWallet:
         """Login to the Coinbase Wallet."""
         try:
             print('Login to Coinbase Wallet.', end=' ')
-            self.web.window_handles(0)  # Switch to the Coinbase Wallet extension.
-            self.web.driver.refresh()  # Reload the page to prevent a blank page.
-            # Click on the "Import wallet" button.
-            self.web.clickable('//*[@data-testid="btn-import-existing-wallet"]')
-            # Click on the "Enter recovery phrase" button.
-            self.web.clickable('//*[@data-testid="btn-import-recovery-phrase"]')
-            # If the recovery phrase and the password are not set.
-            if self.wallet.recovery_phrase == '' and self.wallet.password == '':
+            self.web.window_handles(0)  # Switch to the Coinbase extension.
+            self.web.driver.refresh()  # Prevent a blank page.
+            self.web.clickable(  # Click on the "Import wallet" button.
+                '//*[@data-testid="btn-import-existing-wallet"]')
+            self.web.clickable(  # Click on the "Enter recovery phrase" button.
+                '//*[@data-testid="btn-import-recovery-phrase"]')
+            if (self.wallet  # If the recovery phrase / password are not set.
+                    .recovery_phrase == '' and self.wallet.password == ''):
                 input(COINBASE_WALLET_IMPORT)
                 print(f'{GREEN}Logged to Coinbase Wallet.{RESET}')
                 self.wallet.success = True
                 return  # User log in to Coinbase Wallet.
             self.web.send_keys(  # Input the recovery phrase.
-                '//*[@data-testid="seed-phrase-input"]', self.wallet.recovery_phrase)
+                '//*[@data-testid="seed-phrase-input"]',
+                self.wallet.recovery_phrase)
             # Click on the "Import Wallet" button.
             self.web.clickable('//*[@data-testid="btn-import-wallet"]')
             # Input a new password or the same password of your account.
             self.web.send_keys('//*[@id="Password"]', self.wallet.password)
-            self.web.send_keys('//*[@id="Verify password"]', self.wallet.password)
-            # Click on the "I have read and agree to the..." checkbox.
-            self.web.clickable(
+            self.web.send_keys(  # Input a second time the password.
+                '//*[@id="Verify password"]', self.wallet.password)
+            self.web.clickable(  # Click on the "I have read..." checkbox.
                 '//*[@data-testid="terms-and-privacy-policy-parent"]')
             # Click on the "Submit" button.
             self.web.clickable('//*[@data-testid="btn-password-continue"]')
@@ -64,10 +66,12 @@ class CoinbaseWallet:
         except Exception:  # Failed - a web element is not accessible.
             self.fails += 1  # Increment the counter.
             if self.fails < 2:  # Retry login to the Coinbase Wallet.
-                print(f'{RED}Login to Coinbase Wallet failed. Retrying.{RESET}')
+                print(f'{RED}Login to Coinbase Wallet'
+                      f' failed. Retrying.{RESET}')
                 self.login()
             else:  # Failed twice - the wallet is not accessible.
-                print(f'{RED}Login to Coinbase Wallet failed. Restarting.{RESET}')
+                print(f'{RED}Login to Coinbase Wallet'
+                      f' failed. Restarting.{RESET}')
                 self.web.quit()  # Stop the webdriver.
                 self.wallet.success = False
 
@@ -95,7 +99,7 @@ class CoinbaseWallet:
         """Close the Coinbase Wallet popup."""
         if len(self.web.driver.window_handles) > 2:
             try:
-                self.web.window_handles(2)  # Switch to the Coinbase Wallet popup.
+                self.web.window_handles(2)  # Switch to the Coinbase popup.
                 self.web.driver.close()  # Close the popup extension.
                 self.web.window_handles(1)  # Switch back to OpenSea.
             except Exception:
