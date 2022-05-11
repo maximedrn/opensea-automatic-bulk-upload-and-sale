@@ -94,7 +94,7 @@ def choose_browser(solver: int, password: str, recovery_phrase: str) -> int:
         'happening.' if solver != 1 and password != '' and recovery_phrase
         != '' else '.'), 'GeckoDriver (Mozilla Firefox)' + (
             '- Headless mode.\n    Can be used in background while '
-           'doing something else.' if solver != 1 else '.')]
+            'doing something else.' if solver != 1 else '.')]
     while True:
         print(f'{YELLOW}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
