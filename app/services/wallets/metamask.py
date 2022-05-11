@@ -24,6 +24,7 @@ from ...utils.const import METAMASK_IMPORT
 
 
 class MetaMask:
+    """Allow the connection and the signature of contracts."""
 
     def __init__(self, web: object, wallet: object) -> None:
         self.fails = 0  # Counter of fails during wallet connection.
@@ -36,19 +37,19 @@ class MetaMask:
         try:  # Try to login to the MetaMask extension.
             print('Login to MetaMask.', end=' ')
             self.web.window_handles(0)  # Switch to the MetaMask extension tab.
-            self.web.driver.refresh()  # Reload the page to prevent a blank page.
+            self.web.driver.refresh()  # Prevent a blank page.
             # Click on the "Start" button.
             self.web.clickable('//*[@class="welcome-page"]/button')
-            # Click on the "Import wallet" button.
-            self.web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
+            self.web.clickable(  # Click on the "Import wallet" button.
+                '//*[contains(@class, "btn-primary")][position()=1]')
             # Click on the "I agree" button.
             self.web.clickable('//footer/button[2]')
-            # If a recovery phrase and password are set.
-            if self.wallet.recovery_phrase != '' and self.wallet.password != '':
-                # Input the recovery phrase.
-                self.web.send_keys('//input[position()=1]', self.wallet.recovery_phrase)
-                # Input a new password or the same password of your account.
-                for path in ('//*[@id="password"]', '//*[@id="confirm-password"]'):
+            if (self.wallet  # If a recovery phrase and password are set.
+                    .recovery_phrase != '' and self.wallet.password != ''):
+                self.web.send_keys(  # Input the recovery phrase.
+                    '//input[position()=1]', self.wallet.recovery_phrase)
+                for path in (  # Input a password of your account.
+                        '//*[@id="password"]', '//*[@id="confirm-password"]'):
                     self.web.send_keys(path, self.wallet.password)
                 # Click on the "I have read and agree to the..." checkbox.
                 self.web.clickable('(//*[@role="checkbox"])[2]')
@@ -58,15 +59,18 @@ class MetaMask:
                 input(METAMASK_IMPORT)
             # Wait until the login worked and click on the "All done" button.
             self.web.visible('//*[contains(@class, "emoji")][position()=1]')
-            self.web.clickable('//*[contains(@class, "btn-primary")][position()=1]')
+            self.web.clickable(  # Confirm the connecton to MetaMask.
+                '//*[contains(@class, "btn-primary")][position()=1]')
             if self.wallet.private_key != '':  # Change account.
                 self.web.clickable('//button[@data-testid="popover-close"]')
-                self.web.clickable('//*[@class="account-menu__icon"][position()=1]')
+                self.web.clickable(  # Click on the menu icon.
+                    '//*[@class="account-menu__icon"][position()=1]')
                 self.web.clickable('//*[contains(@class, "account-menu__item--'
-                              'clickable")][position()=2]')
-                self.web.send_keys('//*[@id="private-key-box"]', self.wallet.private_key)
+                                   'clickable")][position()=2]')
+                self.web.send_keys(  # Input the private key.
+                    '//*[@id="private-key-box"]', self.wallet.private_key)
                 self.web.clickable('//*[contains(@class, "btn-secondary")]'
-                              '[position()=1]')
+                                   '[position()=1]')
             print(f'{GREEN}Logged to MetaMask.{RESET}')
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
@@ -96,9 +100,8 @@ class MetaMask:
         if self.web.window == 1 and new_contract:  # GeckoDriver.
             self.web.clickable('(//div[contains(@class, "signature") and '
                                'contains(@class, "scroll")])[position()=1]')
-        elif self.web.window == 0 and new_contract:
-            self.web.driver.execute_script(  # Scroll down.
-                'window.scrollTo(0, document.body.scrollHeight);')
+        self.web.driver.execute_script(  # Scroll down.
+            'window.scrollTo(0, document.body.scrollHeight);')
         # Click on the "Sign" button - Make a contract link.
         self.web.clickable('(//div[contains(@class, "signature") and conta'
                            'ins(@class, "footer")])[position()=1]/button[2]')
