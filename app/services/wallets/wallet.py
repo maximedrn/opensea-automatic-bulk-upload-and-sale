@@ -16,7 +16,7 @@ Any distribution, modification or commercial use is strictly prohibited.
 class Wallet:
     """
     Allow the connection to OpenSea with different wallets.
-    
+
     It uses the exec() function to import the wallet class.
     Then it calls the refered method of this wallet class.
     """
