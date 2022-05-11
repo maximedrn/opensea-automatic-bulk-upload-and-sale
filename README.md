@@ -1581,6 +1581,7 @@ opensea-automatic-upload-and-sale-master
 
 ## Version 1.7.9:
  * Minor corrections for the contract signature on MetaMask.
+ * Fixed an error that sometimes occurred when the collection is not mentioned.
 
 <details>
   <summary>Earlier versions.</summary>
