@@ -46,7 +46,7 @@ class Webdriver:
             'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
         self.coinbase_wallet_extension_path = abspath(
             'assets/CoinbaseWallet.crx')  # Coinbase Wallet extension path.
-        self.wallet_name = wallet_name.lower().replace(' ', '_')  # Wallet name.
+        self.wallet_name = wallet_name.lower().replace(' ', '_')
         self.browser_path = browser_path  # Get the browser path.
         self.solver = solver  # reCAPTCHA solver number.
         self.wallet = wallet  # Instance of the Wallet class.
