@@ -95,7 +95,7 @@ class Structure:
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
                 or (1 in self.action and len(nft_data) < 12) or \
                 (2 in self.action and len(nft_data) < 9) or \
-                    (3 in self.action and len(nft_data) < 1):
+                (3 in self.action and len(nft_data) < 1):
             print(f'{RED}Your file is poorly structured for this NFT.\nCheck '
                   f'that elements are present and in the right order.{RESET}')
             return  # Do not try to structure the file.
