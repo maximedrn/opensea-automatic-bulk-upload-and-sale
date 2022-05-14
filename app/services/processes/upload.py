@@ -91,8 +91,9 @@ class Upload:
 
     def description(self) -> None:
         """Check if the description is not empty and send it."""
-        self.web.is_empty('//*[@id="description"]', self.structure.description
-                         .replace('\n', f'{Keys.SHIFT} {Keys.ENTER}'))
+        # Replace the "\n" to make a break line.
+        self.web.is_empty('//*[@id="description"]', self.structure
+            .description.replace('\\n', f'{Keys.SHIFT} {Keys.ENTER}'))
 
     def collection(self, create_url: str) -> None:
         """Check the collection format and send it."""
