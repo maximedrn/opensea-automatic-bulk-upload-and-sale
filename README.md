@@ -1580,7 +1580,7 @@ opensea-automatic-upload-and-sale-master
 
 ## Version 1.7.10:
  * Added line break support for description (add a `\n` to break the line).
- * Fixed minor.
+ * Minor fixes.
 
 <details>
   <summary>Earlier versions.</summary>
