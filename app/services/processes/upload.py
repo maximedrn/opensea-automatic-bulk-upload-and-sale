@@ -91,7 +91,8 @@ class Upload:
 
     def description(self) -> None:
         """Check if the description is not empty and send it."""
-        self.web.is_empty('//*[@id="description"]', self.structure.description)
+        self.web.is_empty('//*[@id="description"]', self.structure.description
+                         .replace('\n', f'{Keys.SHIFT} {Keys.ENTER}'))
 
     def collection(self, create_url: str) -> None:
         """Check the collection format and send it."""
@@ -235,7 +236,7 @@ class Upload:
         except Exception as error:  # Any other error.
             print(f'{RED}Upload failed.{RESET}',
                   str(error).replace('Message: ', '') if 'Stacktrace'
-                  not in str(error) else '\n', end='')
+                  not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
