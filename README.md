@@ -84,7 +84,7 @@ Finally, **the bot will automate the tedious task of uploading or listing NFTs, 
 
 You can see an example of collections transferred with this bot:
 * **[Crypto Parrot](https://opensea.io/collection/crypto-parrot-nfts)**, transferred and listed before reCAPTCHAs.
-* **[Rainbow Color Gradients](https://opensea.io/collection/rainbow-color-gradient)**, transferred and listed using the Bypasser reCAPTCHA.
+* **[Rainbow Color Gradients](https://opensea.io/collection/rainbow-color-gradient)**, transferred and listed using the reCAPTCHA Bypasser.
 
 
 # Frequently asked questions
