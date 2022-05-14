@@ -12,7 +12,7 @@ If you like :green_heart: my work and this tool:
 
 ### **New**: Bypass reCAPTCHAs using this OpenSea exploit: **[reCAPTCHA Bypasser](#recaptcha-bypasser)**.  
 Watch the videos ([1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk)) to see **how fast** the upload is with this exploit!  
-Estimates: 400 NFTs per hour, or an average of 10,000 NFTs in one day with one process.  
+Estimates: **400 NFTs per hour**, or an average of **10,000 NFTs in one day** with one process.  
 **Try the demonstration version of this tool [here](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/releases/tag/Demonstration).**
 
 https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-86dc-33d11577d10b.mp4
@@ -66,7 +66,6 @@ _You will certainly find a solution by **reading :book:** or consulting the issu
 * Sign up on [Coinbase](https://www.coinbase.com/join/dran_n7) (affiliate link).
 * Sign up on [2Captcha](https://2captcha.com?from=13853725) (affiliate link).  
   **Paid service**: $2.99 per 1000 reCAPTCHAs.
-* Join my **[affiliate program](https://maximedrn.gumroad.com/affiliates)** to promote the tools - **25% commission** per sale.
 
 
 # What does this bot do?
@@ -179,13 +178,13 @@ A tool to generate a complete metadata file from a single file is available. You
 
 ## Configuration of the reCAPTCHA solver using Yolov5x6
 
-➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver or the manual solution._  
+➜ _Yolov5x6 and RealESRGAN, ignore this if you use the 2Captcha solver, the [reCAPTCHA bypasser](#recaptcha-bypasser) or the manual solution._  
 ➜ _Only available for Windows and Linux users._
 
 * You will **need a one of these graphics card (GPU)**:
   * GTX 1080.
   * RTX 2060, RTX 2070, RTX 2080.
-  * RTX 3060, RTX 3070, RTX 3080, RTX 3090.
+  * RTX2050, RTX 3060, RTX 3070, RTX 3080, RTX 3090.
   * Any Ti version of these graphics cards.
 * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
