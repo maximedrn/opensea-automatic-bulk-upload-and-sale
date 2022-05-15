@@ -1363,7 +1363,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
     ```
 * Select your choices as in the main bot.
 * When two command prompts are open, you can close the `multiprocessing.py` tab.
-* Now the bot runs two instances and upload/list or both your NFTs.
+* Now the bot runs multiple instances and upload/list or both your NFTs.
 
 ### Changelog
 
