@@ -39,7 +39,7 @@ https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-
   * [Collection Scraper](#collection-scraper), scrape your collection easily, distinguish the duplicates, the missing ones, and the unique ones.
   * [Deletion](#deletion), massive deletion of NFTs from your account, can be combined with the Collection Scraper. 
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
-  * [Multiprocessing](#multiprocessing), upload and list your NFTs **twice as fast**.
+  * [Multiprocessing](#multiprocessing), upload and list your NFTs **two to five times faster**.
   * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**demonstration: [1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
   * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
@@ -1332,7 +1332,7 @@ It faciliates the creation of your metadata file.
 [![Multiprocessing](https://user-images.githubusercontent.com/91475935/166142605-8ce3d606-4b12-4b95-8f6d-20358dd41904.png)](https://maximedrn.gumroad.com/l/opensea-multiprocessing)
 
 
-With this Multiprocessing tool, you can upload and list your NFTs **twice as fast**.  
+With this multi-processor tool, you can download and list your NFTs **two to five times faster**.
 It splits your file into two subfiles, one taking the odd indexes in the metadata file and the other taking the even indexes.  
 Then two command prompts open and work like the main bot but at the same time.  
 
@@ -1347,7 +1347,7 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ### Installation
 
-* **Make sure you have version 1.7.0 or higher.**
+* **Make sure you have version 1.7.10 or higher.**
 * Extract the 2 files from the ZIP file, you should have a file named `multiprocessing.py` and another named `task.py`.
 * Navigate to the "Upload and Sale" bot repository, and place these two files in the parent directory (`opensea-automatic-upload-and-sale/`).
   
@@ -1367,6 +1367,9 @@ If your computer has some mismatch with the main bot, do not buy this tool.
 
 ### Changelog
 
+* **Version 1.1.0:**
+  * You can now choose the amount of processes you want to run simultaneously (between 1 and 5).
+  * Remove the output on save that make the process slower.
 * **Version 1.0.0:**
   * Initial commit.
 
@@ -1581,6 +1584,7 @@ opensea-automatic-upload-and-sale-master
 ## Version 1.7.10:
  * Added line break support for description (add a `\n` to break the line).
  * Minor fixes.
+ * Added support with the new version of the [Multiprocessing](#multiprocessing) tool.
 
 <details>
   <summary>Earlier versions.</summary>
