@@ -49,7 +49,7 @@ class Save:
             # Remove the ";;" at the end of the row of headers.
             file.write(content[:-3] if content.endswith(';; ') else content)
 
-    def save(self, mode: str, details: list) -> None:
+    def save(self, mode: str, details: list, mute: bool = False) -> None:
         """Save the metadata in a CSV file."""
         # Create the file if it doesn't exist.
         if not isfile(abspath(eval(f'self.{mode}_file'))):
@@ -63,6 +63,8 @@ class Save:
             file.write('\n' + ''.join(str(eval(f'self.structure.{detail}', {
                 'self': self})).replace('\\', '/') + ';; ' for detail in
                 details if hasattr(self.structure, detail))[:-3])
+        if mute:  # If the user wants to mute the output.
+            return
         print(f'{GREEN}Data saved in {eval(f"self.{mode}_file")}.{RESET}')
 
     def save_upload(self) -> None:
