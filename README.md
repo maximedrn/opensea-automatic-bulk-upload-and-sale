@@ -1582,7 +1582,7 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ## Version 1.7.11:
- * Fixed the "Sale Only" problem.
+ * Fixed the "Sale Only" problem. **[#300](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/300)**.
  * Replaced the change of account with the private key by the name of the account.
 
 <details>
