@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **[Version 1.7.10](#version-1710)** (May 14, 2022).
+➜ **[Version 1.7.11](#version-1711)** (May 17, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -262,8 +262,8 @@ A tool to generate a complete metadata file from a single file is available. You
    + Saved.
    ! Not saved.
 
-   # Enter the private key of your account if you want to change your account on your wallet.
-   What is your account private key? (Press [ENTER] to ignore this step)
+   # Enter the name of your account if you want to change your account on your wallet.
+   What is your account number? (Press [ENTER] to ignore this step)
    # Enter "y" or "n" depending on whether you want to save this detail or not.
    Do you want to save your private key in a text file? (y/n)
    + Saved.
@@ -1477,13 +1477,13 @@ opensea-automatic-upload-and-sale-master
 │   │   ├── processes
 │   │   │   ├── __init__.py
 │   │   │   ├── login.py
-│   │   │   ├── delete.py  /* Can be removed if you do not have the OpenSea Deletion tool. */
+│   │   │   ├── delete.py  /* Available in the "Deletion" tool. */
 │   │   │   ├── sale.py
 │   │   │   ╰── upload.py
 │   │   ├── solvers
 │   │   │   ├── __init__.py
 │   │   │   ├── no_captcha.py  /* Can be removed if you don't want to use the reCAPTCHA exploit. */
-│   │   │   ├── recaptcha_callback.js  /* Can be removed if you don't want to use the 2Captcha solver or the reCAPTCHA exploit. */
+│   │   │   ├── recaptcha_callback.js  /* Can be removed if you don't want to use the 2Captcha solver. */
 │   │   │   ├── recaptcha.py  /* Can be removed if you don't want to use the Yolov5x6 reCAPTCHA solver. */
 │   │   │   ├── solver.py
 │   │   │   ╰── two_captcha.py  /* Can be removed if you don't want to use the 2Captcha solver. */
@@ -1581,18 +1581,22 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Version 1.7.10:
- * Added line break support for description (add a `\n` to break the line).
- * Minor fixes.
- * Added support with the new version of the [Multiprocessing](#multiprocessing) tool.
+## Version 1.7.11:
+ * Fixed the "Sale Only" problem.
+ * Replaced the change of account with the private key by the name of the account.
 
 <details>
   <summary>Earlier versions.</summary>
 
+### Version 1.7.10:
+ * Added line break support for description (add a `\n` to break the line).
+ * Minor fixes.
+ * Added support with the new version of the [Multiprocessing](#multiprocessing) tool.
+  
 ### Version 1.7.9:
  * Minor corrections for the contract signature on MetaMask.
  * Fixed an error that sometimes occurred when the collection is not mentioned.
-  
+ 
 ### Version 1.7.8:
  * Correction of the listing on Polygon when the option "Upload and Sale" is selected.
   
