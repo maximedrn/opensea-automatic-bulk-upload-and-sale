@@ -105,6 +105,67 @@ It all depends on your choices and the equipment you have.
   * The second option is option number 4 ([reCAPTCHA Bypasser](#recaptcha-bypasser)) which, in addition to speeding up the upload speed, allows you to upload as many collections as you want.
 * If your computer is not powerful enough and you don't want to pay, choose the first option: manual resolution.
 
+<table>
+   <tbody>
+      <tr>
+         <td />
+         <td><strong>reCAPTCHA bypasser</strong></td>
+         <td><strong>2Captcha solver</strong></td>
+         <td><strong>Yolov5x6 solver</strong></td>
+         <td><strong>Manual resolution</strong></td>
+      </tr>
+      <tr>
+         <td><strong>Solving speed</strong></td>
+         <td><strong>Instant / 0 second</strong></td>
+         <td>from 20 to 30 seconds</td>
+         <td>from 20 to 30 seconds</td>
+         <td>from 10 to 60 seconds</td>
+      </tr>
+      <tr>
+         <td><strong>Upload time</strong></td>
+         <td><strong>~ 6,5 seconds</strong></td>
+         <td>From 30 to 40 seconds</td>
+         <td>From 30 to 40 seconds</td>
+         <td>More than 1 minute</td>
+      </tr>
+      <tr>
+         <td><strong>Number of NFTs per hour</strong></td>
+         <td><strong>Up to 400 NFTs</strong></td>
+         <td>From 100 to 110 NFTs</td>
+         <td>From 100 to 110 NFTs</td>
+         <td>From 50 to 60 NFTs</td>
+      </tr>
+      <tr>
+         <td><strong>Price</strong></td>
+         <td>From $3 to $5 per month</td>
+         <td>29.90$ per 10,000 NFTs</td>
+         <td><strong>Free</strong></td>
+         <td><strong>Free</strong></td>
+      </tr>
+      <tr>
+         <td><strong>Automatic</strong></td>
+         <td>✅</td>
+         <td>✅</td>
+         <td>✅</td>
+         <td>❌</td>
+      </tr>
+      <tr>
+         <td><strong>Works on any computer</strong></td>
+         <td>✅</td>
+         <td>✅</td>
+         <td>❌</td>
+         <td>✅</td>
+      </tr>
+      <tr>
+         <td><strong>Unlimited</strong></td>
+         <td>✅</td>
+         <td>❌</td>
+         <td>❌</td>
+         <td>❌</td>
+      </tr>
+   </tbody>
+</table>
+
 ### Is there an easy way to get the URLs of already uploaded NFTs?
 
 A tool to retrieve URLs from NFTs is available. You can learn more about this tool [here](#collection-scraper).
