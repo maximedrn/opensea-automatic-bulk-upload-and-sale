@@ -8,6 +8,9 @@ If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
 *  Do not hesitate to **add a star :star:** to this repository.
 
+**Need help or have a specific request?  
+Contact me via [Telegram](https://t.me/maximedrn) or email me at [maxime_drean@yahoo.com](mailto:maxime_drean@yahoo.com).**
+
 ---
 
 ### **New**: Bypass reCAPTCHAs using this OpenSea exploit: **[reCAPTCHA Bypasser](#recaptcha-bypasser)**.  
