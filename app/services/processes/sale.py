@@ -39,7 +39,6 @@ class Sale:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
         if self.structure.blockchain == 'Ethereum' and self.\
                 actual_blockchain != 'Ethereum':  # Different blockchain.
-            print('là', self.structure.blockchain)
             if 1 not in self.structure.action:
                 self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
@@ -51,6 +50,9 @@ class Sale:
             self.structure.nft_url = self.web.driver.current_url\
                 .replace('/sell', '')  # Remove the "/sell" part.
             self.web.driver.get(self.structure.nft_url + '/sell')  # Sale page.
+        else:  # Sale only, go to the URL page.
+            self.web.driver.get(self.structure.nft_url.replace(
+                '/sell', '') + '/sell')
 
     def switch_polygon(self) -> bool:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
