@@ -374,303 +374,299 @@ When you want to sell your NFTs, Opensea requires various details according to t
 
 Make sure to **deposit Ethereum (ETH/WETH)** or **Polygon (MATIC)** on your wallet before proceeding to the sale. Otherwise the bot will cancel the sale. Opensea needs an **Ethereum** wallet with more than **0.05 ETH** or a **Polygon** wallet with a deposit of **any amount**. For **Ethereum**, you have to make a first listing manually before using this bot.
 
-<details>
-    <summary>Display the table.</summary>
-    <br />
-    <table>
-        <tbody>
-            <tr>
-                <td>Details</td>
-                <td>Data Types</td>
-                <td>Literal examples</td>
-                <td>JSON examples</td>
-                <td>CSV examples</td>
-                <td>XLSX examples</td>
-            </tr>
-            <tr>
-                <td><strong>File Path * </strong>(The preview is only for files that are not images)</td>
-                <td>String or List</td>
-                <td></td>
-                <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
-                    <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],
-                </td>
-                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
-                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
-                </td>
-                <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
-                    <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
-                </td>
-            </tr>
-            <tr>
-                <td><strong>NFT Name *</strong></td>
-                <td>String</td>
-                <td></td>
-                <td>"nft_name": "NFT #1",</td>
-                <td>NFT #1;;</td>
-                <td>NFT #1</td>
-            </tr>
-            <tr>
-                <td>External Link</td>
-                <td>String</td>
-                <td></td>
-                <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
-                    <br>"external_link": "",
-                </td>
-                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
-                <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>String</td>
-                <td></td>
-                <td>"description": "This is my first NFT.",
-                    <br>"description": "",
-                </td>
-                <td>This is my first NFT.;;</td>
-                <td>This is my first NFT.</td>
-            </tr>
-            <tr>
-                <td>Collection</td>
-                <td>String</td>
-                <td></td>
-                <td>"collection": "My NFTs",
-                    <br>"collection": "my-nfts",
-                    <br>"collection": "",
-                </td>
-                <td>My NFTs;;
-                    <br>my-nfts;;
-                </td>
-                <td>My NFTs
-                    <br>my-nfts
-                </td>
-            </tr>
-            <tr>
-                <td>Properties</td>
-                <td>List[[String, String], ...]
-                    <br>List[String, String]
-                </td>
-                <td>["type", "name"]
-                    <br>[["type", "name"], ["type", "name"]]
-                </td>
-                <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
-                    <br>"properties": [{ "type": "Dog", "name": "Male" }],
-                    <br>"properties": "",
-                </td>
-                <td>[["Dog", "Male"], ["Cat", "Female"]];;
-                    <br>[["Dog", "Male"]];;
-                    <br>["Dog", "Male"];;
-                </td>
-                <td>[["Dog", "Male"], ["Cat", "Female"]]
-                    <br>[["Dog", "Male"]]
-                    <br>["Dog", "Male"]
-                </td>
-            </tr>
-            <tr>
-                <td>Levels</td>
-                <td>List[[String, Integer, Integer], ...]
-                    <br>List[String, Integer, Integer]
-                </td>
-                <td>["name", value_from, value_to]
-                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
-                </td>
-                <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
-                    <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
-                    <br>"levels": "",
-                </td>
-                <td>[["Speed", 2, 5], ["Width", 1, 10]];;
-                    <br>[["Speed", 2, 5]];;
-                    <br>["Speed", 2, 5];;
-                </td>
-                <td>[["Speed", 2, 5], ["Width", 1, 10]]
-                    <br>[["Speed", 2, 5]]
-                    <br>["Speed", 2, 5]
-                </td>
-            </tr>
-            <tr>
-                <td>Stats</td>
-                <td>List[[String, Integer, Integer], ...]
-                    <br>List[String, Integer, Integer]
-                </td>
-                <td>["name", value_from, value_to]
-                    <br>[["name", value_from, value_to], ["name", value_from, value_to]]
-                </td>
-                <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
-                    <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
-                    <br>"stats": "",
-                </td>
-                <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
-                    <br>[["Strenght", 10, 100]];;
-                    <br>["Strenght", 10, 100];;
-                </td>
-                <td>[["Strenght", 10, 100], ["Age", 1, 99]]
-                    <br>[["Strenght", 10, 100]]
-                    <br>["Strenght", 10, 100]
-                </td>
-            </tr>
-            <tr>
-                <td>Unlockable Content</td>
-                <td>List[Boolean, String]
-                    <br>List[Boolean]
-                    <br>Boolean
-                </td>
-                <td>[True, "unlockable_content"]
-                    <br>[False]
-                    <br>False
-                </td>
-                <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
-                    <br>"unlockable_content": [false],
-                    <br>"unlockable_content": false,
-                    <br>"unlockable_content": "",
-                </td>
-                <td>[True, "Thank you for purchasing my NFT!"];;
-                    <br>[False];;
-                    <br>False;;
-                </td>
-                <td>[True, "Thank you for purchasing my NFT!"]
-                    <br>[False]
-                    <br>False
-                </td>
-            </tr>
-            <tr>
-                <td>Explicit And Sensitive Content</td>
-                <td>Boolean</td>
-                <td></td>
-                <td>"explicit_and_sensitive_content": true,
-                    <br>"explicit_and_sensitive_content": false,
-                    <br>"explicit_and_sensitive_content": "",
-                </td>
-                <td>True;;
-                    <br>False;;
-                </td>
-                <td>True
-                    <br>False
-                </td>
-            </tr>
-            <tr>
-                <td>Supply</td>
-                <td>Integer</td>
-                <td></td>
-                <td>"supply": 1,
-                    <br>"supply" : "",
-                </td>
-                <td>1;;</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Blockchain</td>
-                <td>String</td>
-                <td></td>
-                <td>"blockchain": "Polygon",
-                    <br>"blockchain" : "",
-                </td>
-                <td>Polygon;;</td>
-                <td>Polygon</td>
-            </tr>
-            <tr>
-                <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
-                <td>String</td>
-                <td></td>
-                <td>"sale_type": "Timed Auction",
-                    <br>"sale_type": "",
-                </td>
-                <td>Timed Auction;;</td>
-                <td>Timed Auction</td>
-            </tr>
-            <tr>
-                <td><strong>Price *</strong></td>
-                <td>Float or Integer</td>
-                <td></td>
-                <td>"price": 5,
-                    <br>"price": 0.25,
-                </td>
-                <td>5;;
-                    <br>0.25;;
-                </td>
-                <td>5
-                    <br>0.25
-                </td>
-            </tr>
-            <tr>
-                <td>Method (only for "Timed Auction")</td>
-                <td>List[String, Float]</td>
-                <td>["method", price]
-                    <br>["method, ""]
-                </td>
-                <td>"method": ["Sell with declining price", 0.002],
-                    <br>"method": ["Sell to highest bidder", 0.05],
-                    <br>"method": ["Sell to highest bidder", ""],
-                    <br>"method": "",
-                </td>
-                <td>["Sell with declining price", 0.002];;
-                    <br>["Sell to highest bidder", 0.05];;
-                    <br>["Sell to highest bidder", ""];;
-                </td>
-                <td>["Sell with declining price", 0.002]
-                    <br>["Sell to highest bidder", 0.05]
-                    <br>["Sell to highest bidder", ""]
-                </td>
-            </tr>
-            <tr>
-                <td>Duration ("DD-MM-YYYY HH:MM")</td>
-                <td>List[String, String]
-                    <br>List[String]
-                    <br>String
-                </td>
-                <td>["from_date", "to_date"]
-                    <br>["days/weeks/months"]
-                    <br>"days/weeks/months"
-                </td>
-                <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
-                    <br>"duration": ["1 week"],
-                    <br>"duration": "1 week",
-                    <br>"duration": "",
-                </td>
-                <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
-                    <br>["1 week"];;
-                    <br>1 week;;
-                </td>
-                <td>["01-01-2022 14:00", "01-04-2022 15:00"]
-                    <br>["1 week"]
-                    <br>1 week
-                </td>
-            </tr>
-            <tr>
-                <td>Specific Buyer</td>
-                <td>List[Boolean, String]
-                    <br>[Boolean]
-                    <br>Boolean
-                </td>
-                <td>[True, "wallet"]
-                    <br>[False]
-                    <br>False
-                </td>
-                <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],
-                    <br>"specific_buyer": [false],
-                    <br>"specific_buyer": false,
-                    <br>"specific_buyer": "",
-                </td>
-                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
-                    <br>[False];;
-                    <br>False;;
-                </td>
-                <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
-                    <br>[False]
-                    <br>False
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Quantity * (only for 1+ supplies)</strong></td>
-                <td>Integer</td>
-                <td></td>
-                <td>"quantity": 4
-                    <br>"quantity": ""
-                </td>
-                <td>4</td>
-                <td>4</td>
-            </tr>
-        </tbody>
-    </table>
-</details>
+<table>
+   <tbody>
+      <tr>
+         <td>Details</td>
+         <td>Data Types</td>
+         <td>Literal examples</td>
+         <td>JSON examples</td>
+         <td>CSV examples</td>
+         <td>XLSX examples</td>
+      </tr>
+      <tr>
+         <td><strong>File Path * </strong>(The preview is only for files that are not images)</td>
+         <td>String or List</td>
+         <td></td>
+         <td>"file_path": "C:/Users/Admin/Desktop/NFT/nft_0001.png",
+            <br>"file_path": ["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"],
+         </td>
+         <td>C:/Users/Admin/Desktop/NFT/nft_0001.png;;
+            <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+         </td>
+         <td>C:/Users/Admin/Desktop/NFT/nft_0001.png
+            <br>["C:/Users/Admin/Desktop/NFT/nft_0001.mp4", "C:/Users/Admin/Desktop/NFT/nft_0001-preview.png"];;
+         </td>
+      </tr>
+      <tr>
+         <td><strong>NFT Name *</strong></td>
+         <td>String</td>
+         <td></td>
+         <td>"nft_name": "NFT #1",</td>
+         <td>NFT #1;;</td>
+         <td>NFT #1</td>
+      </tr>
+      <tr>
+         <td>External Link</td>
+         <td>String</td>
+         <td></td>
+         <td>"external_link": "https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale",
+            <br>"external_link": "",
+         </td>
+         <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale;;</td>
+         <td>https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale</td>
+      </tr>
+      <tr>
+         <td>Description</td>
+         <td>String</td>
+         <td></td>
+         <td>"description": "This is my first NFT.",
+            <br>"description": "",
+         </td>
+         <td>This is my first NFT.;;</td>
+         <td>This is my first NFT.</td>
+      </tr>
+      <tr>
+         <td>Collection</td>
+         <td>String</td>
+         <td></td>
+         <td>"collection": "My NFTs",
+            <br>"collection": "my-nfts",
+            <br>"collection": "",
+         </td>
+         <td>My NFTs;;
+            <br>my-nfts;;
+         </td>
+         <td>My NFTs
+            <br>my-nfts
+         </td>
+      </tr>
+      <tr>
+         <td>Properties</td>
+         <td>List[[String, String], ...]
+            <br>List[String, String]
+         </td>
+         <td>["type", "name"]
+            <br>[["type", "name"], ["type", "name"]]
+         </td>
+         <td>"properties": [{ "type": "Dog", "name": "Male" }, { "type": "Cat", "name": "Female" }],
+            <br>"properties": [{ "type": "Dog", "name": "Male" }],
+            <br>"properties": "",
+         </td>
+         <td>[["Dog", "Male"], ["Cat", "Female"]];;
+            <br>[["Dog", "Male"]];;
+            <br>["Dog", "Male"];;
+         </td>
+         <td>[["Dog", "Male"], ["Cat", "Female"]]
+            <br>[["Dog", "Male"]]
+            <br>["Dog", "Male"]
+         </td>
+      </tr>
+      <tr>
+         <td>Levels</td>
+         <td>List[[String, Integer, Integer], ...]
+            <br>List[String, Integer, Integer]
+         </td>
+         <td>["name", value_from, value_to]
+            <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+         </td>
+         <td>"levels": [{ "name": "Speed", "from": 2, "to": 5 }, { "name": "Width", "from": 1, "to": 10 }],
+            <br>"levels": [{ "name": "Speed", "from": 2, "to": 5 }],
+            <br>"levels": "",
+         </td>
+         <td>[["Speed", 2, 5], ["Width", 1, 10]];;
+            <br>[["Speed", 2, 5]];;
+            <br>["Speed", 2, 5];;
+         </td>
+         <td>[["Speed", 2, 5], ["Width", 1, 10]]
+            <br>[["Speed", 2, 5]]
+            <br>["Speed", 2, 5]
+         </td>
+      </tr>
+      <tr>
+         <td>Stats</td>
+         <td>List[[String, Integer, Integer], ...]
+            <br>List[String, Integer, Integer]
+         </td>
+         <td>["name", value_from, value_to]
+            <br>[["name", value_from, value_to], ["name", value_from, value_to]]
+         </td>
+         <td>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }, { "name": "Age", "from": 1, "to": 99 }],
+            <br>"stats": [{ "name": "Strenght", "from": 10, "to": 100 }],
+            <br>"stats": "",
+         </td>
+         <td>[["Strenght", 10, 100], ["Age", 1, 99]];;
+            <br>[["Strenght", 10, 100]];;
+            <br>["Strenght", 10, 100];;
+         </td>
+         <td>[["Strenght", 10, 100], ["Age", 1, 99]]
+            <br>[["Strenght", 10, 100]]
+            <br>["Strenght", 10, 100]
+         </td>
+      </tr>
+      <tr>
+         <td>Unlockable Content</td>
+         <td>List[Boolean, String]
+            <br>List[Boolean]
+            <br>Boolean
+         </td>
+         <td>[True, "unlockable_content"]
+            <br>[False]
+            <br>False
+         </td>
+         <td>"unlockable_content": [true, "Thank you for purchasing my NFT!"],
+            <br>"unlockable_content": [false],
+            <br>"unlockable_content": false,
+            <br>"unlockable_content": "",
+         </td>
+         <td>[True, "Thank you for purchasing my NFT!"];;
+            <br>[False];;
+            <br>False;;
+         </td>
+         <td>[True, "Thank you for purchasing my NFT!"]
+            <br>[False]
+            <br>False
+         </td>
+      </tr>
+      <tr>
+         <td>Explicit And Sensitive Content</td>
+         <td>Boolean</td>
+         <td></td>
+         <td>"explicit_and_sensitive_content": true,
+            <br>"explicit_and_sensitive_content": false,
+            <br>"explicit_and_sensitive_content": "",
+         </td>
+         <td>True;;
+            <br>False;;
+         </td>
+         <td>True
+            <br>False
+         </td>
+      </tr>
+      <tr>
+         <td>Supply</td>
+         <td>Integer</td>
+         <td></td>
+         <td>"supply": 1,
+            <br>"supply" : "",
+         </td>
+         <td>1;;</td>
+         <td>1</td>
+      </tr>
+      <tr>
+         <td>Blockchain</td>
+         <td>String</td>
+         <td></td>
+         <td>"blockchain": "Polygon",
+            <br>"blockchain" : "",
+         </td>
+         <td>Polygon;;</td>
+         <td>Polygon</td>
+      </tr>
+      <tr>
+         <td>Sale Type (only for Ethereum Blockchain and 1 supply)</td>
+         <td>String</td>
+         <td></td>
+         <td>"sale_type": "Timed Auction",
+            <br>"sale_type": "",
+         </td>
+         <td>Timed Auction;;</td>
+         <td>Timed Auction</td>
+      </tr>
+      <tr>
+         <td><strong>Price *</strong></td>
+         <td>Float or Integer</td>
+         <td></td>
+         <td>"price": 5,
+            <br>"price": 0.25,
+         </td>
+         <td>5;;
+            <br>0.25;;
+         </td>
+         <td>5
+            <br>0.25
+         </td>
+      </tr>
+      <tr>
+         <td>Method (only for "Timed Auction")</td>
+         <td>List[String, Float]</td>
+         <td>["method", price]
+            <br>["method, ""]
+         </td>
+         <td>"method": ["Sell with declining price", 0.002],
+            <br>"method": ["Sell to highest bidder", 0.05],
+            <br>"method": ["Sell to highest bidder", ""],
+            <br>"method": "",
+         </td>
+         <td>["Sell with declining price", 0.002];;
+            <br>["Sell to highest bidder", 0.05];;
+            <br>["Sell to highest bidder", ""];;
+         </td>
+         <td>["Sell with declining price", 0.002]
+            <br>["Sell to highest bidder", 0.05]
+            <br>["Sell to highest bidder", ""]
+         </td>
+      </tr>
+      <tr>
+         <td>Duration ("DD-MM-YYYY HH:MM")</td>
+         <td>List[String, String]
+            <br>List[String]
+            <br>String
+         </td>
+         <td>["from_date", "to_date"]
+            <br>["days/weeks/months"]
+            <br>"days/weeks/months"
+         </td>
+         <td>"duration": ["01-01-2022 14:00", "01-04-2022 15:00"],
+            <br>"duration": ["1 week"],
+            <br>"duration": "1 week",
+            <br>"duration": "",
+         </td>
+         <td>["01-01-2022 14:00", "01-04-2022 15:00"];;
+            <br>["1 week"];;
+            <br>1 week;;
+         </td>
+         <td>["01-01-2022 14:00", "01-04-2022 15:00"]
+            <br>["1 week"]
+            <br>1 week
+         </td>
+      </tr>
+      <tr>
+         <td>Specific Buyer</td>
+         <td>List[Boolean, String]
+            <br>[Boolean]
+            <br>Boolean
+         </td>
+         <td>[True, "wallet"]
+            <br>[False]
+            <br>False
+         </td>
+         <td>"specific_buyer": [true, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"],
+            <br>"specific_buyer": [false],
+            <br>"specific_buyer": false,
+            <br>"specific_buyer": "",
+         </td>
+         <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"];;
+            <br>[False];;
+            <br>False;;
+         </td>
+         <td>[True, "0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E"]
+            <br>[False]
+            <br>False
+         </td>
+      </tr>
+      <tr>
+         <td><strong>Quantity * (only for 1+ supplies)</strong></td>
+         <td>Integer</td>
+         <td></td>
+         <td>"quantity": 4
+            <br>"quantity": ""
+         </td>
+         <td>4</td>
+         <td>4</td>
+      </tr>
+   </tbody>
+</table>
  
 And it gives you something like this: [JSON](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/json_structure_upload_and_sale.json), [CSV](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/csv_structure_upload_and_sale.csv), [XLSX (must be downloaded to view it)](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/blob/master/data/xlsx_structure_upload_and_sale.xlsx).
  
