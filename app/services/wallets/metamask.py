@@ -65,12 +65,9 @@ class MetaMask:
                 self.web.clickable('//button[@data-testid="popover-close"]')
                 self.web.clickable(  # Click on the menu icon.
                     '//*[@class="account-menu__icon"][position()=1]')
-                self.web.clickable('//*[contains(@class, "account-menu__item--'
-                                   'clickable")][position()=2]')
-                self.web.send_keys(  # Input the private key.
-                    '//*[@id="private-key-box"]', self.wallet.private_key)
-                self.web.clickable('//*[contains(@class, "btn-secondary")]'
-                                   '[position()=1]')
+                self.web.clickable(  # Search for the account.
+                    '(//div[@class="account-menu__name" and contains(text(),'
+                    f' "{self.wallet.private_key}")])[position()=1]/../..')
             print(f'{GREEN}Logged to MetaMask.{RESET}')
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
