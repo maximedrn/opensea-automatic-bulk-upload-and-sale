@@ -25,7 +25,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.10 - 2022, 14 May.{RESET}'
+    f'\n\nVersion 1.7.11 - 2022, 17 May.{RESET}'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -48,7 +48,7 @@ RECOVERY_PHRASE = (
     '(Press [ENTER] to do it manually) ')
 
 PRIVATE_KEY = (
-    '\nWhat is your account private key? '
+    '\nWhat is your account number? '
     '(Press [ENTER] to ignore this step) ')
 
 METAMASK_IMPORT = f'{YELLOW}Press [ENTER] when "Import" button is clicked.'
