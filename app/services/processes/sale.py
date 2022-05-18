@@ -243,8 +243,8 @@ class Sale:
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
             print(f'{RED}NFT sale cancelled.{RESET}',
-                  str(error).replace('Message: ', '') if 'Stacktrace'
-                  not in str(error) else '')
+                  str(error).replace('Message: ', '').replace('\n', '')
+                  if 'Stacktrace' not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
