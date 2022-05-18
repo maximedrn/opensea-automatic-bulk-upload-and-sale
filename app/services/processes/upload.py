@@ -231,13 +231,14 @@ class Upload:
             WDW(self.web.driver, 600 if self.solver == 1 else 20).until(
                 lambda _: self.web.driver.current_url != create_url)
             print(f'{GREEN}NFT uploaded.{RESET}')
-            self.save_sale()  # Save the file for a future sale.
+            if 2 not in self.structure.action:
+                self.save_sale()  # Save the file for a future sale.
             self.fails = 0  # Reset the counter for next upload.
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
-            print(f'{RED}Upload failed.{RESET}',
-                  str(error).replace('Message: ', '') if 'Stacktrace'
-                  not in str(error) else '')
+            print(f'{RED}NFT sale cancelled.{RESET}',
+                  str(error).replace('Message: ', '').replace('\n', '')
+                  if 'Stacktrace' not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
