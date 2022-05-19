@@ -47,12 +47,13 @@ class Sale:
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
             self.actual_blockchain == 'Ethereum'
         elif 1 in self.structure.action:  # If it's already set to Ethereum.
+            # Remove the "/sell" and "?created=true" parts.
             self.structure.nft_url = self.web.driver.current_url\
-                .replace('/sell', '')  # Remove the "/sell" part.
+                .replace('/sell', '').replace('?created=true', '')
             self.web.driver.get(self.structure.nft_url + '/sell')  # Sale page.
         else:  # Sale only, go to the URL page.
             self.web.driver.get(self.structure.nft_url.replace(
-                '/sell', '') + '/sell')
+                '/sell', '') + '/sell').replace('?created=true', '')
 
     def switch_polygon(self) -> bool:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
