@@ -1642,13 +1642,13 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ## Version 1.7.12:
- * Fixed the "Sale Only" problem. **[#300](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/300)**.
+ * Fixed the listing problems. **[#300](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/300)**.
 
 <details>
   <summary>Earlier versions.</summary>
 
 ### Version 1.7.11:
- * ~Fixed the "Sale Only" problem. **[#300](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/300)**.~
+ * Fixed the "Sale Only" problem. **[#300](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/300)**.
  * Replaced the change of account with the private key by the name of the account.
   
 ### Version 1.7.10:
