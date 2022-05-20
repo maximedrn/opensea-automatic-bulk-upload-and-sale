@@ -248,7 +248,7 @@ A tool to generate a complete metadata file from a single file is available. You
 * You will **need a one of these graphics card (GPU)**:
   * GTX 1080.
   * RTX 2060, RTX 2070, RTX 2080.
-  * RTX2050, RTX 3060, RTX 3070, RTX 3080, RTX 3090.
+  * RTX 2050, RTX 3060, RTX 3070, RTX 3080, RTX 3090.
   * Any Ti version of these graphics cards.
 * Open a command prompt and type this command to check your CUDA version (it must be 11.6 or higher): 
 
