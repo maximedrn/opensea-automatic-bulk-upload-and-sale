@@ -49,11 +49,11 @@ class Sale:
         elif 1 in self.structure.action:  # If it's already set to Ethereum.
             # Remove the "/sell" and "?created=true" parts.
             self.structure.nft_url = self.web.driver.current_url\
-                .replace('/sell', '').replace('?created=true', '')
+                .replace('?created=true', '').replace('/sell', '')
             self.web.driver.get(self.structure.nft_url + '/sell')  # Sale page.
         else:  # Sale only, go to the URL page.
             self.web.driver.get(self.structure.nft_url.replace(
-                '/sell', '') + '/sell').replace('?created=true', '')
+                '?created=true', '').replace('/sell', '') + '/sell')
 
     def switch_polygon(self) -> bool:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
