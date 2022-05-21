@@ -44,7 +44,7 @@ https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-
   * [Generic File Maker](#generic-file-maker), easily generate your metadata file from only 21 details.
   * [Multiprocessing](#multiprocessing), upload and list your NFTs **two to five times faster**.
   * [reCAPTCHA Bypasser](#recaptcha-bypasser) (**demonstration: [1](https://www.youtube.com/watch?v=Xph_sjbWoyE) - [2](https://www.youtube.com/watch?v=dpPsd279XWk))**, use a new exploit to bypass reCAPTCHAs on OpenSea. Rediscover the upload on OpenSea before reCAPTCHAs.
-  * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure to another one and make your file compatible.
+  * [File Compatibilizer and Converter](#file-compatibilizer-and-converter), convert your file from a specific structure (**HashLips**) to another one and make your file compatible.
 * **[Repository structure](#repository-structure)**, see how the file structure should be and which files can be deleted according to your choices.
 * **[Changelog](#changelog-4)** and new features.
 
@@ -1463,7 +1463,7 @@ Up to 400 NFTs per hour and much more with the [Multiprocessing tool](#multiproc
 [![File Compatibilizer](https://user-images.githubusercontent.com/91475935/166142304-b457f939-375e-452d-b4b7-1fa47db0adc3.png)](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer)
 
 With this file compatibilizer, you can convert a metadata file of one specific type into another (`Upload` into `Upload and Sale`, into `Sale` and vice versa).
-In addition, it organizes the details in a specific order to be compatible with the bot.  
+In addition, it organizes the details in a specific order to be compatible with the bot. You can convert a folder containing HashLips JSON files into a single compatible file.  
 **Purchase this tool - [File Compatibilizer](https://maximedrn.gumroad.com/l/opensea-file-compatibilizer).**
 
 <details>
