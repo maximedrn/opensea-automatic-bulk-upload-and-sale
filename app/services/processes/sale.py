@@ -216,10 +216,10 @@ class Sale:
         """Check if the NFT is listed."""
         try:
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.visible('//header/h4')
+            self.web.visible('//header/h4[contains(text(), "listed")]')
         except Exception:  # Sometimes popup is do not detected.
             if self.structure.blockchain == 'Polygon':
-                print(f'{YELLOW}NFT seems to not be listed.{RESET}')
+                raise TE('NFT seems to not be listed.')
 
     def sale(self) -> None:
         """Set a price for the NFT and sell it."""
