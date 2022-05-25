@@ -1644,6 +1644,7 @@ opensea-automatic-upload-and-sale-master
 
 ## Versions 1.7.13:
  * Fixed a problem when no collection is mentioned in the metadata file and a default collection is used on OpenSea. The upload was leading to an error.
+ * Added a file to split your metadata file when you want to restart the process after stopping it.
 
 <details>
   <summary>Earlier versions.</summary>
