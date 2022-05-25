@@ -97,8 +97,7 @@ class Upload:
 
     def collection(self, create_url: str) -> None:
         """Check the collection format and send it."""
-        if self.structure.collection != '':
-            self.web.clickable('//*[@id="collection"]')
+        self.web.clear_text('//*[@id="collection"]')
         if self.create_url.format('', '') + '?enable_supply=true' == \
             create_url and not self.web.is_empty(
                 '//*[@id="collection"]', self.structure.collection):
