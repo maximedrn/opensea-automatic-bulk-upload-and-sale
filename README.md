@@ -28,6 +28,12 @@ https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-
 * **[Introduction](#introduction)**, video demonstration and useful links. 
 * **[What does this bot do?](#what-does-this-bot-do)** What can I do with it? How easy does it make my job?
 * **[Frequently asked questions](#frequently-asked-questions)** about this bot.
+  * [Should I be worried about using my wallet credentials?](#should-i-be-worried-about-using-my-wallet-credentials)
+  * [Which reCAPTCHA solver is the best?](#which-recaptcha-solver-is-the-best)
+  * [Is there an easy way to get the URLs of already uploaded NFTs?](#is-there-an-easy-way-to-get-the-urls-of-already-uploaded-nfts)
+  * [How to find missing and duplicates NFTs in my collection?](#how-to-find-missing-and-duplicates-nfts-in-my-collection)
+  * [Is there a quick way to create my metadata file?](#is-there-a-quick-way-to-create-my-metadata-file)
+  * [I'm coming from the Hashlips Art Engine tool, how to make my files compatible?](#im-coming-from-the-hashlips-art-engine-tool-how-to-make-my-files-compatible)
 * **[Instructions](#instructions) to install and configure this bot**.
   * [Installation of Python](#installation-of-python), step by step learn how to install Python.
   * [Installation and configuration of the bot](#installation-and-configuration-of-the-bot), step by step learn how to download and configure this bot.
@@ -97,7 +103,7 @@ You can see an example of collections transferred with this bot:
 
 According to **Rule #1** of the MetaMask "Safety Tips", it is requested to "**Never share your 12-word Secret Recovery Phrase (SRP) or private keys**". However, your wallet credentials are **only used** for the purpose of connecting to your wallet extension. The bot follows the procedure for the first connection to a wallet on a new browser (importing from a recovery phrase followed by creating a new password). Thus, none of this information is recovered, everything happens on your side. Moreover, you are free to choose whether or not to save your credentials in text files in the `assets/` folder.
 
-### Which solver is the best?
+### Which reCAPTCHA solver is the best?
 
 It all depends on your choices and the equipment you have.
 * If you have a powerful computer (running Windows or Linux) and you don't want to pay for a paid service, you should choose option number 2: the reCAPTCHA solver with Yolov5x6.
@@ -176,9 +182,15 @@ A tool to retrieve URLs from NFTs is available. You can learn more about this to
 A tool to extract NFTs to get the missing and duplicates is available. You can learn more about this tool [here](#collection-scraper).
 Then if you want to remove duplicates, you can use this tool [here](#deletion).
 
-### Is there a quick way to create metadata file?
+### Is there a quick way to create my metadata file?
 
 A tool to generate a complete metadata file from a single file is available. You can learn more about this tool [here](#generic-file-maker).
+
+### I'm coming from the Hashlips Art Engine tool, how to make my files compatible?
+
+You have just generated your images and associated metadata but notice that these files are not compatible with this tool. Well, don't worry! Two tools will allow you to transform these files into one complete file compatible with this tool.
+- The [File Compatibilizer and Converter](#file-compatibilizer-and-converter) will transform your files into a single compatible file.
+- However, some essential information is missing from this file. For example, if you want to add the price, the duration of the sale or the path to the generated images, videos or 3D objects, you will need the [Generic File Maker](#generic-file-maker).
 
 
 # Instructions
