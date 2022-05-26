@@ -183,3 +183,4 @@ def download_browser(browser: int) -> str:
         if not exists(browser_path):
             exit('Download the webdriver and place it in the assets/ folder.')
         print(f'Webdriver path set as {browser_path}')
+        return browser_path
