@@ -38,8 +38,12 @@ def login(wallet: object, browser: int, browser_path: str,
     """Login to a specific wallet then to OpenSea."""
     while True:
         web = None  # Prevent Exception.
-        try:  # Try to login to a wallet and OpenSea.
+        try:  # Try to start a webdriver.
             web = Webdriver(browser, browser_path, wallet_name, wallet, solver)
+        except Exception as error:
+            print(f'{RED}Something went wrong with '
+                  f'your webdriver.\n{error}{RESET}')
+        try:  # Try to login to a wallet and OpenSea.
             wallet.init_wallet(web)  # Send web instance.
             if wallet.login() and Login(web, wallet).login():
                 return web  # Stop the while loop.
