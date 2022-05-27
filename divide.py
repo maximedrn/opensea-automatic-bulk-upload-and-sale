@@ -43,7 +43,7 @@ def main() -> None:
     structure = Structure(action, reader)
     save = Save(structure)  # Initialize the Save class.
     # Divide the file.
-    for nft_number in range(number('Start from:') - 1, reader.lenght_file):
+    for nft_number in range(number('Start from:') - 1, number('End at:') + 1):
         if not structure.get_data(nft_number):
             continue  # Data is not well structured.
         save.save(MODE[action_str], DETAILS[action_str], True if
