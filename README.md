@@ -1215,9 +1215,12 @@ Thus a "**full**" file containing all NFTs, a "**unique**" file containing each 
     ```
 * Enter the name of your collection, based on the collection URL: `https://opensea.io/collection/crypto-parrot-nfts` ➜ `crypto-parrot-nfts`.
 * JSON, CSV and XLSX files will be generated and stored in the `data/` folder of the repository.  
+* **If you get this error `Expecting value: line 1 column 1 (char 0)`, see the [comment](https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/issues/305#issuecomment-1139566759) for this issue which may help you.**
 
 ### Changelog
 
+* **Version 1.4.0 and 1.4.1:**
+  * Important fixes and improvements.  
 * **Version 1.3.0:**
   * Major fixes.
   * The collection limit is 20,000 NFTs maximum.
@@ -1370,6 +1373,9 @@ It faciliates the creation of your metadata file.
 
 ### Changelog
 
+* **Versions 1.2.0 to 1.2.2:**
+  * Important fixes and improvements.
+  * Added a start value for incrementing.
 * **Version 1.1.0:**
   * Added support for preview file in the generic file.
   * Fixed the problem of unlockable content to false when set to true in the data file.
@@ -1520,6 +1526,8 @@ In addition, it organizes the details in a specific order to be compatible with 
 
 ### Changelog
 
+* **Version 1.1.0:**
+  * Added the Hashlips Art Engine files conversion.
 * **Version 1.0.0:**
   * Initial commit.
 
