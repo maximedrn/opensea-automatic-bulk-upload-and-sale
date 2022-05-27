@@ -20,7 +20,7 @@ from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE
 # Utils functions for user choices.
 from app.utils.user import data_file
 
-
+# Python default imports.
 from json import loads, dumps
 
 
