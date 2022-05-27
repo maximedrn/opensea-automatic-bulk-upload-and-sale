@@ -1657,6 +1657,7 @@ opensea-automatic-upload-and-sale-master
 ## Versions 1.7.14:
  * Fixed the problem when the Webdriver-Manager module could not download a webdriver and created an infinite loop because of a missing function return.
  * Added the display of an error when something goes wrong when starting the webdriver.
+ * Added a file to order your file according to the name of your NFTs, this is useful when you want to complete your file with the [Generic File Maker](#generic-file-maker).
 
 <details>
   <summary>Earlier versions.</summary>
