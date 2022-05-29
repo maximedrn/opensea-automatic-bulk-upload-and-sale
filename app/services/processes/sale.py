@@ -244,11 +244,16 @@ class Sale:
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
-            print(f'{RED}NFT sale cancelled.{RESET}',
-                  str(error).replace('Message: ', '').replace('\n', '')
-                  if 'Stacktrace' not in str(error) else '')
+            if 'This page is lost' not in self.web.driver.page_source \
+                    and 'Oops! Something went wrong' not in \
+                    self.web.driver.page_source:
+                self.fails += 1  # Increment the counter.
+                print(f'{RED}NFT sale cancelled.{RESET}',
+                     str(error).replace('Message: ', '').replace('\n', '')
+                     if 'Stacktrace' not in str(error) else '')
+            else:  # 404 page error or page is not displayed.
+                print(f'{YELLOW}404 page error.{RESET}')
             self.wallet.close()  # Close the wallet extension popup.
-            self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
                 self.save.save_sale()  # Save the NFT details for a sale.
             else:  # Retry to list.
