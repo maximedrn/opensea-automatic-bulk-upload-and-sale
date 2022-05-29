@@ -1696,7 +1696,7 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ## Versions 1.7.15:
- * Added a detection for the "
+ * Added detection for the "This page is lost" and "Oops! Something went wrong" messages.
 
 <details>
   <summary>Earlier versions.</summary>
