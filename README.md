@@ -58,8 +58,11 @@ https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-
 
 # Introduction
 
-**[![[TUTORIAL] CREATE & UPLOAD NFTs to OpenSea - Bypass reCAPTCHAs
-](https://user-images.githubusercontent.com/91475935/170870961-049139f7-3ec9-40a0-a0e9-daa4eaa38435.png)](https://www.youtube.com/watch?v=oSqIqbuFnn0)**
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=oSqIqbuFnn0">
+    <img alt="[TUTORIAL] CREATE & UPLOAD NFTs to OpenSea - Bypass reCAPTCHAs" src="https://user-images.githubusercontent.com/91475935/170870961-049139f7-3ec9-40a0-a0e9-daa4eaa38435.png" style="width: 800px;" />
+  </a>
+</p>
 
 **Please read the README file before using this tool, opening an issue or a discussion, or contacting me.**  
 _You will certainly find a solution by **reading :book:** or consulting the issues already present._
@@ -1287,6 +1290,8 @@ With this Deletion tool, you can massively remove NFTs from your account. All yo
 
 ### Changelog
 
+* **Version 1.1.0:**
+  * Major fixes and improvements.  
 * **Version 1.0.0:**
   * Initial commit.
 
