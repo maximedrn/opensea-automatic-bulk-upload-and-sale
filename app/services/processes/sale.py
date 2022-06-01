@@ -224,7 +224,7 @@ class Sale:
     def sale(self) -> None:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
-        if 1 == 1:  # Try to sell the NFT with different types and methods.
+        try:  # Try to sell the NFT with different types and methods.
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
             if self.structure.supply == 1 and \
@@ -243,6 +243,19 @@ class Sale:
             self.sign_contract()  # Sign the contract.
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
+        except Exception as error:  # Any other error.
+            if self.web.page_error():  # Check if there is a 404
+                return self.sale()  # page error.
+            print(f'{RED}NFT sale cancelled.{RESET}',
+                 str(error).replace('Message: ', '').replace('\n', '')
+                 if 'Stacktrace' not in str(error) else '')
+            self.wallet.close()  # Close the wallet extension popup.
+            self.fails += 1  # Increment the counter.
+            if self.fails > 1:  # Too much fails.
+                self.save.save_sale()  # Save the NFT details for a sale.
+            else:  # Retry to list.
+                self.sale()  # Try to re-upload the NFT.
+        self.fails = 0  # Reset the counter for next listing.
 
 
 def check_price(price: int, blockchain: str) -> bool:
