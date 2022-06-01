@@ -1384,7 +1384,7 @@ It faciliates the creation of your metadata file.
 
 ### Changelog
 
-* **Versions 1.3.0 and 1.3.1:**
+* **Versions 1.3.0 to 1.3.2:**
   * Fixed recursion error when "Sale" option is selected.
   * Fixed `specific_buyer` value always set to `[true, ""]`.
 * **Versions 1.2.0 to 1.2.2:**
@@ -1567,8 +1567,9 @@ In addition, it organizes the details in a specific order to be compatible with 
 
 ### Changelog
 
-* **Version 1.1.0:**
+* **Versions 1.1.0 and 1.1.0:**
   * Added the Hashlips Art Engine files conversion.
+  * It no longer reads the `_metadata.json` file.
 * **Version 1.0.0:**
   * Initial commit.
 
