@@ -2,7 +2,7 @@
 
 _A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea  
   All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included._  
-➜ **[Version 1.7.15](#versions-1715)** (May 29, 2022).
+➜ **[Version 1.7.16](#versions-1716)** (June 01, 2022).
 
 If you like :green_heart: my work and this tool:
 *  Do not hesitate to **fork :fork_and_knife:** this repository.
@@ -1384,6 +1384,9 @@ It faciliates the creation of your metadata file.
 
 ### Changelog
 
+* **Versions 1.3.0 and 1.3.1:**
+  * Fixed recursion error when "Sale" option is selected.
+  * Fixed `specific_buyer` value always set to `[true, ""]`.
 * **Versions 1.2.0 to 1.2.2:**
   * Important fixes and improvements.
   * Added a start value for incrementing.
@@ -1700,12 +1703,16 @@ opensea-automatic-upload-and-sale-master
 
 # Changelog
 
-## Versions 1.7.15:
- * Added detection for the "This page is lost" and "Oops! Something went wrong" messages.
+## Versions 1.7.16:
+ * Fixed the duration problem with the format `MM-DD-YYYY`.
+ * Created a specific function for the 404 page error.
 
 <details>
   <summary>Earlier versions.</summary>
 
+### Versions 1.7.15:
+ * Added detection for the "This page is lost" and "Oops! Something went wrong" messages.
+  
 ### Versions 1.7.14:
  * Fixed the problem when the Webdriver-Manager module could not download a webdriver and created an infinite loop because of a missing function return.
  * Added the display of an error when something goes wrong when starting the webdriver.
