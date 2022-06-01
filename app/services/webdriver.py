@@ -139,7 +139,7 @@ class Webdriver:
             # ["DD", "MM", "YYYY"] or ["DD", "MM"] according to the year.
             keys_ = keys_ if keys_[-1] == dt.now().year else keys_[:-1]
         if ':' in keys:  # If it is an hour, change AM or PM.
-            if int(keys_[0]) > 13:  # Remove 12 hours if it is afternoon.
+            if int(keys_[0]) > 12:  # Remove 12 hours if it is afternoon.
                 keys_[0], clockface = str(int(keys_[0]) - 12), 'P'
                 keys_.append(clockface)  # Add "A" or "P".
         for part in range(len(keys_)):  # Add left and rights arrows moves.
