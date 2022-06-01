@@ -235,16 +235,13 @@ class Upload:
             self.fails = 0  # Reset the counter for next upload.
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
-            if 'This page is lost' not in self.web.driver.page_source \
-                    and 'Oops! Something went wrong' not in \
-                    self.web.driver.page_source:
-                self.fails += 1  # Increment the counter.
-                print(f'{RED}Upload failed.{RESET}',
-                      str(error).replace('Message: ', '').replace('\n', '')
-                      if 'Stacktrace' not in str(error) else '')
-            else:  # 404 page error or page is not displayed.
-                print(f'{YELLOW}404 page error.{RESET}')
+            if self.web.page_error():  # Check if there is a 404
+                return self.upload()  # page error.
+            print(f'{RED}Upload failed.{RESET}',
+                  str(error).replace('Message: ', '').replace('\n', '')
+                  if 'Stacktrace' not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
+            self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
                 self.save.save_upload() if 2 not in self.structure.action \
                     else self.save.save_upload_and_sale()  # Save the details.
