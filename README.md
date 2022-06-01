@@ -1704,7 +1704,7 @@ opensea-automatic-upload-and-sale-master
 # Changelog
 
 ## Versions 1.7.16:
- * Fixed the duration problem with the format `MM-DD-YYYY`.
+ * Fixed the duration problem with the `["DD-MM-YYYY", "DD-MM-YYYY"]` format.
  * Created a specific function for the 404 page error.
 
 <details>
