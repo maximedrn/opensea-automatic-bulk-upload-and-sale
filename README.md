@@ -1709,7 +1709,7 @@ opensea-automatic-upload-and-sale-master
 ## Versions 1.7.16 and 1.7.16.1:
  * Fixed the duration problem with the `["DD-MM-YYYY", "DD-MM-YYYY"]` format.
  * Created a specific function for the 404 page error.
- * * Fixed the problem of the switch to Polygon, the click on the button "Switch" is no longer necessary.
+ * Fixed the problem of the switch to Polygon, the click on the button "Switch" is no longer necessary.
 
 <details>
   <summary>Earlier versions.</summary>
