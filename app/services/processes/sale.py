@@ -173,14 +173,14 @@ class Sale:
                 self.web.clickable('//*[@id="duration"]')  # Date button.
                 self.web.visible(  # Scroll to the pop up frame of the date.
                     '//*[@role="dialog"]').location_once_scrolled_into_view
-                self.web.send_date('//*[@role="dialog"]'  # Ending date.
-                                   '/div[2]/div[2]/div/div[2]/input', end_date)
                 self.web.send_date('//*[@role="dialog"]/div'  # Starting date.
                                    '[2]/div[1]/div/div[2]/input', start_date)
+                self.web.send_date('//*[@role="dialog"]'  # Ending date.
+                                   '/div[2]/div[2]/div/div[2]/input', end_date)
+                self.web.send_date('//*[@id="start-time"]', start_time)
                 self.web.send_date('//*[@id="end-time"]', end_time)
-                self.web.send_date(  # Starting date + close tab for Chrome.
-                    '//*[@id="start-time"]', start_time if self.web.window == 1
-                    else f'{start_time}{Keys.ENTER}')
+                if self.web.window == 1:  # Close the pop up window on Chrome.
+                    self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
                 self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
                 if self.structure.duration[0] == '':  # Duration not specified.
@@ -224,7 +224,7 @@ class Sale:
     def sale(self) -> None:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
-        try:  # Try to sell the NFT with different types and methods.
+        if 1 == 1:  # Try to sell the NFT with different types and methods.
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
             if self.structure.supply == 1 and \
@@ -243,22 +243,6 @@ class Sale:
             self.sign_contract()  # Sign the contract.
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
-        except Exception as error:  # Any other error.
-            if 'This page is lost' not in self.web.driver.page_source \
-                    and 'Oops! Something went wrong' not in \
-                    self.web.driver.page_source:
-                self.fails += 1  # Increment the counter.
-                print(f'{RED}NFT sale cancelled.{RESET}',
-                     str(error).replace('Message: ', '').replace('\n', '')
-                     if 'Stacktrace' not in str(error) else '')
-            else:  # 404 page error or page is not displayed.
-                print(f'{YELLOW}404 page error.{RESET}')
-            self.wallet.close()  # Close the wallet extension popup.
-            if self.fails > 1:  # Too much fails.
-                self.save.save_sale()  # Save the NFT details for a sale.
-            else:  # Retry to list.
-                self.sale()  # Try to re-upload the NFT.
-        self.fails = 0  # Reset the counter for next listing.
 
 
 def check_price(price: int, blockchain: str) -> bool:
