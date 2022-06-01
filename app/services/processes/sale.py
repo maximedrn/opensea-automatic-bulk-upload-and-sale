@@ -58,12 +58,10 @@ class Sale:
     def switch_polygon(self) -> bool:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
         try:  # Switch blockchain.
-            if self.web.visible(
+            if 'Switch' in self.web.visible(  # Switch in innerHTML.
                     '//*[contains(@id, "dy react-aria")]/div/div/button'
-            ).get_attribute('innerHTML') == 'Switch':
-                self.web.clickable(  # Click on the "Switch" button.
-                    '//*[contains(@id, "Body react-aria")]/div/div/button')
-                self.wallet.sign(False)  # Approve.
+            ).get_attribute('innerHTML'):
+                self.wallet.sign(False)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.web.driver.refresh()  # Reload the page.
                 self.actual_blockchain = 'Polygon'  # Change blockchain.
