@@ -28,7 +28,7 @@ from webdriver_manager.firefox import GeckoDriverManager as GDM
 
 # Python internal imports.
 from ..utils.func import exit
-from ..utils.colors import GREEN, RED, RESET
+from ..utils.colors import GREEN, RED, YELLOW, RESET
 
 # Python default imports.
 from datetime import datetime as dt
@@ -99,6 +99,14 @@ class Webdriver:
         except Exception:  # The webdriver is closed
             pass  # or no webdriver is started.
 
+    def page_error(self) -> bool:
+        """Check if the page is correctly displayed."""
+        for text in ['This page is lost', 'Something went wrong']:
+            if text in self.driver.page_source:
+                print(f'{YELLOW}404 page error.{RESET}')
+                return True
+        return False
+
     def clickable(self, element: str) -> None:
         """Click on an element if it's clickable using Selenium."""
         try:
@@ -121,18 +129,25 @@ class Webdriver:
             WDW(self.driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, element))).send_keys(keys)
 
-    def send_date(self, element: str, keys: str) -> None:
+    def send_date(self, element: str, keys: str, clockface: str = 'A') -> None:
         """Send a date (DD-MM-YYYY HH:MM) to a date input by clicking on it."""
-        if self.window == 1:  # GeckoDriver (Mozilla Firefox).
-            self.send_keys(element, '-'.join(
-                reversed(keys.split('-'))) if '-' in keys else keys)
-            return  # Quit the method.
-        keys = keys.split('-') if '-' in keys else [keys]
-        keys = [keys[1], keys[0], keys[2]] if len(keys) > 1 else keys
-        for part in range(len(keys) - 1 if keys[len(keys) - 1] == str(
-                          dt.now().year) else len(keys)):  # Number of clicks.
-            self.clickable(element)  # Click first on the element.
-            self.send_keys(element, keys[part])  # Then send it the date.
+        # From "DD-MM-YYYY" or "hh:mm" to ["DD", "MM", "YYYY"] or ["hh", "mm"].
+        keys_ = keys.split('-') if '-' in keys else keys.split(':')
+        # From ["DD", "MM", "YYYY"] to ["MM", "DD", "YYYY"].
+        if isinstance(keys_, list) and '-' in keys and len(keys_) > 2:
+            keys_ = [keys_[1], keys_[0], keys_[2]]  # Switch day and month.
+            # ["DD", "MM", "YYYY"] or ["DD", "MM"] according to the year.
+            keys_ = keys_ if keys_[-1] == dt.now().year else keys_[:-1]
+        if ':' in keys:  # If it is an hour, change AM or PM.
+            if int(keys_[0]) > 13:  # Remove 12 hours if it is afternoon.
+                keys_[0], clockface = str(int(keys_[0]) - 12), 'P'
+                keys_.append(clockface)  # Add "A" or "P".
+        for part in range(len(keys_)):  # Add left and rights arrows moves.
+            keys_[part] = f'{Keys.ARROW_LEFT}' * len(keys_) + \
+                f'{Keys.ARROW_RIGHT}' * part + keys_[part]
+        self.clickable(element)  # Click on the date element.
+        self.send_keys(element, ''.join(keys_))  # Join and send date or time.
+
 
     def clear_text(self, element) -> None:
         """Clear text from an input."""
