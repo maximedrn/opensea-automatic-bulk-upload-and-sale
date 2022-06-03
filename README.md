@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/91475935/167429628-277de819-f3f8-44f7-
   * [Is there an easy way to get the URLs of already uploaded NFTs?](#is-there-an-easy-way-to-get-the-urls-of-already-uploaded-nfts)
   * [How to find missing and duplicates NFTs in my collection?](#how-to-find-missing-and-duplicates-nfts-in-my-collection)
   * [Is there a quick way to create my metadata file?](#is-there-a-quick-way-to-create-my-metadata-file)
-  * [I'm coming from the Hashlips Art Engine tool, how to make my files compatible?](#im-coming-from-the-hashlips-art-engine-tool-how-to-make-my-files-compatible)**
+  * **[I'm coming from the Hashlips Art Engine tool, how to make my files compatible?](#im-coming-from-the-hashlips-art-engine-tool-how-to-make-my-files-compatible)**
 * **[Instructions](#instructions) to install and configure this bot**.
   * [Installation of Python](#installation-of-python), step by step learn how to install Python.
   * [Installation and configuration of the bot](#installation-and-configuration-of-the-bot), step by step learn how to download and configure this bot.
