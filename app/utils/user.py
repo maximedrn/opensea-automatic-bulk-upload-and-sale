@@ -118,7 +118,7 @@ def data_file() -> str:
             for file in files:
                 file_number += 1
                 files_list.append(file)
-                print(f'{file_number} - {abspath(file)}')
+                print(f'{file_number} - {file}')
         answer = input('File number: ')
         if not answer.isdigit():  # Check if answer is a number.
             print(f'{RED}Answer must be an integer.{RESET}')
