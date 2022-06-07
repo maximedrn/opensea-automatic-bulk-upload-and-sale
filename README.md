@@ -195,7 +195,7 @@ You have just generated your images and associated metadata but notice that thes
 - The [File Compatibilizer and Converter](#file-compatibilizer-and-converter) will transform your files into a single compatible file.
 - However, some essential information is missing from this file. For example, if you want to add the price, the duration of the sale or the path to the generated images, videos or 3D objects, you will need the [Generic File Maker](#generic-file-maker).
 
-**Watch this [video](https://www.youtube.com/watch?v=oSqIqbuFnn0) on YouTube, it explains step by step the process to converter and fill your metadata file.**
+**Watch this [video](https://www.youtube.com/watch?v=oSqIqbuFnn0) on YouTube, it explains step by step the process to convert and fill your metadata file.**
 
 
 # Instructions
