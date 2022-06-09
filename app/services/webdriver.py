@@ -31,9 +31,9 @@ from ..utils.func import exit
 from ..utils.colors import GREEN, RED, YELLOW, RESET
 
 # Python default imports.
-from datetime import datetime as dt
+from os import name as osname, devnull
 from os.path import abspath, exists
-from os import name as osname
+from datetime import datetime as dt
 
 
 class Webdriver:
@@ -80,14 +80,14 @@ class Webdriver:
         if self.solver != 1 and self.wallet.recovery_phrase != '' and \
                 self.wallet.password != '':  # Not manual solver.
             options.add_argument('--headless')  # Headless mode.
-        options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
         options.set_preference('intl.accept_languages', 'en,en-US')
         driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
-            self.browser_path), options=options)  # executable_path.
+            self.browser_path), options=options,  # executable_path.
+            service_log_path=devnull)  # Disable Firefox logs.
         driver.install_addon(self.metamask_extension_path)  # Add extension.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
@@ -101,6 +101,7 @@ class Webdriver:
 
     def page_error(self) -> bool:
         """Check if the page is correctly displayed."""
+        self.window_handles(1)  # Switch to OpenSea.
         for text in ['This page is lost', 'Something went wrong']:
             if text in self.driver.page_source:
                 print(f'{YELLOW}404 page error.{RESET}')
@@ -139,7 +140,7 @@ class Webdriver:
             # ["DD", "MM", "YYYY"] or ["DD", "MM"] according to the year.
             keys_ = keys_ if keys_[-1] == dt.now().year else keys_[:-1]
         if ':' in keys:  # If it is an hour, change AM or PM.
-            if int(keys_[0]) > 12:  # Remove 12 hours if it is afternoon.
+            if int(keys_[0]) > 13:  # Remove 12 hours if it is afternoon.
                 keys_[0], clockface = str(int(keys_[0]) - 12), 'P'
             keys_.append(clockface)  # Add "A" or "P".
         for part in range(len(keys_)):  # Add left and rights arrows moves.
