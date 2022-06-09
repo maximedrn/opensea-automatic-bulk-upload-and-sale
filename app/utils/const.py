@@ -25,7 +25,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.17 - 2022, 04 June.{RESET}'
+    f'\n\nVersion 1.7.18 - 2022, 09 June.{RESET}'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -56,8 +56,9 @@ COINBASE_WALLET_IMPORT = \
     f'{YELLOW}Press [ENTER] when "Submit" button is clicked.'
 
 NO_DELETE_ERROR = (
-    'Cannot found the file. Please check that you placed it correctly or'
-    ' that you purchased this extension. (available here: '
+    'Cannot found the file. Please check that you placed it in the'
+    '\napp/services/processes/delete.py path or that you purchased'
+    '\nthis extension. (available here: '
     'https://maximedrn.gumroad.com/l/opensea-deletion)')
 
 YOLO_ERROR = (
@@ -67,8 +68,9 @@ YOLO_ERROR = (
     f'\ndownloaded and presents in the right directory.\n{RESET}')
 
 NO_CAPTCHA_ERROR = (
-    'Cannot found the file. Please check that you placed it correctly or'
-    ' that you purchased this extension. (available here: '
+    'Cannot found the file. Please check that you placed it in the\n'
+    'app/services/solvers/no_captcha.py path or that you purchased'
+    '\nthis extension. (available here: '
     'https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)')
 
 ALL_DONE = (
