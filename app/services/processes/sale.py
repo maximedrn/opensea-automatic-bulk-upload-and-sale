@@ -14,6 +14,8 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 
 # Selenium module imports: pip install selenium
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
 from selenium.webdriver.common.keys import Keys
 
@@ -55,21 +57,19 @@ class Sale:
             self.web.driver.get(self.structure.nft_url.replace(
                 '?created=true', '').replace('/sell', '') + '/sell')
 
-    def switch_polygon(self) -> bool:
+    def switch_polygon(self) -> None:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
         try:  # Switch blockchain.
-            if 'Switch' in self.web.visible(  # Switch in innerHTML.
-                    '//*[contains(@id, "dy react-aria")]/div/div/button'
-            ).get_attribute('innerHTML'):
+            if self.structure.blockchain == 'Polygon' != self.actual_blockchain \
+                and 'Waiting for approval' in self.web.visible(
+                    '(//div[@role="dialog"]//button)[position()=2]'
+                ).get_attribute('innerHTML'):
                 self.wallet.sign(False)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
-                self.web.driver.refresh()  # Reload the page.
                 self.actual_blockchain = 'Polygon'  # Change blockchain.
-                print(f'{YELLOW}Blockchain switched.{RESET}')
-                return True  # Done, blockchain switched.
-            return False  # Not a "Switch" button.
+                print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
         except Exception:
-            return False
+            pass
 
     def check_price(self) -> None:
         """Check the price and the quantity number."""
@@ -202,10 +202,12 @@ class Sale:
 
     def sign_contract(self) -> None:
         """Sign the Polygon or Ethereum contract."""
+        try:  # Sometimes the MetaMask pop up takes 2 seconds to appear.
+            WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
+            WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(3))
+        except:  # The pop up appears so the pop up can be interacted.
+            pass  # No error can be raised.
         try:  # Polygon blockchain requires a click on a button.
-            if self.structure.blockchain == 'Polygon':  # "Sign" button.
-                self.web.clickable(  # Click on the "Sign" button.
-                    '//*[contains(@id, "Body react-aria")]/div/div/button')
             self.wallet.contract(True)  # Sign the Wyvern 2.3 contract.
         except Exception:  # An error occured while listing the NFT.
             raise TE('Cannot sign the wallet contract.')
@@ -236,8 +238,7 @@ class Sale:
             self.price()  # Send the price.
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
-            if self.switch_polygon():  # Switch to Polygon blockchain.
-                return self.sale()  # Re list the NFT.
+            self.switch_polygon()  # Switch to Polygon blockchain.
             self.sign_contract()  # Sign the contract.
             self.check_listed()  # Check if the NFT is listed.
             print(f'{GREEN}NFT put up for sale.{RESET}')
@@ -245,8 +246,8 @@ class Sale:
             if self.web.page_error():  # Check if there is a 404
                 return self.sale()  # page error.
             print(f'{RED}NFT sale cancelled.{RESET}',
-                 str(error).replace('Message: ', '').replace('\n', '')
-                 if 'Stacktrace' not in str(error) else '')
+                  str(error).replace('Message: ', '').replace('\n', '')
+                  if 'Stacktrace' not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
             if self.fails > 1:  # Too much fails.
