@@ -1355,19 +1355,19 @@ It faciliates the creation of your metadata file.
   # Enter the number of the action: 1 (if you already have a metadata file) or 2 (if you want to create a new file).
   Action number:
 
-  ! Choose your generic file:
-  0 - Browse a file on PC.
-  1 - generic\generic-file-blank.json
-  2 - generic-file-example.json
-  # Enter the number of the generic file you want to use.
-  File number:
-
   ! Convert to/file type:
   1 - Upload & sale (18 details).
   2 - Upload (12 details).
   3 - Sale (9 details).
   # Enter the number of the file structure.
   Action number:
+  
+  ! Choose your generic file:
+  0 - Browse a file on PC.
+  1 - generic\generic-file-blank.json
+  2 - generic-file-example.json
+  # Enter the number of the generic file you want to use.
+  File number:
 
   # This part appears if you choose "Duplicate from an existing file".
   ! Choose your data file:
