@@ -216,12 +216,14 @@ class Sale:
         """Check if the NFT is listed."""
         try:  # Check if the "View listing" button is displayed.
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.visible('//footer/a[text()="View listing"]')
-        except Exception:  # Sometimes popup the text is not detected.
-            try:  # Check if the title contains the word "listed".
-                self.web.visible('//header/h4[contains(text(), "listed")]')
-            except Exception:  # NFT is not listed.
-                raise TE('NFT seems to not be listed.')
+            self.web.driver.get(self.structure.nft_url.replace(
+                '?created=true', '').replace('/sell', ''))
+            self.web.visible('//button[contains(., "Cancel") and contains'
+                             '(., "listing")]')  # "Cancel listings" button.
+        except Exception:  # The NFT is not listed.
+            if self.web.page_error():  # Check for a 404 page error.
+                return self.check_listed()  # Try again.
+            raise TE('NFT seems to not be listed.')
 
     def sale(self) -> None:
         """Set a price for the NFT and sell it."""
