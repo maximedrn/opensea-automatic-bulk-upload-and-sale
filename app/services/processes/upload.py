@@ -207,7 +207,7 @@ class Upload:
         """Save the file for a future sale."""
         if 2 not in self.structure.action:  # Save the data for future upload.
             self.structure.nft_url = self.web.driver.current_url  # NFT URL.
-            self.save.save_sale(True)  # Save for a future listing.
+            self.save.save_sale()  # Save for a future listing.
 
     def upload(self) -> bool:
         """Upload multiple NFTs automatically on OpenSea."""
