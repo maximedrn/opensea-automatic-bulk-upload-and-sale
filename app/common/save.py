@@ -15,6 +15,7 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 # Python default imports.
 from os.path import abspath, isfile
+from json import loads, dumps
 from uuid import uuid4
 
 # Python internal imports.
@@ -33,39 +34,34 @@ class Save:
 
     def __init__(self, structure: object) -> None:
         """Contains default path of file for each mode."""
-        self.upload_file = ''
-        self.sale_file = ''
-        self.upload_and_sale_file = ''
+        self.upload_file = ''  # Path to the upload file.
+        self.sale_file = ''  # Path to the future sale file.
+        self.upload_and_sale_file = ''  # Path to the upload and sale file.
         self.structure = structure  # Get the instance of the Structure class.
 
-    def create_file(self, mode: str, content: str) -> None:
+    def create_file(self, mode: str) -> None:
         """Create a file containing data for all NFTs."""
         # Create the metadata file according to the mode selected.
-        # "data/" + mode (upload, upload_and_sale, sale) + UUID + ".csv".
-        exec(f'self.{mode}_file = "data/{mode}_{str(uuid4())[:8]}.csv"')
-        # Open the file and write the headers according to the mode.
-        with open(abspath(eval(f'self.{mode}_file')),
-                  'a+', encoding='utf-8') as file:
-            # Remove the ";;" at the end of the row of headers.
-            file.write(content[:-3] if content.endswith(';; ') else content)
+        # "data/" + mode (upload, upload_and_sale, sale) + UUID + ".json".
+        exec(f'self.{mode}_file = "data/{mode}_{str(uuid4())[:8]}.json"')
+        # Open the file and write the {"nft": []} default content.
+        open(abspath(eval(f'self.{mode}_file')), 'a+',
+             encoding='utf-8').write(dumps({'nft': []}, indent=4))
 
     def save(self, mode: str, details: list, mute: bool = False) -> None:
-        """Save the metadata in a CSV file."""
-        # Create the file if it doesn't exist.
+        """Save the metadata in a JSON file."""
         if not isfile(abspath(eval(f'self.{mode}_file'))):
-            self.create_file(mode, ''.join(
-                f'{detail};; ' for detail in details))
-        # Open the file and write the details.
-        with open(abspath(eval(f'self.{mode}_file')),
-                  'a+', encoding='utf-8') as file:
-            # Remove the ";;" at the end of each row and replace "\" in
-            # each file path by "/" to prevent unknown path error.
-            file.write('\n' + ''.join(str(eval(f'self.structure.{detail}', {
-                'self': self})).replace('\\', '/') + ';; ' for detail in
-                details if hasattr(self.structure, detail))[:-3])
-        if mute:  # If the user wants to mute the output.
-            return
-        print(f'{GREEN}Data saved in {eval(f"self.{mode}_file")}.{RESET}')
+            self.create_file(mode)  # Create the file if it doesn't exist.
+        content = loads(open(abspath(  # Open the file and read its content.
+            eval( f'self.{mode}_file')), 'r', encoding='utf-8').read())
+        content['nft'].append([{detail: (eval(f'self.structure.{detail}', {
+            'self': self}) if hasattr(self.structure, detail) else '')
+            for detail in details}][0])  # Add the new NFT to the list.
+        open(abspath(eval(f'self.{mode}_file')),  # Write the content.
+             'w', encoding='utf-8').write(dumps(content, indent=4))
+        if not mute:  # If the user wants to mute the output.
+            print(f'{GREEN}Metadata saved in the '
+                  f'{eval(f"self.{mode}_file")} file.{RESET}')
 
     def save_upload(self) -> None:
         """Save all the details of the NFT for a new upload."""
@@ -75,9 +71,6 @@ class Save:
         """Save all the details of the NFT for a new upload and sale."""
         self.save('upload_and_sale', UPLOAD_AND_SALE)
 
-    def save_sale(self, future: bool = False) -> None:
+    def save_sale(self) -> None:
         """Save all the details of the NFT for a new of future sale."""
-        # Set an empty value to the missing sale details.
-        [exec(f'self.structure.{detail} = ""' if future else '',
-         {'self': self}) for detail in SALE[3:]]
         self.save('sale', SALE)
