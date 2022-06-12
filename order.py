@@ -33,8 +33,9 @@ def main(file_path: str) -> None:
     for element in file:  # Get each element of the file.
         # Place the element at the index of its name in the order list.
         order[int(  # NFT name: get only the digits from it.
-            ''.join(findall('[0-9]+', element['nft_name']))) - 1] = element
+            findall('[0-9]+', element['nft_name'])[-1]) - 1] = element
         # NFT name: name #{number} -> split at "#" and read the number.
+        # Note: use this line below if lines 35/36 do not work!
         # order[int(element['nft_name'].split('#')[1]) - 1] = element
     # Save the file with the new order as a JSON file.
     name = 'data/' + file_path.split('/')[-1].split(
