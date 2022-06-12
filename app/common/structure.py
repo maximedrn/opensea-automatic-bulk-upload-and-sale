@@ -113,7 +113,7 @@ class Structure:
             self.explicit_and_sensitive_content: bool = nft_data[9]
             self.supply: int = nft_data[10]
             self.blockchain: str = str(nft_data[11]).capitalize()
-        if 2 in self.action:  # Sale details.
+        if 2 in self.action or len(nft_data) >= 18:  # Sale details.
             self.sale_type: str = str(nft_data[12 - index]).title()
             self.price: float or int = nft_data[13 - index]
             self.method: list = nft_data[14 - index]  # [method, price].
