@@ -18,7 +18,15 @@ from .colors import GREEN, RED, YELLOW, RESET
 
 # Python default imports.
 from os.path import abspath, isfile
+from requests import get
 from glob import glob
+
+
+def check_version(version) -> str:
+    """Check for the new version of the script."""
+    last_release = get('https://pastebin.com/raw/kRqGGUkc').text
+    return f'\n{YELLOW}Version {last_release} is available!{RESET}' \
+        if version != last_release else ''
 
 
 def choose_wallet() -> int:
