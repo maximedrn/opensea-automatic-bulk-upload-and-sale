@@ -43,12 +43,12 @@ def main() -> None:
     structure = Structure(action, reader)
     save = Save(structure)  # Initialize the Save class.
     # Divide the file.
-    for nft_number in range(number('Start from:') - 1, number('End at:') + 1):
+    from_, to_ = number('Start from:') - 1, number('End at:') + 1
+    for nft_number in range(from_, to_):
         if not structure.get_data(nft_number):
             continue  # Data is not well structured.
         save.save(MODE[action_str], DETAILS[action_str], True if
-                  nft_number != reader.lenght_file - 1 else False)
-
+                  nft_number != to_ - 1 else False)
 
 def number(question: str) -> int:
     """Ask for a number and return it."""
