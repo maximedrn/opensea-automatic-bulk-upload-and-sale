@@ -15,7 +15,10 @@ Any distribution, modification or commercial use is strictly prohibited.
 
 # Python internal imports.
 from .colors import GREEN, YELLOW, RESET
+from .user import check_version
 
+
+VERSION = '1.8.0'
 
 FIRST_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
@@ -25,7 +28,8 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion 1.7.19.3 - 2022, 12 June.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 12 June.{RESET}'
+    f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
