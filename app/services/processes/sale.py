@@ -21,6 +21,7 @@ from selenium.webdriver.common.keys import Keys
 
 # Python internal imports.
 from ...utils.colors import GREEN, RED, YELLOW, RESET
+from ...utils.const import SALE_FAILS
 
 
 class Sale:
@@ -254,7 +255,7 @@ class Sale:
                   if 'Stacktrace' not in str(error) else '')
             self.wallet.close()  # Close the wallet extension popup.
             self.fails += 1  # Increment the counter.
-            if self.fails > 1:  # Too much fails.
+            if self.fails > SALE_FAILS:  # Too much fails.
                 self.save.save_sale()  # Save the NFT details for a sale.
             else:  # Retry to list.
                 self.sale()  # Try to re-list the NFT.
