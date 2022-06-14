@@ -1707,6 +1707,7 @@ opensea-automatic-upload-and-sale-master
 
 ## Version 1.8.1:
  * Added a feature to check if a red error message is displayed at the bottom right of the screen during listing.
+ * You can now choose the number of failures allowed by the bot (edit the `app/utils/const.py` file).
 
 <details>
   <summary>Earlier versions.</summary>
