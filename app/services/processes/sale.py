@@ -248,7 +248,7 @@ class Sale:
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
             if self.web.page_error():  # Check if there is a 404
-                return self.sale()  # page error.
+                return self.sale()  # page or "Failed to fetch" error.
             print(f'{RED}NFT sale cancelled.{RESET}',
                   str(error).replace('Message: ', '').replace('\n', '')
                   if 'Stacktrace' not in str(error) else '')
@@ -257,7 +257,7 @@ class Sale:
             if self.fails > 1:  # Too much fails.
                 self.save.save_sale()  # Save the NFT details for a sale.
             else:  # Retry to list.
-                self.sale()  # Try to re-upload the NFT.
+                self.sale()  # Try to re-list the NFT.
         self.fails = 0  # Reset the counter for next listing.
 
 
