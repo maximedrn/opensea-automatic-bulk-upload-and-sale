@@ -100,13 +100,23 @@ class Webdriver:
             pass  # or no webdriver is started.
 
     def page_error(self) -> bool:
-        """Check if the page is correctly displayed."""
+        """
+        Check the actual state of the page and if there is an error.
+
+        Check if the page is correctly displayed (404 page error)
+        or if a red message is displayed at the bottom right.
+        """
         self.window_handles(1)  # Switch to OpenSea.
         for text in ['This page is lost', 'Something went wrong']:
             if text in self.driver.page_source:
                 print(f'{YELLOW}404 page error.{RESET}')
                 return True
-        return False
+        try:  # Check if a red message is displayed.
+            self.visible('//div[@data-testid="toasts"]', 1)
+            print(f'{YELLOW}Red message displayed.{RESET}')
+            return True  # It is displayed.
+        except Exception:  # No red message is displayed.
+            return False
 
     def clickable(self, element: str) -> None:
         """Click on an element if it's clickable using Selenium."""
@@ -117,9 +127,9 @@ class Webdriver:
             self.driver.execute_script(  # so JavaScript can bypass this.
                 'arguments[0].click();', self.visible(element))
 
-    def visible(self, element: str):
+    def visible(self, element: str, timer: int = 5) -> object:
         """Check if an element is visible using Selenium."""
-        return WDW(self.driver, 5).until(
+        return WDW(self.driver, timer).until(
             EC.visibility_of_element_located((By.XPATH, element)))
 
     def send_keys(self, element: str, keys: str) -> None:
