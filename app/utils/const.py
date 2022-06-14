@@ -20,6 +20,12 @@ from .user import check_version
 
 VERSION = '1.8.1'
 
+# Change this with any values.
+# 1 means 2 failures allowed.
+# 9 means 10 failures allowed.
+UPLOAD_FAILS = 1
+SALE_FAILS = 9
+
 FIRST_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
     '\nGithub: https://github.com/maximedrn'
