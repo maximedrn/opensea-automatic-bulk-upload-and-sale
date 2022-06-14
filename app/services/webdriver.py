@@ -107,7 +107,7 @@ class Webdriver:
         or if a red message is displayed at the bottom right.
         """
         self.window_handles(1)  # Switch to OpenSea.
-        for text in ['This page is lost', 'Something went wrong']:
+        for text in ['This page is lost', 'something went wrong']:
             if text in self.driver.page_source:
                 print(f'{YELLOW}404 page error.{RESET}')
                 return True
