@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.8.0'
+VERSION = '1.8.1'
 
 FIRST_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
