@@ -39,21 +39,21 @@ def main() -> None:
     action_str = ' '.join(str(element) for element in action)
     file = data_file()  # Metadata file to read.
     reader = Reader(file)
+    print(f'\n{YELLOW}{reader.lenght_file} elements.{RESET}')
     # Initialize the Structure class by sending the action.
     structure = Structure(action, reader)
     save = Save(structure)  # Initialize the Save class.
     # Divide the file.
     from_, to_ = number('Start from:') - 1, number('End at:') + 1
     for nft_number in range(from_, to_):
-        if not structure.get_data(nft_number):
-            continue  # Data is not well structured.
+        print(f'Element n°{nft_number}.', end='\r')
         save.save(MODE[action_str], DETAILS[action_str], True if
                   nft_number != to_ - 1 else False)
 
 def number(question: str) -> int:
     """Ask for a number and return it."""
     while True:
-        lenght = input(f'\n{question} ')
+        lenght = input(f'{question} ')
         if lenght.isdigit() and int(lenght) > 0:
             return int(lenght)
         print(f'{RED}Answer must be a strictly positive integer.{RESET}')
