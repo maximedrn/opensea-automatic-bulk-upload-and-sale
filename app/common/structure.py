@@ -28,7 +28,7 @@ class Structure:
         self.action = action  # Can be [1], [2] or [1, 2].
         self.structured = False  # If the file is well structured.
 
-    def get_data(self, nft_number: int) -> None:
+    def get_data(self, nft_number: int, mute: bool = False) -> None:
         """
         Permit to get the NFT's metadata after the process.
 
@@ -37,6 +37,7 @@ class Structure:
         well structured or not.
         """
         self.nft_number = nft_number
+        self.muted = mute  # Display the error message.
         # Eval function: self.structure_{FILE_EXTENSION}()
         eval(f'self.structure_{self.extension}()')
         return self.structured
@@ -96,6 +97,8 @@ class Structure:
                 or (1 in self.action and len(nft_data) < 12) or \
                 (2 in self.action and len(nft_data) < 9) or \
                 (3 in self.action and len(nft_data) < 1):
+            if self.muted:  # Do not display the message.
+                return
             print(f'{RED}Your file is poorly structured for this NFT.\nCheck '
                   f'that elements are present and in the right order.{RESET}')
             return  # Do not try to structure the file.
