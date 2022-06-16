@@ -39,6 +39,10 @@ class Save:
         self.upload_and_sale_file = ''  # Path to the upload and sale file.
         self.structure = structure  # Get the instance of the Structure class.
 
+    def list_to_dict(self, detail: str) -> list:
+        return [{'type': element[0], 'value': element[1]} for element
+                in eval(f'self.structure.{detail}', {'self': self})]
+
     def create_file(self, mode: str) -> None:
         """Create a file containing data for all NFTs."""
         # Create the metadata file according to the mode selected.
@@ -54,9 +58,10 @@ class Save:
             self.create_file(mode)  # Create the file if it doesn't exist.
         content = loads(open(abspath(  # Open the file and read its content.
             eval( f'self.{mode}_file')), 'r', encoding='utf-8').read())
-        content['nft'].append([{detail: (eval(f'self.structure.{detail}', {
-            'self': self}) if hasattr(self.structure, detail) else '')
-            for detail in details}][0])  # Add the new NFT to the list.
+        content['nft'].append([{detail: ((eval(f'self.structure.{detail}', {
+            'self': self}) if detail not in ['properties', 'levels', 'stats']
+            else (self.list_to_dict(detail))) if hasattr(self.structure, detail)
+            else '') for detail in details}][0])  # Add the new NFT to the list.
         open(abspath(eval(f'self.{mode}_file')),  # Write the content.
              'w', encoding='utf-8').write(dumps(content, indent=4))
         if not mute:  # If the user wants to mute the output.
