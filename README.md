@@ -9,7 +9,7 @@ If you like :green_heart: my work and this tool:
 *  Do not hesitate to **add a star :star:** to this repository.
 
 **Need help or have a specific request?  
-Look at my offers on <a href="https://fr.fiverr.com/maximedrn/help-you-to-transfer-and-list-your-nfts-to-opensea">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a>.  
+Look at my offer on <a href="https://fr.fiverr.com/maximedrn/help-you-for-the-upload-and-sale-bot">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a>.  
 Contact me via [Telegram](https://t.me/maximedrn) or email me at [maxime_drean@yahoo.com](mailto:maxime_drean@yahoo.com).**
 
 ---
