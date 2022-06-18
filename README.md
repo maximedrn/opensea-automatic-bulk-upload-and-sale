@@ -28,7 +28,7 @@
 </div>
 
 
-<h2>Table of contents</h2>
+<h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Wiki</a></h2>
 
 <ul>
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Home#introduction">Introduction</a>, what does this bot do and how does it works?</strong></li>
