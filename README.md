@@ -22,7 +22,6 @@
 <br />Up to <strong>400 NFTs per hour</strong>, or <strong>10,000 NFTs in one day</strong> with one process.
 <br />Watch this <a href="https://www.youtube.com/watch?v=oSqIqbuFnn0">video</a> to see <strong>how fast</strong> the upload is with this exploit!</p>
 
-<summary>Show video thumbnail.</summary>
 <a href="https://www.youtube.com/watch?v=oSqIqbuFnn0">
 <img alt="[TUTORIAL] CREATE & UPLOAD NFTs to OpenSea - Bypass reCAPTCHAs" src="https://user-images.githubusercontent.com/91475935/170870961-049139f7-3ec9-40a0-a0e9-daa4eaa38435.png" width="60%" />
 </a>
