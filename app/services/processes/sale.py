@@ -209,7 +209,7 @@ class Sale:
         except:  # The pop up appears so the pop up can be interacted.
             pass  # No error can be raised.
         try:  # Sign the Wyvern 2.3 contract.
-            self.wallet.contract(self.structure.blockchain == 'Ethereum')
+            self.wallet.contract()
         except Exception:  # An error occured while listing the NFT.
             raise TE('Cannot sign the wallet contract.')
 
