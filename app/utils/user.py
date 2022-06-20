@@ -28,7 +28,7 @@ def check_version(version) -> str:
         last_release = get('https://pastebin.com/raw/kRqGGUkc').text
         return f'\n{YELLOW}Version {last_release} is available!{RESET}' \
             if version != last_release else ''
-    except Exception:  #SSL error.
+    except Exception:  # SSL error.
         return f'{YELLOW}Unable to get the latest version.{RESET}'
 
 
@@ -100,12 +100,12 @@ def recaptcha_solver() -> int:
 
 def choose_browser(solver: int, password: str, recovery_phrase: str) -> int:
     """Ask the user for a browser."""
+    headless = solver != 1 and password != '' and recovery_phrase != ''
     browsers = ['ChromeDriver (Google Chrome)' + (
-        ' - No headless mode.\n    Must used in foreground, you see what\'s '
-        'happening.' if solver != 1 and password != '' and recovery_phrase
-        != '' else '.'), 'GeckoDriver (Mozilla Firefox)' + (
-            '- Headless mode.\n    Can be used in background while '
-            'doing something else.' if solver != 1 else '.')]
+        ' - No headless mode.\n    Must used in foreground, you see what is '
+        'happening.' if headless else '.'), 'GeckoDriver (Mozilla Firefox)' + (
+            ' - Headless mode.\n    Can be used in background while '
+            'doing something else.' if headless else '.')]
     while True:
         print(f'{YELLOW}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
