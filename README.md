@@ -6,8 +6,8 @@
 
 <div align="center"><hr width="30%" /></div>
 
-<p align="center">If you like :green_heart: my work and this tool, do not hesitate to
-<br /><strong>fork :fork_and_knife:</strong> this repository and <strong>add a star :star:</strong> to this repository.</p>
+<p align="center">If you like 💚 my work and this tool, do not hesitate to
+<br /><strong>fork 🍴</strong> this repository and <strong>add a star ⭐</strong> to this repository.</p>
 
 <h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a></h2>
 
