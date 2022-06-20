@@ -208,8 +208,8 @@ class Sale:
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(3))
         except:  # The pop up appears so the pop up can be interacted.
             pass  # No error can be raised.
-        try:  # Polygon blockchain requires a click on a button.
-            self.wallet.contract(True)  # Sign the Wyvern 2.3 contract.
+        try:  # Sign the Wyvern 2.3 contract.
+            self.wallet.contract(self.structure.blockchain == 'Ethereum')
         except Exception:  # An error occured while listing the NFT.
             raise TE('Cannot sign the wallet contract.')
 
