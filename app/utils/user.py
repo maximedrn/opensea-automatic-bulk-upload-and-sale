@@ -24,9 +24,12 @@ from glob import glob
 
 def check_version(version) -> str:
     """Check for the new version of the script."""
-    last_release = get('https://pastebin.com/raw/kRqGGUkc').text
-    return f'\n{YELLOW}Version {last_release} is available!{RESET}' \
-        if version != last_release else ''
+    try:  # Try ot get the version of the bot.
+        last_release = get('https://pastebin.com/raw/kRqGGUkc').text
+        return f'\n{YELLOW}Version {last_release} is available!{RESET}' \
+            if version != last_release else ''
+    except Exception:  #SSL error.
+        return f'{YELLOW}Unable to get the latest version.{RESET}'
 
 
 def choose_wallet() -> int:
