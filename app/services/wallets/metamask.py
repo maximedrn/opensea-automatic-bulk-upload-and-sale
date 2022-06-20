@@ -77,7 +77,10 @@ class MetaMask:
                     self.web.send_keys('//*[@id="private-key-box"]',
                                        self.wallet.private_key)
                     self.web.clickable(  # Click on the "Import" button.
-                        '//*[contains(@class, "btn-secondary")][position()=1]')
+                        '(//*[contains(@class, "btn-' + (
+                            "secondary" if self.web.window == 0 else
+                            "primary") +'")])[position()=1]')
+                    quit()
             print(f'{GREEN}Logged to MetaMask.{RESET}')
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
@@ -104,7 +107,8 @@ class MetaMask:
     def contract(self, new_contract: bool = False) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
         self.web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        if self.web.window == 1 and new_contract:  # GeckoDriver.
+        if self.web.window == 1 or new_contract:
+            # Click on the arrow to activate the "Sign" button.
             self.web.clickable('(//div[contains(@class, "signature") and '
                                'contains(@class, "scroll")])[position()=1]')
         self.web.driver.execute_script(  # Scroll down.
