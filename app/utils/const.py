@@ -47,7 +47,8 @@ SECOND_PAGE = (
     f'is strictly prohibited.{RESET}'
     '\n\nExtension tools available here: https://maximedrn.gumroad.com/'
     '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
-    'swIyQVatKBoGxA')
+    'swIyQVatKBoGxA\nDocumentation on Github: https://github.com/'
+    'maximedrn/opensea-automatic-bulk-upload-and-sale/wiki')
 
 PASSWORD = (
     '\nWhat is your wallet password? '
@@ -58,7 +59,7 @@ RECOVERY_PHRASE = (
     '(Press [ENTER] to do it manually) ')
 
 PRIVATE_KEY = (
-    '\nWhat is your account number? '
+    '\nWhat is your account number or private key? '
     '(Press [ENTER] to ignore this step) ')
 
 METAMASK_IMPORT = f'{YELLOW}Press [ENTER] when "Import" button is clicked.'
