@@ -34,7 +34,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 12 June.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 20 June.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nIf you face any problem, please open an issue.')
 
@@ -81,7 +81,7 @@ NO_CAPTCHA_ERROR = (
     'Cannot found the file. Please check that you placed it in the\n'
     'app/services/solvers/no_captcha.py path or that you purchased'
     '\nthis extension. (available here: '
-    'https://maximedrn.gumroad.com/l/opensea-no-recaptcha)')
+    'https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)')
 
 ALL_DONE = (
     f'\n{GREEN}All done!{RESET}'
