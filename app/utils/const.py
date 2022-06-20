@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.8.2'
+VERSION = '1.8.3'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -81,7 +81,7 @@ NO_CAPTCHA_ERROR = (
     'Cannot found the file. Please check that you placed it in the\n'
     'app/services/solvers/no_captcha.py path or that you purchased'
     '\nthis extension. (available here: '
-    'https://maximedrn.gumroad.com/l/opensea-recaptcha-bypasser)')
+    'https://maximedrn.gumroad.com/l/opensea-no-recaptcha)')
 
 ALL_DONE = (
     f'\n{GREEN}All done!{RESET}'
