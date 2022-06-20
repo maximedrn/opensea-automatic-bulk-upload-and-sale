@@ -106,18 +106,17 @@ class Webdriver:
         Check if the page is correctly displayed (404 page error)
         or if a red message is displayed at the bottom right.
         """
-        try:  # Check if a message is displayed.
-            self.window_handles(1)  # Switch to OpenSea.
-            for text in ['This page is lost', 'something went wrong']:
-                if text in self.driver.page_source:
-                    print(f'{YELLOW}404 page error.{RESET}')
-                    return True
+        self.window_handles(1)  # Switch to OpenSea.
+        for text in ['This page is lost', 'Something went wrong']:
+            if text in self.driver.page_source:
+                print(f'{YELLOW}404 page error.{RESET}')
+                return True
+        try:  # Check if a red message is displayed.
             self.visible('//div[@data-testid="toasts"]', 1)
             print(f'{YELLOW}Red message displayed.{RESET}')
             return True  # It is displayed.
         except Exception:  # No red message is displayed.
-            pass
-        return False
+            return False
 
     def clickable(self, element: str) -> None:
         """Click on an element if it's clickable using Selenium."""
