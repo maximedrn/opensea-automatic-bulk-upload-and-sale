@@ -34,7 +34,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 20 June.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 21 June.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nIf you face any problem, please open an issue.')
 
