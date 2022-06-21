@@ -18,13 +18,13 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.8.4'
+VERSION = '1.9.0'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
 # 9 means 10 failures allowed.
 UPLOAD_FAILS = 1
-SALE_FAILS = 9
+SALE_FAILS = 1
 
 FIRST_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
@@ -47,8 +47,7 @@ SECOND_PAGE = (
     f'is strictly prohibited.{RESET}'
     '\n\nExtension tools available here: https://maximedrn.gumroad.com/'
     '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
-    'swIyQVatKBoGxA\nDocumentation on Github: https://github.com/'
-    'maximedrn/opensea-automatic-bulk-upload-and-sale/wiki')
+    'swIyQVatKBoGxA')
 
 PASSWORD = (
     '\nWhat is your wallet password? '
@@ -59,10 +58,17 @@ RECOVERY_PHRASE = (
     '(Press [ENTER] to do it manually) ')
 
 PRIVATE_KEY = (
-    '\nWhat is your account number or private key? '
+    '\nWhat is your account number? '
     '(Press [ENTER] to ignore this step) ')
 
+USER_DATA = '\nWhat is the "Chrome/User Data/" path? '
+
+PROFILE = '\nWhat is your Google Chrome profile name? '
+
 METAMASK_IMPORT = f'{YELLOW}Press [ENTER] when "Import" button is clicked.'
+
+METAMASK_RECONNECT = f'{YELLOW}Press [ENTER] when "Unlock" button is clicked.'
+
 COINBASE_WALLET_IMPORT = \
     f'{YELLOW}Press [ENTER] when "Submit" button is clicked.'
 
