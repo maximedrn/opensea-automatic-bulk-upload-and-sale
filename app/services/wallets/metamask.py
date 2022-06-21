@@ -19,8 +19,8 @@ from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
 
 # Python internal imports.
+from ...utils.const import METAMASK_IMPORT, METAMASK_RECONNECT
 from ...utils.colors import GREEN, RED, RESET
-from ...utils.const import METAMASK_IMPORT
 
 
 class MetaMask:
@@ -32,12 +32,14 @@ class MetaMask:
         self.web = web  # From the Webdriver class.
         self.wallet = wallet  # From the Wallet class.
 
-    def login(self) -> bool:
+    def login(self) -> None:
         """Login to the MetaMask extension."""
         try:  # Try to login to the MetaMask extension.
             print('Login to MetaMask.', end=' ')
             self.web.window_handles(0)  # Switch to the MetaMask extension tab.
             self.web.driver.refresh()  # Prevent a blank page.
+            if isinstance(self.wallet.recovery_phrase, tuple):
+                return self.reconnect()
             # Click on the "Start" button.
             self.web.clickable('//*[@class="welcome-page"]/button')
             self.web.clickable(  # Click on the "Import wallet" button.
@@ -61,25 +63,7 @@ class MetaMask:
             self.web.visible('//*[contains(@class, "emoji")][position()=1]')
             self.web.clickable(  # Confirm the connecton to MetaMask.
                 '//*[contains(@class, "btn-primary")][position()=1]')
-            if self.wallet.private_key != '':  # Change account.
-                self.web.clickable('//button[@data-testid="popover-close"]')
-                self.web.clickable(  # Click on the menu icon.
-                    '//*[@class="account-menu__icon"][position()=1]')
-                try:  # If it is the name of the account.
-                    self.web.clickable(  # Search for the account.
-                        '(//div[@class="account-menu__name" and contains('
-                        f'text(), "{self.wallet.private_key}")])'
-                        '[position()=1]/../..')
-                except Exception:  # Try the private key.
-                    self.web.clickable(  # Click on the
-                        '(//div[contains('  # "Import Account" button.
-                        '@class, "item account-menu")])[position()=3]')
-                    self.web.send_keys('//*[@id="private-key-box"]',
-                                       self.wallet.private_key)
-                    self.web.clickable(  # Click on the "Import" button.
-                        '(//*[contains(@class, "btn-' + (
-                            "secondary" if self.web.window == 0 else
-                            "primary") +'")])[position()=1]')
+            self.switch()  # Switch account.
             print(f'{GREEN}Logged to MetaMask.{RESET}')
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
@@ -91,6 +75,41 @@ class MetaMask:
                 print(f'{RED}Login to MetaMask failed. Restarting.{RESET}')
                 self.web.quit()  # Stop the webdriver.
                 self.wallet.success = False
+
+    def reconnect(self) -> None:
+        """Reconnect to the MetaMask wallet."""
+        if self.wallet.password != '':  # Input password.
+            self.web.send_keys('//*[@id="password"]', self.wallet.password)
+            self.web.clickable('//button[@type="submit"]')  # "Unlock" button.
+        else:  # User wants to input it.
+            input(METAMASK_RECONNECT)
+        self.switch()  # Switch account.
+        print(f'{GREEN}Logged to MetaMask.{RESET}')
+        self.wallet.success = True
+
+    def switch(self) -> None:
+        """Switch the MetaMask account."""
+        if self.wallet.private_key == '':  
+            return  # Do not change the account.
+        if isinstance(self.wallet.recovery_phrase, str):
+            self.web.clickable('//button[@data-testid="popover-close"]')
+        self.web.clickable(  # Click on the menu icon.
+            '//*[@class="account-menu__icon"][position()=1]')
+        try:  # If it is the name of the account.
+            self.web.clickable(  # Search for the account.
+                '(//div[@class="account-menu__name" and contains('
+                f'text(), "{self.wallet.private_key}")])'
+                '[position()=1]/../..')
+        except Exception:  # Try the private key.
+            self.web.clickable(  # Click on the
+                '(//div[contains('  # "Import Account" button.
+                '@class, "item account-menu")])[position()=3]')
+            self.web.send_keys('//*[@id="private-key-box"]',
+                               self.wallet.private_key)
+            self.web.clickable(  # Click on the "Import" button.
+                '(//*[contains(@class, "btn-' + (
+                    "secondary" if self.web.window == 0 else
+                    "primary") + '")])[position()=1]')
 
     def sign(self, contract: bool = True, page: int = 2) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
