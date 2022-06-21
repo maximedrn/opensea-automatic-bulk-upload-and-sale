@@ -43,7 +43,7 @@ class Webdriver:
                  wallet_name: str, wallet: object, solver: int) -> None:
         """Contains the file paths of the webdriver and the extension."""
         self.metamask_extension_path = abspath(  # MetaMask extension path.
-            'assets/MetaMask.crx' if browser == 0 else 'assets/MetaMask.xpi')
+            'assets/MetaMask.xpi' if browser == 1 else 'assets/MetaMask.crx')
         self.coinbase_wallet_extension_path = abspath(
             'assets/CoinbaseWallet.crx')  # Coinbase Wallet extension path.
         self.wallet_name = wallet_name.lower().replace(' ', '_')
@@ -51,7 +51,7 @@ class Webdriver:
         self.solver = solver  # reCAPTCHA solver number.
         self.wallet = wallet  # Instance of the Wallet class.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
-        self.driver = self.chrome() if browser == 0 else self.firefox()
+        self.driver = self.firefox() if browser == 1 else self.chrome()
         self.window = browser  # Window handle value.
 
     def chrome(self) -> webdriver:
@@ -69,6 +69,11 @@ class Webdriver:
             'prefs', {'intl.accept_languages': 'en,en_US'})
         options.add_experimental_option('excludeSwitches', [
             'enable-logging', 'enable-automation'])
+        if isinstance(self.wallet.recovery_phrase, tuple):
+            options.add_argument(  # Set the User Data folder.
+                f'--user-data-dir={self.wallet.recovery_phrase[0]}')
+            options.add_argument(  # Set the Google Chrome profile.
+                f'--profile-directory={self.wallet.recovery_phrase[1]}')
         driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         driver.maximize_window()  # Maximize window to reach all elements.
@@ -165,11 +170,11 @@ class Webdriver:
         self.clickable(element)  # Click on the element then clear its text.
         # Note: change with 'darwin' if it's not working on MacOS.
         control = Keys.COMMAND if osname == 'posix' else Keys.CONTROL
-        if self.window == 0:  # ChromeDriver (Google Chrome).
+        if self.window == 1:  # GeckoDriver (Mozilla Firefox).
+            self.send_keys(element, (control, 'a'))
+        else:  # ChromeDriver (Google Chrome).
             webdriver.ActionChains(self.driver).key_down(control).send_keys(
                 'a').key_up(control).perform()
-        elif self.window == 1:  # GeckoDriver (Mozilla Firefox).
-            self.send_keys(element, (control, 'a'))
 
     def is_empty(self, element: str, data: str, value: str = '') -> bool:
         """Check if data is empty and input its value."""
@@ -195,16 +200,16 @@ def download_browser(browser: int) -> str:
         webdriver = 'ChromeDriver' if browser == 0 else 'GeckoDriver'
         print(f'Downloading the {webdriver}.', end=' ')
         # Download the webdriver using the Driver Manager module.
-        browser_path = CDM(log_level=0).install() if browser == 0 \
-            else GDM(log_level=0).install()
+        browser_path = GDM(log_level=0).install() if browser == 1 \
+            else CDM(log_level=0).install()
         print(f'{GREEN}{webdriver} downloaded:{RESET} \n{browser_path}')
         return browser_path  # Return the path of the webdriver.
     except Exception:
         print(f'{RED}Browser download failed.{RESET}')
         # Set the browser path as "assets/" + browser + extension.
         browser_path = abspath('assets/' + ((
-            'chromedriver.' + 'exe' if osname == 'nt' else '') if browser == 0
-            else ('geckodriver.' + 'exe' if osname == 'nt' else '')))
+            'geckodriver.' + 'exe' if osname == 'nt' else '') if browser == 1
+            else ('chromedriver.' + 'exe' if osname == 'nt' else '')))
         # Check if an executable is already in this path, else exit.
         if not exists(browser_path):
             exit('Download the webdriver and place it in the assets/ folder.')
