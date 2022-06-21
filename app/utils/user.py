@@ -18,6 +18,7 @@ from .colors import GREEN, RED, YELLOW, RESET
 
 # Python default imports.
 from os.path import abspath, isfile
+from json import loads, dumps
 from requests import get
 from glob import glob
 
@@ -48,23 +49,25 @@ def choose_wallet() -> int:
             return wallets[int(answer) - 1]
 
 
-def read_file(file_: str, question: str) -> str:
+def read_file(value: str, question: str) -> str:
     """Read file or ask for data to write in text file."""
-    if not isfile(abspath(f'assets/{file_}.txt')):
-        open(abspath(f'assets/{file_}.txt'), 'a')  # If file doesn't exist.
-    with open(abspath(f'assets/{file_}.txt'), 'r+', encoding='utf-8') as file:
-        text = file.read()  # Read the file.
-        if text != '':  # If the file is not empty.
-            return text
-        text = input(question)  # Ask the question.
-        if text != '':  # If answer is not empty.
-            if input(f'Do you want to save your {file_.replace("_", " ")}'
-                     ' in a text file? (y/n) ').lower() != 'y':
-                print(f'{YELLOW}Not saved.{RESET}')
-            else:
-                file.write(text)  # Write the text in file.
-                print(f'{GREEN}Saved.{RESET}')
-        return text
+    if not isfile(abspath('assets/data.json')):  # If the file doesn't exist.
+        open(abspath('assets/data.json'), 'a').write(dumps({}, indent=4))
+    file = open(abspath('assets/data.json'), 'r', encoding='utf-8').read()
+    content = loads(file) if file != '' else {}  # Read the file.
+    if value in content and content[value] != '':
+        return content[value]  # If the file is not empty.
+    text = input(question)  # Ask the question.
+    if text != '':  # If answer is not empty.
+        if input(f'Do you want to save your {value.replace("_", " ")}'
+                 ' in the assets/data.json file? (y/n) ').lower() == 'y':
+            content[value] = text  # Append the new content.
+            open(abspath('assets/data.json'), 'w', encoding='utf-8').write(
+                dumps(content, indent=4))  # Write the text in file.
+            print(f'{GREEN}Saved.{RESET}')
+        else:
+            print(f'{YELLOW}Not saved.{RESET}')
+    return text
 
 
 def perform_action() -> list:
@@ -98,14 +101,12 @@ def recaptcha_solver() -> int:
         print(f'{RED}Answer must be a strictly positive integer.{RESET}')
 
 
-def choose_browser(solver: int, password: str, recovery_phrase: str) -> int:
+def choose_browser() -> int:
     """Ask the user for a browser."""
-    headless = solver != 1 and password != '' and recovery_phrase != ''
-    browsers = ['ChromeDriver (Google Chrome)' + (
-        ' - No headless mode.\n    Must used in foreground, you see what is '
-        'happening.' if headless else '.'), 'GeckoDriver (Mozilla Firefox)' + (
-            ' - Headless mode.\n    Can be used in background while '
-            'doing something else.' if headless else '.')]
+    browsers = [
+        'ChromeDriver (Google Chrome) - No headless mode.', 'GeckoDriver '
+        '(Mozilla Firefox) - Headless mode if credentials are entered.',
+        'Custom profile from Google Chrome.']
     while True:
         print(f'{YELLOW}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
