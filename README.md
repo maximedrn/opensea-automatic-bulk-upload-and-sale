@@ -44,5 +44,5 @@
 <div align="center"><hr width="30%" /></div>
 
 <p align="center" width="50%"><strong>Need help or have a specific request?</strong>
-<br />Look at my offer on <a href="https://fr.fiverr.com/maximedrn/help-you-for-the-upload-and-sale-bot">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a> to help you to create your metadata file and install the bot.  
+<br />Look at my offer on <a href="https://fiverr.com/maximedrn/help-you-for-the-upload-and-sale-bot">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a> to help you to create your metadata file and install the bot.  
 <br />Contact me via <a href="https://t.me/maximedrn">Telegram</a> or e-mail me at <a href="mailto:maxime_drean@yahoo.com">maxime_drean@yahoo.com</a>.<p>
