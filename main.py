@@ -16,7 +16,8 @@ Any distribution, modification or commercial use is strictly prohibited.
 from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
-    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, ALL_DONE, NO_DELETE_ERROR
+    PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, USER_DATA, PROFILE, \
+        ALL_DONE, NO_DELETE_ERROR
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
@@ -83,20 +84,24 @@ def process(action: list, solver: int, key: str, structure: object,
 
 def user() -> tuple:
     """Ask different informations to the user."""
-    wallet_name = choose_wallet()  # Choose a wallet.
-    # User wallet credentials.
-    password = read_file('password', PASSWORD)
-    recovery_phrase = read_file('recovery_phrase', RECOVERY_PHRASE)
-    private_key = read_file('private_key', PRIVATE_KEY)
     # What the action the user wants to do.
     action = perform_action()
+    file = data_file()  # Metadata file to read.
+    wallet_name = choose_wallet()  # Choose a wallet.
     # Ask what solver the user wants to use.
     solver, key = recaptcha_solver() if 1 in action else ('', '')
     # Ask what browser the user wants to use
     # if the Coinbase Wallet is not selected.
-    browser = 0 if wallet_name == 'Coinbase Wallet' \
-        else choose_browser(solver, password, recovery_phrase)
-    file = data_file()  # Metadata file to read.
+    browser = 0 if wallet_name == 'Coinbase Wallet' else choose_browser()
+    if browser != 2:  # User wallet credentials.
+        password = read_file('password', PASSWORD)
+        recovery_phrase = read_file('recovery_phrase', RECOVERY_PHRASE)
+        private_key = read_file('private_key', PRIVATE_KEY)
+    else:  # Ask for the User Data folder and profile name.
+        recovery_phrase = (read_file(
+            'user_data', USER_DATA), read_file('profile', PROFILE))
+        password = read_file('password', PASSWORD)
+        private_key = read_file('private_key', PRIVATE_KEY)
     return wallet_name, password, recovery_phrase, private_key, \
         action, solver, key, browser, file
 
