@@ -178,7 +178,7 @@ class Sale:
                                    '/div[2]/div[2]/div/div[2]/input', end_date)
                 self.web.send_date('//*[@id="start-time"]', start_time)
                 self.web.send_date('//*[@id="end-time"]', end_time)
-                if self.web.window == 1:  # Close the pop up window on Chrome.
+                if self.web.window == 1:  # Close the pop up on the GeckoDriver.
                     self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
                 self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
@@ -211,7 +211,8 @@ class Sale:
         try:  # Sign the Wyvern 2.3 contract.
             self.wallet.contract()
         except Exception:  # An error occured while listing the NFT.
-            raise TE('Cannot sign the wallet contract.')
+            if isinstance(self.wallet.recovery_phrase, str):
+                raise TE('Cannot sign the wallet contract.')
 
     def check_listed(self) -> None:
         """Check if the NFT is listed."""
