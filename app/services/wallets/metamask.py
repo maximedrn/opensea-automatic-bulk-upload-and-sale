@@ -80,7 +80,6 @@ class MetaMask:
                         '(//*[contains(@class, "btn-' + (
                             "secondary" if self.web.window == 0 else
                             "primary") +'")])[position()=1]')
-                    quit()
             print(f'{GREEN}Logged to MetaMask.{RESET}')
             self.wallet.success = True
         except Exception:  # Failed - a web element is not accessible.
