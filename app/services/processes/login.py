@@ -52,9 +52,15 @@ class Login:
             print(f'{GREEN}Logged to OpenSea.{RESET}')
             return True
         except Exception:  # The contract failed.
-            try:
-                self.wallet.contract() if self.web.window == 0 else \
-                    self.wallet.sign(False, 1)  # Sign the contract.
+            try:  # Using the custom Google Chrome profile.
+                if self.web.visible('//img[@alt="Account"]'):
+                    print(f'{GREEN}Logged to OpenSea.{RESET}')
+                    return True  # Already connected.
+            except Exception:
+                pass  # Ignore the error.
+            try:  # Not a custom Google Chrome profile.
+                self.wallet.sign(False, 1) if self.web.window == 1 else \
+                    self.wallet.contract()  # Sign the contract.
                 self.web.window_handles(1)  # Switch again to the OpenSea tab.
                 # Check again if the login to OpenSea worked.
                 WDW(self.web.driver, 10).until(EC.url_to_be(self.create_url))
