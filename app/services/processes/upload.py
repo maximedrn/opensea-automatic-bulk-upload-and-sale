@@ -148,7 +148,7 @@ class Upload:
                 self.structure.unlockable_content[0] and \
                 self.structure.unlockable_content[1] != '':
             self.web.send_keys('//*[@id="unlockable-content-toggle"]',
-                               Keys.ENTER)  # Toggle the switch button.
+                               Keys.RETURN)  # Toggle the switch button.
             self.web.send_keys(  # Input the unlockable content.
                 '//div[contains(@class, "unlockable")]/textarea',
                 self.structure.unlockable_content[1])
@@ -236,6 +236,7 @@ class Upload:
             self.fails = 0  # Reset the counter for next upload.
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
+            print(error)
             if self.web.page_error():  # Check if there is a 404
                 return self.upload()  # page error.
             print(f'{RED}Upload failed.{RESET}',
