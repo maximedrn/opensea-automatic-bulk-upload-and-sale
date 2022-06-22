@@ -47,7 +47,8 @@ SECOND_PAGE = (
     f'is strictly prohibited.{RESET}'
     '\n\nExtension tools available here: https://maximedrn.gumroad.com/'
     '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
-    'swIyQVatKBoGxA')
+    'swIyQVatKBoGxA\nDocumentation: https://github.com/maximedrn/'
+    'opensea-automatic-bulk-upload-and-sale/wiki')
 
 PASSWORD = (
     '\nWhat is your wallet password? '
