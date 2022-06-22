@@ -34,6 +34,7 @@ from ..utils.colors import GREEN, RED, YELLOW, RESET
 from os import name as osname, devnull
 from os.path import abspath, exists
 from datetime import datetime as dt
+from platform import system
 
 
 class Webdriver:
@@ -168,8 +169,7 @@ class Webdriver:
     def clear_text(self, element) -> None:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then clear its text.
-        # Note: change with 'darwin' if it's not working on MacOS.
-        control = Keys.COMMAND if osname == 'posix' else Keys.CONTROL
+        control = Keys.COMMAND if system() == 'Darwin' else Keys.CONTROL
         if self.window == 1:  # GeckoDriver (Mozilla Firefox).
             self.send_keys(element, (control, 'a'))
         else:  # ChromeDriver (Google Chrome).
