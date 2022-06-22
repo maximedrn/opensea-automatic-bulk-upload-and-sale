@@ -158,7 +158,7 @@ class Upload:
         if isinstance(self.structure.explicit_and_sensitive_content, bool) \
                 and self.structure.explicit_and_sensitive_content:
             self.web.send_keys('//*[@id="explicit-content-toggle"]',
-                               Keys.ENTER)  # Toggle the switch button.
+                               Keys.RETURN)  # Toggle the switch button.
 
     def supply_number(self) -> None:
         """Change the supply number if it is greater than 1."""
