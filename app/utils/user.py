@@ -30,7 +30,7 @@ def check_version(version) -> str:
         return f'\n{YELLOW}Version {last_release} is available!{RESET}' \
             if version != last_release else ''
     except Exception:  # SSL error.
-        return f'{YELLOW}Unable to get the latest version.{RESET}'
+        return f'\n{YELLOW}Unable to get the latest version.{RESET}'
 
 
 def choose_wallet() -> int:
