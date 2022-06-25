@@ -38,6 +38,19 @@ class Sale:
         self.web = web  # From the Webdriver class.
         self.wallet = wallet  # From the Wallet class.
 
+    def check_listable(self) -> None:
+        """Check if the NFT can be listed."""
+        try:  # Check if the "View listing" button is displayed.
+            self.web.window_handles(1)  # Switch back to the OpenSea tab.
+            self.web.driver.get(self.structure.nft_url.replace(
+                '?created=true', '').replace('/sell', ''))
+            self.web.visible('//a[contains(., "Sell")]')
+            return True  # NFT is listed.
+        except Exception:  # The NFT seems to be listed.
+            if self.web.page_error():  # Check for a 404 page error.
+                return self.check_listable()  # Try again.
+            return False
+
     def switch_ethereum(self) -> None:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
         if self.structure.blockchain == 'Ethereum' and self.\
@@ -231,6 +244,9 @@ class Sale:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
+            if self.structure.action == [2] and not self.check_listable():
+                print(f'{YELLOW}NFT already listed.{RESET}')
+                return  # NFT is already listed. co not continue the sale.
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
             if self.structure.supply == 1 and \
