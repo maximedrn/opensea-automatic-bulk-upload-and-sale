@@ -44,7 +44,7 @@ def main() -> None:
     structure = Structure(action, reader)
     save = Save(structure)  # Initialize the Save class.
     # Divide the file.
-    from_, to_ = number('Start from:') - 1, number('End at:') - 1
+    from_, to_ = number('Start from:') - 1, number('End at:')
     for nft_number in range(from_, to_):
         print(f'Element n°{nft_number}.', end='\r')
         if not structure.get_data(nft_number, True):
