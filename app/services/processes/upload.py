@@ -236,7 +236,6 @@ class Upload:
             self.fails = 0  # Reset the counter for next upload.
             return True  # If it perfectly worked.
         except Exception as error:  # Any other error.
-            print(error)
             if self.web.page_error():  # Check if there is a 404
                 return self.upload()  # page error.
             print(f'{RED}Upload failed.{RESET}',
