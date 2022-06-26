@@ -20,7 +20,7 @@ from uuid import uuid4
 
 # Python internal imports.
 from ..utils.values import UPLOAD, SALE, UPLOAD_AND_SALE
-from ..utils.colors import GREEN, RESET
+from ..utils.colors import GREEN, RED, RESET
 
 
 class Save:
@@ -40,8 +40,10 @@ class Save:
         self.structure = structure  # Get the instance of the Structure class.
 
     def list_to_dict(self, detail: str) -> list:
+        """Transform a list into a dictionnary."""
         return [{'type': element[0], 'value': element[1]} for element
-                in eval(f'self.structure.{detail}', {'self': self})]
+                in eval(f'self.structure.{detail}', {'self': self})
+                if isinstance(element, dict)]
 
     def create_file(self, mode: str) -> None:
         """Create a file containing data for all NFTs."""
@@ -54,19 +56,24 @@ class Save:
 
     def save(self, mode: str, details: list, mute: bool = False) -> None:
         """Save the metadata in a JSON file."""
-        if not isfile(abspath(eval(f'self.{mode}_file'))):
-            self.create_file(mode)  # Create the file if it doesn't exist.
-        content = loads(open(abspath(  # Open the file and read its content.
-            eval( f'self.{mode}_file')), 'r', encoding='utf-8').read())
-        content['nft'].append([{detail: ((eval(f'self.structure.{detail}', {
-            'self': self}) if detail not in ['properties', 'levels', 'stats']
-            else (self.list_to_dict(detail))) if hasattr(self.structure, detail)
-            else '') for detail in details}][0])  # Add the new NFT to the list.
-        open(abspath(eval(f'self.{mode}_file')),  # Write the content.
-             'w', encoding='utf-8').write(dumps(content, indent=4))
-        if not mute:  # If the user wants to mute the output.
-            print(f'{GREEN}Metadata saved in the '
-                  f'{eval(f"self.{mode}_file")} file.{RESET}')
+        try:
+            if not isfile(abspath(eval(f'self.{mode}_file'))):
+                self.create_file(mode)  # Create the file if it doesn't exist.
+            content = loads(open(abspath(  # Open the file and read content.
+                eval(f'self.{mode}_file')), 'r', encoding='utf-8').read())
+            content['nft'].append([{detail: ((eval(
+                f'self.structure.{detail}', {'self': self}) if detail not in
+                ['properties', 'levels', 'stats'] else (self.list_to_dict(
+                    detail))) if hasattr(self.structure, detail) else '') for
+                detail in details}][0])  # Add the new NFT to the list.
+            open(abspath(eval(f'self.{mode}_file')),  # Write the content.
+                 'w', encoding='utf-8').write(dumps(content, indent=4))
+            if not mute:  # If the user wants to mute the output.
+                print(f'{GREEN}Metadata saved in the '
+                      f'{eval(f"self.{mode}_file")} file.{RESET}')
+        except Exception:  # An error occured while saving the file.
+            if not mute:  # If the user wants to mute the output.
+                print(f'{RED}Cannot save the metadata in a file.{RESET}')
 
     def save_upload(self) -> None:
         """Save all the details of the NFT for a new upload."""
