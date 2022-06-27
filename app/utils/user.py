@@ -104,9 +104,8 @@ def recaptcha_solver() -> int:
 def choose_browser() -> int:
     """Ask the user for a browser."""
     browsers = [
-        'ChromeDriver (Google Chrome) - No headless mode.', 'GeckoDriver '
-        '(Mozilla Firefox) - Headless mode if credentials are entered.',
-        'Custom profile from Google Chrome.']
+        'ChromeDriver (Google Chrome).', 'GeckoDriver (Mozilla '
+        'Firefox).', 'Google Chrome custom profile.']
     while True:
         print(f'{YELLOW}\nChoose a browser:')
         [print(f'{browsers.index(browser) + 1} - {browser}'
