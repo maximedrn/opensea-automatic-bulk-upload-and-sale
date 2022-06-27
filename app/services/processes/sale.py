@@ -245,7 +245,9 @@ class Sale:
             except Exception:  # The NFT is not listed.
                 if self.web.page_error():  # Check for a 404 page error.
                         return self.check_listed()  # Try again.
-                raise TE('NFT seems to not be listed.')
+                print(f'{RED}NFT has not been listed.{RESET}')
+                return False  # Retry until it works.
+        return True  # It has been listed.
 
     def sale(self) -> None:
         """Set a price for the NFT and sell it."""
@@ -269,7 +271,8 @@ class Sale:
             self.complete_listing()  # Complete listing.
             self.switch_polygon()  # Switch to Polygon blockchain.
             self.sign_contract()  # Sign the contract.
-            self.check_listed()  # Check if the NFT is listed.
+            if not self.check_listed():  # Check if the NFT is listed.
+                return self.sale()  # It will retry until it works.
             print(f'{GREEN}NFT put up for sale.{RESET}')
         except Exception as error:  # Any other error.
             if self.web.page_error():  # Check if there is a 404
