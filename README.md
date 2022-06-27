@@ -62,19 +62,19 @@
 
 <h2>Useful tools to have for this bot</h2>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/File-Compatibilizer-&-Converter">File Compatibilizer & Converter</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-file-compatibilizer">File Compatibilizer & Converter</a></h3>
 
 <p>Using the <strong>File Compatibilizer and Converter</strong>, you can <strong>convert all JSON files generated with the <a href="https://github.com/HashLips/hashlips_art_engine">HashLips Art Engine</a> tool into a single compatible file</strong>. The tool ignores the file named <code>_metadata.json</code> and focuses on all other files listed. It <strong>retrieves each of the information containing them such as attributes</strong> and properties and adds them into a single file.</p>
 
 <div align="center"><hr width="30%" /></div>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Generic-File-Maker">Generic File Maker</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-generic-file">Generic File Maker</a></h3>
 
 <p>Using the <strong>Generic File Maker</strong>, you can <strong>complete your JSON metadata file using a simple generic file that contains 21 details</strong>, 18 about NFTs and 3 about how the tool works. It supports increment value, for example if you name your assets (images or videos) from 1 to 10000, you can <strong>in one line complete all the file paths of the metadata file</strong>.</p>
 
 <div align="center"><hr width="30%" /></div>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Collection-Scraper">Collection Scraper</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-collection-scraper">Collection Scraper</a></h3>
 
 <p>Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs of the NFTs of any collection</strong>. It makes it easier to manage your collection, you can now know which NFTs are missing, which ones are duplicated. It facilitates the listing of your NFTs by <strong>creating different files compatible with the <code>Sale Only</code> option.</p>
 
@@ -82,18 +82,18 @@
 
 <div align="center"><hr width="30%" /></div>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/reCAPTCHA-Bypasser">reCAPTCHA Bypasser</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-no-recaptcha">reCAPTCHA Bypasser</a></h3>
 
 <p>Using the <strong>reCAPTCHA Bypasser</strong>, you can <strong>instantly solve reCAPTCHAs when uploading to OpenSea</strong>. This maximizes the upload speed on OpenSea, <strong>the average 30 second wait time of other solvers no longer exists with this solver</strong>. It uses an exploit to bypass the reCAPTCHA. The upload speed is such that there would be no reCAPTCHA.</p>
 
 <div align="center"><hr width="30%" /></div>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Multiprocessing">Multiprocessing</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-multiprocessing">Multiprocessing</a></h3>
 
 <p>Using the <strong>Multiprocessing</strong> tool, you can upload your NFTs faster and with several processes running at the same time. You can have up to 5 simultaneous processes depending on the power of your computer. It splits your file into several sub-files, then opens several command prompts that work like the main bot but at the same time: it connects to your wallet, connects to OpenSea and starts the upload or listing task.</p>
 
 <div align="center"><hr width="30%" /></div>
 
-<h3><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Deletion">Deletion</a></h3>
+<h3><a href="https://maximedrn.gumroad.com/l/opensea-deletion">Deletion</a></h3>
 
 <p>Using the <strong>Deletion</strong> tool, you can <strong></strong> delete any NFT on OpenSea. It is compatible with the <a href="https://maximedrn.gumroad.com/l/opensea-collection-scraper">Collection Scraper</a> which creates files for duplicated NFTs or for an entire collection.</p>
