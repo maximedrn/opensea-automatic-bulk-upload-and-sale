@@ -42,8 +42,7 @@ class Save:
     def list_to_dict(self, detail: str) -> list:
         """Transform a list into a dictionnary."""
         return [{'type': element[0], 'value': element[1]} for element
-                in eval(f'self.structure.{detail}', {'self': self})
-                if isinstance(element, dict)]
+                in eval(f'self.structure.{detail}', {'self': self})]
 
     def create_file(self, mode: str) -> None:
         """Create a file containing data for all NFTs."""
