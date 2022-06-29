@@ -17,7 +17,7 @@ from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
     PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, USER_DATA, PROFILE, \
-        ALL_DONE, NO_DELETE_ERROR
+    ALL_DONE, NO_DELETE_ERROR
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
@@ -68,17 +68,23 @@ def process(action: list, solver: int, key: str, structure: object,
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(reader.lenght_file):
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
-        if not structure.get_data(nft_number):
-            continue  # Data is not well structured.
-        success = None  # Prevent "referenced before assignment" error.
-        if 1 in action:  # Upload part.
-            success = upload.upload()  # Get the result of the upload.
-        if (2 in action and success) or action == [2]:  # Sale part.
-            # Check the price validity by sending price and blockchain.
-            if check_price(structure.price, structure.blockchain):
-                sale.sale()  # Process to listing of the NFT.
-        if 3 in action:  # Delete part.
-            delete.delete()  # Delete the NFT.
+        while True:  # Permits the continuous retry for each NFT
+            try:  # in case of any failure.
+                if not structure.get_data(nft_number):
+                    break  # Data is not well structured.
+                success = None  # Prevent "referenced before assignment" error.
+                if 1 in action:  # Upload part.
+                    success = upload.upload()  # Get the result of the upload.
+                if (2 in action and success) or action == [2]:  # Sale part.
+                    # Check the price validity by sending price and blockchain.
+                    if check_price(structure.price, structure.blockchain):
+                        sale.sale()  # Process to listing of the NFT.
+                if 3 in action:  # Delete part.
+                    delete.delete()  # Delete the NFT.
+            except Exception:  # To prevent any exception and stop.
+                print(f'{RED}Something went wrong. Retrying.{RESET}')
+                continue  # Ignore this exception and retry.
+            break  # Continue to the next NFT.
     web.quit()  # Stop the webdriver.
 
 
