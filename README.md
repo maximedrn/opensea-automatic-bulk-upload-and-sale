@@ -76,7 +76,7 @@
 
 <h3><a href="https://maximedrn.gumroad.com/l/opensea-collection-scraper">Collection Scraper</a></h3>
 
-<p>Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs of the NFTs of any collection</strong>. It makes it easier to manage your collection, you can now know which NFTs are missing, which ones are duplicated. It facilitates the listing of your NFTs by <strong>creating different files compatible with the <code>Sale Only</code> option.</p>
+<p>Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs of the NFTs of any collection</strong>. It makes it easier to manage your collection, you can now know which NFTs are missing, which ones are duplicated. It facilitates the listing of your NFTs by <strong>creating different files compatible with the <code>Sale Only</code> option.</strong></p>
 
 <p>Thus a <code>full</code> file containing all NFTs, a <code>unique</code> file containing each NFT individually based on their names, a <code>duplicate</code> file containing all duplicated NFTs of the collection and a <code>missing</code> file containing all missing NFTs will be created, and these in all formats compatible with the bot (JSON, CSV and XLSX).</p>
 
