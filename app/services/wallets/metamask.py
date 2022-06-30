@@ -110,7 +110,6 @@ class MetaMask:
                 '(//*[contains(@class, "btn-' + (
                     "secondary" if self.web.window == 0 else
                     "primary") + '")])[position()=1]')
-            quit()
 
     def sign(self, contract: bool = True, page: int = 2) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
