@@ -97,10 +97,10 @@ class CoinbaseWallet:
 
     def close(self) -> None:
         """Close the Coinbase Wallet popup."""
-        if len(self.web.driver.window_handles) > 2:
-            try:
+        try:
+            if len(self.web.driver.window_handles) > 2:
                 self.web.window_handles(2)  # Switch to the Coinbase popup.
                 self.web.driver.close()  # Close the popup extension.
                 self.web.window_handles(1)  # Switch back to OpenSea.
-            except Exception:
-                pass  # Ignore the exception.
+        except Exception:
+            pass  # Ignore the exception.
