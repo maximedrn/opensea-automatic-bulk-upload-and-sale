@@ -112,16 +112,14 @@ class Webdriver:
         Check if the page is correctly displayed (404 page error)
         or if a red message is displayed at the bottom right.
         """
-        self.window_handles(1)  # Switch to OpenSea.
-        for text in ['This page is lost', 'Something went wrong']:
-            if text in self.driver.page_source:
-                print(f'{YELLOW}404 page error.{RESET}')
-                return True
-        try:  # Check if a red message is displayed.
-            self.visible('//div[@data-testid="toasts"]', 1)
-            print(f'{YELLOW}Red message displayed.{RESET}')
-            return True  # It is displayed.
-        except Exception:  # No red message is displayed.
+        try:
+            self.window_handles(1)  # Switch to OpenSea.
+            for text in ['This page is lost', 'Something went wrong']:
+                if text in self.driver.page_source:
+                    print(f'{YELLOW}404 page error.{RESET}')
+                    return True
+            return False
+        except Exception:
             return False
 
     def clickable(self, element: str) -> None:
@@ -159,6 +157,7 @@ class Webdriver:
                 keys_ = [keys_[1], keys_[0], keys_[2]]  # Switch day and month.
             # ["DD", "MM", "YYYY"] or ["DD", "MM"] according to the year.
             keys_ = keys_ if keys_[-1] == dt.now().year else keys_[:-1]
+        print(keys, self.visible(element).get_attribute('value'))
         if ':' in keys and invert:  # If it is an hour, change AM or PM.
             if int(keys_[0]) > 13:  # Remove 12 hours if it is afternoon.
                 keys_[0], clockface = str(int(keys_[0]) - 12), 'P'
