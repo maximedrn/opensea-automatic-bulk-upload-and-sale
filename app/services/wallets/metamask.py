@@ -110,6 +110,7 @@ class MetaMask:
                 '(//*[contains(@class, "btn-' + (
                     "secondary" if self.web.window == 0 else
                     "primary") + '")])[position()=1]')
+            quit()
 
     def sign(self, contract: bool = True, page: int = 2) -> None:
         """Sign the MetaMask contract to login to OpenSea."""
@@ -142,10 +143,10 @@ class MetaMask:
 
     def close(self) -> None:
         """Close the MetaMask popup."""
-        if len(self.web.driver.window_handles) > 2:
-            try:
+        try:
+            if len(self.web.driver.window_handles) > 2:
                 self.web.window_handles(2)  # Switch to the MetaMask popup.
                 self.web.driver.close()  # Close the popup extension.
                 self.web.window_handles(1)  # Switch back to OpenSea.
-            except Exception:
-                pass  # Ignore the exception.
+        except Exception:
+            pass  # Ignore the exception.
