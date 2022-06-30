@@ -33,6 +33,10 @@ from app.services.webdriver import download_browser, Webdriver
 from app.services.wallets.wallet import Wallet
 from app.services.processes.login import Login
 
+# Python default imports.
+from random import randint
+from time import sleep
+
 
 def login(wallet: object, browser: int, browser_path: str,
           wallet_name: str, solver: int):
@@ -67,6 +71,8 @@ def process(action: list, solver: int, key: str, structure: object,
         delete.init(structure, web)
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(reader.lenght_file):
+        web.driver.get('data:,')  # Go to an empty page and wait
+        sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
         if not structure.get_data(nft_number):
             continue  # Data is not well structured.
