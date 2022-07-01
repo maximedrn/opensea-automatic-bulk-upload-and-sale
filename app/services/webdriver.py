@@ -22,7 +22,7 @@ from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-# Webdriver Manager module: pip install webdriver-manager
+# Webdriver Manager module: pip install webdriver_manager
 from webdriver_manager.chrome import ChromeDriverManager as CDM
 from webdriver_manager.firefox import GeckoDriverManager as GDM
 
@@ -214,7 +214,7 @@ def download_browser(browser: int) -> str:
         # Set the browser path as "assets/" + browser + extension.
         browser_path = abspath('assets/' + (
             'geckodriver'  if browser == 1 else 'chromedriver')
-            + ('.exe' if osname == 'nta' else '')).replace('\\', '/')
+            + ('.exe' if osname == 'nt' else '')).replace('\\', '/')
         # Check if an executable is already in this path, else exit.
         if not exists(browser_path):
             exit('Download the webdriver and place it in the assets/ folder.')
