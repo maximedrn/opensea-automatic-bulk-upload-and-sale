@@ -212,9 +212,9 @@ def download_browser(browser: int) -> str:
     except Exception:
         print(f'{RED}Browser download failed.{RESET}')
         # Set the browser path as "assets/" + browser + extension.
-        browser_path = abspath('assets/' + ((
-            'geckodriver.' + 'exe' if osname == 'nt' else '') if browser == 1
-            else ('chromedriver.' + 'exe' if osname == 'nt' else '')))
+        browser_path = abspath('assets/' + (
+            'geckodriver'  if browser == 1 else 'chromedriver')
+            + ('.exe' if osname == 'nt' else ''))
         # Check if an executable is already in this path, else exit.
         if not exists(browser_path):
             exit('Download the webdriver and place it in the assets/ folder.')
