@@ -50,7 +50,7 @@ SECOND_PAGE = (
     'swIyQVatKBoGxA\nDocumentation: https://github.com/maximedrn/'
     'opensea-automatic-bulk-upload-and-sale/wiki')
 
-STARTING_VALUE = '\nFrom which element would you like to start? '
+STARTING_VALUE = '\nStart from the item n°'
 
 PASSWORD = (
     '\nWhat is your wallet password? '
