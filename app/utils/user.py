@@ -141,3 +141,12 @@ def data_file() -> str:
             return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
         elif int(answer) <= len(files_list):
             return files_list[int(answer) - 1]  # Return path of file.
+
+
+def number(question: str) -> int:
+    """Ask the user for the starting number."""
+    while True:
+        processes = input(question)
+        if processes.isdigit() and 0 < int(processes):
+            return int(processes) - 1
+        print(f'{RED}Please enter a positive integer.{RESET}')
