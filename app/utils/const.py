@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.10.0'
+VERSION = '1.10.1'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -34,7 +34,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 30 June.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 01 July.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nIf you face any problem, please open an issue.')
 
@@ -49,6 +49,8 @@ SECOND_PAGE = (
     '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
     'swIyQVatKBoGxA\nDocumentation: https://github.com/maximedrn/'
     'opensea-automatic-bulk-upload-and-sale/wiki')
+
+STARTING_VALUE = '\nFrom which element would you like to start? '
 
 PASSWORD = (
     '\nWhat is your wallet password? '
