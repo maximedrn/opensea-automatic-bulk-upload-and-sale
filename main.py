@@ -17,11 +17,11 @@ from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
     PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, USER_DATA, PROFILE, \
-    ALL_DONE, NO_DELETE_ERROR
+    ALL_DONE, NO_DELETE_ERROR, STARTING_VALUE
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
-    recaptcha_solver, choose_browser, data_file
+    recaptcha_solver, choose_browser, data_file, number
 
 # Common functions for the metadata file.
 from app.common.reader import Reader
@@ -57,8 +57,8 @@ def login(wallet: object, browser: int, browser_path: str,
 
 
 def process(action: list, solver: int, key: str, structure: object,
-            save: object, web: object, wallet: object, recaptcha:
-            object, reader: object, delete: object) -> None:
+            save: object, web: object, wallet: object, recaptcha: object,
+            reader: object, delete: object, starting: int = 0) -> None:
     """Begin the upload, listing or both, or any process."""
     if 1 in action:  # Initialize the Upload class.
         from app.services.processes.upload import Upload
@@ -70,7 +70,7 @@ def process(action: list, solver: int, key: str, structure: object,
     if 3 in action:  # Send the object to the class.
         delete.init(structure, web)
     # Proceed to the Upload or Sale process in a loop.
-    for nft_number in range(reader.lenght_file):
+    for nft_number in range(starting, reader.lenght_file):
         web.driver.get('data:,')  # Go to an empty page and wait
         sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
@@ -93,6 +93,7 @@ def user() -> tuple:
     # What the action the user wants to do.
     action = perform_action()
     file = data_file()  # Metadata file to read.
+    starting = number(STARTING_VALUE)
     wallet_name = choose_wallet()  # Choose a wallet.
     # Ask what solver the user wants to use.
     solver, key = recaptcha_solver() if 1 in action else ('', '')
@@ -109,7 +110,7 @@ def user() -> tuple:
         password = read_file('password', PASSWORD)
         private_key = read_file('private_key', PRIVATE_KEY)
     return wallet_name, password, recovery_phrase, private_key, \
-        action, solver, key, browser, file
+        action, solver, key, browser, file, starting
 
 
 def main(wallet_name: str, password: str, recovery_phrase: str,
@@ -148,7 +149,7 @@ if __name__ == '__main__':
         print(SECOND_PAGE)  # Copyright, licence and author.
         # Get user informations and choices.
         wallet_name, password, recovery_phrase, private_key, \
-            action, solver, key, browser, file = user()
+            action, solver, key, browser, file, starting = user()
         cls()  # Clear console.
         browser_path = download_browser(browser)  # Download the webdriver.
         # Initialize the default classes for the bot.
@@ -157,8 +158,8 @@ if __name__ == '__main__':
             file, action, solver, key)
         cls()  # Clear console.
         process(action, solver, key, structure, save, login(
-            wallet, browser, browser_path, wallet_name, solver),
-            wallet, recaptcha, reader, delete)  # Start the process.
+            wallet, browser, browser_path, wallet_name, solver), wallet,
+            recaptcha, reader, delete, starting)  # Start the process.
         print(ALL_DONE)  # Script stops, all done.
     except KeyboardInterrupt:
         print(f'\n\n{YELLOW}The program has been '
