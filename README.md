@@ -62,6 +62,9 @@
 
 <h2>Useful tools to have for this bot</h2>
 
+<p><strong>This tool is entirely free</strong>, buying add-ons only speeds up the process. All the means to deploy your collection on OpenSea are present.
+<br /><i>Please check that the bot is fully functional before purchasing. Refunds will not be accepted if it is not.</i></p>
+
 <h3><a href="https://maximedrn.gumroad.com/l/opensea-file-compatibilizer">File Compatibilizer & Converter</a></h3>
 
 <p>Using the <strong>File Compatibilizer and Converter</strong>, you can <strong>convert all JSON files generated with the <a href="https://github.com/HashLips/hashlips_art_engine">HashLips Art Engine</a> tool into a single compatible file</strong>. The tool ignores the file named <code>_metadata.json</code> and focuses on all other files listed. It <strong>retrieves each of the information containing them such as attributes</strong> and properties and adds them into a single file.</p>
