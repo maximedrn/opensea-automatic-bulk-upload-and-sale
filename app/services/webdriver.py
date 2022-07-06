@@ -171,15 +171,16 @@ class Webdriver:
             self.send_date(element, keys, invert=False)
 
 
-    def clear_text(self, element) -> None:
+    def clear_text(self, element, clear: bool = False) -> None:
         """Clear text from an input."""
-        self.clickable(element)  # Click on the element then clear its text.
+        remove = Keys.BACKSPACE if clear else ''  # Remove the text.
+        self.clickable(element)  # Click on the element then select its text.
         control = Keys.COMMAND if system() == 'Darwin' else Keys.CONTROL
         if self.window == 1:  # GeckoDriver (Mozilla Firefox).
-            self.send_keys(element, (control, 'a'))
+            self.send_keys(element, (control, 'a', remove))
         else:  # ChromeDriver (Google Chrome).
             webdriver.ActionChains(self.driver).key_down(control).send_keys(
-                'a').key_up(control).perform()
+                'a').key_up(control).send_keys(remove).perform()
 
     def is_empty(self, element: str, data: str, value: str = '') -> bool:
         """Check if data is empty and input its value."""
