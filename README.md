@@ -15,6 +15,14 @@
 <br />Look at my offer on <a href="https://fiverr.com/maximedrn/help-you-for-the-upload-and-sale-bot">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a> to help you to create your metadata file and install the bot.  
 <br />Contact me via <a href="https://t.me/maximedrn">Telegram</a> or e-mail me at <a href="mailto:maxime_drean@yahoo.com">maxime_drean@yahoo.com</a>.<p>
 
+<div align="center"><hr width="30%" /></div>
+
+<div align="center">
+<a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">
+<img src="https://user-images.githubusercontent.com/91475935/178110078-a1ccdd11-6ecb-49c9-9a73-8b17c1536b86.png" width="70%" />
+</a>
+</div>
+
 <br />
 <h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a></h2>
 
