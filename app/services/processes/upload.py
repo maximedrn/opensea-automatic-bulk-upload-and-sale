@@ -33,7 +33,7 @@ class Upload:
                  save: object, web: object, wallet: object,
                  recaptcha: object) -> None:
         """Get the password and the recovery_phrase from the text file."""
-        self.create_url = 'https://opensea.io/{}asset{}/create'
+        self.create_url = 'https://opensea.io{}/asset{}/create'
         self.fails = 0  # Counter of upload retries.
         self.solver = solver  # Integer of the specific solver.
         self.key = key  # API key for paid services.
@@ -44,15 +44,13 @@ class Upload:
         self.wallet = wallet  # From the Wallet class.
         self.recaptcha = recaptcha  # From the Structure class.
 
-    def get_url(self) -> None:
-        """Get the create URL depending on collection."""
-        create_url = (self.create_url.format(
-            'collection/' + self.structure.collection + '/', 's') if
-            self.structure.collection.lower() == self.structure.collection and
-            self.structure.collection.replace('-', '').isalpha() and
-            self.structure.collection != '' else self.create_url.format('', '')
-        ) + '?enable_supply=true'  # Collection URL or default.
-        self.web.driver.get(create_url)
+    def get_url(self) -> str:
+        """Get to the creation page of OpenSea."""
+        create_url = self.create_url.format(
+            f'/collection/{self.structure.collection}', 's') if \
+            self.structure.collection != '' else self.create_url.\
+            format('', '') + '?enable_supply=true'
+        self.web.driver.get(create_url)  # Get to the creation page.
         return create_url
 
     def files(self) -> None:
@@ -94,20 +92,7 @@ class Upload:
         """Check if the description is not empty and send it."""
         # Replace the "\n" by "&#13;&#10;" to make a break line.
         self.web.is_empty('//*[@id="description"]', self.structure
-            .description.replace('\\n', Keys.ENTER))
-
-    def collection(self, create_url: str) -> None:
-        """Check the collection format and send it."""
-        self.web.clear_text('//*[@id="collection"]', True)
-        if self.create_url.format('', '') + '?enable_supply=true' == \
-            create_url and not self.web.is_empty(
-                '//*[@id="collection"]', self.structure.collection):
-            try:  # Try to click on the collection button.
-                self.web.clickable(  # Click on the collection span.
-                    '//span[contains(text(), "'
-                    f'{self.structure.collection}")]/../..')
-            except Exception:  # If collection doesn't exist.
-                raise TE('Collection doesn\'t exist or can\'t be found.')
+                          .description.replace('\\n', Keys.ENTER))
 
     def attributes(self) -> None:
         """Send each properties, levels and stats."""
@@ -191,7 +176,7 @@ class Upload:
     def solve_recaptcha(self) -> None:
         """Check if reCAPTCHA is displayed and call the solver."""
         try:
-            self.web.visible('(//div[@class="g-recaptcha"])[position()=1]')   
+            self.web.visible('(//div[@class="g-recaptcha"])[position()=1]')
             if self.solver in [2, 3, 4]:  # reCAPTCHA solver activated.
                 print(f'{YELLOW}Solving the reCAPTCHA.{RESET}', end=' ')
                 if not self.recaptcha.solve(self.web):
@@ -219,7 +204,6 @@ class Upload:
             self.name()  # Send NFT name.
             self.external_link()  # Send external link.
             self.description()  # Send description.
-            self.collection(create_url)  # Send collection.
             self.attributes()  # Send all attributes.
             self.unlockable_content()  # Send unlockable content.
             self.explicit_and_sensitive_content()  # Send explicit content.
