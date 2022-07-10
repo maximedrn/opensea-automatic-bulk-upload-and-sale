@@ -2,7 +2,7 @@
 
 <p align="center"><i>A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea.
 <br />All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included.</i>
-<br><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Version 1.10.2</a> (July 06, 2022).</strong></p>
+<br><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Version 1.10.3</a> (July 10, 2022).</strong></p>
 
 <div align="center"><hr width="30%" /></div>
 
