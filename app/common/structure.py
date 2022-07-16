@@ -108,7 +108,8 @@ class Structure:
             self.nft_name: str = str(nft_data[1])
             self.external_link: str = str(nft_data[2])
             self.description: str = str(nft_data[3])
-            self.collection: str = str(nft_data[4])
+            self.collection: str = str(nft_data[4]).lower().replace(
+                'https://opensea.io/collection/', '')  # Remove base URL.
             self.properties: list = nft_data[5]  # [[type, name], ...].
             self.levels: list = nft_data[6]  # [[name, from, to], ...].
             self.stats: list = nft_data[7]  # [[name, from, to], ...].
