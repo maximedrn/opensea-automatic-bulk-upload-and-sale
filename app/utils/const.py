@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.10.3'
+VERSION = '1.10.4'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -34,7 +34,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 10 July.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 02 August.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nIf you face any problem, please open an issue.')
 
