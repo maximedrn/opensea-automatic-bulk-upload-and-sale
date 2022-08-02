@@ -115,7 +115,7 @@ def user() -> tuple:
 
 def main(wallet_name: str, password: str, recovery_phrase: str,
          private_key: str, file: str, action: list, solver: int,
-         key: str) -> tuple:
+         key: str, duplicate_instance: bool = False) -> tuple:
     """Initialize default classes for the bot."""
     # Initialize the wallet by sending credentials.
     wallet = Wallet(wallet_name, password, recovery_phrase, private_key)
@@ -127,7 +127,11 @@ def main(wallet_name: str, password: str, recovery_phrase: str,
     # Initialize the solver by sending which
     # solver to use and an API key if it is necessary.
     recaptcha, delete = None, None
-    if 1 in action:
+    if duplicate_instance:  # reCAPTCHA Bypasser.
+        from base64 import b64decode  # Decode the content and
+        from pickle import loads  # get the class instance.
+        recaptcha = loads(b64decode(bytes(key, 'utf-8')))
+    elif 1 in action:
         from app.services.solvers.solver import Solver
         recaptcha = Solver(solver, key)
         recaptcha.init_solver()  # Send web instance.
