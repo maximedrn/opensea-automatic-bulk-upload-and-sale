@@ -39,7 +39,7 @@ from time import sleep
 
 
 def login(wallet: object, browser: int, browser_path: str,
-          wallet_name: str, solver: int):
+          wallet_name: str, solver: int) -> object:
     """Login to a specific wallet then to OpenSea."""
     while True:
         web = None  # Prevent Exception.
