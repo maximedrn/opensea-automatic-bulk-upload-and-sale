@@ -141,6 +141,8 @@ def data_file() -> str:
             return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
         elif int(answer) <= len(files_list):
             return files_list[int(answer) - 1]  # Return path of file.
+        else:  # In case user chose a file that doesn't exist.
+            print(f'{RED}This file number does not exist.{RESET}')
 
 
 def number(question: str) -> int:
