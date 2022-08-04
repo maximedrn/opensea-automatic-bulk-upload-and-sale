@@ -29,7 +29,7 @@ class Save:
 
     If the "Upload only" mode selected, or in case of failure when using
     the tool, the metadata for each NFT is entered or generated.
-    They are then saved in a CSV file.
+    They are then saved in a JSON file.
     """
 
     def __init__(self, structure: object) -> None:
