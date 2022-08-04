@@ -71,8 +71,9 @@ def process(action: list, solver: int, key: str, structure: object,
         delete.init(structure, web)
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(starting, reader.lenght_file):
-        web.driver.get('data:,')  # Go to an empty page and wait
-        sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
+        if nft_number % 10 == 0:  # Every 10 NFTs, wait a few seconds.
+            web.driver.get('data:,')  # Go to an empty page and wait
+            sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
         print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
         if not structure.get_data(nft_number):
             continue  # Data is not well structured.
