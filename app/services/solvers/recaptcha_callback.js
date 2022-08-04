@@ -1,4 +1,4 @@
-// app/services/solvers/recaptcha.py
+// app/services/solvers/recaptcha_callback.js
 
 
 /*
