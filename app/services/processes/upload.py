@@ -46,10 +46,10 @@ class Upload:
 
     def get_url(self) -> str:
         """Get to the creation page of OpenSea."""
-        create_url = self.create_url.format(
+        create_url = (self.create_url.format(
             f'/collection/{self.structure.collection}', 's') if \
             self.structure.collection != '' else self.create_url.\
-            format('', '') + '?enable_supply=true'
+            format('', '')) + '?enable_supply=true'
         self.web.driver.get(create_url)  # Get to the creation page.
         return create_url
 
