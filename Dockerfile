@@ -9,6 +9,6 @@ RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio===0.11.
 
 # Install requirements for the Yolov5x6 reCAPTCHA solver.
 COPY requirements_recaptcha.txt .
-RUN pip install -r requirements_recaptcha.txt
+RUN pip install -r requirements_yolov5x6.txt
 
 ENTRYPOINT ["python", "main.py"]
