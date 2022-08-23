@@ -4,27 +4,13 @@
 <br />All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included.</i>
 <br><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Version 1.10.7</a> (August 23, 2022).</strong></p>
 
-<div align="center"><hr width="30%" /></div>
-
-<p align="center">If you like 💚 my work and this tool, do not hesitate to
-<br /><strong>fork 🍴</strong> this repository and <strong>add a star ⭐</strong> to this repository.</p>
-
-<div align="center"><hr width="30%" /></div>
-
 <p align="center" width="50%"><strong>Need help or have a specific request?</strong>
-<br />Look at my offer on <a href="https://fiverr.com/maximedrn/help-you-for-the-upload-and-sale-bot">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a> to help you to create your metadata file and install the bot.  
-<br />Contact me via <a href="https://t.me/maximedrn">Telegram</a> or e-mail me at <a href="mailto:maxime_drean@yahoo.com">maxime_drean@yahoo.com</a>.<p>
+<br />Look at my offers on <strong><a href="https://fiverr.com/maximedrn/">Fiverr <img src="https://user-images.githubusercontent.com/91475935/169694667-68824ed9-10a3-46ee-9fc1-23ec91496121.png" height="15px" /></a></strong> to help you to create your metadata file and install the bot.  
+<br />Contact me via <strong><a href="https://t.me/maximedrn">Telegram</a></strong> or e-mail me at <strong><a href="mailto:maxime_drean@yahoo.com">maxime_drean@yahoo.com</a></strong>.<p>
 
 <div align="center"><hr width="30%" /></div>
 
-<div align="center">
-<a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">
-<img src="https://user-images.githubusercontent.com/91475935/178110078-a1ccdd11-6ecb-49c9-9a73-8b17c1536b86.png" width="70%" />
-</a>
-</div>
-
-<br />
-<h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a></h2>
+<h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a> - <i><a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">Complete tutorial</a></i></h2>
 
 <ul>
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Home#introduction">Introduction</a>, what does this bot do and how does it works?</strong></li>
@@ -33,6 +19,7 @@
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Creation-of-the-metadata-file">Creation of the metadata file</a>, discover its structure.</strong></li>
 <li><strong>➜ <a href="#useful-tools-to-have-for-this-bot">Useful tools to have for this bot</a></strong></li>
 <ul>
+<li><a href="#opensea-workshop">OpenSea Workshop</a>, this tool in better.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/File-Compatibilizer-&-Converter">File Compatibilizer & Converter</a>, from the HashLips Art Engine metadata files to one compatible file.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Generic-File-Maker">Generic File Maker</a>, complete your metadata file easily and quickly.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Collection-Scraper">Collection Scraper</a>, retrieve the URLs of your NFTs and get the duplicates and missing.</li>
@@ -60,6 +47,14 @@
 
 <p><strong>This tool is entirely free</strong>, buying add-ons only speeds up the process. All the means to deploy your collection on OpenSea are present.
 <br /><i>Please check that the bot is fully functional before purchasing.</i></p>
+
+<h3>OpenSea Workshop</h3>
+
+<p>You don't know what to do with this tool and all its add-ons, <strong>how to install it and how to create a compatible metadata file?</strong> Well, with the <a href="https://maximedrn.gumroad.com/l/upload-and-sale-tool-opensea">OpenSea Workshop</a> it's over, its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>, to <strong>upload</strong>, to <strong>put on sale</strong> and to <strong>delete</strong> NFTs, but also to <strong>scrape your collections in order to find duplicates and missing items</strong>. In short, an <strong>improved version of what is already available</strong>.</p>
+
+<p><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get 20% commission on every sale made on this product when someone passes through your affiliate link.</strong></p>
+
+https://user-images.githubusercontent.com/91475935/186245769-95aef2cf-c620-4820-81d0-d72e2835ecea.mp4
 
 <h3>File Compatibilizer & Converter</h3>
 
@@ -100,3 +95,8 @@ https://user-images.githubusercontent.com/91475935/177582923-2ea6cf2b-17a4-4cf0-
 <h3>Deletion</h3>
 
 <p>Using the <strong><a href="https://maximedrn.gumroad.com/l/opensea-deletion">Deletion</a></strong> tool, you can <strong></strong> delete any NFT on OpenSea. It is compatible with the <a href="https://maximedrn.gumroad.com/l/opensea-collection-scraper">Collection Scraper</a> which creates files for duplicated NFTs or for an entire collection.</p>
+
+<div align="center"><hr width="30%" /></div>
+
+<p align="center">If you like 💚 my work and this tool, do not hesitate to
+<br /><strong>fork 🍴</strong> this repository and <strong>add a star ⭐</strong> to this repository.</p>
