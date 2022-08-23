@@ -137,8 +137,12 @@ def data_file() -> str:
             print(f'{YELLOW}Browsing on your computer...{RESET}')
             from tkinter import Tk  # Tkinter module: pip install tk
             from tkinter.filedialog import askopenfilename
-            Tk().withdraw()  # Hide Tkinter tab.
-            return askopenfilename(filetypes=[('', '.json .csv .xlsx')])
+            root = Tk()  # Initialize Tkinter.
+            root.withdraw()  # Hide Tkinter tab.
+            root.attributes('-topmost', True)  # Display the dialog.
+            root.iconify()  # Hide the little window.
+            return askopenfilename(filetypes=[(
+                '', '.json .csv .xlsx')], parent=root)
         elif int(answer) <= len(files_list):
             return files_list[int(answer) - 1]  # Return path of file.
         else:  # In case user chose a file that doesn't exist.
