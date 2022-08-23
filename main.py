@@ -36,10 +36,12 @@ from app.services.processes.login import Login
 # Python default imports.
 from random import randint
 from time import sleep
+from os.path import dirname, abspath
+from os import chdir
 
 
 def login(wallet: object, browser: int, browser_path: str,
-          wallet_name: str, solver: int) -> object:
+          wallet_name: str, solver: int):
     """Login to a specific wallet then to OpenSea."""
     while True:
         web = None  # Prevent Exception.
@@ -147,6 +149,7 @@ def main(wallet_name: str, password: str, recovery_phrase: str,
 
 if __name__ == '__main__':
     try:
+        chdir(dirname(abspath(__file__)))  # Move to the actual path.
         cls()  # Clear console.
         print(FIRST_PAGE)  # Copyright, licence, author and version.
         input(ENTER)  # Press enter to continue.
