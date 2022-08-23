@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.10.6'
+VERSION = '1.10.7'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -30,12 +30,16 @@ FIRST_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
     '\nGithub: https://github.com/maximedrn'
     '\nTelegram: https://t.me/maximedrn'
+    '\nYouTube: https://www.youtube.com/channel/UCoqpR1OLb'
+    'swIyQVatKBoGxA'
     '\nEthereum: 0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E'
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 06 August.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 23 August.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
+    '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
+    '\nAffiliate program: https://bit.ly/3R0RBdA'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -45,10 +49,8 @@ SECOND_PAGE = (
     '\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     f'is strictly prohibited.{RESET}'
-    '\n\nExtension tools available here: https://maximedrn.gumroad.com/'
-    '\nTutorials on YouTube: https://www.youtube.com/channel/UCoqpR1OLb'
-    'swIyQVatKBoGxA\nDocumentation: https://github.com/maximedrn/'
-    'opensea-automatic-bulk-upload-and-sale/wiki')
+    '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
+    '\nAffiliate program: https://bit.ly/3R0RBdA')
 
 STARTING_VALUE = '\nStart from the item n°'
 
