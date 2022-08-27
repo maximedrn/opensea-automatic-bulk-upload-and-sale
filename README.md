@@ -52,7 +52,7 @@
 <h4>You find the installation of this tool too complicated?</h4>
 <p>Well, with the <a href="https://maximedrn.gumroad.com/l/upload-and-sale-tool-opensea">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.</p>
 
-<p><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get 20% commission on every sale made on this product when someone passes through your affiliate link.</strong></i></p>
+<p><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get from 25% to 50% commission on every sale made on this product when someone passes through your affiliate link.</strong> The commission increases by 1% for each sale up to a maximum of 50%.</i></p>
 </li>
 
 <li>
