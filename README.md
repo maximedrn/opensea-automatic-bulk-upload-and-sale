@@ -10,6 +10,13 @@
 
 <div align="center"><hr width="30%" /></div>
 
+<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=rZkkg-a-9U8">Demonstration video</a></i></h2>
+
+<h3>You find the installation of this tool too complicated?</h3>
+<p>Well, with the <a href="https://maximedrn.gumroad.com/l/upload-and-sale-tool-opensea">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.
+<br /><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get from 25% to 50% commission on every sale made on this product when someone passes through your affiliate link.</strong> The commission increases by 1% for each sale up to a maximum of 50%.</i></p>
+
+<br />
 <h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a> - <i><a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">Complete tutorial</a></i></h2>
 
 <ul>
@@ -19,7 +26,6 @@
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Creation-of-the-metadata-file">Creation of the metadata file</a>, discover its structure.</strong></li>
 <li><strong>➜ <a href="#useful-tools-to-have-for-this-bot">Useful tools to have for this bot</a></strong></li>
 <ul>
-<li><a href="#opensea-workshop">OpenSea Workshop</a>, this tool in better.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/File-Compatibilizer-&-Converter">File Compatibilizer & Converter</a>, from the HashLips Art Engine metadata files to one compatible file.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Generic-File-Maker">Generic File Maker</a>, complete your metadata file easily and quickly.</li>
 <li><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Collection-Scraper">Collection Scraper</a>, retrieve the URLs of your NFTs and get the duplicates and missing.</li>
@@ -46,15 +52,6 @@
 <h2>Useful tools to have for this bot</h2>
 
 <ul>
-<li>
-<h3>OpenSea Workshop</h3>
-
-<h4>You find the installation of this tool too complicated?</h4>
-<p>Well, with the <a href="https://maximedrn.gumroad.com/l/upload-and-sale-tool-opensea">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.</p>
-
-<p><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get from 25% to 50% commission on every sale made on this product when someone passes through your affiliate link.</strong> The commission increases by 1% for each sale up to a maximum of 50%.</i></p>
-</li>
-
 <li>
 <h3>File Compatibilizer & Converter</h3>
 
