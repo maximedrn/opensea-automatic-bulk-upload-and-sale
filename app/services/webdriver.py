@@ -65,6 +65,7 @@ class Webdriver:
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-gpu')
         options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
             'prefs', {'intl.accept_languages': 'en,en_US'})
@@ -201,7 +202,7 @@ def download_browser(browser: int) -> str:
     """Try to download the webdriver using the Driver Manager."""
     try:
         # Set the name of the webdriver according to browser choice.
-        webdriver = 'ChromeDriver' if browser == 0 else 'GeckoDriver'
+        webdriver = 'GeckoDriver' if browser == 1 else 'ChromeDriver'
         print(f'Downloading the {webdriver}.', end=' ')
         # Download the webdriver using the Driver Manager module.
         browser_path = GDM(log_level=0).install() if browser == 1 \
