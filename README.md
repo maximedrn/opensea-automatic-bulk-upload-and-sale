@@ -10,14 +10,17 @@
 
 <div align="center"><hr width="30%" /></div>
 
-<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=rZkkg-a-9U8">Demonstration video</a></i></h2>
+<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=V3PojmcPoCI">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
+
+<a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
+
 
 <h3>You find the installation of this tool too complicated?</h3>
-<p>Well, with the <a href="https://maximedrn.gumroad.com/l/upload-and-sale-tool-opensea">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.
+<p>Well, with the <a href="https://maximedrn.gumroad.com/l/opensea-workshop">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.
 <br /><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get from 25% to 50% commission on every sale made on this product when someone passes through your affiliate link.</strong> The commission increases by 1% for each sale up to a maximum of 50%.</i></p>
 
 <br />
-<h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a> - <i><a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">Complete tutorial</a></i></h2>
+<h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a> - <i><a href="https://www.youtube.com/watch?v=DdqGEz0BCQ8">Complete tutorial</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
 
 <ul>
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Home#introduction">Introduction</a>, what does this bot do and how does it works?</strong></li>
