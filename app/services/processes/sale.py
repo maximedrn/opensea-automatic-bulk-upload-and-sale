@@ -125,8 +125,11 @@ class Sale:
 
     def highest_bidder(self) -> None:
         """Sell with highest bidder (Timed Auction)."""
-        if self.structure.method[1] == 0:  # There is no reserve price.
+        if self.structure.method[1] == '':  # There is no reserve price.
             return  # Skip this part and continue.
+        if not isinstance(self.structure.method[1], int) and not isinstance(
+                self.structure.method[1], float):
+            raise TE('Reserve price must be an integer or float.')
         if self.structure.method[1] > 0 and (self.structure.method[
                 1] <= 1 or self.structure.method[1] < self.structure.price):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
