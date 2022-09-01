@@ -36,7 +36,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 23 August.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 1 September.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
     '\nAffiliate program: https://bit.ly/3R0RBdA'
