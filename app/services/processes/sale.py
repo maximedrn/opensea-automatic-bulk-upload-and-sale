@@ -100,10 +100,10 @@ class Sale:
             self.web.clickable('//i[@value="timelapse"]/../..')
             if isinstance(self.structure.method, list) and len(
                     self.structure.method) == 2:  # [method, price]
-                if not isinstance(self.structure.method[1], int) and \
-                        not isinstance(self.structure.method[1], float):
-                    raise TE('Prices must be integer or float.')
                 if 'declining' in str(self.structure.method[0]):
+                    if not isinstance(self.structure.method[1], int) and \
+                            not isinstance(self.structure.method[1], float):
+                        raise TE('Declining price must be integer or float.')
                     self.declining_price()
                 elif 'highest' in str(self.structure.method[0]):
                     self.highest_bidder()
@@ -116,9 +116,6 @@ class Sale:
                            '/div/div[1]/form/div[2]/div/div[2]')
         # Click on the "Sell with declining price"
         self.web.clickable('//*[@role="tooltip"]/div/div/ul/li/button')
-        if not isinstance(self.structure.method[1], int) and not isinstance(
-                self.structure.method[1], float):
-            raise TE('Declining price must be an integer or float.')
         if self.structure.method[1] < self.structure.price:
             self.web.send_keys('//*[@name="endingPrice"]',
                                format(self.structure.method[1], '.8f'))
@@ -130,9 +127,6 @@ class Sale:
         """Sell with highest bidder (Timed Auction)."""
         if self.structure.method[1] == '':  # There is no reserve price.
             return  # Skip this part and continue.
-        if not isinstance(self.structure.method[1], int) and not isinstance(
-                self.structure.method[1], float):
-            raise TE('Reserve price must be an integer or float.')
         if self.structure.method[1] > 0 and (self.structure.method[
                 1] <= 1 or self.structure.method[1] < self.structure.price):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
