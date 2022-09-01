@@ -199,10 +199,8 @@ class Sale:
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
                 if self.structure.duration[0] == '':  # Duration not specified.
                     raise TE('Duration must be specified.')
-                # Convert from the old
-                if self.structure.duration == ['1 week']:
-                    # version to the new one.
-                    self.structure.duration = ['7 days']
+                if self.structure.duration == ['1 week']:  # Convert from old
+                    self.structure.duration = ['7 days']  # to the new one.
                 if self.web.visible('//*[@id="duration"]/div[2]').text \
                         != self.structure.duration[0]:  # Not default.
                     self.web.clickable('//*[@id="duration"]')  # Date button.
