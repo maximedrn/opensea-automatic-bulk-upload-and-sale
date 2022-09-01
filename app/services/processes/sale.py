@@ -75,9 +75,9 @@ class Sale:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
         try:  # Switch blockchain.
             if self.structure.blockchain == 'Polygon' != self.actual_blockchain \
-                and 'Waiting for approval' in self.web.visible(
-                    '(//div[@role="dialog"]//button)[position()=2]'
-                ).get_attribute('innerHTML'):
+                    and 'Waiting for approval' in self.web.visible(
+                        '(//div[@role="dialog"]//button)[position()=2]'
+                    ).get_attribute('innerHTML'):
                 self.wallet.sign(False)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.actual_blockchain = 'Polygon'  # Change blockchain.
@@ -116,6 +116,9 @@ class Sale:
                            '/div/div[1]/form/div[2]/div/div[2]')
         # Click on the "Sell with declining price"
         self.web.clickable('//*[@role="tooltip"]/div/div/ul/li/button')
+        if not isinstance(self.structure.method[1], int) and not isinstance(
+                self.structure.method[1], float):
+            raise TE('Declining price must be an integer or float.')
         if self.structure.method[1] < self.structure.price:
             self.web.send_keys('//*[@name="endingPrice"]',
                                format(self.structure.method[1], '.8f'))
@@ -202,8 +205,10 @@ class Sale:
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
                 if self.structure.duration[0] == '':  # Duration not specified.
                     raise TE('Duration must be specified.')
-                if self.structure.duration == ['1 week']:  # Convert from the old
-                    self.structure.duration = ['7 days']  # version to the new one.
+                # Convert from the old
+                if self.structure.duration == ['1 week']:
+                    # version to the new one.
+                    self.structure.duration = ['7 days']
                 if self.web.visible('//*[@id="duration"]/div[2]').text \
                         != self.structure.duration[0]:  # Not default.
                     self.web.clickable('//*[@id="duration"]')  # Date button.
@@ -251,7 +256,7 @@ class Sale:
                                  '(., "listing")]')  # "Cancel listing" button.
             except Exception:  # The NFT is not listed.
                 if self.web.page_error():  # Check for a 404 page error.
-                        return self.check_listed()  # Try again.
+                    return self.check_listed()  # Try again.
                 print(f'{RED}NFT has not been listed.{RESET}')
                 return False  # Retry until it works.
         return True  # It has been listed.
