@@ -125,6 +125,8 @@ class Sale:
 
     def highest_bidder(self) -> None:
         """Sell with highest bidder (Timed Auction)."""
+        if self.structure.method[1] == 0:  # There is no reserve price.
+            return  # Skip this part and continue.
         if self.structure.method[1] > 0 and (self.structure.method[
                 1] <= 1 or self.structure.method[1] < self.structure.price):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
@@ -197,6 +199,8 @@ class Sale:
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
                 if self.structure.duration[0] == '':  # Duration not specified.
                     raise TE('Duration must be specified.')
+                if self.structure.duration == ['1 week']:  # Convert from the old
+                    self.structure.duration = ['7 days']  # version to the new one.
                 if self.web.visible('//*[@id="duration"]/div[2]').text \
                         != self.structure.duration[0]:  # Not default.
                     self.web.clickable('//*[@id="duration"]')  # Date button.
