@@ -18,7 +18,7 @@
 <p>
 Using the <strong>Generic File Maker</strong>, you can <strong>complete your JSON metadata file using a simple generic file that contains 21 details</strong>, 18 about NFTs and 3 about how the tool works. It supports increment value, for example if you name your assets (images or videos) from 1 to 10000, you can <strong>in one line complete all the file paths of the metadata file</strong>.</p>
 
-<p>You can complete and <strong>massively edit some details</strong> of your metadata file. And if you already uploaded a collection and scraped it using the <a href="../Collection-Scraper">Collection Scraper</a> tool, you can <strong>complete the generated metadata file with sale details</strong>.</p>
+<p>You can complete and <strong>massively edit some details</strong> of your metadata file. And if you already uploaded a collection and scraped it using the <a href="collection-scraper.md">Collection Scraper</a> tool, you can <strong>complete the generated metadata file with sale details</strong>.</p>
 </p>
 
 
@@ -29,7 +29,7 @@ Using the <strong>Generic File Maker</strong>, you can <strong>complete your JSO
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the tool folder from the ZIP archive file. Make sure all files are in the same parent folder.</strong></li>
 
