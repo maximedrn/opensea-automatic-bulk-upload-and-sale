@@ -68,7 +68,8 @@ class Webdriver:
         options.add_argument('--disable-gpu')
         options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
-            'prefs', {'intl.accept_languages': 'en,en_US'})
+            'prefs', {'intl.accept_languages': 'en,en_US',
+                      'profile.managed_default_content_settings.images': 2})
         options.add_experimental_option('excludeSwitches', [
             'enable-logging', 'enable-automation'])
         if isinstance(self.wallet.recovery_phrase, tuple):
