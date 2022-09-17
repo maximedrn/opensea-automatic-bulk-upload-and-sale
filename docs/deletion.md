@@ -25,7 +25,7 @@
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the <code>delete.py</code> file from the ZIP archive file.</strong></li>
 
