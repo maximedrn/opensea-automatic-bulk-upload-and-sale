@@ -16,7 +16,7 @@
 <h2>What does this tool do?</h2>
 
 <p>
-Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs of the NFTs of any collection</strong>. It makes it easier to manage your collection, you can now know which NFTs are missing, which ones are duplicated. It facilitates the listing of your NFTs by <strong>creating different files compatible with the <code>Sale Only</code> option or the <a href="Deletion">Deletion</a> tool</strong>.</p>
+Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs of the NFTs of any collection</strong>. It makes it easier to manage your collection, you can now know which NFTs are missing, which ones are duplicated. It facilitates the listing of your NFTs by <strong>creating different files compatible with the <code>Sale Only</code> option or the <a href="deletion.md">Deletion</a> tool</strong>.</p>
 
 <p>Thus a <code>full</code> file containing all NFTs, a <code>unique</code> file containing each NFT individually based on their names, a <code>duplicate</code> file containing all duplicated NFTs of the collection and a <code>missing</code> file containing all missing NFTs will be created, and these in all formats compatible with the bot (JSON, CSV and XLSX).</p>
 
@@ -28,7 +28,7 @@ Using the <strong>Collection Scraper</strong>, you can <strong>retrieve the URLs
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the tool folder from the ZIP archive file. Make sure all files are in the same parent folder.</strong></li>
 
