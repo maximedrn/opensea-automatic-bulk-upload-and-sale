@@ -106,7 +106,7 @@ Using the <strong>reCAPTCHA Bypasser</strong>, you can <strong>instantly solve r
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the <code>no_captcha.py</code> file from the ZIP archive file.</strong></li>
 
