@@ -25,7 +25,7 @@
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the 2 files from the ZIP file</strong>, you should have a file named <code>multiprocess.py</code> and another named <code>task.py</code>.</li>
 
