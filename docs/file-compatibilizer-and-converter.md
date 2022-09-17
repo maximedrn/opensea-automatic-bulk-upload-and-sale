@@ -38,7 +38,7 @@ Using the <strong>File Compatibilizer and Converter</strong>, you can <strong>co
 
 <ul>
 
-<li>Before proceeding to these steps, make sure that <a href="Installation-and-configuration#installation-of-python">Python is installed</a>.</li>
+<li>Before proceeding to these steps, make sure that <a href="installation-and-configuration.md#installation-of-python">Python is installed</a>.</li>
 
 <li><strong>Extract the tool folder from the ZIP archive file. Make sure all files are in the same parent folder.</strong></li>
 
@@ -90,7 +90,7 @@ Using the <strong>File Compatibilizer and Converter</strong>, you can <strong>co
 <li>Your metadata file is now generated in the <code>data/</code> folder of the tool folder.</li>
 
 <li>If you have converted JSON metadata files generated with the HashLips Art Engine, your file is incomplete and needs to be completed with more details.
-<br />You can use the <a href="Generic-File-Maker"><strong>Generic File Maker</strong></a> tool.</li>
+<br />You can use the <a href="generic-file-maker.md"><strong>Generic File Maker</strong></a> tool.</li>
 
 </ul>
 
