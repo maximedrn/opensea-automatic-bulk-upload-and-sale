@@ -112,7 +112,7 @@ Now, Python and the bot are installed and configured. All you have to do is <a h
 </li>
 
 <li>Select the action and your file, choose your wallet, your reCAPTCHA solver and a WebDriver.
-<br />Type your credentials <strong>or</strong> <a href="Home#how-to-use-a-custom-google-chrome-profile">set your custom Google Chrome profile</a>.</li>
+<br />Type your credentials <strong>or</strong> <a href="home.md#how-to-use-a-custom-google-chrome-profile">set your custom Google Chrome profile</a>.</li>
 
 <li>Then it will download a WebDriver according to your choice and your browser version.
 <ul>
