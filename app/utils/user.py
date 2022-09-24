@@ -33,9 +33,10 @@ def check_version(version) -> str:
         return f'\n{YELLOW}Unable to get the latest version.{RESET}'
 
 
-def choose_wallet() -> int:
+def choose_wallet() -> str:
     """Ask the user for a wallet to connect to OpenSea."""
-    wallets = ['MetaMask', 'Coinbase Wallet']  # New wallets will be added.
+    return 'MetaMask'  # Remove this line to add more wallets.
+    wallets = ['MetaMask', 'Coinbase Wallet']
     while True:
         print(f'{YELLOW}\nChoose a wallet:')
         [print(f'{wallets.index(wallet) + 1} - {wallet}'
