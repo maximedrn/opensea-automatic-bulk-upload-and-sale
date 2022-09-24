@@ -298,9 +298,9 @@ class Sale:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            """if self.structure.action == [2] and not self.check_listable():
+            if self.structure.action == [2] and not self.check_listable():
                 print(f'{YELLOW}NFT already is listed.{RESET}')
-                return  # NFT is already listed. co not continue the sale."""
+                return  # NFT is already listed. co not continue the sale.
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
             if self.structure.supply == 1:
