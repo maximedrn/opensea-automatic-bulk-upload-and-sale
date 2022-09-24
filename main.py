@@ -34,9 +34,10 @@ from app.services.wallets.wallet import Wallet
 from app.services.processes.login import Login
 
 # Python default imports.
+from datetime import datetime, timedelta
+from os.path import dirname, abspath
 from random import randint
 from time import sleep
-from os.path import dirname, abspath
 from os import chdir
 
 
@@ -46,7 +47,8 @@ def login(wallet: object, browser: int, browser_path: str,
     while True:
         web = None  # Prevent Exception.
         try:  # Try to start a webdriver.
-            web = Webdriver(browser, browser_path, wallet_name, wallet, solver)
+            web = Webdriver(browser, browser_path,
+                            wallet_name, wallet, solver)
         except Exception as error:
             print(f'{RED}Something went wrong with '
                   f'your webdriver.\n{error}{RESET}')
@@ -60,7 +62,7 @@ def login(wallet: object, browser: int, browser_path: str,
 
 def process(action: list, solver: int, key: str, structure: object,
             save: object, web: object, wallet: object, recaptcha: object,
-            reader: object, delete: object, starting: int = 0) -> None:
+            reader: object, delete: object, starting: int = 0) -> int:
     """Begin the upload, listing or both, or any process."""
     if 1 in action:  # Initialize the Upload class.
         from app.services.processes.upload import Upload
@@ -71,9 +73,12 @@ def process(action: list, solver: int, key: str, structure: object,
         sale = Sale(structure, save, web, wallet)
     if 3 in action:  # Send the object to the class.
         delete.init(structure, web)
+    time = (datetime.now(  # Time in 12 hours.
+        ) + timedelta(hours=12)).strftime('%Y-%m-%d %H:%M:%S')
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(starting, reader.lenght_file):
-        # Every 10 NFTs (except 10 first), wait a few seconds.
+        if datetime.now().strftime('%Y-%m-%d %H:%M:%S') > time:
+            break  # Restart the process to prevent signature.
         if nft_number % 10 == 0 and nft_number != starting:
             web.driver.get('data:,')  # Go to an empty page and wait
             sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
@@ -89,7 +94,8 @@ def process(action: list, solver: int, key: str, structure: object,
                 sale.sale()  # Process to listing of the NFT.
         if 3 in action:  # Delete part.
             delete.delete()  # Delete the NFT.
-    web.quit()  # Stop the webdriver.
+    web.quit()  # Stop the webdriver and return the next NFT.
+    return nft_number if nft_number + 1 < reader.lenght_file else None
 
 
 def user() -> tuple:
@@ -166,9 +172,13 @@ if __name__ == '__main__':
             wallet_name, password, recovery_phrase, private_key,
             file, action, solver, key)
         cls()  # Clear console.
-        process(action, solver, key, structure, save, login(
-            wallet, browser, browser_path, wallet_name, solver), wallet,
-            recaptcha, reader, delete, starting)  # Start the process.
+        while True:  # It does several processes every 12 hours.
+            starting = process(action, solver, key, structure, save, login(
+                wallet, browser, browser_path, wallet_name, solver), wallet,
+                recaptcha, reader, delete, starting)  # Start the process.
+            if starting == None:  # This is the end of the process.
+                break  # Stop everything.
+            print(f'{YELLOW}\nRestarting the webdriver.\n{RESET}')
         print(ALL_DONE)  # Script stops, all done.
     except KeyboardInterrupt:
         print(f'\n\n{YELLOW}The program has been '
