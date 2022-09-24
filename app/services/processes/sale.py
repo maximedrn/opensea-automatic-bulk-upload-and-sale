@@ -17,7 +17,6 @@ Any distribution, modification or commercial use is strictly prohibited.
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
 # Python internal imports.
