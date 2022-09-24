@@ -17,8 +17,8 @@
             "supply": 0,
             "blockchain": "",
             "sale_type": "",
-            "price": 0,
-            "method": [],
+            "price": [0, ""],
+            "method": "",
             "duration": [],
             "specific_buyer": "",
             "quantity": 0
