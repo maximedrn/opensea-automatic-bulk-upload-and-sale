@@ -19,6 +19,7 @@ from selenium.webdriver.chrome.service import Service as SC
 from selenium.webdriver.firefox.service import Service as SG
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
+from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -52,6 +53,7 @@ class Webdriver:
         self.solver = solver  # reCAPTCHA solver number.
         self.wallet = wallet  # Instance of the Wallet class.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
+        self.actual_blockchain = 'Ethereum'  # Default blockchain.
         self.driver = self.firefox() if browser == 1 else self.chrome()
         self.window = browser  # Window handle value.
 
@@ -108,21 +110,17 @@ class Webdriver:
             pass  # or no webdriver is started.
 
     def page_error(self) -> bool:
-        """
-        Check the actual state of the page and if there is an error.
-
-        Check if the page is correctly displayed (404 page error)
-        or if a red message is displayed at the bottom right.
-        """
-        try:
-            self.window_handles(1)  # Switch to OpenSea.
-            for text in ['This page is lost', 'something went wrong']:
-                if text in self.driver.page_source:
-                    print(f'{YELLOW}404 page error.{RESET}')
-                    return True
-            return False
-        except Exception:
-            return False
+        """Check if the page is correctly displayed."""
+        self.window_handles(1)  # Switch to OpenSea.
+        for text in ['This page is lost', 'something went wrong']:
+            try:  # Check if the text is visible.
+                self.driver.visible('//*[contains(@class, "error") '
+                                    f'and contains(text(), {text})]', 1)
+                print(f'{YELLOW}404 page error.{RESET}')
+                return True  # Element is visible.
+            except Exception:  # Not visible.
+                continue  # Ignore the exception.
+        return False  # No 404 page error.
 
     def clickable(self, element: str) -> None:
         """Click on an element if it's clickable using Selenium."""
@@ -179,7 +177,7 @@ class Webdriver:
         if self.window == 1:  # GeckoDriver (Mozilla Firefox).
             self.send_keys(element, (control, 'a'))
         else:  # ChromeDriver (Google Chrome).
-            webdriver.ActionChains(self.driver).key_down(control).send_keys(
+            AC(self.driver).key_down(control).send_keys(
                 'a').key_up(control).perform()
 
     def is_empty(self, element: str, data: str, value: str = '') -> bool:
