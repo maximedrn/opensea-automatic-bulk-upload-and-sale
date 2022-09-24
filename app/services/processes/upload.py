@@ -46,6 +46,8 @@ class Upload:
 
     def get_url(self) -> str:
         """Get to the creation page of OpenSea."""
+        if ' ' in self.structure.collection:
+            raise TE('The collection URL cannot contain spaces.')
         create_url = (self.create_url.format(
             f'/collection/{self.structure.collection}', 's') if \
             self.structure.collection != '' else self.create_url.\
@@ -93,6 +95,13 @@ class Upload:
         # Replace the "\n" by "&#13;&#10;" to make a break line.
         self.web.is_empty('//*[@id="description"]', self.structure
                           .description.replace('\\n', Keys.ENTER))
+
+    def collection(self) -> None:
+        """Remove the collection if it is empty."""
+        if self.structure.collection == '':
+            self.web.clear_text('//input[@name="collection"]')
+            self.web.send_keys(  # Remove the content.
+                '//input[@name="collection"]', Keys.BACK_SPACE)
 
     def attributes(self) -> None:
         """Send each properties, levels and stats."""
@@ -147,41 +156,57 @@ class Upload:
 
     def supply_number(self) -> None:
         """Change the supply number if it is greater than 1."""
-        if 'supply=' in self.web.driver.current_url and isinstance(
-                self.structure.supply, int) and self.structure.supply > 1:
-            self.web.send_keys('//*[@id="supply"]',
-                               f'{Keys.BACKSPACE}{self.structure.supply}')
-        else:  # This is important for the sale part.
-            self.structure.supply = 1
+        if not isinstance(self.structure.supply, int):
+            self.structure.supply = 1  # Important for the sale part.
+        if 'supply=' in self.web.driver.current_url and \
+                self.structure.supply > 1:
+            self.web.send_keys('//*[@id="supply"]', Keys.BACKSPACE +
+                               str(self.structure.supply))
 
     def blockchain(self) -> None:
         """Change the Blockchain if it is different than default."""
-        if self.structure.blockchain != '' and self.web.visible(
-                '//*[@id="chain"]').get_attribute('value') != \
-                self.structure.blockchain:  # Compare to the span text.
-            try:  # Try to select the Blockchain.
+        try:  # Try to select the Blockchain.
+            if self.structure.blockchain == '':  # Important for the sale part.
+                self.structure.blockchain = 'Ethereum'
+            if self.web.visible('//*[@id="chain"]').get_attribute(
+                    'value') != self.structure.blockchain:
                 self.web.clickable('//*[@id="chain"]/..')  # Open the sheet.
-                self.web.clickable('//span[contains(text(), '
-                                   f'"{self.structure.blockchain}")]/../..')
-            except Exception:  # Blockchain is unknown.
-                raise TE('Blockchain is unknown or badly written.')
-        elif self.structure.blockchain == '':  # Important for the sale part.
-            self.structure.blockchain = 'Ethereum'
+                self.web.clickable('//span[contains(text(), "'
+                                   f'{self.structure.blockchain}")]/../..')
+        except Exception:  # Blockchain is unknown.
+            raise TE('Blockchain is unknown or badly written.')
+
+    def switch_ethereum(self) -> None:
+        """Switch to Ethereum blockchain if wallet is on Polygon."""
+        try:  # Switch blockchain.
+            if self.structure.blockchain == 'Ethereum' \
+                    != self.web.actual_blockchain:  # Different blockchain.
+                self.web.clickable('//button[contains(text(), "Switch")]')
+                self.wallet.sign(False, 1)  # Approve.
+                self.web.window_handles(1)  # Switch back to the OpenSea tab.
+                print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
+                self.web.actual_blockchain = 'Ethereum'
+                self.submit()  # Re-submit the upload.
+        except Exception:
+            pass
 
     def submit(self) -> None:
         """Click on the submit button."""
-        self.web.clickable('(//div[contains(@class, "submit")])[position()=1]'
-                           '/div/span/button')  # Click on the "Create" button.
+        self.web.clickable('//div[contains(@class, "submit")]/div/span/' + (
+            'div/' if self.web.actual_blockchain != 'Ethereum'
+            else '') + 'button')  # Click on the "Create" button.
+        if self.web.visible(  # Switch the network to upload the NFT.
+                '//*[@id="chain"]').get_attribute('value') == 'Ethereum':
+            self.switch_ethereum()
 
     def solve_recaptcha(self) -> None:
         """Check if reCAPTCHA is displayed and call the solver."""
         try:
             self.web.visible('(//div[@class="g-recaptcha"])[position()=1]')
             if self.solver in [2, 3, 4]:  # reCAPTCHA solver activated.
-                print(f'{YELLOW}Solving the reCAPTCHA.{RESET}', end=' ')
                 if not self.recaptcha.solve(self.web):
                     raise TE('Cannot solve the reCAPTCHA.')
-                print(f'{GREEN}Solved.{RESET}', end=' ')
+                print(f'{GREEN}reCAPTCHA solved.{RESET}', end=' ')
             else:  # When solved, webpage changes.
                 print(f'{YELLOW}reCAPTCHA displayed.{RESET}', end=' ')
             if self.solver == 4:
@@ -204,6 +229,7 @@ class Upload:
             self.name()  # Send NFT name.
             self.external_link()  # Send external link.
             self.description()  # Send description.
+            self.collection()  # If the collection is empty.
             self.attributes()  # Send all attributes.
             self.unlockable_content()  # Send unlockable content.
             self.explicit_and_sensitive_content()  # Send explicit content.
