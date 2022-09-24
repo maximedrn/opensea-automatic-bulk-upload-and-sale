@@ -5,7 +5,7 @@ matplotlib==3.5.1
 numpy==1.22.3
 opencv_python==4.5.5.62
 Pillow==9.0.1
-protobuf==3.19.4
+protobuf==3.19.5
 psutil==5.9.0
 pyclick==0.0.2
 PyYAML==6.0
