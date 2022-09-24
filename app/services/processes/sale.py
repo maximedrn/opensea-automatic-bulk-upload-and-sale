@@ -17,6 +17,7 @@ Any distribution, modification or commercial use is strictly prohibited.
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as WDW
 from selenium.common.exceptions import TimeoutException as TE
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
 # Python internal imports.
@@ -31,7 +32,6 @@ class Sale:
                  web: object, wallet: object) -> None:
         """Get the password and the recovery_phrase from the text file."""
         self.fails = 0  # Counter of sale retries.
-        self.actual_blockchain = 'Ethereum'  # Default blockchain.
         # Get the instance of the needed classes.
         self.structure = structure  # From the Structure class.
         self.save = save  # From the Save class.
@@ -41,10 +41,7 @@ class Sale:
     def check_listable(self) -> None:
         """Check if the NFT can be listed."""
         try:  # Check if the "View listing" button is displayed.
-            self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.driver.get(self.structure.nft_url.replace(
-                '?created=true', '').replace('/sell', ''))
-            self.web.visible('//a[contains(., "Sell")]')
+            self.web.visible('//a[contains(., "Sell")]', 1)
             return True  # NFT is listed.
         except Exception:  # The NFT seems to be listed.
             if self.web.page_error():  # Check for a 404 page error.
@@ -53,15 +50,15 @@ class Sale:
 
     def switch_ethereum(self) -> None:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
-        if self.structure.blockchain == 'Ethereum' and self.\
-                actual_blockchain != 'Ethereum':  # Different blockchain.
+        if self.structure.blockchain == 'Ethereum' \
+                != self.web.actual_blockchain:  # Different blockchain.
             if 1 not in self.structure.action:
                 self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
             self.web.clickable('//button[contains(text(), "Switch")]')
             self.wallet.sign(False, 1)  # Approve.
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.actual_blockchain == 'Ethereum'
+            self.web.actual_blockchain == 'Ethereum'
         elif 1 in self.structure.action:  # If it's already set to Ethereum.
             # Remove the "/sell" and "?created=true" parts.
             self.structure.nft_url = self.web.driver.current_url\
@@ -74,28 +71,38 @@ class Sale:
     def switch_polygon(self) -> None:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
         try:  # Switch blockchain.
-            if self.structure.blockchain == 'Polygon' != self.actual_blockchain \
-                    and 'Waiting for approval' in self.web.visible(
-                        '(//div[@role="dialog"]//button)[position()=2]'
-                    ).get_attribute('innerHTML'):
-                self.wallet.sign(False)  # Approve the signature.
+            if self.structure.blockchain == 'Polygon' \
+                    != self.web.actual_blockchain:  # Different blockchain.
+                self.web.window_handles(2)  # Switch to the wallet frame.
+                windows = self.web.driver.window_handles  # Get the windows
+                url = self.web.driver.current_url  # and current URL.
+                self.wallet.sign(False, 1)  # Approve the signature.
+                WDW(self.web.driver, 5).until(  # Make sure page changes.
+                    lambda _: (windows != self.web.driver.window_handles)
+                    or (url != self.web.driver.current_url))
+                WDW(self.web.driver, 5).until(EC.number_of_windows_to_be(3))
+                self.web.window_handles(2)  # Switch to the wallet frame.
+                if 'Switch' in self.web.driver.page_source:
+                    self.wallet.sign(False, 1)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
-                self.actual_blockchain = 'Polygon'  # Change blockchain.
+                self.web.actual_blockchain = 'Polygon'  # Change blockchain.
                 print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
         except Exception:
             pass
 
     def check_price(self) -> None:
         """Check the price and the quantity number."""
+        if not isinstance(self.structure.price, list):
+            self.structure.price = [self.structure.price]
         if not isinstance(self.structure.supply, int):
             raise TE('The supply number must be an integer.')
-        if not isinstance(self.structure.price, int) and not \
-                isinstance(self.structure.price, float):
+        if not isinstance(self.structure.price[0], int) and not \
+                isinstance(self.structure.price[0], float):
             raise TE('The price must be an integer or a float.')
 
     def timed_auction(self) -> None:
         """Select Timed Auction and change method."""
-        if 'Timed' in str(self.structure.sale_type):  # Timed Auction.
+        if 'Timed' in str(self.structure.sale_type):
             # Click on the "Timed Auction" button.
             self.web.clickable('//i[@value="timelapse"]/../..')
             if isinstance(self.structure.method, list) and len(
@@ -116,7 +123,7 @@ class Sale:
                            '/div/div[1]/form/div[2]/div/div[2]')
         # Click on the "Sell with declining price"
         self.web.clickable('//*[@role="tooltip"]/div/div/ul/li/button')
-        if self.structure.method[1] < self.structure.price:
+        if self.structure.method[1] < self.structure.price[0]:
             self.web.send_keys('//*[@name="endingPrice"]',
                                format(self.structure.method[1], '.8f'))
         else:  # Ending price is higher than the price.
@@ -128,7 +135,7 @@ class Sale:
         if self.structure.method[1] == '':  # There is no reserve price.
             return  # Skip this part and continue.
         if self.structure.method[1] > 0 and (self.structure.method[
-                1] <= 1 or self.structure.method[1] < self.structure.price):
+                1] <= 1 or self.structure.method[1] < self.structure.price[0]):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
         # Click on the "More option" button.
         self.web.clickable('//button[contains(@class, "more-options")]')
@@ -157,13 +164,43 @@ class Sale:
             self.web.clickable('//button[contains(@class, "more-options")]')
             # Click on "Reserve for specific buyer".
             self.web.send_keys('(//*[@role="switch"])[last()]', Keys.ENTER)
-            self.web.send_keys('//*[@id="reservedBuyerAddressOrEns'
-                               'Name"]', self.structure.specific_buyer[1])
+            self.web.send_keys('//*[@id="reservedBuyerAddressOrEnsName"]', 
+                               self.structure.specific_buyer[1])
+
+    def token(self) -> None:
+        """Set the token for the NFT."""
+        if not isinstance(self.structure.price, list) or len(
+                self.structure.price) < 2 or self.structure.price[1] == '' \
+                or (isinstance(self.structure.method, list) and len(
+                self.structure.method) == 2 and 'highest' in str(
+                    self.structure.method[0])):
+            return  # Cannot change the token for "Sell to highest bidder".
+        try:  # Try to select the token.
+            if self.web.visible('//*[@id="price"]/../../div[1]/input').\
+                    get_attribute('value') == self.structure.price[1]:
+                return  # Do not change the token.
+            [self.web.clickable('//*[@id="price"]/../../div[1]') for _ in
+             range(2 if 'Timed' in str(self.structure.sale_type) else 1)]
+            self.web.clickable('//span[contains(text(), '
+                                f'"{self.structure.price[1]}")]/../..')
+        except Exception:  # Token is unknown.
+            raise TE('Token is unknown or badly written.')
 
     def price(self) -> None:
         """Set the price."""
-        self.web.send_keys('//*[@name="price"]',
-                           format(self.structure.price, '.8f'))
+        self.web.send_keys('//*[@name="price"]', format(self.structure.price[
+            0] if isinstance(self.structure.price, list)
+            else self.structure.price, '.8f'))
+        self.floor_price()  # Check for the floor price.
+
+    def floor_price(self) -> None:
+        """Get the floor price text color."""
+        try:  # Check for the text color below the price.
+            self.floor_price_color = self.web.visible(
+                '//span[contains(., "Price is below")]', 1)\
+                .value_of_css_property('color')
+        except Exception:  # Price is not below collection floor price.
+            self.floor_price_color = ''
 
     def duration(self, date: str = '%d-%m-%Y %H:%M') -> None:
         """Select the duration according to its format."""
@@ -193,7 +230,7 @@ class Sale:
                                    '/div[2]/div[2]/div/div[2]/input', end_date)
                 self.web.send_date('//*[@id="start-time"]', start_time)
                 self.web.send_date('//*[@id="end-time"]', end_time)
-                if self.web.window == 1:  # Close the pop up on the GeckoDriver.
+                if self.web.window == 1:  # Close the popup on the GeckoDriver.
                     self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
                 self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
             elif len(self.structure.duration) == 1:  # In {n} days/week/months.
@@ -215,6 +252,8 @@ class Sale:
         """Complete the listing by clicking on the button."""
         try:  # Click on the "Complete listing" (submit) button.
             self.web.clickable('//button[@type="submit"]')
+            if self.floor_price_color == 'rgba(242, 153, 74, 1)':
+                self.web.clickable('//footer/button[2]')
         except Exception:  # An unknown error has occured.
             raise TE('The submit button cannot be clicked.')
 
@@ -223,7 +262,7 @@ class Sale:
         try:  # Sometimes the MetaMask pop up takes 2 seconds to appear.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(3))
-        except:  # The pop up appears so the pop up can be interacted.
+        except Exception:  # The pop up appears so it can be interacted.
             pass  # No error can be raised.
         try:  # Sign the Wyvern 2.3 contract.
             self.wallet.contract()
@@ -257,13 +296,12 @@ class Sale:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            if self.structure.action == [2] and not self.check_listable():
-                print(f'{YELLOW}NFT already listed.{RESET}')
-                return  # NFT is already listed. co not continue the sale.
+            """if self.structure.action == [2] and not self.check_listable():
+                print(f'{YELLOW}NFT already is listed.{RESET}')
+                return  # NFT is already listed. co not continue the sale."""
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
-            if self.structure.supply == 1 and \
-                    self.structure.blockchain == 'Ethereum':
+            if self.structure.supply == 1:
                 self.timed_auction()  # Switch to Timed Auction.
             elif self.structure.supply > 1:
                 self.quantity()  # Set a quantity of supply.
@@ -271,6 +309,7 @@ class Sale:
                 raise TE('Blockchain is unknown or badly written.')
             self.specific_buyer()  # Set a specific buyer.
             self.price()  # Send the price.
+            self.token()  # Set the token.
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
             self.switch_polygon()  # Switch to Polygon blockchain.
@@ -300,6 +339,7 @@ def check_price(price: int, blockchain: str) -> bool:
     Return if it is valid or not according to its type
     or if it is positive of strictly positive.
     """
+    price = price[0] if isinstance(price, list) else price
     # In case of the price is not a valid number.
     if not (isinstance(price, int) or isinstance(price, float)):
         print(f'{YELLOW}Sale aborted: price must be a number.{RESET}')
