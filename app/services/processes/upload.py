@@ -192,9 +192,8 @@ class Upload:
 
     def submit(self) -> None:
         """Click on the submit button."""
-        self.web.clickable('//div[contains(@class, "submit")]/div/span/' + (
-            'div/' if self.web.actual_blockchain != 'Ethereum'
-            else '') + 'button')  # Click on the "Create" button.
+        self.web.clickable(  # Click on the "Create" button.
+            '//div[contains(@class, "submit")]//../button')
         if self.web.visible(  # Switch the network to upload the NFT.
                 '//*[@id="chain"]').get_attribute('value') == 'Ethereum':
             self.switch_ethereum()
