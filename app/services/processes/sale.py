@@ -40,9 +40,6 @@ class Sale:
     def check_listable(self) -> None:
         """Check if the NFT can be listed."""
         try:  # Check if the "View listing" button is displayed.
-            self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.driver.get(self.structure.nft_url.replace(
-                '?created=true', '').replace('/sell', ''))
             self.web.visible('//a[contains(., "Sell")]', 1)
             return True  # NFT is listed.
         except Exception:  # The NFT seems to be listed.
@@ -184,7 +181,7 @@ class Sale:
             [self.web.clickable('//*[@id="price"]/../../div[1]') for _ in
              range(2 if 'Timed' in str(self.structure.sale_type) else 1)]
             self.web.clickable('//span[contains(text(), '
-                                f'"{self.structure.price[1]}")]/../..')
+                               f'"{self.structure.price[1]}")]/../..')
         except Exception:  # Token is unknown.
             raise TE('Token is unknown or badly written.')
 
@@ -198,9 +195,10 @@ class Sale:
     def floor_price(self) -> None:
         """Get the floor price text color."""
         try:  # Check for the text color below the price.
-            self.floor_price_color = self.web.visible(
-                '//span[contains(., "Price is below")]', 1)\
-                .value_of_css_property('color')
+            self.floor_price_color = self.web.driver.execute_script(
+                'return getComputedStyle(arguments[0]).color;',
+                self.web.visible(
+                    '//span[contains(., "Price is below")]/div', 1))
         except Exception:  # Price is not below collection floor price.
             self.floor_price_color = ''
 
@@ -254,7 +252,7 @@ class Sale:
         """Complete the listing by clicking on the button."""
         try:  # Click on the "Complete listing" (submit) button.
             self.web.clickable('//button[@type="submit"]')
-            if self.floor_price_color == 'rgba(242, 153, 74, 1)':
+            if self.floor_price_color == 'rgb(235, 87, 87)':
                 self.web.clickable('//footer/button[2]')
         except Exception:  # An unknown error has occured.
             raise TE('The submit button cannot be clicked.')
