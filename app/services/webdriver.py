@@ -144,32 +144,6 @@ class Webdriver:
             WDW(self.driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, element))).send_keys(keys)
 
-    def send_date(self, element: str, keys: str,
-                  clockface: str = 'A', invert: bool = True) -> None:
-        """Send a date (DD-MM-YYYY HH:MM) to a date input by clicking on it."""
-        value = '-'.join(  # Transform in HTML date value for later.
-            list(reversed(keys.split('-')))) if '-' in keys else keys
-        # From "DD-MM-YYYY" or "hh:mm" to ["DD", "MM", "YYYY"] or ["hh", "mm"].
-        keys_ = keys.split('-') if '-' in keys else keys.split(':')
-        if isinstance(keys_, list) and len(  # From ["DD", "MM", "YYYY"] to
-                keys_) > 2 and '-' in keys:  # ["MM", "DD", "YYYY"].
-            if invert:  # Default OpenSea duration format.
-                keys_ = [keys_[1], keys_[0], keys_[2]]  # Switch day and month.
-            # ["DD", "MM", "YYYY"] or ["DD", "MM"] according to the year.
-            keys_ = keys_ if keys_[-1] == dt.now().year else keys_[:-1]
-        if ':' in keys and invert:  # If it is an hour, change AM or PM.
-            if int(keys_[0]) > 13:  # Remove 12 hours if it is afternoon.
-                keys_[0], clockface = str(int(keys_[0]) - 12), 'P'
-            keys_.append(clockface)  # Add "A" or "P".
-        for part in range(len(keys_)):  # Add left and rights arrows moves.
-            keys_[part] = f'{Keys.ARROW_LEFT}' * len(keys_) + \
-                f'{Keys.ARROW_RIGHT}' * part + keys_[part]
-        self.clickable(element)  # Click on the date element.
-        self.send_keys(element, ''.join(keys_))  # Join and send date or time.
-        if self.visible(element).get_attribute('value') != value:
-            self.send_date(element, keys, invert=False)
-
-
     def clear_text(self, element) -> None:
         """Clear text from an input."""
         self.clickable(element)  # Click on the element then select its text.
