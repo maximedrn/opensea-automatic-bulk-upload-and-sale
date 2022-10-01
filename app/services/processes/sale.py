@@ -198,55 +198,77 @@ class Sale:
             self.floor_price_color = self.web.driver.execute_script(
                 'return getComputedStyle(arguments[0]).color;',
                 self.web.visible(
-                    '//span[contains(., "Price is below")]/div', 1))
+                    '//span[contains(., "Price is below")]/div', .5))
         except Exception:  # Price is not below collection floor price.
             self.floor_price_color = ''
 
-    def duration(self, date: str = '%d-%m-%Y %H:%M') -> None:
+    def duration(self) -> None:
         """Select the duration according to its format."""
         if isinstance(self.structure.duration, str):  # Transform to a list.
             self.structure.duration = [self.structure.duration]
-        if isinstance(self.structure.duration, list):  # List of 1 or 2 values.
-            if len(self.structure.duration) == 2:  # From {date} to {date}.
-                from datetime import datetime as dt  # Default import.
-                # Check if duration is less than 6 months.
-                if (dt.strptime(self.structure.duration[1], date) -
-                        dt.strptime(self.structure.duration[0], date
-                                    )).total_seconds() / 60 > 262146:
-                    raise TE('Duration must be less than 6 months.')
-                # Check if starting date has passed.
-                if dt.strptime(dt.strftime(dt.now(), date), date) \
-                        > dt.strptime(self.structure.duration[0], date):
-                    raise TE('Starting date has passed.')
-                # Split the date and the time.
-                start_date, start_time = self.structure.duration[0].split(' ')
-                end_date, end_time = self.structure.duration[1].split(' ')
-                self.web.clickable('//*[@id="duration"]')  # Date button.
-                self.web.visible(  # Scroll to the pop up frame of the date.
-                    '//*[@role="dialog"]').location_once_scrolled_into_view
-                self.web.send_date('//*[@role="dialog"]/div'  # Starting date.
-                                   '[2]/div[1]/div/div[2]/input', start_date)
-                self.web.send_date('//*[@role="dialog"]'  # Ending date.
-                                   '/div[2]/div[2]/div/div[2]/input', end_date)
-                self.web.send_date('//*[@id="start-time"]', start_time)
-                self.web.send_date('//*[@id="end-time"]', end_time)
-                if self.web.window == 1:  # Close the popup on the GeckoDriver.
-                    self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
-                self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
-            elif len(self.structure.duration) == 1:  # In {n} days/week/months.
-                if self.structure.duration[0] == '':  # Duration not specified.
-                    raise TE('Duration must be specified.')
-                if self.structure.duration == ['1 week']:  # Convert from old
-                    self.structure.duration = ['7 days']  # to the new one.
-                if self.web.visible('//*[@id="duration"]/div[2]').text \
-                        != self.structure.duration[0]:  # Not default.
-                    self.web.clickable('//*[@id="duration"]')  # Date button.
-                    self.web.clickable('//*[@role="dialog"]'  # Duration Range
-                                       '/div[1]/div/div[2]/input')  # sheet.
-                    self.web.clickable(  # Select the duration.
-                        '//span[contains(text(), '
-                        f'"{self.structure.duration[0]}")]/../..')
-                    self.web.send_keys('//*[@role="dialog"]', Keys.ENTER)
+        if not isinstance(self.structure.duration, list):
+            return  # The duration is empty or incorrect.
+        try:  # Try to set the duration.
+            return self.specific_duration() if len(self.structure.duration)\
+                == 2 else self.default_duration()
+        except Exception:  # Other format/ incorrect duration.
+            raise TE('Something went wrong with the duration.')
+
+    def default_duration(self) -> None:
+        if self.structure.duration[0] == '':  # Duration not specified.
+            raise TE('Duration must be specified.')
+        if self.structure.duration == ['1 week']:  # Convert from old
+            self.structure.duration = ['7 days']  # to the new one.
+        if self.web.visible('//*[@id="duration"]/div[2]').text \
+                != self.structure.duration[0]:  # Not default.
+            self.web.clickable('//*[@id="duration"]')  # Date button.
+            self.web.clickable('//*[@role="dialog"]'  # Duration Range
+                               '/div[1]/div/div[2]/input')  # sheet.
+            self.web.clickable('//span[contains(text(), "'
+                               f'{self.structure.duration[0]}")]/../..')
+            self.web.send_keys('//*[@role="dialog"]', Keys.ENTER)
+
+    def specific_duration(self, date: str = '%d-%m-%Y %H:%M') -> None:
+        from datetime import datetime as dt  # Default import.
+        if (dt.strptime(self.structure.duration[1], date) - dt.strptime(
+                self.structure.duration[0], date)).total_seconds(
+        ) / 60 > 262146:  # Is less than 6 months?
+            raise TE('Duration must be less than or equal to 6 months.')
+        if dt.strptime(dt.strftime(dt.now(), date), date) > dt.strptime(
+                self.structure.duration[0], date):  # Is date has passed?
+            raise TE('Starting date has passed.')
+        self.web.clickable('//*[@id="duration"]')  # Open the duration.
+        self.web.visible(  # Scroll to the pop up frame of the date.
+            '//*[@role="dialog"]').location_once_scrolled_into_view
+        for index, id in enumerate(['start-time', 'end-time']):
+            duration = self.structure.duration[index]
+            self.send_date(f'//*[@id="{id}"]', duration)
+        if self.web.window == 1:  # Close the popup on the GeckoDriver.
+            self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
+        self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
+
+    def send_date(self, element: str, duration: str,
+                  clockface: str = 'A') -> None:
+        """Send the the specific duration."""
+        from datetime import datetime as dt  # Default import.
+        date, time = duration.split(' ')  # Split the date and the time.
+        hour, minute = time.split(':')  # Split the hour and minute.
+        day, _, year = date.split('-')  # Split the day, month and year.
+        header = dt.strptime(date, '%d-%m-%Y').strftime('%B') + \
+            ' ' + year  # Format: Month Year (i.e.: January 2023).
+        while header not in self.web.driver.page_source:
+            try:  # Try to click on the arrow until month is visible.
+                self.web.clickable('(//header)[last()]//button')
+            except Exception:  # The arrow is not visible.
+                raise TE('The beginning of the sale must start early.')
+        [self.web.clickable(  # Click twice because once doesn't work.
+            f'//h6[.="{header}"]/../..//button[.="{int(day)}"]')
+            for _ in range(2)]  # Click on the day number.
+        if int(hour) > 13:  # Remove 12 hours if it is afternoon.
+            hour, clockface = str(int(hour) - 12), 'P'
+        self.web.clickable(element)  # Click on the time element.
+        [self.web.send_keys(element, part) for part in [
+            hour, minute, clockface]]  # Join and time.
 
     def complete_listing(self) -> None:
         """Complete the listing by clicking on the button."""
@@ -311,6 +333,8 @@ class Sale:
             self.price()  # Send the price.
             self.token()  # Set the token.
             self.duration()  # Set the duration.
+            from time import sleep
+            sleep(15)
             self.complete_listing()  # Complete listing.
             self.switch_polygon()  # Switch to Polygon blockchain.
             self.sign_contract()  # Sign the contract.
