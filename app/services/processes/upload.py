@@ -122,12 +122,10 @@ class Upload:
                     self.web.clickable('//div[@role="dialog"]/section/button')
                 number_ += 1  # Increase number to add more element.
                 self.web.send_keys(  # Input values in the inputs.
-                    f'/html/body/div[{index + 2}]/div/div/div/section/table'
-                    f'/tbody/tr[{number_}]/td[1]/div/div/input', data[0])
+                    f'//table/tbody/tr[{number_}]/td/div/div/input', data[0])
                 for rank in [3, 2]:  # Input third and second values.
                     if len(data) == 3 or rank == 2:  # 1 or 2 loops.
-                        actual_element = f'/html/body/div[{index + 2}]' + \
-                            '/div/div/div/section/table/tbody/' + \
+                        actual_element = f'//table/tbody/' + \
                             f'tr[{number_}]/td[{rank}]/div/div/input'
                         self.web.clear_text(actual_element)  # Default value.
                         self.web.send_keys(actual_element, data[rank - 1])
