@@ -40,19 +40,19 @@ class Sale:
     def check_listable(self) -> None:
         """Check if the NFT can be listed."""
         try:  # Check if the "View listing" button is displayed.
+            self.web.driver.get(self.structure.nft_url.replace(
+                '?created=true', '').replace('/sell', '') + '/sell')
             self.web.visible('//a[contains(., "Sell")]', 1)
-            return True  # NFT is listed.
+            return True  # NFT is not listed.
         except Exception:  # The NFT seems to be listed.
             if self.web.page_error():  # Check for a 404 page error.
                 return self.check_listable()  # Try again.
-            return False
+            return False  # NFT is listed.
 
     def switch_ethereum(self) -> None:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
         if self.structure.blockchain == 'Ethereum' \
                 != self.web.actual_blockchain:  # Different blockchain.
-            if 1 not in self.structure.action:
-                self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
             self.web.clickable('//button[contains(text(), "Switch")]')
             self.wallet.sign(False, 1)  # Approve.
@@ -333,8 +333,6 @@ class Sale:
             self.price()  # Send the price.
             self.token()  # Set the token.
             self.duration()  # Set the duration.
-            from time import sleep
-            sleep(15)
             self.complete_listing()  # Complete listing.
             self.switch_polygon()  # Switch to Polygon blockchain.
             self.sign_contract()  # Sign the contract.
