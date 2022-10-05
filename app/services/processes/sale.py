@@ -41,7 +41,7 @@ class Sale:
         """Check if the NFT can be listed."""
         try:  # Check if the "View listing" button is displayed.
             self.web.driver.get(self.structure.nft_url.replace(
-                '?created=true', '').replace('/sell', '') + '/sell')
+                '?created=true', '').replace('/sell', ''))
             self.web.visible('//a[contains(., "Sell")]', 1)
             return True  # NFT is not listed.
         except Exception:  # The NFT seems to be listed.
