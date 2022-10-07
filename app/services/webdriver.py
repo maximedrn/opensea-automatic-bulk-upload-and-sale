@@ -34,8 +34,8 @@ from ..utils.colors import GREEN, RED, YELLOW, RESET
 # Python default imports.
 from os import name as osname, devnull
 from os.path import abspath, exists
-from datetime import datetime as dt
 from platform import system
+from json import dumps
 
 
 class Webdriver:
@@ -60,8 +60,11 @@ class Webdriver:
     def chrome(self) -> webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
-        # Add wallet extension according to user choice
+        # Add wallet extension according to user choice.
         options.add_extension(eval(f'self.{self.wallet_name}_extension_path'))
+        if self.solver != 1 and self.wallet.recovery_phrase != '' and \
+                self.wallet.password != '':  # Not manual solver.
+            options.add_argument('--headless=chrome')  # Headless mode.
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -81,8 +84,19 @@ class Webdriver:
                 f'--profile-directory={self.wallet.recovery_phrase[1]}')
         driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
+        self.send(driver, 'Network.setBlockedURLs', {'urls': [
+            'www.google-analytics.com', 'cdnjs.cloudflare.com', 'bat.bing.com',
+            'static.cloudflareinsights.com', 'https://fonts.gstatic.com']})
+        self.send(driver, 'Network.enable')  # Confirm the blocked URLs.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
+
+    def send(self, driver: webdriver, cmd: str, params: dict = {}) -> None:
+        """Run a specific command with parameters in the webdriver."""
+        driver.command_executor._request(  # Execute the command.
+            'POST', driver.command_executor._url +
+            '/session/%s/chromium/send_command_and_get_result'
+            % driver.session_id, dumps({'cmd': cmd, 'params': params}))
 
     def firefox(self) -> webdriver:
         """Start a Firefox webdriver and return its state."""
@@ -186,7 +200,7 @@ def download_browser(browser: int) -> str:
         print(f'{RED}Browser download failed.{RESET}')
         # Set the browser path as "assets/" + browser + extension.
         browser_path = abspath('assets/' + (
-            'geckodriver'  if browser == 1 else 'chromedriver')
+            'geckodriver' if browser == 1 else 'chromedriver')
             + ('.exe' if osname == 'nt' else '')).replace('\\', '/')
         # Check if an executable is already in this path, else exit.
         if not exists(browser_path):
