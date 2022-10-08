@@ -244,7 +244,7 @@ class Sale:
             duration = self.structure.duration[index]
             self.send_date(f'//*[@id="{id}"]', duration)
         if self.web.window == 1:  # Close the popup on the GeckoDriver.
-            self.web.send_keys('//*[@id="start-time"]', Keys.ENTER)
+            self.web.send_keys('//*[@id="end-time"]', Keys.ENTER)
         self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
 
     def send_date(self, element: str, duration: str,
@@ -261,14 +261,16 @@ class Sale:
                 self.web.clickable('(//header)[last()]//button')
             except Exception:  # The arrow is not visible.
                 raise TE('The beginning of the sale must start early.')
-        [self.web.clickable(  # Click twice because once doesn't work.
-            f'//h6[.="{header}"]/../..//button[.="{int(day)}"]')
-            for _ in range(2)]  # Click on the day number.
-        if int(hour) > 13:  # Remove 12 hours if it is afternoon.
+        [self.web.clickable(  # Click on the day number.
+            f'//h6[.="{header}"]/../..//button[.="{int(day) - number}"]')
+            for number in ([0, 1, 0] if 'start' in element else [0])]
+        if int(hour) > 12:  # Remove 12 hours if it is afternoon.
             hour, clockface = str(int(hour) - 12), 'P'
+        hour += Keys.ARROW_RIGHT if len(hour) == 1 else ''
+        minute += Keys.ARROW_RIGHT if len(minute) == 1 else ''
         self.web.clickable(element)  # Click on the time element.
-        [self.web.send_keys(element, part) for part in [
-            hour, minute, clockface]]  # Join and time.
+        [self.web.send_keys(element, part) for part in [  # Join and time.
+            Keys.ARROW_LEFT] * 3 + [hour, minute, clockface]]
 
     def complete_listing(self) -> None:
         """Complete the listing by clicking on the button."""
