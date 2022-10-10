@@ -240,37 +240,32 @@ class Sale:
         self.web.clickable('//*[@id="duration"]')  # Open the duration.
         self.web.visible(  # Scroll to the pop up frame of the date.
             '//*[@role="dialog"]').location_once_scrolled_into_view
-        for index, id in enumerate(['start-time', 'end-time']):
-            duration = self.structure.duration[index]
-            self.send_date(f'//*[@id="{id}"]', duration)
+        for index, id in enumerate(['start', 'end']):
+            self.send_date(id, self.structure.duration[index])
         if self.web.window == 1:  # Close the popup on the GeckoDriver.
             self.web.send_keys('//*[@id="end-time"]', Keys.ENTER)
         self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
 
-    def send_date(self, element: str, duration: str,
-                  clockface: str = 'A') -> None:
+    def send_date(self, element: str, duration: str) -> None:
         """Send the the specific duration."""
-        from datetime import datetime as dt  # Default import.
-        date, time = duration.split(' ')  # Split the date and the time.
+        from datetime import datetime as dt  # Python default import.
+        date, time = duration.split(' ')  # Get the date and the time.
+        time, clock = dt.strptime(  # 24h to 12h and get PM/ AM value.
+            time, '%H:%M').strftime('%I:%M %p')[:-1].split(' ')
+        day, month, year = date.split('-')  # Get the day, month and year.
         hour, minute = time.split(':')  # Split the hour and minute.
-        day, _, year = date.split('-')  # Split the day, month and year.
-        header = dt.strptime(date, '%d-%m-%Y').strftime('%B') + \
-            ' ' + year  # Format: Month Year (i.e.: January 2023).
-        while header not in self.web.driver.page_source:
-            try:  # Try to click on the arrow until month is visible.
-                self.web.clickable('(//header)[last()]//button')
-            except Exception:  # The arrow is not visible.
-                raise TE('The beginning of the sale must start early.')
-        [self.web.clickable(  # Click on the day number.
-            f'//h6[.="{header}"]/../..//button[.="{int(day) - number}"]')
-            for number in ([0, 1, 0] if 'start' in element else [0])]
-        if int(hour) > 12:  # Remove 12 hours if it is afternoon.
-            hour, clockface = str(int(hour) - 12), 'P'
-        hour += Keys.ARROW_RIGHT if len(hour) == 1 else ''
-        minute += Keys.ARROW_RIGHT if len(minute) == 1 else ''
-        self.web.clickable(element)  # Click on the time element.
-        [self.web.send_keys(element, part) for part in [  # Join and time.
-            Keys.ARROW_LEFT] * 3 + [hour, minute, clockface]]
+        year = '' if str(dt.now().year) == year else year  # Remove year.
+        left, right, date, time = Keys.ARROW_LEFT, Keys.ARROW_RIGHT, [], []
+        for key, part in enumerate([month.zfill(2), day.zfill(2), year]):
+            date += [left] * 3 + [right] * key + [part]  # Date list.
+        for key, part in enumerate([hour.zfill(2), minute.zfill(2), clock]):
+            time += [left] * 3 + [right] * key + [part]  # Time list.
+        self.web.clickable(f'//*[@id="{element}-date"]')  # Send date.
+        [self.web.send_keys(  # Send the date in different part.
+            f'//*[@id="{element}-date"]', part) for part in date]
+        self.web.clickable(f'//*[@id="{element}-time"]')
+        [self.web.send_keys(  # Send the time in different part.
+            f'//*[@id="{element}-time"]', part) for part in time]
 
     def complete_listing(self) -> None:
         """Complete the listing by clicking on the button."""
