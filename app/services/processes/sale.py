@@ -87,7 +87,13 @@ class Sale:
                 self.web.actual_blockchain = 'Polygon'  # Change blockchain.
                 print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
         except Exception:
-            pass
+            try:  # The popup didn't close to reopen.
+                self.wallet.sign(False, 1)  # Approve the signature.
+                self.web.window_handles(1)  # Switch back to the OpenSea tab.
+                self.web.actual_blockchain = 'Polygon'  # Change blockchain.
+                print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
+            except Exception:
+                raise TE('Failure of the switch to Polygon.')
 
     def check_price(self) -> None:
         """Check the price and the quantity number."""
