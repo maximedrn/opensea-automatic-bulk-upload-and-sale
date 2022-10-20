@@ -47,13 +47,7 @@ class Login:
             self.web.clickable(  # Click on the wallet button in the list.
                 f'//*[contains(text(), "{self.wallet.wallet}")]/../..')
             self.wallet.sign(False)  # Sign the login on OpenSea.
-            self.web.window_handles(1)  # Switch again to the OpenSea tab.
-            for _ in range(2):  # Click on the button twice.
-                self.web.clickable(  # Click on the wallet button in the list.
-                    f'//*[contains(text(), "{self.wallet.wallet}")]/../..')
-            self.wallet.sign(False, 1) if self.web.window == 1 else \
-                self.wallet.contract()  # Sign the creation on OpenSea.
-            self.web.window_handles(1)  # Switch again to the OpenSea tab.
+            WDW(self.web.driver, 60).until(lambda _: self.sign_login())
             # Check if the login to OpenSea worked.
             WDW(self.web.driver, 30).until(EC.url_to_be(self.create_url))
             print(f'{GREEN}Logged to OpenSea.{RESET}')
@@ -64,20 +58,6 @@ class Login:
                     print(f'{GREEN}Logged to OpenSea.{RESET}')
                     return True  # Already connected.
             except Exception:
-                pass  # Ignore the error.
-            try:  # Not a custom Google Chrome profile.
-                self.web.window_handles(1)  # Switch again to the OpenSea tab.
-                for _ in range(2):  # Click on the button twice.
-                    self.web.clickable(  # Click on the wallet button in the list.
-                        f'//*[contains(text(), "{self.wallet.wallet}")]/../..')
-                self.wallet.sign(False, 1) if self.web.window == 1 else \
-                    self.wallet.contract()  # Sign the contract.
-                self.web.window_handles(1)  # Switch again to the OpenSea tab.
-                # Check again if the login to OpenSea worked.
-                WDW(self.web.driver, 30).until(EC.url_to_be(self.create_url))
-                print(f'{GREEN}Logged to OpenSea.{RESET}')
-                return True
-            except Exception:
                 self.fails += 1  # Increment the counter of failure.
                 if self.fails < 2:  # Retry to login to the OpenSea.
                     print(f'{RED}Login to OpenSea failed. Retrying.{RESET}')
@@ -87,3 +67,17 @@ class Login:
                 print(f'{RED}Login to OpenSea failed. Restarting.{RESET}')
                 self.web.quit()  # Stop the webdriver.
                 return False
+
+    def sign_login(self) -> bool:
+        """Sign the OpenSea contract for NFT creation."""
+        try:  # Try until it works for 30 seconds.
+            self.web.window_handles(1)  # Switch again to the OpenSea tab.
+            for _ in range(2):  # Click on the button twice.
+                self.web.clickable(  # Click on the wallet button in the list.
+                    f'//*[contains(text(), "MetaMask")]/../..')
+            WDW(self.web.driver, 5).until(EC.number_of_windows_to_be(3))
+            self.wallet.contract()  # Sign the creation on OpenSea.
+            self.web.window_handles(1)  # Switch again to the OpenSea tab.
+            return True
+        except Exception:
+            return False
