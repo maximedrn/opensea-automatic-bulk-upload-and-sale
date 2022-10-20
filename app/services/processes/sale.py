@@ -53,6 +53,8 @@ class Sale:
         """Switch to Ethereum blockchain if wallet is on Polygon."""
         if self.structure.blockchain == 'Ethereum' \
                 != self.web.actual_blockchain:  # Different blockchain.
+            if 1 not in self.structure.action:
+                self.web.driver.get(self.structure.nft_url)
             self.web.clickable('//a[contains(@href, "/sell")]')
             self.web.clickable('//button[contains(text(), "Switch")]')
             self.wallet.sign(False, 1)  # Approve.
@@ -67,15 +69,20 @@ class Sale:
             self.web.driver.get(self.structure.nft_url.replace(
                 '?created=true', '').replace('/sell', '') + '/sell')
 
-    def switch_polygon(self) -> None:
+    def switch_polygon(self) -> bool:
         """Switch to Polygon blockchain if wallet is on Ethereum."""
         try:  # Switch blockchain.
             if self.structure.blockchain == 'Polygon' \
                     != self.web.actual_blockchain:  # Different blockchain.
-                self.web.window_handles(2)  # Switch to the wallet frame.
-                windows = self.web.driver.window_handles  # Get the windows
-                url = self.web.driver.current_url  # and current URL.
-                self.wallet.sign(False, 1)  # Approve the signature.
+                try:
+                    self.web.window_handles(2)  # Switch to the wallet frame.
+                    windows = self.web.driver.window_handles  # Get the windows
+                    url = self.web.driver.current_url  # and current URL.
+                    self.wallet.sign(False, 1)  # Approve the signature.
+                except Exception:
+                    self.web.window_handles(1)  # Switch to the OpenSea tab.
+                    self.web.clickable('//button[text()="Continue"]')
+                    return self.switch_polygon()
                 WDW(self.web.driver, 5).until(  # Make sure page changes.
                     lambda _: (windows != self.web.driver.window_handles)
                     or (url != self.web.driver.current_url))
@@ -85,13 +92,15 @@ class Sale:
                     self.wallet.sign(False, 1)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.web.actual_blockchain = 'Polygon'  # Change blockchain.
-                print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
+                print(f'{YELLOW}Blockchain switched.{RESET}')
+                return True
         except Exception:
             try:  # The popup didn't close to reopen.
                 self.wallet.sign(False, 1)  # Approve the signature.
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.web.actual_blockchain = 'Polygon'  # Change blockchain.
-                print(f'{YELLOW}Blockchain switched.{RESET}', end=' ')
+                print(f'{YELLOW}Blockchain switched.{RESET}')
+                return True
             except Exception:
                 raise TE('Failure of the switch to Polygon.')
 
@@ -181,10 +190,10 @@ class Sale:
                     self.structure.method[0])):
             return  # Cannot change the token for "Sell to highest bidder".
         try:  # Try to select the token.
-            if self.web.visible('//*[@id="price"]/../../div[1]/input').\
+            if self.web.visible('//*[@id="price"]/../../div[2]/input').\
                     get_attribute('value') == self.structure.price[1]:
                 return  # Do not change the token.
-            [self.web.clickable('//*[@id="price"]/../../div[1]') for _ in
+            [self.web.clickable('//*[@id="price"]/../../div[2]') for _ in
              range(2 if 'Timed' in str(self.structure.sale_type) else 1)]
             self.web.clickable('//span[contains(text(), '
                                f'"{self.structure.price[1]}")]/../..')
@@ -337,7 +346,8 @@ class Sale:
             self.token()  # Set the token.
             self.duration()  # Set the duration.
             self.complete_listing()  # Complete listing.
-            self.switch_polygon()  # Switch to Polygon blockchain.
+            if self.switch_polygon():  # Switch to Polygon blockchain.
+                return self.sale()  # Sale the NFT after switching.
             self.sign_contract()  # Sign the contract.
             if not self.check_listed():  # Check if the NFT is listed.
                 return self.sale()  # It will retry until it works.
