@@ -85,8 +85,8 @@ class Webdriver:
         driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         self.send(driver, 'Network.setBlockedURLs', {'urls': [
-            'www.google-analytics.com', 'cdnjs.cloudflare.com', 'bat.bing.com',
-            'static.cloudflareinsights.com', 'https://fonts.gstatic.com']})
+            'www.google-analytics.com', 'static.cloudflareinsights.com',
+            'bat.bing.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com']})
         self.send(driver, 'Network.enable')  # Confirm the blocked URLs.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
@@ -109,6 +109,8 @@ class Webdriver:
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
         options.set_preference('intl.accept_languages', 'en,en-US')
+        options.set_preference('permissions.default.image', 2)
+        options.set_preference('permissions.default.stylesheet', 2)
         driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
             self.browser_path), options=options,  # executable_path.
             service_log_path=devnull)  # Disable Firefox logs.
