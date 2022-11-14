@@ -223,25 +223,25 @@ class Sale:
             self.structure.duration = [self.structure.duration]
         if not isinstance(self.structure.duration, list):
             return  # The duration is empty or incorrect.
-        try:  # Try to set the duration.
-            return self.specific_duration() if len(self.structure.duration)\
-                == 2 else self.default_duration()
-        except Exception:  # Other format/ incorrect duration.
-            raise TE('Something went wrong with the duration.')
+        return self.specific_duration() if len(self.structure.duration)\
+            == 2 else self.default_duration()
 
     def default_duration(self) -> None:
         if self.structure.duration[0] == '':  # Duration not specified.
             raise TE('Duration must be specified.')
-        if self.structure.duration == ['1 week']:  # Convert from old
-            self.structure.duration = ['7 days']  # to the new one.
-        if self.web.visible('//*[@id="duration"]/div[2]').text \
-                != self.structure.duration[0]:  # Not default.
-            self.web.clickable('//*[@id="duration"]')  # Date button.
-            self.web.clickable('//*[@role="dialog"]'  # Duration Range
-                               '/div[1]/div/div[2]/input')  # sheet.
-            self.web.clickable('//span[contains(text(), "'
-                               f'{self.structure.duration[0]}")]/../..')
-            self.web.send_keys('//*[@role="dialog"]', Keys.ENTER)
+        try:  # Try to set the duration.
+            if self.structure.duration == ['1 week']:  # Convert from old
+                self.structure.duration = ['7 days']  # to the new one.
+            if self.web.visible('//*[@id="duration"]/div[2]').text \
+                    != self.structure.duration[0]:  # Not default.
+                self.web.clickable('//*[@id="duration"]')  # Date button.
+                self.web.clickable('//*[@role="dialog"]'  # Duration Range
+                                '/div[1]/div/div[2]/input')  # sheet.
+                self.web.clickable('//span[contains(text(), "'
+                                f'{self.structure.duration[0]}")]/../..')
+                self.web.send_keys('//*[@role="dialog"]', Keys.ENTER)
+        except Exception:  # Other format/ incorrect duration.
+            raise TE('Something went wrong with the duration.')
 
     def specific_duration(self, date: str = '%d-%m-%Y %H:%M') -> None:
         from datetime import datetime as dt  # Default import.
@@ -252,22 +252,28 @@ class Sale:
         if dt.strptime(dt.strftime(dt.now(), date), date) > dt.strptime(
                 self.structure.duration[0], date):  # Is date has passed?
             raise TE('Starting date has passed.')
-        self.web.clickable('//*[@id="duration"]')  # Open the duration.
-        self.web.visible(  # Scroll to the pop up frame of the date.
-            '//*[@role="dialog"]').location_once_scrolled_into_view
-        for index, id in enumerate(['start', 'end']):
-            self.send_date(id, self.structure.duration[index])
-        if self.web.window == 1:  # Close the popup on the GeckoDriver.
-            self.web.send_keys('//*[@id="end-time"]', Keys.ENTER)
-        self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
+        try:  # Try to set the duration.
+            self.web.clickable('//*[@id="duration"]')  # Open the duration.
+            self.web.visible(  # Scroll to the pop up frame of the date.
+                '//*[@role="dialog"]').location_once_scrolled_into_view
+            for index, id in enumerate(['start', 'end']):
+                self.send_date(id, self.structure.duration[index])
+            self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
+        except Exception:  # Other format/ incorrect duration.
+            raise TE('Something went wrong with the duration.')
 
     def send_date(self, element: str, duration: str) -> None:
         """Send the the specific duration."""
-        from datetime import datetime as dt  # Python default import.
         date, time = duration.split(' ')  # Get the date and the time.
+        day, month, year = date.split('-')  # Get the day, month and year.
+        if self.web.window == 1:  # On Mozilla Firefox.
+            date = year + '-' + month + '-' + day
+            self.web.send_keys(f'//*[@id="{element}-date"]', date)
+            self.web.send_keys(f'//*[@id="{element}-time"]', time)
+            return  # Do not require to do all the complicated things.
+        from datetime import datetime as dt  # Python default import.
         time, clock = dt.strptime(  # 24h to 12h and get PM/ AM value.
             time, '%H:%M').strftime('%I:%M %p')[:-1].split(' ')
-        day, month, year = date.split('-')  # Get the day, month and year.
         hour, minute = time.split(':')  # Split the hour and minute.
         year = '' if str(dt.now().year) == year else year  # Remove year.
         left, right, date, time = Keys.ARROW_LEFT, Keys.ARROW_RIGHT, [], []
@@ -299,7 +305,7 @@ class Sale:
         except Exception:  # The pop up appears so it can be interacted.
             pass  # No error can be raised.
         try:  # Sign the Wyvern 2.3 contract.
-            self.wallet.contract()
+            self.wallet.contract(self.web.window == 1)
         except Exception:  # An error occured while listing the NFT.
             if isinstance(self.wallet.recovery_phrase, str):
                 raise TE('Cannot sign the wallet contract.')
@@ -330,9 +336,9 @@ class Sale:
         """Set a price for the NFT and sell it."""
         print('Sale of the NFT.', end=' ')
         try:  # Try to sell the NFT with different types and methods.
-            if self.structure.action == [2] and not self.check_listable():
+            """if self.structure.action == [2] and not self.check_listable():
                 print(f'{YELLOW}NFT already is listed.{RESET}')
-                return  # NFT is already listed. co not continue the sale.
+                return  # NFT is already listed. co not continue the sale."""
             self.switch_ethereum()  # Switch to Ethereum blockchain.
             self.check_price()  # Check the type of the price.
             if self.structure.supply == 1:
