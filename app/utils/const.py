@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.12.10'
+VERSION = '1.12.11'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -36,10 +36,10 @@ FIRST_PAGE = (
     '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 20 October.{RESET}'
+    f'\n\nVersion {VERSION} - 2022, 14 November.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
-    '\nAffiliate program: https://bit.ly/3R0RBdA'
+    '\nJOIN ME ON TELEGRAM: https://t.me/opensea_bulk_upload_and_sale'
     '\n\nIf you face any problem, please open an issue.')
 
 ENTER = '\nPRESS [ENTER] TO CONTINUE. '
@@ -50,7 +50,7 @@ SECOND_PAGE = (
     '\nAny distribution, modification or commercial use '
     f'is strictly prohibited.{RESET}'
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
-    '\nAffiliate program: https://bit.ly/3R0RBdA')
+    '\nJOIN ME ON TELEGRAM: https://t.me/opensea_bulk_upload_and_sale')
 
 STARTING_VALUE = '\nStart from the item n°'
 
