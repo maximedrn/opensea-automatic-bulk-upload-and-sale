@@ -58,10 +58,10 @@ class MetaMask:
                 self.web.clickable(  # Click on the "Import" button.
                     '//*[contains(@class, "btn-primary")][position()=1]')
             else:  # User chose to set the wallet manually.
-                input(METAMASK_IMPORT)
-            # Wait until the login worked and click on the "All done" button.
-            self.web.visible('//*[contains(@class, "emoji")][position()=1]')
-            self.web.clickable(  # Confirm the connecton to MetaMask.
+                input(METAMASK_IMPORT) 
+            self.web.visible(  # Click on the "All done" button.
+                '//*[contains(@class, "emoji")][position()=1]')
+            self.web.clickable(  # Confirm the connection to MetaMask.
                 '//*[contains(@class, "btn-primary")][position()=1]')
             self.switch()  # Switch account.
             print(f'{GREEN}Logged to MetaMask.{RESET}')
@@ -125,7 +125,7 @@ class MetaMask:
     def contract(self, new_contract: bool = False) -> None:
         """Sign a MetaMask contract to upload or confirm sale."""
         self.web.window_handles(2)  # Switch to the MetaMask pop up tab.
-        if self.web.window == 1 or new_contract:
+        if new_contract:
             # Click on the arrow to activate the "Sign" button.
             self.web.clickable('(//div[contains(@class, "signature") and '
                                'contains(@class, "scroll")])[position()=1]')
@@ -137,7 +137,7 @@ class MetaMask:
         try:  # Wait until the MetaMask pop up is closed.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
         except TE:
-            self.contract()  # Sign the contract a second time.
+            self.contract(new_contract)  # Sign the contract a second time.
         self.web.window_handles(1)  # Switch back to the OpenSea tab.
 
     def close(self) -> None:
