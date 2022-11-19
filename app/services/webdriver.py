@@ -73,8 +73,9 @@ class Webdriver:
         options.add_argument('--disable-gpu')
         options.add_argument('--lang=en-US')  # Set webdriver language
         options.add_experimental_option(  # to English. - 2 methods.
-            'prefs', {'intl.accept_languages': 'en,en_US',
-                      'profile.managed_default_content_settings.images': 2})
+            'prefs', {'profile.managed_default_content_settings.images': 2 if 
+                      self.solver == 4 else 1, 'intl.accept_languages':
+                      'en,en_US'})  # Hide the images for the bypasser.
         options.add_experimental_option('excludeSwitches', [
             'enable-logging', 'enable-automation'])
         if isinstance(self.wallet.recovery_phrase, tuple):
@@ -109,8 +110,9 @@ class Webdriver:
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
         options.set_preference('intl.accept_languages', 'en,en-US')
-        options.set_preference('permissions.default.image', 2)
-        options.set_preference('permissions.default.stylesheet', 2)
+        if self.solver == 4:  # Hide the images for the bypasser.
+            options.set_preference('permissions.default.image', 2)
+            options.set_preference('permissions.default.stylesheet', 2)
         driver = webdriver.Firefox(service=SG(  # DeprecationWarning using
             self.browser_path), options=options,  # executable_path.
             service_log_path=devnull)  # Disable Firefox logs.
@@ -130,8 +132,8 @@ class Webdriver:
         self.window_handles(1)  # Switch to OpenSea.
         for text in ['This page is lost', 'something went wrong']:
             try:  # Check if the text is visible.
-                self.driver.visible('//*[contains(@class, "error") '
-                                    f'and contains(text(), {text})]', 1)
+                self.visible('//*[contains(@class, "error") '
+                             f'and contains(text(), "{text}")]', 1)
                 print(f'{YELLOW}404 page error.{RESET}')
                 return True  # Element is visible.
             except Exception:  # Not visible.
