@@ -196,6 +196,15 @@ class Upload:
                 '//*[@id="chain"]').get_attribute('value') == 'Ethereum':
             self.switch_ethereum()
 
+    def no_recaptcha(self) -> bool:
+        """Wait for the reCAPTCHA to not be displayed."""
+        try:
+            self.web.visible(
+                '(//div[@class="g-recaptcha"])[position()=1]', 0.1)
+            return True  # The reCAPTCHA is still visible.
+        except Exception:
+            return False  # The reCAPTCHA is not visible.
+
     def solve_recaptcha(self) -> None:
         """Check if reCAPTCHA is displayed and call the solver."""
         try:
@@ -206,10 +215,20 @@ class Upload:
                 print(f'{GREEN}reCAPTCHA solved.{RESET}', end=' ')
             else:  # When solved, webpage changes.
                 print(f'{YELLOW}reCAPTCHA displayed.{RESET}', end=' ')
+                WDW(self.web.driver, 600).until(  # Wait until the reCAPTCHA
+                    lambda _: not self.no_recaptcha())  # is not displayed.
             if self.solver == 4:
                 self.submit()  # Submit the form.
         except Exception:
             pass
+
+    def is_submited(self) -> bool:
+        """Check if the NFT is uploaded."""
+        try:  # While the loading icon is displayed.
+            self.web.visible('//div[contains(@class, "loader")]', 0.1)
+            return True  # Return True and wait.
+        except Exception:  # The loading finished.
+            return False  # The NFT should be uploaded.
 
     def save_sale(self) -> None:
         """Save the file for a future sale."""
@@ -234,8 +253,9 @@ class Upload:
             self.blockchain()  # Send blockchain.
             self.submit()  # Submit content.
             self.solve_recaptcha()  # Solve the reCAPTCHA.
-            # Wait until the page URL changes.
-            WDW(self.web.driver, 600 if self.solver == 1 else 20).until(
+            while self.is_submited():  # Check if the NFT is uploaded.
+                self.web.driver.implicitly_wait(0.1)
+            WDW(self.web.driver, 30).until(  # Wait for the page to change.
                 lambda _: self.web.driver.current_url != create_url)
             print(f'{GREEN}NFT uploaded.{RESET}')
             if 2 not in self.structure.action:
