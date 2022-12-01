@@ -152,9 +152,9 @@ class Sale:
                 1] <= 1 or self.structure.method[1] < self.structure.price[0]):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
         # Click on the "More option" button.
-        self.web.clickable('//button[contains(@class, "more-options")]')
+        self.web.clickable('//i[@value="expand_more"]/../..')
         # Click on the "Include reserve price"
-        self.web.send_keys('//*[@role="switch"]', Keys.ENTER)
+        self.web.send_keys('//*[@id="reservePrice"]', Keys.ENTER)
         self.web.send_keys('//*[@name="reservePrice"]',
                            format(self.structure.method[1], '.8f'))
 
@@ -175,10 +175,10 @@ class Sale:
                         self.structure.specific_buyer[0], bool) and \
                 self.structure.specific_buyer[0]:
             # Click on the "More option" button.
-            self.web.clickable('//button[contains(@class, "more-options")]')
+            self.web.clickable('//i[@value="expand_more"]/../..')
             # Click on "Reserve for specific buyer".
             self.web.send_keys('(//*[@role="switch"])[last()]', Keys.ENTER)
-            self.web.send_keys('//*[@id="reservedBuyerAddressOrEnsName"]', 
+            self.web.send_keys('//*[@id="reservedBuyerAddressOrEnsName"]',
                                self.structure.specific_buyer[1])
 
     def token(self) -> None:
