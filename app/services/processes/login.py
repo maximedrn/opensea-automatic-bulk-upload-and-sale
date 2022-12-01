@@ -51,11 +51,13 @@ class Login:
             # Check if the login to OpenSea worked.
             WDW(self.web.driver, 30).until(EC.url_to_be(self.create_url))
             print(f'{GREEN}Logged to OpenSea.{RESET}')
+            self.fails = 0  # Reset the counter.
             return True
         except Exception:  # The contract failed.
             try:  # Using the custom Google Chrome profile.
                 if self.web.visible('//img[@alt="Account"]', 1):
                     print(f'{GREEN}Logged to OpenSea.{RESET}')
+                    self.fails = 0  # Reset the counter.
                     return True  # Already connected.
             except Exception:
                 self.fails += 1  # Increment the counter of failure.
