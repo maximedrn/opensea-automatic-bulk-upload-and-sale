@@ -42,7 +42,7 @@
 <li>In case of failure during an upload, a listing or when you only want to upload your NFTs on OpenSea, <strong>a file is generated with details already filled</strong> in or to be filled in.</li>
 </ul>
 
-<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=V3PojmcPoCI">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
+<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=_RrCLFxvN0c">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
 
 <a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
 
