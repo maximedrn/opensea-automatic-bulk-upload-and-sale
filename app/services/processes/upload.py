@@ -143,7 +143,8 @@ class Upload:
                                Keys.RETURN)  # Toggle the switch button.
             self.web.send_keys(  # Input the unlockable content.
                 '//div[contains(@class, "unlockable")]/textarea',
-                self.structure.unlockable_content[1])
+                self.structure.unlockable_content[1].replace(
+                    '\\n', Keys.ENTER))
 
     def explicit_and_sensitive_content(self) -> None:
         """Toggle the switch button if true."""
