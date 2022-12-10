@@ -117,8 +117,8 @@ class Sale:
     def timed_auction(self) -> None:
         """Select Timed Auction and change method."""
         if 'Timed' in str(self.structure.sale_type):
-            # Click on the "Timed Auction" button.
-            self.web.clickable('//i[@value="timelapse"]/../..')
+            self.web.clickable(  # Click on the "Timed Auction" button.
+                '(//input[@name="sell-type"])[position()=2]/../../..')
             if isinstance(self.structure.method, list) and len(
                     self.structure.method) == 2:  # [method, price]
                 if 'declining' in str(self.structure.method[0]):
@@ -133,12 +133,10 @@ class Sale:
 
     def declining_price(self) -> None:
         """Sell with declining price (Timed Auction)."""
-        self.web.clickable('//*[@id="main"]/div/div/div[3]/div/div[2]'
-                           '/div/div[1]/form/div[2]/div/div[2]')
-        # Click on the "Sell with declining price"
-        self.web.clickable('//*[@role="tooltip"]/div/div/ul/li/button')
+        # Click on the "Sell with declining price".
+        self.web.clickable('//i[@value="trending_down"]/../..')
         if self.structure.method[1] < self.structure.price[0]:
-            self.web.send_keys('//*[@name="endingPrice"]',
+            self.web.send_keys('//*[@id="endingPrice"]',
                                format(self.structure.method[1], '.8f'))
         else:  # Ending price is higher than the price.
             raise TE('The ending price must be higher'
@@ -152,9 +150,9 @@ class Sale:
                 1] <= 1 or self.structure.method[1] < self.structure.price[0]):
             raise TE('Reserve price must be higher than 1 WETH and the price.')
         # Click on the "More option" button.
-        self.web.clickable('//i[@value="expand_more"]/../..')
+        self.web.clickable('(//i[@value="expand_more"])[position()=2]/../..')
         # Click on the "Include reserve price"
-        self.web.send_keys('//*[@id="reservePrice"]', Keys.ENTER)
+        self.web.clickable('//*[@id="reservePrice"]')
         self.web.send_keys('//*[@name="reservePrice"]',
                            format(self.structure.method[1], '.8f'))
 
@@ -174,8 +172,8 @@ class Sale:
                     self.structure.specific_buyer) == 2 and isinstance(
                         self.structure.specific_buyer[0], bool) and \
                 self.structure.specific_buyer[0]:
-            # Click on the "More option" button.
-            self.web.clickable('//i[@value="expand_more"]/../..')
+            self.web.clickable(  # Click on the "More option" button.
+                '(//i[@value="expand_more"])[position()=2]/../..')
             # Click on "Reserve for specific buyer".
             self.web.send_keys('(//*[@role="switch"])[last()]', Keys.ENTER)
             self.web.send_keys('//*[@id="reservedBuyerAddressOrEnsName"]',
