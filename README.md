@@ -46,6 +46,7 @@
 
 <a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
 
+https://user-images.githubusercontent.com/91475935/209368927-8998677d-be8d-4eb9-b3c7-cbd11b223bba.mp4
 
 <h3>You find the installation of this tool too complicated?</h3>
 <p>Well, with the <a href="https://maximedrn.gumroad.com/l/opensea-workshop">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.
