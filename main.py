@@ -73,8 +73,8 @@ def process(action: list, solver: int, key: str, structure: object,
         sale = Sale(structure, save, web, wallet)
     if 3 in action:  # Send the object to the class.
         delete.init(structure, web)
-    time = (datetime.now(  # Time in 12 hours.
-        ) + timedelta(hours=12)).strftime('%Y-%m-%d %H:%M:%S')
+    nft_number, time = 0, (datetime.now(  # Time in 6 hours.
+        ) + timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
     # Proceed to the Upload or Sale process in a loop.
     for nft_number in range(starting, reader.lenght_file):
         if datetime.now().strftime('%Y-%m-%d %H:%M:%S') > time:
