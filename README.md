@@ -29,6 +29,17 @@
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Changelog</a>, new fixes and features.</strong></li>
 </ul>
 
+<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=_RrCLFxvN0c">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
+
+<p>An improved paid version of this tool, faster and easier to understand. All extensions are included.</p>
+
+<a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
+
+<h3>You find the installation of this tool too complicated?</h3>
+<p>Well, with the <a href="https://maximedrn.gumroad.com/l/opensea-workshop">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.</p>
+
+https://user-images.githubusercontent.com/91475935/209368927-8998677d-be8d-4eb9-b3c7-cbd11b223bba.mp4
+
 <h2>Introduction</h2>
 
 <p>With this bot, <strong>you can choose to upload, list or even both your non-fungible tokens</strong> on the OpenSea marketplace.</p>
@@ -41,16 +52,6 @@
 <li><strong>Ethereum and Polygon blockchains are supported</strong>, and the switch between these two blockchains is also supported.</li>
 <li>In case of failure during an upload, a listing or when you only want to upload your NFTs on OpenSea, <strong>a file is generated with details already filled</strong> in or to be filled in.</li>
 </ul>
-
-<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=_RrCLFxvN0c">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
-
-<a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
-
-https://user-images.githubusercontent.com/91475935/209368927-8998677d-be8d-4eb9-b3c7-cbd11b223bba.mp4
-
-<h3>You find the installation of this tool too complicated?</h3>
-<p>Well, with the <a href="https://maximedrn.gumroad.com/l/opensea-workshop">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.
-<br /><i><strong><a href="https://maximedrn.gumroad.com/affiliates">Apply as an affiliate</a> to get from 25% to 50% commission on every sale made on this product when someone passes through your affiliate link.</strong> The commission increases by 1% for each sale up to a maximum of 50%.</i></p>
 
 <h2>Useful tools to have for this bot</h2>
 
