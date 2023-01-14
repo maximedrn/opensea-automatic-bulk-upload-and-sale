@@ -63,7 +63,7 @@ RECOVERY_PHRASE = (
     '(Press [ENTER] to do it manually) ')
 
 PRIVATE_KEY = (
-    '\nWhat is your account number? '
+    '\nWhat is your account number or private key? '
     '(Press [ENTER] to ignore this step) ')
 
 USER_DATA = '\nWhat is the "Chrome/User Data/" path? '
