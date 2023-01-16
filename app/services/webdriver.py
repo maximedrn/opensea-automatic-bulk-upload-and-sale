@@ -65,7 +65,7 @@ class Webdriver:
         # UNQUOTE THIT TO ENABLE THE HEADLESS MODE.
         """if self.solver != 1 and self.wallet.recovery_phrase != '' and \
                 self.wallet.password != '':  # Not manual solver.
-            options.add_argument('--headless=chrome')  # Headless mode."""
+            options.add_argument('--headless=new')  # Headless mode."""
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
