@@ -65,7 +65,9 @@ class Webdriver:
         # UNQUOTE THIT TO ENABLE THE HEADLESS MODE.
         """if self.solver != 1 and self.wallet.recovery_phrase != '' and \
                 self.wallet.password != '':  # Not manual solver.
-            options.add_argument('--headless=new')  # Headless mode."""
+            options.add_argument('--window-size=1920x1080')
+            options.add_argument('--headless=' + 'new' if self.chrome_version(
+                ) >= 109 else 'chrome')  # Headless mode."""
         options.add_argument('log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
@@ -92,6 +94,13 @@ class Webdriver:
         self.send(driver, 'Network.enable')  # Confirm the blocked URLs.
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
+    
+    def chrome_version(self) -> float or int:
+        """Return the Google Chrome version."""
+        from webdriver_manager.utils import ChromeType, \
+            get_browser_version_from_os
+        version = get_browser_version_from_os(ChromeType.GOOGLE).split('.')
+        return int(version[0]) if version else 1  # Default.
 
     def send(self, driver: webdriver, cmd: str, params: dict = {}) -> None:
         """Run a specific command with parameters in the webdriver."""
@@ -182,8 +191,9 @@ class Webdriver:
 
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
-        window_number = {1: 0, 0: 1, 2: 2}[window_number] \
-            if self.window == 1 else window_number
+        if self.chrome_version() >= 110 and window_number in (
+                0, 1) or self.window == 1:  # Firefox or Google v.110 or higher.
+            window_number = {0: 1, 1: 0}[window_number]
         WDW(self.driver, 10).until(lambda _: len(
             self.driver.window_handles) > window_number)
         self.driver.switch_to.window(  # Switch to the asked tab.
