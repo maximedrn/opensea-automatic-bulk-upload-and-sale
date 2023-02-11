@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.12.14'
+VERSION = '1.12.15'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -33,10 +33,10 @@ FIRST_PAGE = (
     '\nYouTube: https://www.youtube.com/channel/UCoqpR1OLb'
     'swIyQVatKBoGxA'
     '\nEthereum: 0xDD135d5be0a23f6daAAE7D2d0580828c9e09402E'
-    '\n\nCopyright © 2022 Maxime Dréan. All rights reserved.'
+    '\n\nCopyright © 2023 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2022, 10 December.{RESET}'
+    f'\n\nVersion {VERSION} - 2023, 11 February.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
     '\nJOIN ME ON TELEGRAM: https://t.me/opensea_bulk_upload_and_sale'
@@ -46,7 +46,7 @@ ENTER = '\nPRESS [ENTER] TO CONTINUE. '
 
 SECOND_PAGE = (
     f'{GREEN}Created by Maxime Dréan.'
-    '\nCopyright © 2022 Maxime Dréan. All rights reserved.'
+    '\nCopyright © 2023 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     f'is strictly prohibited.{RESET}'
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
