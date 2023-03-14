@@ -99,8 +99,8 @@ class Webdriver:
         """Return the Google Chrome version."""
         from webdriver_manager.utils import ChromeType, \
             get_browser_version_from_os
-        version = get_browser_version_from_os(ChromeType.GOOGLE).split('.')
-        return int(version[0]) if version else 1  # Default.
+        version = get_browser_version_from_os(ChromeType.GOOGLE)
+        return int(version.split('.')[0]) if version else 110  # Default.
 
     def send(self, driver: webdriver, cmd: str, params: dict = {}) -> None:
         """Run a specific command with parameters in the webdriver."""
