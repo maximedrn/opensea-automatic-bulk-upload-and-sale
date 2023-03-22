@@ -313,7 +313,7 @@ class Sale:
         try:  # Check if the "Your item has been listed" text is displayed.
             WDW(self.web.driver, 10).until(EC.number_of_windows_to_be(2))
             self.web.window_handles(1)  # Switch back to the OpenSea tab.
-            self.web.visible('//header/h4[contains(., "listed")]', 15)
+            self.web.visible('//section//h4[contains(., "listed")]', 15)
         except Exception:  # The NFT is not listed.
             if self.structure.blockchain == 'Polygon':  # This should not
                 raise TE('NFT seems to not be listed.')  # happen on Polygon.
@@ -321,8 +321,9 @@ class Sale:
                 self.web.window_handles(1)  # Switch back to the OpenSea tab.
                 self.web.driver.get(self.structure.nft_url.replace(
                     '?created=true', '').replace('/sell', ''))
-                self.web.visible('//button[contains(., "Cancel") and contains'
-                                 '(., "listing")]')  # "Cancel listing" button.
+                self.web.visible(  # "Cancel listing" button.
+                    '//button[contains(., "listing") and (contains(., "'
+                    'Edit") or contains(., "Cancel"))]')
             except Exception:  # The NFT is not listed.
                 if self.web.page_error():  # Check for a 404 page error.
                     return self.check_listed()  # Try again.
