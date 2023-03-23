@@ -130,7 +130,7 @@ class Upload:
                         self.web.clear_text(actual_element)  # Default value.
                         self.web.send_keys(actual_element, data[rank - 1])
             # Click on the "Save" button.
-            self.web.clickable('//footer/button')
+            self.web.clickable('//footer//button')
 
     def unlockable_content(self) -> None:
         """Toggle the switch button and send the unlockable content."""
