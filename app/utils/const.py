@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.12.16'
+VERSION = '1.12.17'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
