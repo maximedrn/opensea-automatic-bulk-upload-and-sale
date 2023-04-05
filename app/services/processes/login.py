@@ -40,8 +40,8 @@ class Login:
             print('Login to OpenSea.', end=' ')
             self.web.window_handles(1)  # Switch to the main (data:,) tab.
             self.web.driver.get(self.login_url)  # Go to the OpenSea login URL.
-            # Click on the wallet button.
-            self.web.clickable('//i[@value="account_balance_wallet"]/..')
+            self.web.clickable(  # Click on the wallet button.
+                '//a[contains(@href, "account")]/../div/button')
             # Click on the "Show more options" button.
             self.web.clickable('//button[contains(@class, "show-more")]')
             self.web.clickable(  # Click on the wallet button in the list.
