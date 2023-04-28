@@ -23,6 +23,9 @@ from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
+# UC module: pip install undetected_chromedriver
+from undetected_chromedriver import Chrome
+
 # Webdriver Manager module: pip install webdriver_manager
 from webdriver_manager.chrome import ChromeDriverManager as CDM
 from webdriver_manager.firefox import GeckoDriverManager as GDM
@@ -30,6 +33,7 @@ from webdriver_manager.firefox import GeckoDriverManager as GDM
 # Python internal imports.
 from ..utils.func import exit
 from ..utils.colors import GREEN, RED, YELLOW, RESET
+from .wallets import extract_zip
 
 # Python default imports.
 from os import name as osname, devnull
@@ -60,33 +64,34 @@ class Webdriver:
     def chrome(self) -> webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
-        # Add wallet extension according to user choice.
-        options.add_extension(eval(f'self.{self.wallet_name}_extension_path'))
+        # options.add_extension(self.metamask_extension_path)
+        options.add_argument(f'--load-extension=' + extract_zip(
+            eval(f'self.{self.wallet_name}_extension_path')))
         # UNQUOTE THIT TO ENABLE THE HEADLESS MODE.
         """if self.solver != 1 and self.wallet.recovery_phrase != '' and \
                 self.wallet.password != '':  # Not manual solver.
             options.add_argument('--window-size=1920x1080')
             options.add_argument('--headless=' + 'new' if self.chrome_version(
                 ) >= 109 else 'chrome')  # Headless mode."""
-        options.add_argument('log-level=3')  # No logs is printed.
+        options.add_argument('--log-level=3')  # No logs is printed.
         options.add_argument('--mute-audio')  # Audio is muted.
         options.add_argument('--disable-infobars')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
         options.add_argument('--lang=en-US')  # Set webdriver language
-        options.add_experimental_option(  # to English. - 2 methods.
-            'prefs', {'profile.managed_default_content_settings.images': 2 if 
-                      self.solver == 4 else 1, 'intl.accept_languages':
-                      'en,en_US'})  # Hide the images for the bypasser.
-        options.add_experimental_option('excludeSwitches', [
-            'enable-logging', 'enable-automation'])
+        # options.add_experimental_option(  # to English. - 2 methods.
+        #     'prefs', {'profile.managed_default_content_settings.images': 2 if 
+        #               self.solver == 4 else 1, 'intl.accept_languages':
+        #               'en,en_US'})  # Hide the images for the bypasser.
+        # options.add_experimental_option('excludeSwitches', [
+        #     'enable-logging', 'enable-automation'])
         if isinstance(self.wallet.recovery_phrase, tuple):
             options.add_argument(  # Set the User Data folder.
                 f'--user-data-dir={self.wallet.recovery_phrase[0]}')
             options.add_argument(  # Set the Google Chrome profile.
                 f'--profile-directory={self.wallet.recovery_phrase[1]}')
-        driver = webdriver.Chrome(service=SC(  # DeprecationWarning using
+        driver = Chrome(service=SC(  # DeprecationWarning using
             self.browser_path), options=options)  # executable_path.
         self.send(driver, 'Network.setBlockedURLs', {'urls': [
             'www.google-analytics.com', 'static.cloudflareinsights.com',
