@@ -230,18 +230,19 @@ class Sale:
         try:  # Try to set the duration.
             if self.structure.duration == ['1 week']:  # Convert from old
                 self.structure.duration = ['7 days']  # to the new one.
-            if self.web.visible('//*[@id="duration"]/div[2]').text \
-                    != self.structure.duration[0]:  # Not default.
+            if self.web.visible('//*[@id="duration"]').get_attribute(
+                    'value') != self.structure.duration[0]:  # Not default.
                 self.web.clickable('//*[@id="duration"]')  # Date button.
-                self.web.clickable('//*[@role="dialog"]'  # Duration Range
-                                '/div[1]/div/div[2]/input')  # sheet.
-                self.web.clickable('//span[contains(text(), "'
-                                f'{self.structure.duration[0]}")]/../..')
-                self.web.send_keys('//*[@role="dialog"]', Keys.ENTER)
+                self.web.clickable(f'//li//span[text()="' +  # Duration text.
+                                   self.structure.duration[0] + '"]/../..')
         except Exception:  # Other format/ incorrect duration.
             raise TE('Something went wrong with the duration.')
 
     def specific_duration(self, date: str = '%d-%m-%Y %H:%M') -> None:
+        raise DeprecationWarning(
+            'Specific duration is not working anymore. Some help would '
+            'be appreciated (Sale.specific_duration() - '
+            'app/services/processes/sale.py)')
         from datetime import datetime as dt  # Default import.
         if (dt.strptime(self.structure.duration[1], date) - dt.strptime(
                 self.structure.duration[0], date)).total_seconds(
@@ -251,40 +252,42 @@ class Sale:
                 self.structure.duration[0], date):  # Is date has passed?
             raise TE('Starting date has passed.')
         try:  # Try to set the duration.
-            self.web.clickable('//*[@id="duration"]')  # Open the duration.
-            self.web.visible(  # Scroll to the pop up frame of the date.
-                '//*[@role="dialog"]').location_once_scrolled_into_view
+            self.web.clickable('//*[@id="duration"]')  # Date button.
+            self.web.clickable('//li[position()=1]//span/../..')  # Custom.
             for index, id in enumerate(['start', 'end']):
-                self.send_date(id, self.structure.duration[index])
-            self.web.send_keys('//html', Keys.ENTER)  # Close the frame.
-        except Exception:  # Other format/ incorrect duration.
+                self.web.clickable(  # Click on the duration to edit it.
+                    f'//button[@id="{id}-date-duration-picker-button"]')
+                self.web.send_keys(  # Input the duration.
+                    f'//input[@id="{id}-date-duration-picker-input"]',
+                    self.structure.duration[index])
+        except Exception:
             raise TE('Something went wrong with the duration.')
 
-    def send_date(self, element: str, duration: str) -> None:
-        """Send the the specific duration."""
-        date, time = duration.split(' ')  # Get the date and the time.
-        day, month, year = date.split('-')  # Get the day, month and year.
-        if self.web.window == 1:  # On Mozilla Firefox.
-            date = year + '-' + month + '-' + day
-            self.web.send_keys(f'//*[@id="{element}-date"]', date)
-            self.web.send_keys(f'//*[@id="{element}-time"]', time)
-            return  # Do not require to do all the complicated things.
-        from datetime import datetime as dt  # Python default import.
-        time, clock = dt.strptime(  # 24h to 12h and get PM/ AM value.
-            time, '%H:%M').strftime('%I:%M %p')[:-1].split(' ')
-        hour, minute = time.split(':')  # Split the hour and minute.
-        year = '' if str(dt.now().year) == year else year  # Remove year.
-        left, right, date, time = Keys.ARROW_LEFT, Keys.ARROW_RIGHT, [], []
-        for key, part in enumerate([month.zfill(2), day.zfill(2), year]):
-            date += [left] * 3 + [right] * key + [part]  # Date list.
-        for key, part in enumerate([hour.zfill(2), minute.zfill(2), clock]):
-            time += [left] * 3 + [right] * key + [part]  # Time list.
-        self.web.clickable(f'//*[@id="{element}-date"]')  # Send date.
-        [self.web.send_keys(  # Send the date in different part.
-            f'//*[@id="{element}-date"]', part) for part in date]
-        self.web.clickable(f'//*[@id="{element}-time"]')
-        [self.web.send_keys(  # Send the time in different part.
-            f'//*[@id="{element}-time"]', part) for part in time]
+    # def send_date(self, element: str, duration: str) -> None:
+    #     """Send the the specific duration."""
+    #     date, time = duration.split(' ')  # Get the date and the time.
+    #     day, month, year = date.split('-')  # Get the day, month and year.
+    #     if self.web.window == 1:  # On Mozilla Firefox.
+    #         date = year + '-' + month + '-' + day
+    #         self.web.send_keys(f'//*[@id="{element}-date"]', date)
+    #         self.web.send_keys(f'//*[@id="{element}-time"]', time)
+    #         return  # Do not require to do all the complicated things.
+    #     from datetime import datetime as dt  # Python default import.
+    #     time, clock = dt.strptime(  # 24h to 12h and get PM/ AM value.
+    #         time, '%H:%M').strftime('%I:%M %p')[:-1].split(' ')
+    #     hour, minute = time.split(':')  # Split the hour and minute.
+    #     year = '' if str(dt.now().year) == year else year  # Remove year.
+    #     left, right, date, time = Keys.ARROW_LEFT, Keys.ARROW_RIGHT, [], []
+    #     for key, part in enumerate([month.zfill(2), day.zfill(2), year]):
+    #         date += [left] * 3 + [right] * key + [part]  # Date list.
+    #     for key, part in enumerate([hour.zfill(2), minute.zfill(2), clock]):
+    #         time += [left] * 3 + [right] * key + [part]  # Time list.
+    #     self.web.clickable(f'//*[@id="{element}-date"]')  # Send date.
+    #     [self.web.send_keys(  # Send the date in different part.
+    #         f'//*[@id="{element}-date"]', part) for part in date]
+    #     self.web.clickable(f'//*[@id="{element}-time"]')
+    #     [self.web.send_keys(  # Send the time in different part.
+    #         f'//*[@id="{element}-time"]', part) for part in time]
 
     def complete_listing(self) -> None:
         """Complete the listing by clicking on the button."""
