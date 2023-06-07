@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.12.18'
+VERSION = '1.12.19'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -36,7 +36,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2023 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2023, 28 April.{RESET}'
+    f'\n\nVersion {VERSION} - 2023, 07 June.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
     '\nJOIN ME ON TELEGRAM: https://t.me/opensea_bulk_upload_and_sale'
