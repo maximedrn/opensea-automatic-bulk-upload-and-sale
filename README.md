@@ -29,14 +29,12 @@
 <li><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Changelog</a>, new fixes and features.</strong></li>
 </ul>
 
-<h2>OpenSea Workshop - <i><a href="https://www.youtube.com/watch?v=_RrCLFxvN0c">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
+<h2>BulkSea Workshop - <i><a href="https://www.youtube.com/watch?v=_RrCLFxvN0c">Demonstration video</a></i> <img src="https://user-images.githubusercontent.com/91475935/187707252-3a304735-6a88-46c4-8c17-af882eb8b4bd.png" height="16px" /></h2>
 
 <p>An improved paid version of this tool, faster and easier to understand. All extensions are included.</p>
 
-<a href="https://maximedrn.gumroad.com/l/opensea-workshop"><img src="https://user-images.githubusercontent.com/91475935/187708584-ad849d7b-f247-40c3-b6ed-63b61f83e337.png"></a>
-
 <h3>You find the installation of this tool too complicated?</h3>
-<p>Well, with the <a href="https://maximedrn.gumroad.com/l/opensea-workshop">OpenSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.</p>
+<p>Well, with the <a href="https://bulkseaworkshop.com/pricing">BulkSea Workshop</a> it's over, its easy installation and its <strong>intuitive interface</strong> offers you the possibility to <strong>create a compatible file including your metadata</strong>. You can <strong>upload</strong>, <strong>put on sale</strong> and <strong>delete</strong> NFTs, but also <strong>scrape your collection(s) in order to find duplicates and missing items</strong>.</p>
 
 https://user-images.githubusercontent.com/91475935/209368927-8998677d-be8d-4eb9-b3c7-cbd11b223bba.mp4
 
