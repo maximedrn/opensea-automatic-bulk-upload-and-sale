@@ -28,6 +28,7 @@ from undetected_chromedriver import Chrome
 
 # Webdriver Manager module: pip install webdriver_manager
 from webdriver_manager.chrome import ChromeDriverManager as CDM
+from webdriver_manager.core.driver_cache import DriverCacheManager as DCM
 from webdriver_manager.firefox import GeckoDriverManager as GDM
 
 # Python internal imports.
@@ -64,6 +65,7 @@ class Webdriver:
     def chrome(self) -> webdriver:
         """Start a Chrome webdriver and return its state."""
         options = webdriver.ChromeOptions()  # Configure options for Chrome.
+        # options.add_extension(self.metamask_extension_path)
         options.add_argument(f'--load-extension=' + extract_zip(
             eval(f'self.{self.wallet_name}_extension_path')))
         # UNQUOTE THIT TO ENABLE THE HEADLESS MODE.
@@ -78,14 +80,20 @@ class Webdriver:
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
-        options.add_argument('--lang=en-US')  # Set webdriver language to English.
+        options.add_argument('--lang=en-US')  # Set webdriver language
+        # options.add_experimental_option(  # to English. - 2 methods.
+        #     'prefs', {'profile.managed_default_content_settings.images': 2 if 
+        #               self.solver == 4 else 1, 'intl.accept_languages':
+        #               'en,en_US'})  # Hide the images for the bypasser.
+        # options.add_experimental_option('excludeSwitches', [
+        #     'enable-logging', 'enable-automation'])
         if isinstance(self.wallet.recovery_phrase, tuple):
             options.add_argument(  # Set the User Data folder.
                 f'--user-data-dir={self.wallet.recovery_phrase[0]}')
             options.add_argument(  # Set the Google Chrome profile.
                 f'--profile-directory={self.wallet.recovery_phrase[1]}')
-        driver = Chrome(options=options, log_level=0, service=SC(
-            self.browser_path), version_main=self.chrome_version(True))
+        driver = Chrome(service=SC(  # DeprecationWarning using
+            self.browser_path), options=options)  # executable_path.
         self.send(driver, 'Network.setBlockedURLs', {'urls': [
             'www.google-analytics.com', 'static.cloudflareinsights.com',
             'bat.bing.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com']})
@@ -93,13 +101,12 @@ class Webdriver:
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
     
-    def chrome_version(self, default_version: bool = False) -> float or int:
+    def chrome_version(self) -> float or int:
         """Return the Google Chrome version."""
-        from webdriver_manager.utils import ChromeType, \
-            get_browser_version_from_os
-        version = get_browser_version_from_os(ChromeType.GOOGLE)
-        return int(version.split('.')[0]) if version else (
-            None if default_version else 110) # Default.
+        from webdriver_manager.core.os_manager import ChromeType, \
+            OperationSystemManager as OSM
+        version = OSM.get_browser_version_from_os(ChromeType.GOOGLE)
+        return int(version.split('.')[0]) if version else 110  # Default.
 
     def send(self, driver: webdriver, cmd: str, params: dict = {}) -> None:
         """Run a specific command with parameters in the webdriver."""
@@ -206,8 +213,9 @@ def download_browser(browser: int) -> str:
         webdriver = 'GeckoDriver' if browser == 1 else 'ChromeDriver'
         print(f'Downloading the {webdriver}.', end=' ')
         # Download the webdriver using the Driver Manager module.
-        browser_path = GDM(log_level=0).install() if browser == 1 \
-            else CDM(log_level=0).install()
+        browser_path = GDM(cache_manager=DCM(root_dir='assets')).install() \
+            if browser == 1 else CDM(cache_manager=DCM(
+                root_dir='assets')).install()
         print(f'{GREEN}{webdriver} downloaded:{RESET} \n{browser_path}')
         return browser_path  # Return the path of the webdriver.
     except Exception:
