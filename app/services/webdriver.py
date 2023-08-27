@@ -92,8 +92,8 @@ class Webdriver:
                 f'--user-data-dir={self.wallet.recovery_phrase[0]}')
             options.add_argument(  # Set the Google Chrome profile.
                 f'--profile-directory={self.wallet.recovery_phrase[1]}')
-        driver = Chrome(service=SC(  # DeprecationWarning using
-            self.browser_path), options=options)  # executable_path.
+        driver = Chrome(options=options, log_level=0, driver_executable_path=
+            self.browser_path, version_main=Webdriver.chrome_version(True))
         self.send(driver, 'Network.setBlockedURLs', {'urls': [
             'www.google-analytics.com', 'static.cloudflareinsights.com',
             'bat.bing.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com']})
@@ -101,12 +101,14 @@ class Webdriver:
         driver.maximize_window()  # Maximize window to reach all elements.
         return driver
     
-    def chrome_version(self) -> float or int:
+    @staticmethod
+    def chrome_version(default_version: bool = False) -> float | int:
         """Return the Google Chrome version."""
         from webdriver_manager.core.os_manager import ChromeType, \
             OperationSystemManager as OSM
-        version = OSM.get_browser_version_from_os(ChromeType.GOOGLE)
-        return int(version.split('.')[0]) if version else 110  # Default.
+        version = OSM().get_browser_version_from_os(ChromeType.GOOGLE)
+        return int(version.split('.')[0]) if version else (
+            None if default_version else 110)  # Default.
 
     def send(self, driver: webdriver, cmd: str, params: dict = {}) -> None:
         """Run a specific command with parameters in the webdriver."""
@@ -194,11 +196,27 @@ class Webdriver:
             self.send_keys(element, data)  # or a default value, and send it.
             return False
         return True
+    
+    # def window_handles(self, window_number: int) -> None:
+    #     """Check for window handles and wait until a specific tab is opened."""
+    #     if window_number in (0, 1):
+    #         window_number = {0: 1, 1: 0}[window_number]
+    #     from datetime import datetime, timedelta
+    #     now = datetime.now()  # Get the current datetime.
+    #     while datetime.now() - now <= timedelta(seconds=5):
+    #         try:  # Try to switch to the correct window.
+    #             WDW(self.driver, 20).until(lambda _: len(
+    #                 self.driver.window_handles) > window_number)
+    #             self.driver.switch_to.window(  # Switch to the asked tab.
+    #                 self.driver.window_handles[window_number])
+    #             return  # The switch is done.
+    #         except Exception:  # A tab has been closed/opened.
+    #             pass  # Retry until the datetime is finished.
+    #     raise Exception('Cannot switch to the selected tab.')
 
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
-        if self.chrome_version() >= 110 and window_number in (
-                0, 1) or self.window == 1:  # Firefox or Google v.110 or higher.
+        if self.window == 1:  # Firefox.
             window_number = {0: 1, 1: 0}[window_number]
         WDW(self.driver, 10).until(lambda _: len(
             self.driver.window_handles) > window_number)
