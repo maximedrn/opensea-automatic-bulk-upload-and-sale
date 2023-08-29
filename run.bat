@@ -14,6 +14,9 @@ if not exist %ENV_NAME% (
 @rem Activate the Python environment.
 call .\%ENV_NAME%\Scripts\Activate.bat
 
+# Install requirements.
+%PYTHON_PATH% -m pip install -r requirements.txt
+
 @rem Run the main.py file.
 %PYTHON_PATH% main.py
 
