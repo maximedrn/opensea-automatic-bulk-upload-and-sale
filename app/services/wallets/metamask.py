@@ -8,7 +8,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 
@@ -37,7 +37,9 @@ class MetaMask:
         try:  # Try to login to the MetaMask extension.
             print('Login to MetaMask.', end=' ')
             self.web.window_handles(0)  # Switch to the MetaMask extension tab.
-            self.web.driver.refresh()  # Prevent a blank page.
+            if not 'metamask' in self.web.driver.title.lower():
+                self.web.new_switch_handle = True
+                self.web.window_handles(1)  # Switch to the MetaMask extension tab.
             if isinstance(self.wallet.recovery_phrase, tuple):
                 return self.reconnect()
             # Click on the "Start" button.

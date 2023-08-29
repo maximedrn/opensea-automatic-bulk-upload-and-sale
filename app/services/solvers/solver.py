@@ -8,7 +8,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 
@@ -28,7 +28,7 @@ class Solver:
 
     def init_solver(self) -> None:
         """Init the reCAPTCHA solver according to user choice."""
-        if self.solver == 4:  # No reCAPTCHA.
+        if self.solver == 2:  # No reCAPTCHA.
             try:
                 from .no_captcha import NoCaptcha
                 self.recaptcha = NoCaptcha()
@@ -37,12 +37,12 @@ class Solver:
         elif self.solver == 3:  # 2Captcha solver.
             from .two_captcha import TwoCaptcha
             self.recaptcha = TwoCaptcha(self.key)
-        elif self.solver == 2:  # Yolov5x6 reCAPTPCHA solver.
-            try:  # Try to init the reCAPTCHA models.
-                from .recaptcha import solver
-                self.recaptcha = solver()  # Class object.
-            except Exception as error:
-                exit(f'{YOLO_ERROR}\n{error}')
+        # elif self.solver == 2:  # Yolov5x6 reCAPTPCHA solver.
+        #     try:  # Try to init the reCAPTCHA models.
+        #         from .recaptcha import solver
+        #         self.recaptcha = solver()  # Class object.
+        #     except Exception as error:
+        #         exit(f'{YOLO_ERROR}\n{error}')
 
     def solve(self, web: object) -> bool:
         """Call the solve() method from the specific solver."""

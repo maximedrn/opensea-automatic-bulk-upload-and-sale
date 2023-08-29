@@ -7,7 +7,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 

@@ -8,7 +8,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 
@@ -59,6 +59,7 @@ class Webdriver:
         self.wallet = wallet  # Instance of the Wallet class.
         # Start a Chrome (not headless) or Firefox (headless mode) webdriver.
         self.actual_blockchain = 'Ethereum'  # Default blockchain.
+        self.new_switch_handle = False
         self.driver = self.firefox() if browser == 1 else self.chrome()
         self.window = browser  # Window handle value.
 
@@ -197,31 +198,22 @@ class Webdriver:
             return False
         return True
     
-    # def window_handles(self, window_number: int) -> None:
-    #     """Check for window handles and wait until a specific tab is opened."""
-    #     if window_number in (0, 1):
-    #         window_number = {0: 1, 1: 0}[window_number]
-    #     from datetime import datetime, timedelta
-    #     now = datetime.now()  # Get the current datetime.
-    #     while datetime.now() - now <= timedelta(seconds=5):
-    #         try:  # Try to switch to the correct window.
-    #             WDW(self.driver, 20).until(lambda _: len(
-    #                 self.driver.window_handles) > window_number)
-    #             self.driver.switch_to.window(  # Switch to the asked tab.
-    #                 self.driver.window_handles[window_number])
-    #             return  # The switch is done.
-    #         except Exception:  # A tab has been closed/opened.
-    #             pass  # Retry until the datetime is finished.
-    #     raise Exception('Cannot switch to the selected tab.')
-
     def window_handles(self, window_number: int) -> None:
         """Check for window handles and wait until a specific tab is opened."""
-        if self.window == 1:  # Firefox.
+        if self.new_switch_handle and window_number in (0, 1):
             window_number = {0: 1, 1: 0}[window_number]
-        WDW(self.driver, 10).until(lambda _: len(
-            self.driver.window_handles) > window_number)
-        self.driver.switch_to.window(  # Switch to the asked tab.
-            self.driver.window_handles[window_number])
+        from datetime import datetime, timedelta
+        now = datetime.now()  # Get the current datetime.
+        while datetime.now() - now <= timedelta(seconds=5):
+            try:  # Try to switch to the correct window.
+                WDW(self.driver, 20).until(lambda _: len(
+                    self.driver.window_handles) > window_number)
+                self.driver.switch_to.window(  # Switch to the asked tab.
+                    self.driver.window_handles[window_number])
+                return  # The switch is done.
+            except Exception:  # A tab has been closed/opened.
+                pass  # Retry until the datetime is finished.
+        raise Exception('Cannot switch to the selected tab.')
 
 
 def download_browser(browser: int) -> str:

@@ -8,7 +8,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 
@@ -18,7 +18,7 @@ from .colors import GREEN, YELLOW, RESET
 from .user import check_version
 
 
-VERSION = '1.12.21'
+VERSION = '1.13.0'
 
 # Change this with any values.
 # 1 means 2 failures allowed.
@@ -36,7 +36,7 @@ FIRST_PAGE = (
     '\n\nCopyright © 2023 Maxime Dréan. All rights reserved.'
     '\nAny distribution, modification or commercial use '
     'is strictly prohibited.'
-    f'\n\nVersion {VERSION} - 2023, 27 August.{RESET}'
+    f'\n\nVersion {VERSION} - 2023, 29 August.{RESET}'
     f'{check_version(VERSION)}'  # Check for a new update of the bot.
     '\n\nAdd-ons available here: https://maximedrn.gumroad.com/'
     '\nJOIN ME ON TELEGRAM: https://t.me/opensea_bulk_upload_and_sale'

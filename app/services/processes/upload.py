@@ -8,7 +8,7 @@
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
 
-Copyright © 2022 Maxime Dréan. All rights reserved.
+Copyright © 2023 Maxime Dréan. All rights reserved.
 Any distribution, modification or commercial use is strictly prohibited.
 """
 
@@ -210,7 +210,7 @@ class Upload:
         """Check if reCAPTCHA is displayed and call the solver."""
         try:
             self.web.visible('(//div[@class="g-recaptcha"])[position()=1]')
-            if self.solver in [2, 3, 4]:  # reCAPTCHA solver activated.
+            if self.solver in [2, 3]:  # reCAPTCHA solver activated.
                 if not self.recaptcha.solve(self.web):
                     raise TE('Cannot solve the reCAPTCHA.')
                 print(f'{GREEN}reCAPTCHA solved.{RESET}', end=' ')
@@ -218,7 +218,7 @@ class Upload:
                 print(f'{YELLOW}reCAPTCHA displayed.{RESET}', end=' ')
                 WDW(self.web.driver, 600).until(  # Wait until the reCAPTCHA
                     lambda _: not self.no_recaptcha())  # is not displayed.
-            if self.solver == 4:
+            if self.solver == 2:
                 self.submit()  # Submit the form.
         except Exception:
             pass
