@@ -14,6 +14,9 @@ fi
 # Activate the Python environment.
 source "$ENV_NAME/bin/activate"
 
+# Install requirements.
+$PYTHON_PATH -m pip install -r requirements.txt
+
 # Run the main.py file.
 $PYTHON_PATH main.py
 
