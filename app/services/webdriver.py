@@ -13,6 +13,8 @@ Any distribution, modification or commercial use is strictly prohibited.
 """
 
 
+from __future__ import annotations
+
 # Selenium module imports: pip install selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as SC
