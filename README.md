@@ -1,13 +1,8 @@
 <h1 align="center">Automatically and massively upload and list your non-fungible tokens on the OpenSea marketplace using Python Selenium.</h1>
 
-<p align="center"><i>A Selenium Python bot to automatically and bulky upload and list your NFTs on OpenSea.
-<br />All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included.</i>
+<p>A Selenium Python bot to automatically and bulk upload and list your NFTs on OpenSea.
+<br />All metadata integrated - Ethereum and Polygon supported - reCAPTCHA solver services included.
 <br><strong><a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki/Changelog">Version 1.13.0</a> (December 06, 2023)</strong></p>
-
-<p align="center" width="50%"><strong>Need help or have a specific request?</strong>
-<br />Contact me via <strong><a href="https://t.me/maximedrn">Telegram</a></strong> or e-mail me at <strong><a href="mailto:maxime_drean@yahoo.com">maxime_drean@yahoo.com</a></strong>.<p>
-
-<div align="center"><hr width="30%" /></div>
 
 <h2>Table of contents - <a href="https://github.com/maximedrn/opensea-automatic-bulk-upload-and-sale/wiki">Documentation</a></h2>
 
