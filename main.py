@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # main.py
 
 """
@@ -6,9 +6,6 @@
 
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
-
-Copyright © 2023 Maxime Dréan. All rights reserved.
-Any distribution, modification or commercial use is strictly prohibited.
 """
 
 
@@ -17,7 +14,7 @@ from app.utils.func import cls, exit
 from app.utils.colors import RED, YELLOW, RESET
 from app.utils.const import FIRST_PAGE, ENTER, SECOND_PAGE, \
     PASSWORD, RECOVERY_PHRASE, PRIVATE_KEY, USER_DATA, PROFILE, \
-    ALL_DONE, NO_DELETE_ERROR, STARTING_VALUE
+    ALL_DONE, STARTING_VALUE
 
 # Utils functions for user choices.
 from app.utils.user import choose_wallet, read_file, perform_action, \
@@ -76,13 +73,13 @@ def process(action: list, solver: int, key: str, structure: object,
     nft_number, time = 0, (datetime.now(  # Time in 6 hours.
         ) + timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
     # Proceed to the Upload or Sale process in a loop.
-    for nft_number in range(starting, reader.lenght_file):
+    for nft_number in range(starting, reader.length_file):
         if datetime.now().strftime('%Y-%m-%d %H:%M:%S') > time:
             break  # Restart the process to prevent signature.
         if nft_number % 10 == 0 and nft_number != starting:
             web.driver.get('data:,')  # Go to an empty page and wait
             sleep(randint(2, 5))  # between 2 and 5 seconds to ease the RAM.
-        print(f'\nNFT n°{nft_number + 1}/{reader.lenght_file}:')
+        print(f'\nNFT n°{nft_number + 1}/{reader.length_file}:')
         if not structure.get_data(nft_number):
             continue  # Data is not well structured.
         success = None  # Prevent "referenced before assignment" error.
@@ -95,7 +92,7 @@ def process(action: list, solver: int, key: str, structure: object,
         if 3 in action:  # Delete part.
             delete.delete()  # Delete the NFT.
     web.quit()  # Stop the webdriver and return the next NFT.
-    return nft_number if nft_number + 1 < reader.lenght_file else None
+    return nft_number if nft_number + 1 < reader.length_file else None
 
 
 def user() -> tuple:
@@ -146,11 +143,8 @@ def main(wallet_name: str, password: str, recovery_phrase: str,
         recaptcha = Solver(solver, key)
         recaptcha.init_solver()  # Send web instance.
     elif 3 in action:
-        try:  # Try to import the file.
-            from app.services.processes.delete import Delete
-            delete = Delete()  # Initialize the Delete class.
-        except ImportError:
-            exit(NO_DELETE_ERROR)
+        from app.services.processes.delete import Delete
+        delete = Delete()  # Initialize the Delete class.
     return wallet, reader, structure, save, recaptcha, delete
 
 
@@ -158,10 +152,10 @@ if __name__ == '__main__':
     try:
         chdir(dirname(abspath(__file__)))  # Move to the actual path.
         cls()  # Clear console.
-        print(FIRST_PAGE)  # Copyright, licence, author and version.
+        print(FIRST_PAGE)  # License, author and version.
         input(ENTER)  # Press enter to continue.
         cls()  # Clear console.
-        print(SECOND_PAGE)  # Copyright, licence and author.
+        print(SECOND_PAGE)  # License and author.
         # Get user informations and choices.
         wallet_name, password, recovery_phrase, private_key, \
             action, solver, key, browser, file, starting = user()

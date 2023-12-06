@@ -5,6 +5,63 @@
             "nft_name": "",
             "external_link": "",
             "description": "",
+            "collection": "https://",
+            "properties": [
+                {
+                    "type": "",
+                    "name": ""
+                },
+                {
+                  "type": "",
+                  "name": ""
+                }
+            ],
+            "levels": [
+                {
+                    "name": "",
+                    "from": 0,
+                    "to": 0
+                },
+                {
+                  "name": "",
+                  "from": 0,
+                  "to": 0
+                }
+            ],
+            "stats": [
+                {
+                    "name": "",
+                    "from": 0,
+                    "to": 0
+                },
+                {
+                  "name": "",
+                  "from": 0,
+                  "to": 0
+                }
+            ],
+            "unlockable_content": [
+                false,
+                ""
+            ],
+            "explicit_and_sensitive_content": false,
+            "supply": 0,
+            "blockchain": "",
+            "sale_type": "",
+            "price": [
+                0,
+                "TOKEN"
+            ],
+            "method": "",
+            "duration": "",
+            "specific_buyer": "",
+            "quantity": 0
+        },
+        {
+            "file_path": "",
+            "nft_name": "",
+            "external_link": "",
+            "description": "",
             "collection": "",
             "properties": [],
             "levels": [],

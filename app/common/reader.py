@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # app/common/reader.py
 
 
@@ -7,9 +7,6 @@
 
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
-
-Copyright © 2023 Maxime Dréan. All rights reserved.
-Any distribution, modification or commercial use is strictly prohibited.
 """
 
 
@@ -56,7 +53,7 @@ class Reader:
         # Load and read the JSON file and extract the "nft" part.
         with open(abspath(self.path), encoding='utf-8') as file:
             self.file = loads(file.read())['nft']
-        self.lenght_file = len(self.file)  # Number of elements.
+        self.length_file = len(self.file)  # Number of elements.
 
     def extract_csv_file(self) -> None:
         """Transform CSV file format to a list of strings."""
@@ -65,11 +62,11 @@ class Reader:
         # It gets a list of each rows that are strings.
         with open(abspath(self.path), encoding='utf-8') as file:
             self.file = file.read().splitlines()[1:]
-        self.lenght_file = len(self.file)  # Number of elements.
+        self.length_file = len(self.file)  # Number of elements.
 
     def extract_xlsx_file(self) -> None:
         """Transform XLSX file format to a dictionnary of dictionnaries."""
         from pandas import read_excel  # Pandas module: pip install pandas
         self.file = read_excel(self.path)  # Read the Excel (XLSX) file.
-        self.lenght_file = self.file.shape[0]  # Get number of rows.
+        self.length_file = self.file.shape[0]  # Get number of rows.
         self.file = self.file.to_dict()  # Transform XLSX to a dictionnnary.

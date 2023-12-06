@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # app/common/structure.py
 
 
@@ -7,9 +7,6 @@
 
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
-
-Copyright © 2023 Maxime Dréan. All rights reserved.
-Any distribution, modification or commercial use is strictly prohibited.
 """
 
 
@@ -92,7 +89,7 @@ class Structure:
     def structure_data(self, nft_data: list) -> None:
         """Structure each data of the NFT in a variable."""
         index = 9 if 1 not in self.action else 0  # Remove 9 if "Sale only".
-        # Check if the file is well structured or not by checking lenght.
+        # Check if the file is well structured or not by checking length.
         if (1 in self.action and 2 in self.action and len(nft_data) < 18) \
                 or (1 in self.action and len(nft_data) < 12) or \
                 (2 in self.action and len(nft_data) < 9) or \

@@ -1,7 +1,7 @@
 # pip install -r requirements.txt
-colorama>=0.4.5
-pandas>=1.5.0
-openpyxl>=3.0.10
+colorama
+pandas
+openpyxl
 selenium==4.11.2
 undetected_chromedriver==3.5.2
 webdriver-manager==4.0.0

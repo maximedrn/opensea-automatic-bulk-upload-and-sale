@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # app/services/webdriver.py
 
 
@@ -7,13 +7,8 @@
 
 Github: https://github.com/maximedrn
 Telegram: https://t.me/maximedrn
-
-Copyright © 2023 Maxime Dréan. All rights reserved.
-Any distribution, modification or commercial use is strictly prohibited.
 """
 
-
-from __future__ import annotations
 
 # Selenium module imports: pip install selenium
 from selenium import webdriver
@@ -71,7 +66,7 @@ class Webdriver:
         # options.add_extension(self.metamask_extension_path)
         options.add_argument(f'--load-extension=' + extract_zip(
             eval(f'self.{self.wallet_name}_extension_path')))
-        # UNQUOTE THIT TO ENABLE THE HEADLESS MODE.
+        # UNQUOTE THIS TO ENABLE THE HEADLESS MODE.
         """if self.solver != 1 and self.wallet.recovery_phrase != '' and \
                 self.wallet.password != '':  # Not manual solver.
             options.add_argument('--window-size=1920x1080')
